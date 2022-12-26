@@ -1,26 +1,26 @@
-.mainContainerTI {
-    height: 300px;
-    border: 2px solid red;
+.containerTI {
+    border: 1px solid rgb(198, 198, 198);
+    padding-top: 10px;
+    border-radius: 20px;
+    width: auto;
+    height: 350px;
 }
-
 .subContainerTI {
-    border: 1px solid grey;
-    margin-right: 15px;
     display: flex;
 }
 .imageTI {
-    width: 50px;
+    width: 45px;
     border-radius: 50%;
-    height: 50px;
-    margin-right: 20px;
+    height: 45px;
+    /* margin-right: 20px; */
 }
 .nameTI {
     width: 90px;
-    font-size: 15px;
+    font-size: 13px;
 }
 .usernameTI {
     margin-top: -15px;
-    font-size: 14px;
+    font-size: 12px;
 }
 .likesTI {
     margin-right: 10px;
@@ -41,6 +41,5 @@
 }
 .viewProfileTI {
     font-size: 10px;
-    margin-right: 10px;
     width: 70px;
 }

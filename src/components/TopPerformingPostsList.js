@@ -24,3 +24,4 @@ const TopPerformingPostsList = [
         comments: '5,300'
     }
 ]
+export default TopPerformingPostsList;

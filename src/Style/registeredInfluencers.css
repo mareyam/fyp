@@ -1,17 +1,24 @@
+.container {
+    border: 1px solid rgb(198, 198, 198);
+    margin-left: 14px;
+    padding-top: 10px;
+    border-radius: 20px;
+}
 .mainContainerRI {
     overflow-y: scroll;
-    height: 300px;
+    height: 320px;
     overflow-x: hidden;
-    border: 2px solid orange;
 }
 .mainContainerRI .subContainerRI {
-    width: 33%;
+    width: 31%;
     flex: 0 0 auto;
 }
 .subContainerRI {
-    border: 1px solid green;
+    border: 1px solid rgb(198, 198, 198);
     display: flex;
-    height: auto;
+    height: 95px;
+
+    /* overflow-y: hidden; */
 }
 .nameRI {
     font-size: 15px;

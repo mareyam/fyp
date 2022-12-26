@@ -1,0 +1,32 @@
+.topContainer {
+    height: auto;
+    border: 1px solid rgb(212, 211, 211);
+    margin-top: 5%;
+    padding: 5%;
+    border-radius: 30px;
+}
+.mainContainerHT {
+    height: 220px;
+    border: 1px solid rgb(212, 211, 211);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.subContainerHT {
+    border: 1px solid rgb(212, 211, 211);
+    display: flex;
+}
+.hashtagsHT {
+    font-size: 12px;
+}
+.postsHT {
+    font-size: 12px;
+}
+.likesHT {
+    font-size: 12px;
+}
+.commentsHT {
+    font-size: 12px;
+}
+.detailsHT {
+    font-size: 12px;
+}

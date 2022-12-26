@@ -1,27 +1,63 @@
 import React from 'react';
-import '../Style/topInfluencers.css';
+import '../Style/TopPerformingPosts.css';
 import TopPerformingPostsList from "../components/TopPerformingPostsList";
 import { Grid } from '@material-ui/core';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import MessageIcon from '@material-ui/icons/Message';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const TopPerformingPosts = () => {
-  return ( 
-    <div>
-      {TopPerformingPostsList.map(item => {
+  return (
+    <div className="mainContainerTPP">
+    <h6>Top Performing Posts</h6>
+    <p style={{fontSize:"12px"}}>Posts with highest stats and public activity</p>
+      <Grid item xs={12} container spacing={2} >
+       {TopPerformingPostsList.map(item => {
         return (
-          <img className='' src={item.influencerImage}/>
-        )
-      })} 
-    </div>
-  );
-}
+          <Grid className="subContainerTPP" item lg={12}>
+            <div style={{display:"flex"}} className="text-center">
+              <div>
+                  <img src={item.influencerImage} className='influencerImageTPP'/>
+               </div> 
+               <div>
+                  <p className='influencerNameTPP'>{item.influencerName}</p>
+                  <p className='influencerUserNameTPP'>{item.influencerUserName} </p>
+               </div>
+               <div>
+                  <p className='detailsTPP'><ArrowForwardIosIcon/></p>
+                </div>
+               </div>
 
-
-
-
-
+            
+                <img className='postTPP' src={item.post} />
+                <div style={{alignItems:"center", display:"flex", justifyContent:"space-between"}}>
+                <p className='likesTPP'><FavoriteIcon style={{color:"red", fontSize:"13px"}}/>{item.likes} </p>
+                <p className='commentsTPP'><MessageIcon style={{fontSize:"13px"}}/>{item.comments}</p>
+               </div> 
+            </Grid>
+        )})}
+      </Grid>
+      </div>
+        );
+      }
 export default TopPerformingPosts;
 
 
+// const TopPerformingPosts = () => {
+//   return ( 
+//     <div>
+//       {TopPerformingPostsList.map(item => {
+//         return (
+//           <div>
+//             <img className='' src={item.influencerImage}/>
+//             <p>{item.influencerName}</p>
+//           </div>
+//         )
+//       })} 
+//     </div>
+//   );
+// }
+// \
 // <div style={{margin: '5%'}}>
 // <div className="mainContainerTI" style={{display: 'flex', flexWrap: "nowrap"}}>
     
@@ -54,28 +90,6 @@ export default TopPerformingPosts;
 // import TopPerformingPostsList from "../components/TopPerformingPostsList";
 // import { Grid } from '@material-ui/core';
 
-// const TopPerformingPosts = () => {
-//   return (
-   
-//       <Grid item xs={12} container spacing={2}>
-//        {TopPerformingPostsList.map(item => {
-//         return (
-//           <Grid className="subContainerTPP" item lg={12}>
-//             <div>
-//                 <img src={item.influencerImage} className=''/>
-//                 <p>{item.influencerName} className=''</p>
-//                 <p>{item.influencerUserName} className=''</p>
-//                 <p>{item.post} className=''</p>
-//                 <p>{item.likes} className=''</p>
-//                 <p>{item.comments} className=''</p>
-                
-//             </div>
-//             </Grid>
-//         )})}
-//       </Grid>
-//         );
-//       }
-      
    
 //     // <div style={{margin: '5%'}}>
 //     // <div className="mainContainerRI" style={{display: 'flex', flexWrap: "nowrap", border: "2px solid red"}}>
