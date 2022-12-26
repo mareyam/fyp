@@ -1,0 +1,33 @@
+.mainContainerTPP {
+    overflow-y: scroll;
+    height: 300px;
+    overflow-x: hidden;
+    border: 2px solid orange;
+}
+.mainContainerTPP .subContainerTPP {
+    width: 33%;
+    flex: 0 0 auto;
+}
+.subContainerTPP {
+    border: 1px solid green;
+    display: flex;
+    height: auto;
+}
+.nameTPP {
+    font-size: 15px;
+    height: auto;
+}
+.usernameTPP {
+    font-size: 10px;
+    color: grey;
+}
+.detailsTPP {
+    font-size: 10px;
+    color: grey;
+    margin-top: -10px;
+}
+.imageTPP {
+    width: 75px;
+    height: 75px;
+    padding-right: 5px;
+}

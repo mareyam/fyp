@@ -1,24 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
-
-function App() {
+import Campaigns from './components/Campaigns';
+import RegisteredInfluencers from './components/RegisteredInfluencers';
+import TopInfluencers from './components/TopInfluencers';
+import { Container, Row, Col } from 'react-grid-system';
+import Try from "./components/Try";
+import TopPerformingPosts from './components/TopPerformingPosts';
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>
+      {/* <Campaigns/> */}
+        {/* <Row>
+          <Col lg={6} md={4}>
+          <RegisteredInfluencers/>
+          </Col>
+          <Col lg={6} md={4}>
+          <TopInfluencers/>
+          </Col>
+        </Row> */}
+        <TopPerformingPosts/>
+  </div>
   );
 }
 

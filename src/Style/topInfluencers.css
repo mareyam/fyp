@@ -1,0 +1,46 @@
+.mainContainerTI {
+    height: 300px;
+    border: 2px solid red;
+}
+
+.subContainerTI {
+    border: 1px solid grey;
+    margin-right: 15px;
+    display: flex;
+}
+.imageTI {
+    width: 50px;
+    border-radius: 50%;
+    height: 50px;
+    margin-right: 20px;
+}
+.nameTI {
+    width: 90px;
+    font-size: 15px;
+}
+.usernameTI {
+    margin-top: -15px;
+    font-size: 14px;
+}
+.likesTI {
+    margin-right: 10px;
+    padding-left: 5px;
+    font-size: 12px;
+}
+
+.sharesTI {
+    margin-top: -15px;
+    font-size: 12px;
+}
+.engagementRateTI {
+    font-size: 12px;
+}
+.commentsTI {
+    margin-top: -15px;
+    font-size: 12px;
+}
+.viewProfileTI {
+    font-size: 10px;
+    margin-right: 10px;
+    width: 70px;
+}

@@ -1,0 +1,33 @@
+.mainContainerRI {
+    overflow-y: scroll;
+    height: 300px;
+    overflow-x: hidden;
+    border: 2px solid orange;
+}
+.mainContainerRI .subContainerRI {
+    width: 33%;
+    flex: 0 0 auto;
+}
+.subContainerRI {
+    border: 1px solid green;
+    display: flex;
+    height: auto;
+}
+.nameRI {
+    font-size: 15px;
+    height: auto;
+}
+.usernameRI {
+    font-size: 10px;
+    color: grey;
+}
+.detailsRI {
+    font-size: 10px;
+    color: grey;
+    margin-top: -10px;
+}
+.imageRI {
+    width: 75px;
+    height: 75px;
+    padding-right: 5px;
+}
