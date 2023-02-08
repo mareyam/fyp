@@ -1,30 +1,19 @@
 import './App.css';
-import Campaigns from './components/Campaigns';
-import RegisteredInfluencers from './components/RegisteredInfluencers';
-import TopInfluencers from './components/TopInfluencers';
-import { Container, Row, Col } from 'react-grid-system';
-import Try from "./components/Try";
-import TopPerformingPosts from './components/TopPerformingPosts';
-import HashTag from './components/HashTag';
-import AllCampaigns from './components/AllCampaignsPage/AllCampaigns';
-
+import BrandManagerDashboard from "./components/brandManagerDashboard/BrandManagerDashboard";
+import AllCampaigns from "./components/AllCampaignsPage/AllCampaigns";
+import Navbarr from './components/navbar/Navbarr';
+import AllRegisteredInfluencers from './components/AllRegisteredInfluencers/AllRegisteredInfluencers';
+import {Route, Routes} from 'react-router-dom';
 
 const App = () => {
   return (
     <div>
-      <AllCampaigns/>
-      {/* <Campaigns/>
-        <Row>
-          <Col lg={6} md={4}>
-          <RegisteredInfluencers/>
-          <TopPerformingPosts/>
-          </Col>
-          <Col lg={6} md={4}>
-          <TopInfluencers/>
-          <HashTag/>
-          </Col>
-        </Row> */}
-        
+      <Navbarr/>
+      <Routes>
+        <Route path="/BMDashboard" element={<BrandManagerDashboard/>}/>
+        <Route path="/BMCampaigns" element={<AllCampaigns/>}/>
+        <Route path="/BMRegisteredInfluencers" element={<AllRegisteredInfluencers/>}/>
+      </Routes>
   </div>
   );
 }

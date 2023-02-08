@@ -2,15 +2,21 @@
     height: auto;
     border: 1px solid rgb(212, 211, 211);
     margin-top: 5%;
-    padding: 5%;
-    border-radius: 30px;
+    /* padding: 5%; */
+    /* border-radius: 30px; */
+    overflow-y: scroll;
+    height: 320px;
+    overflow-x: hidden;
+
 }
-.mainContainerTPP .subContainerTPP {
-    width: 33%;
-    flex: 0 0 auto;
+.subContainerTPP{
+    border: 1px solid rgb(212, 211, 211);
+    /* margin-left: -100px; */
 }
-.subContainerTPP {
-    border: 1px solid  rgb(212, 211, 211);
+
+    .mainContainerTPP .subContainerTPP {
+    /* width: 33%;
+    flex: 0 0 auto; */
 }
 .influencerImageTPP {
     width: 50px;

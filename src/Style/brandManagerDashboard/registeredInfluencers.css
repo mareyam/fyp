@@ -2,7 +2,7 @@
     border: 1px solid rgb(198, 198, 198);
     margin-left: 14px;
     padding-top: 10px;
-    border-radius: 20px;
+    /* border-radius: 20px; */
 }
 .mainContainerRI {
     overflow-y: scroll;

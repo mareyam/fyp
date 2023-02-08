@@ -1,10 +1,10 @@
-.containerTI {
+/* .containerTI {
     border: 1px solid rgb(198, 198, 198);
     padding-top: 10px;
     border-radius: 20px;
     width: auto;
     height: 350px;
-}
+} */
 .subContainerTI {
     display: flex;
 }

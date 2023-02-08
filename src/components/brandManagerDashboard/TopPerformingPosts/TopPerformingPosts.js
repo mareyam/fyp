@@ -1,20 +1,22 @@
 import React from 'react';
-import '../Style/TopPerformingPosts.css';
-import TopPerformingPostsList from "../components/TopPerformingPostsList";
-import { Grid } from '@material-ui/core';
+import '../../../Style/brandManagerDashboard/TopPerformingPosts.css';
+import TopPerformingPostsList from "./TopPerformingPostsList";
+import { Divider, Grid } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import MessageIcon from '@material-ui/icons/Message';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { Container, Row, Col } from 'react-grid-system';
 
 const TopPerformingPosts = () => {
   return (
     <div className="mainContainerTPP">
-    <h6>Top Performing Posts</h6>
+    <h6>Top Performing Postss</h6>
     <p style={{fontSize:"12px"}}>Posts with highest stats and public activity</p>
-      <Grid item xs={12} container spacing={2} >
+     <Container>
+        <Row>
        {TopPerformingPostsList.map(item => {
         return (
-          <Grid className="subContainerTPP" item lg={12}>
+              <Col className="subContainerTPP" xs={12} sm={12} md={12} lg={4}  >
             <div style={{display:"flex"}} className="text-center">
               <div>
                   <img src={item.influencerImage} className='influencerImageTPP'/>
@@ -27,16 +29,22 @@ const TopPerformingPosts = () => {
                   <p className='detailsTPP'><ArrowForwardIosIcon/></p>
                 </div>
                </div>
-
-            
                 <img className='postTPP' src={item.post} />
-                <div style={{alignItems:"center", display:"flex", justifyContent:"space-between"}}>
-                <p className='likesTPP'><FavoriteIcon style={{color:"red", fontSize:"13px"}}/>{item.likes} </p>
-                <p className='commentsTPP'><MessageIcon style={{fontSize:"13px"}}/>{item.comments}</p>
-               </div> 
-            </Grid>
+               <div style={{display: "flex"}}>
+                  <p className='likesTPP'>
+                    <FavoriteIcon style={{color: "red", fontSize: "13px"}} />
+                    {item.likes}
+                  </p>
+                  <p className='commentsTPP mx-4'>
+                    <MessageIcon style={{fontSize: "13px"}} />
+                    {item.comments}
+                  </p>  
+              </div>
+               </Col>
         )})}
-      </Grid>
+        {/* </Col> */}
+        </Row>
+      </Container>
       </div>
         );
       }
