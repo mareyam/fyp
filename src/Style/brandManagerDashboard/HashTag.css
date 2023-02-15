@@ -5,12 +5,12 @@
 }
 .mainContainerHT {
     height: 220px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     overflow-x: hidden;
     overflow-y: scroll;
 }
 .subContainerHT {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     display: flex;
 }
 .hashtagsHT {

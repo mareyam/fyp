@@ -1,60 +1,57 @@
 import React,{useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import RegisteredInfluencersList from "../../components/brandManagerDashboard/RegisteredInfluencers/RegisteredInfluencersList";
 import { Container, Row, Col } from 'react-grid-system';
 import "../../Style/AllRegisteredInfluencers/AllRegisteredInfluencers.css";
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-});
 
-const MyCard = () => {
+const AllRegisteredInfluencers = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
+    pageNumbers.push(i); //number of pages i.e 3
+  }
+  return (
+    <nav>
+      <ul className='pagination'>
+        {pageNumbers.map(number => (
+          <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+            <a onClick={() => paginate(number)} href={currentPage} className='page-link'>
+              {number}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
+
+
+const Pagintation = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
   const [filteredResults, setFilteredResults] = useState(RegisteredInfluencersList);
   
-  const handleSearch = (event) => {
-    setSearchValue(event.target.value);
-    let results;
-    if (searchValue === '') {
-      results = RegisteredInfluencersList;
-    } else {
-      results = RegisteredInfluencersList.filter((campaign) => campaign.name.includes(searchValue));
-    }
-    setFilteredResults(results);
-    } 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredResults.slice(indexOfFirstItem, indexOfLastItem);
 
+  const handleSearch = (event) => {
+      const searchText = event.target.value;
+      setSearchValue(searchText);
+      let results = RegisteredInfluencersList;
+      if (searchText) {
+        results = RegisteredInfluencersList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+      }
+      setFilteredResults(results);
+    }
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+ 
   return (
-    <Container className="mt-2">
-      <Row>
-        {/* <Col xs={7} sm={7} md={12} lg={12}>
-          <div style={{display: "flex", justifyContent: "space-between"}}>
-            <div>
-               <h6>Registred Inflencers ({RegisteredInfluencersList.length})</h6>
-            </div>
-            <div style={{display:"flex"}}>
-              <input style={{height:"25px"}} placeholder="Search by name" type="text" value={searchValue} onChange={handleSearch}></input>
-              <p style={{fontSize:"13px"}}>Filters</p>
-            </div>
-          </div>
-    
-       </Col> */}
-      </Row> 
+    <Container className="">
       {/* row and container same occupt */}
-      <Row className="mt-5" style={{border: "2px solid red"}}>
-        <Col xs={7} sm={7} md={12} lg={12} style={{border: "2px solid green"}}>
-            <div style={{display: "flex", justifyContent: "space-between",border: "2px solid orange"}}>
+      <Row className="mt-1">
+        <Col xs={7} sm={7} md={12} lg={12} >
+            <div style={{display: "flex", justifyContent: "space-between"}}>
               <div>
                 <h6>Registred Inflencers ({RegisteredInfluencersList.length})</h6>
               </div>
@@ -65,7 +62,7 @@ const MyCard = () => {
             </div>
       
         </Col>
-        {filteredResults.map(item => {
+        {currentItems.map(item => {
               return (
                 // cards below
           <Col xs={12} sm={12} md={5} lg={2} className="subContainerARI mx-2">
@@ -80,14 +77,16 @@ const MyCard = () => {
           </Col>
         )})}
     </Row>
+    <AllRegisteredInfluencers
+        itemsPerPage={itemsPerPage}
+        totalItems={filteredResults.length}
+        paginate={paginate}
+      />
     </Container>
-
-
-
   );
 }
 
-export default MyCard;
+export default Pagintation;
 
 
 // import React,{useState} from 'react';

@@ -6,12 +6,14 @@ import TopPerformingPosts from '../brandManagerDashboard/TopPerformingPosts/TopP
 import HashTag from '../brandManagerDashboard/Hashtag/HashTag';
 import AllCampaigns from '../AllCampaignsPage/AllCampaigns';
 import Navbarr from '../navbar/Navbarr';
+import Try from '../Try';
+
 
 const App = () => {
   return (
     
     <div>
-      <Container style={{border: "2px solid red"}}>
+      <Container >
         <Campaigns/>
           <Row>
               <Col xs={12} sm={12} md={6} lg={6}>

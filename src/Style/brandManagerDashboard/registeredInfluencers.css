@@ -1,6 +1,7 @@
-.container {
+.containerRI {
+    margin-top: 10px;
     border: 1px solid rgb(198, 198, 198);
-    margin-left: 14px;
+    /* margin-left: 14px; */
     padding-top: 10px;
     /* border-radius: 20px; */
 }
@@ -8,6 +9,7 @@
     overflow-y: scroll;
     height: 320px;
     overflow-x: hidden;
+    margin-top: 10px;
 }
 .mainContainerRI .subContainerRI {
     width: 31%;
@@ -21,8 +23,10 @@
     /* overflow-y: hidden; */
 }
 .nameRI {
-    font-size: 15px;
+    font-size: 12px;
     height: auto;
+    font-weight:bolder;
+    /* overflow: none; */
 }
 .usernameRI {
     font-size: 10px;

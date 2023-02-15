@@ -12,28 +12,24 @@ const Campaigns = () => {
   const [searchValue, setSearchValue] = useState('');
   const [filteredResults, setFilteredResults] = useState(CampaignList);
   
-  const handleSearch = (event) => {
-  setSearchValue(event.target.value);
-  let results;
-  if (searchValue === '') {
-    results = CampaignList;
-  } else {
-    results = CampaignList.filter((campaign) => campaign.name.includes(searchValue));
-  }
-  setFilteredResults(results);
-  }
 
+
+  const handleSearch = (event) => {
+    const searchText = event.target.value;
+    setSearchValue(searchText);
+    let results = CampaignList;
+    if (searchText) {
+      results = CampaignList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+    }
+    setFilteredResults(results);
+  }
 
   return (
-      <Row style={{border: "2px solid blue"}}>
-      <Col xs={12} sm={12} md={6} lg={6}>
-           <h6>Active Campaigns</h6>
-      </Col>
-      <div className="container-fluid" style={{border: "2px solid orange"}}>
-      <Row className="" style={{border: "2px solid green"}}>
+      <Row style={{border:"1px solid rgb(198, 198, 198)"}}>
         <Col xs={12} sm={12} md={6} lg={6}>
           <div className="d-flex">
-            <h6 className="my-1">Search</h6><input type="text" placeholder="search for campaign" value={searchValue} onChange={handleSearch} />
+            <h6>Active Campaigns</h6>
+            <input type="text" placeholder="search for campaign" value={searchValue} onChange={handleSearch} />
             <Button>
               <div style={{marginTop:"-6px"}}>
                 <AddIcon style={{fontSize:"15px"}}/>
@@ -42,8 +38,7 @@ const Campaigns = () => {
             <a href="/BMCampaigns" className="mx-3">View all</a>
           </div>
         </Col>
-      </Row>
-      </div>
+
     <div className="mainContainerC" style={{display: 'flex', flexWrap: "nowrap"}}> 
       {filteredResults.map(item => {
         return (

@@ -20,7 +20,7 @@
 }
 .hashtagAC {
     font-size: 10px;
-    color: blue;
+    /* color: blue; */
     margin-top: 5%;
 }
 .imageAC {
@@ -34,7 +34,7 @@
 .influencersAC {
     font-size: 12px;
     margin-top: -5px;
-    color: blue;
+    /* color: blue; */
 }
 .dateAC {
     font-size: 10px;

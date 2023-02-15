@@ -137,26 +137,27 @@ const RegisteredInfluencers = () => {
   const [searchValue, setSearchValue] = useState('');
   const [filteredResults, setFilteredResults] = useState(RegisteredInfluencersList);
   
+
+
   const handleSearch = (event) => {
-  setSearchValue(event.target.value);
-  let results;
-  if (searchValue === '') {
-    results = RegisteredInfluencersList;
-  } else {
-    results = RegisteredInfluencersList.filter((campaign) => campaign.name.includes(searchValue));
+    const searchText = event.target.value;
+    setSearchValue(searchText);
+    let results = RegisteredInfluencersList;
+    if (searchText) {
+      results = RegisteredInfluencersList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+    }
+    setFilteredResults(results);
   }
-  setFilteredResults(results);
-  } 
 
   return (
-    <div className='mainContainerRI' style={{border:"2px solid red"}}>
+    <div className='mainContainerRI' style={{border:"1px solid rgb(198, 198, 198)"}}>
   <Row>
     <Col xs={12} sm={12} md={12} lg={12}>
-      <a href='/BMDashboard'><ArrowBack/></a> 
-      <div><h6>Registred Inflencers ({RegisteredInfluencersList.length})</h6></div>
-      <div style={{display:"flex", border:"2px solid red"}}>
-        <h6>Search</h6><input className='' style={{height:"25px"}} placeholder="Search by name" type="text" value={searchValue} onChange={handleSearch}></input>
-        <div className="mx-5" style={{border:"2px solid green", display:"flex"}}><p style={{fontSize:"13px"}}>View all</p>
+      <a href='/BMDashboard'></a> 
+      <div style={{display:"flex"}}>
+        <h6>Registred Inflencers ({RegisteredInfluencersList.length})</h6>
+        <input className='' style={{height:"25px"}} placeholder="Search by name" type="text" value={searchValue} onChange={handleSearch}></input>
+        <div className="" style={{display:"flex"}}><p style={{fontSize:"13px"}}>View all</p>
         <p className="" style={{fontSize:"13px"}}>Filters</p></div>
       </div>
     </Col>
@@ -167,9 +168,9 @@ const RegisteredInfluencers = () => {
       <Col xs={5} sm={5} md={5} lg={3} className="subContainerRI m-1">
         <div className='my-2'><img className="imageRI" src={item.image}/></div>
         <div className='my-2'>
-          <h3 className='nameRI'>{item.name}</h3>
+          <p className='nameRI'>{item.name}</p>
           <p className='usernameRI'>{item.hashtag}</p>
-          <p className='detailsRI'>{item.type}</p>
+          {/* <p className='detailsRI'>{item.type}</p> */}
         </div>
       </Col>
     ))}

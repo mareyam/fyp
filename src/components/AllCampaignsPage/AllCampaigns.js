@@ -30,17 +30,16 @@ const Pagintation = () => {
   const [itemsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
   const [filteredResults, setFilteredResults] = useState(AllCampaignsList);
-  const handleSearch = (event) => {
-    setSearchValue(event.target.value);
-    let results;
-    if (searchValue === '') {
-    results = filteredResults;
-    } else {
-    results = filteredResults.filter((campaign) => campaign.name.includes(searchValue));
+  
+    const handleSearch = (event) => {
+      const searchText = event.target.value;
+      setSearchValue(searchText);
+      let results = AllCampaignsList;
+      if (searchText) {
+        results = AllCampaignsList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+      }
+      setFilteredResults(results);
     }
-    setFilteredResults(results);
-    }
-
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredResults.slice(indexOfFirstItem, indexOfLastItem);
@@ -51,21 +50,21 @@ const Pagintation = () => {
       <Container >
    {/* <h5>DashBoard</h5> */}
    <Row>
-       <Col xs={6} sm={6} md={6} lg={6}>
-        <div  style={{display:"flex"}}>
-            <div className="d-flex">
-            <a href='/BMDashboard'><ArrowBack/></a> 
-              <h6 className="">Active Campaigns</h6><input type="text" placeholder="search for campaign" value={searchValue} onChange={handleSearch} />
-              <Button>
-                <div style={{marginTop:"-6px"}}>
-                  <AddIcon style={{fontSize:"15px"}}/>
+       <Col xs={7} sm={7} md={12} lg={12}>
+        <div style={{display: "flex", justifyContent: "space-between"}}>
+              <div style={{display:"flex"}}>
+                <h6>All Campaigns({AllCampaignsList.length})</h6>
+                <Button>
+                <div style={{marginTop:"-6px", height: "13px", width:"45px"}}>
+                  <p style={{fontSize:"12px"}}>create +</p>
                 </div>
               </Button>
+              </div>
+              <div className='mr-5 d-flex'>
+              <input style={{height:"25px"}} placeholder="Search by name" type="text" value={searchValue} onChange={handleSearch}></input>
+                <p style={{fontSize:"13px"}}>Filters</p>
+              </div>
             </div>
-            <div>
-              <p>filter</p>
-            </div>
-        </div>
         </Col>
     </Row>
     <Row className="mainContainerAC">
@@ -186,7 +185,6 @@ export default AllCampaigns; */}
 // import AddIcon from '@material-ui/icons/Add';
 // import "../../Style/AllCampaigns/AllCampaigns.css"
 // import { Grid } from '@material-ui/core';
-
 // const AllCampaigns = () => {
 //   const [searchValue, setSearchValue] = useState('');
 //   const [filteredResults, setFilteredResults] = useState(AllCampaignsList);

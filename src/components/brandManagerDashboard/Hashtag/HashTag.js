@@ -8,15 +8,15 @@ const HashTag = () => {
   const [searchValue, setSearchValue] = useState('');
   const [filteredResults, setFilteredResults] = useState(HashTagList);
   
+
   const handleSearch = (event) => {
-  setSearchValue(event.target.value);
-  let results;
-  if (searchValue === '') {
-    results = HashTagList;
-  } else {
-    results = HashTagList.filter((campaign) => campaign.hashtags.includes(searchValue));
-  }
-  setFilteredResults(results);
+    const searchText = event.target.value;
+    setSearchValue(searchText);
+    let results = HashTagList;
+    if (searchText) {
+      results = HashTagList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+    }
+    setFilteredResults(results);
   }
 
   return (
