@@ -12,22 +12,24 @@ const TopPerformingPosts = () => {
     <div className="mainContainerTPP">
     <h6>Top Performing Postss</h6>
     <p style={{fontSize:"12px"}}>Posts with highest stats and public activity</p>
-     <Container>
+     <Container >
         <Row>
        {TopPerformingPostsList.map(item => {
         return (
               <Col className="subContainerTPP" xs={12} sm={12} md={12} lg={4}  >
-            <div style={{display:"flex"}} className="text-center">
-              <div>
-                  <img src={item.influencerImage} className='influencerImageTPP'/>
-               </div> 
-               <div>
-                  <p className='influencerNameTPP'>{item.influencerName}</p>
-                  <p className='influencerUserNameTPP'>{item.influencerUserName} </p>
-               </div>
-               <div>
-                  <p className='detailsTPP'><ArrowForwardIosIcon/></p>
-                </div>
+            <div style={{display:"flex", alignItems:"center"}}>
+    
+                    <div>
+                      <img src={item.influencerImage} className='influencerImageTPP'/>
+                  </div> 
+                  <div>
+                      <p className='influencerNameTPP'>{item.influencerName}</p>
+                      <p className='influencerUserNameTPP'>{item.influencerUserName} </p>
+                  </div>
+                  <div style={{marginLeft:"auto"}}>
+                      <p className='detailsTPP'><ArrowForwardIosIcon/></p>
+                    </div>
+                
                </div>
                 <img className='postTPP' src={item.post} />
                <div style={{display: "flex"}}>
@@ -35,7 +37,7 @@ const TopPerformingPosts = () => {
                     <FavoriteIcon style={{color: "red", fontSize: "13px"}} />
                     {item.likes}
                   </p>
-                  <p className='commentsTPP mx-4'>
+                  <p className='commentsTPP' style={{marginLeft:"auto"}}>
                     <MessageIcon style={{fontSize: "13px"}} />
                     {item.comments}
                   </p>  

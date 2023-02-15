@@ -1,9 +1,10 @@
 import React from 'react';
 import '../../../Style/brandManagerDashboard/topInfluencers.css';
-import TopInfluencersList from "./TopInfluencersList";
+import RegisteredInfluencersList from '../RegisteredInfluencers/RegisteredInfluencersList';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const TopInfluencers = () => {
+  const sortedInfluencers = RegisteredInfluencersList.sort((a, b) => parseFloat(b.engagementRate) - parseFloat(a.engagementRate));
   return (
     <Container className="containerTI">
       <Row>
@@ -11,28 +12,38 @@ const TopInfluencers = () => {
           <h6 style={{}}>Top influencers</h6>
         </Col>
       </Row>
-      {TopInfluencersList.map(item => {
+      {sortedInfluencers.slice(0, 3).map(item => {
         return (
           <Row>
             <Col xs={12} sm={12} md={12} lg={12} style={{display:"flex"}}>
-              <div>
-                <img className="imageTI mx-1" src={item.image} />
-              </div>
+              <Col xs={3} sm={12} md={12} lg={2}>
+                <div>
+                  <img className="imageTI mx-1" src={item.image} />
+                </div>
+              </Col>
+              <Col xs={3} sm={2} md={2} lg={2}>
               <div style={{ width: "70px" }}>
                 <p className='nameTI'><b>{item.name}</b></p>
-                <p className="usernameTI">@{item.username}</p>
+                <p className="usernameTI">@{item.userName}</p>
               </div>
+              </Col>
+              <Col xs={3} sm={2} md={2} lg={2}>
               <div style={{ width: "120px" }}>
                 <p className='likesTI'>Likes <b>{item.likes}</b></p>
                 <p className="sharesTI">Shares <b>{item.shares}</b></p>
               </div>
+              </Col>
+              <Col xs={3} sm={2} md={2} lg={3}>
               <div style={{ width: "135px" }}>
                 <p className='engagementRateTI'>Engagement Rate <b>{item.engagementRate}</b></p>
                 <p className="commentsTI">Comments <b>{item.comments}</b></p>
               </div>
+              </Col>
+              <Col xs={3} sm={2} md={2} lg={3}>
               <div>
                 <p className='viewProfileTI'><b>View</b></p>
               </div>
+              </Col>
               <hr />
             </Col>
           </Row>
@@ -49,6 +60,7 @@ export default TopInfluencers;
 // import TopInfluencersList from "./TopInfluencersList";
 // import { Grid } from '@material-ui/core';
 // import {Container, Row, Col} from 'react-bootstrap';
+// import RegisteredInfluencersList from './../RegisteredInfluencers/RegisteredInfluencersList';
 // const TopInfluencers = () => {
 //   return (
 //       <div className='containerTI'>

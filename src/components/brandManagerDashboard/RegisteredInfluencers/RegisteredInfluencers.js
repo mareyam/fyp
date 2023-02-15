@@ -150,29 +150,30 @@ const RegisteredInfluencers = () => {
   }
 
   return (
-    <div className='mainContainerRI' style={{border:"1px solid rgb(198, 198, 198)"}}>
-  <Row>
-    <Col xs={12} sm={12} md={12} lg={12}>
-      <a href='/BMDashboard'></a> 
-      <div style={{display:"flex"}}>
-        <h6>Registred Inflencers ({RegisteredInfluencersList.length})</h6>
-        <input className='' style={{height:"25px"}} placeholder="Search by name" type="text" value={searchValue} onChange={handleSearch}></input>
-        <div className="" style={{display:"flex"}}><p style={{fontSize:"13px"}}>View all</p>
-        <p className="" style={{fontSize:"13px"}}>Filters</p></div>
-      </div>
-    </Col>
-      <div><p style={{fontSize:"12px"}}></p></div>
-  </Row>
-  <Row>
+    <div className='mainContainerRI'>
+      <Row>
+        <Col xs={12} sm={12} md={12} lg={12}>
+          {/* <a href='/BMDashboard'></a>  */}
+          <div style={{display:"flex"}}>
+            <h6>Registred Inflencers ({RegisteredInfluencersList.length})</h6>
+            <input className='' style={{height:"25px"}} placeholder="Search by name" type="text" value={searchValue} onChange={handleSearch}></input>
+            <div className="" style={{display:"flex"}}><p style={{fontSize:"13px"}}>View all</p>
+            </div>
+          </div>
+        </Col>
+      </Row>
+  <Row className="mx-1"> 
     {filteredResults.map(item => (
-      <Col xs={5} sm={5} md={5} lg={3} className="subContainerRI m-1">
-        <div className='my-2'><img className="imageRI" src={item.image}/></div>
-        <div className='my-2'>
-          <p className='nameRI'>{item.name}</p>
-          <p className='usernameRI'>{item.hashtag}</p>
-          {/* <p className='detailsRI'>{item.type}</p> */}
-        </div>
+      <Col xs={5} sm={5} md={4} lg={3} className="subContainerRI m-1">
+        <Col xs={5} lg={3}><img className="imageRI" src={item.image}/></Col>
+        <Col xs={5} lg={9}>
+            <div className="ColDetailsRI">
+              <p className='nameRI'>{item.name}</p>
+              <p className='usernameRI'>@{item.userName}</p>
+            </div>
+        </Col>
       </Col>
+
     ))}
   </Row>
 </div>

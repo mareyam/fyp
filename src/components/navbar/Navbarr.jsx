@@ -119,6 +119,12 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}><a href="/BMCampaigns" style={{ my: 2, color: 'white', display: 'block', textDecoration:"none" }}>Campaigns</a></Button>
            <Button
                 onClick={handleCloseNavMenu}><a href="/BMRegisteredInfluencers" style={{ my: 2, color: 'white', display: 'block', textDecoration:"none" }}>Influencers</a></Button>
+          <Button
+                onClick={handleCloseNavMenu}><a href="/BMHashtags" style={{ my: 2, color: 'white', display: 'block', textDecoration:"none" }}>Hashtags</a></Button>
+          <Button
+                onClick={handleCloseNavMenu}><a href="/BMAllPosts" style={{ my: 2, color: 'white', display: 'block', textDecoration:"none" }}>Posts</a></Button>
+          <Button
+                onClick={handleCloseNavMenu}><a href="/BMAllStories" style={{ my: 2, color: 'white', display: 'block', textDecoration:"none" }}>Stories</a></Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

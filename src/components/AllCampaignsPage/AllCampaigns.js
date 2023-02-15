@@ -1,9 +1,10 @@
 import React,{useState} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import AllCampaignsList from "../brandManagerDashboard/Campaigns/CampaignsList";
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from '@mui/icons-material/Add';
 import "../../Style/AllCampaigns/AllCampaigns.css"
-import { ArrowBack, Search } from '@material-ui/icons';
+import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';
+
 
 const AllCampaigns = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];
@@ -47,30 +48,34 @@ const Pagintation = () => {
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
-      <Container >
-   {/* <h5>DashBoard</h5> */}
-   <Row>
-       <Col xs={7} sm={7} md={12} lg={12}>
-        <div style={{display: "flex", justifyContent: "space-between"}}>
-              <div style={{display:"flex"}}>
-                <h6>All Campaigns({AllCampaignsList.length})</h6>
-                <Button>
-                <div style={{marginTop:"-6px", height: "13px", width:"45px"}}>
-                  <p style={{fontSize:"12px"}}>create +</p>
+    <Container >
+      <Row>
+          <Col xs={8} sm={8} md={12} lg={12}>
+          <div style={{display:"flex"}}><ArrowBack/>
+          <h5 className='campaignHeaderAC' >CAMPAIGNS</h5></div>
+
+                <div className="ms-4 d-lg-flex d-xs-block" >
+                  <div className="align-item-center"><h6>All Campaigns({AllCampaignsList.length})</h6></div>
+                  <div className="d-flex">
+                      <input  style={{height:"25px"}} placeholder="Search by name &#x1F50D;"/>
+                      <button 
+                        type="button" 
+                        className="btn btn-outline-dark d-flex align-items-center" 
+                        data-mdb-ripple-color="dark" 
+                        style={{fontSize:"12px",height:"25px"}}><AddIcon style={{fontSize:"12px",height:"25px"}}/>Create</button>
+                    </div>
+                    <div className="d-flex d-xs-justify-center d-xs-align-center">
+                      <button type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}><FilterList style={{fontSize:"12px",height:"25px"}} />Filter</button>
+                      <button type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}><ArrowDropDown style={{fontSize:"12px",height:"25px"}} />To</button>
+                      <button type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}><ArrowDropDown style={{fontSize:"12px",height:"25px"}} />From</button>
+                    </div>
                 </div>
-              </Button>
-              </div>
-              <div className='mr-5 d-flex'>
-              <input style={{height:"25px"}} placeholder="Search by name" type="text" value={searchValue} onChange={handleSearch}></input>
-                <p style={{fontSize:"13px"}}>Filters</p>
-              </div>
-            </div>
-        </Col>
-    </Row>
+        </Col> 
+
     <Row className="mainContainerAC">
     {currentItems.map(item => {
     return (
-      <Col xs={8} sm={8} md={2} lg={2} className="subContainerAC mx-1 my-1">
+      <Col xs={8} sm={8} md={2} lg={2} className="subContainerAC mx-1">
         <div>
         <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}><img className="imageAC" src={item.image}/></div>
         <div style={{display: 'flex',justifyContent:'space-between'}}>
@@ -83,15 +88,14 @@ const Pagintation = () => {
         </div>
       </Col>
     )})}
-    </Row>
+    
     <AllCampaigns
         itemsPerPage={itemsPerPage}
         totalItems={filteredResults.length}
         paginate={paginate}
       />
-  </Container>
- 
-      
+      </Row></Row>
+  </Container>     
   );
 };
 

@@ -1,13 +1,13 @@
 .mainContainerAC {
-    /*margin-top: 1%;
-    margin-bottom: 3%;
-    margin-left: 90px; */
+    align-items: center;
+    justify-content: center;
+
+
 }
 .subContainerAC {
     border: 1px solid rgb(198, 198, 198);
-    /* padding: 10px; */
-    /* width: auto; */
-    /* margin-right: 15px;    */
+    margin: 5px;
+    border-radius: 10px;
 }
 .typeAC {
     font-size: 10px;
@@ -24,8 +24,9 @@
     margin-top: 5%;
 }
 .imageAC {
-    width: 185px;
+    width: 100%;
     /* border-radius: 15%; */
+
 }
 .nameAC {
     font-size: 15px;
@@ -43,3 +44,12 @@
 .createButtonAC {
     /* margin-top: -10px; */
 }
+.campaignHeaderAC {
+    font-family: 'Overpass', sans-serif;
+    font-weight: bolder;
+}
+.text-wrap {
+    white-space: normal;
+  }
+
+  

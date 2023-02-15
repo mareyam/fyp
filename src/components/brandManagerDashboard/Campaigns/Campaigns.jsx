@@ -23,14 +23,13 @@ const Campaigns = () => {
     }
     setFilteredResults(results);
   }
-
   return (
       <Row style={{border:"1px solid rgb(198, 198, 198)"}}>
         <Col xs={12} sm={12} md={6} lg={6}>
           <div className="d-flex">
             <h6>Active Campaigns</h6>
             <input type="text" placeholder="search for campaign" value={searchValue} onChange={handleSearch} />
-            <Button>
+           <Button>
               <div style={{marginTop:"-6px"}}>
                 <AddIcon style={{fontSize:"15px"}}/>
               </div>
@@ -38,6 +37,20 @@ const Campaigns = () => {
             <a href="/BMCampaigns" className="mx-3">View all</a>
           </div>
         </Col>
+        {/* <div className="text-center">
+          <Col xs={12} sm={12} md={6} lg={6}>
+            <div className="d-flex">
+              <h6>Active Campaigns</h6>
+              <input type="text" placeholder="search for campaign" value={searchValue} onChange={handleSearch} />
+              <Button>
+                <div style={{marginTop:"-6px"}}>
+                  <AddIcon style={{fontSize:"15px"}}/>
+                </div>
+              </Button>
+              <a href="/BMCampaigns" className="mx-3">View all</a>
+            </div>
+          </Col>
+        </div>  */}
 
     <div className="mainContainerC" style={{display: 'flex', flexWrap: "nowrap"}}> 
       {filteredResults.map(item => {
@@ -47,7 +60,7 @@ const Campaigns = () => {
                 <div><img className="imageC" src={item.image}/></div>
                 <div style={{display: 'flex',justifyContent:'space-between'}}>
                 <p className='typeC'>{item.type}</p>
-                    <p className="hashtagC">{item.hashtag}</p>
+                <p className="hashtagC">{item.hashtag}</p>
                 </div>
                 <h3 className='nameC'>{item.name}</h3>
                 <p className='influencersC'>{item.influencers}</p>

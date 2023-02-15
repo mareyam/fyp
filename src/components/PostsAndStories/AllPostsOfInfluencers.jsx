@@ -3,10 +3,14 @@ import AllStoriesList from "./AllStoriesList";
 import { Button } from 'react-bootstrap';
 import { ArrowBack, Search } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
-import '../../Style/PostsAndStories/AllStories.css';
+import '../../Style/PostsAndStories/AllPosts.css';
 import { Container, Row, Col } from 'react-grid-system';
+import LaunchIcon from '@mui/icons-material/Launch';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import CampaignIcon from '@mui/icons-material/Campaign';
 
-const AllStories = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
+const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         const pageNumbers = [];
         for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
           pageNumbers.push(i); //number of pages i.e 3
@@ -15,11 +19,13 @@ const AllStories = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
           <nav>
             <ul className='pagination'>
               {pageNumbers.map(number => (
-                <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
-                  <a onClick={() => paginate(number)} href={currentPage} className='page-link'>
-                    {number}
-                  </a>
-                </li>
+                // <Col xs={1} sm={6} md={12} lg={12} className="mt-1" >
+                  <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                    <a onClick={() => paginate(number)} href={currentPage} className='page-link'>
+                      {number}
+                    </a>
+                  </li>
+                // </Col>
               ))}
             </ul>
           </nav>
@@ -48,38 +54,59 @@ const AllStories = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         const paginate = pageNumber => setCurrentPage(pageNumber);
       
   return (
-    <Container style={{border:"1px solid rgb(198, 198, 198)"}}>
+    <Container className="mt-2" style={{border:"1px solid rgb(198, 198, 198)"}}>
       <div className='d-lg-flex d-sm-block'>
         <Col xs={12} sm={12} md={2} lg={2} className="mt-4" > 
-            <div className='d-lg-block d-xs-flex' style={{border: "2px solid green"}}><img style={{height: '100px', width:'100px', border: "2px solid orange"}}src='https://static.toiimg.com/thumb/56200851.cms?width=170&height=240&imgsize=88803' />
-            <div style={{textAlign:"center", border: "2px solid red"}}><h6>Ali Zafar</h6>
-            <p style={{fontSize:"12px"}}>@ali_zafar</p>
-            <p style={{fontSize:"12px"}}>Posts: 1,294</p>
-            <p style={{fontSize:"12px"}}>Followers: 1,294</p>
-            <p style={{fontSize:"12px"}}>Following: 1,294</p></div></div>
+            <div className='d-lg-block d-xs-flex'>
+            <a href="BMCampaignDetails"><img className="influencerImage"src='https://media.istockphoto.com/id/487787108/photo/can-of-coca-cola-on-ice.jpg?s=612x612&w=0&k=20&c=xDSO_nl0qeDMBZJBJk09jj5_UeQkyQ70QdXuDMByCaY='></img></a>
+            <div style={{textAlign:"center"}}><h6>Coke</h6>
+            <p style={{fontSize:"12px"}}>Active Influencers: number</p>
+            <p style={{fontSize:"12px"}}><b>Started on: date</b> </p>
+            <p style={{fontSize:"12px"}}><b>Ends on: date</b></p>
+            <p style={{fontSize:"12px"}}><b>Days Left: date</b></p>
+            <p style={{fontSize:"12px"}}><b>Cycle: periodic</b></p>
+            <p style={{fontSize:"12px"}}><b>Type: date</b></p>
+            <p style={{fontSize:"12px"}}><b>Total Likes: number</b></p>
+            <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
+                      <a href="/BMDashboard"><p style={{ fontSize: '12px', margin: '0px', paddingRight:"10px" }}>Inactive Campaign</p></a>
+                      <CampaignIcon style={{ fontSize: "12px", height: "25px" }} />
+             </button>
+            <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
+                      <a href="/BMPDF"><p style={{ fontSize: '12px', margin: '0px',paddingRight:"10px" }}>PDF Report</p></a>
+                      <PictureAsPdfIcon style={{ fontSize: "12px", height: "25px" }} />
+            </button>
+            <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
+                      <a href="/BMStats"><p style={{ fontSize: '12px', margin: '0px',paddingRight:"10px" }}>View Stats</p></a>
+                      <QueryStatsIcon style={{ fontSize: "12px", height: "25px" }} />
+            </button></div></div>
         </Col>
         <Col xs={12} sm={12} md={6} lg={8}>
-          <div className="d-flex">
-            <h6>All Stories</h6>
+          <div className="d-flex mt-4">
+            <h6>All Posts from coke</h6>
             <input className="mx-2" type="text" placeholder="Search for story" value={searchValue} onChange={handleSearch} />
           </div>
         <div className="mainContainerAS"> 
         {currentItems.map(item => {
             return (
                 <Col xs={12} sm={12} md={12} lg={12} >
-                    <div style={{}} className="subContainerAS my-2 d-lg-flex" >
+                    <div style={{}} className="subContainerAS my-2 d-lg-flex">
                         <div><img className="storyImageAS" src={item.image}/></div>
                         <div className='d-lg-flex d-sm-block d-xs-block'>
                           <div className="mx-2 d-flex" style={{alignItems:"center"}}>
                             <div><img className="imageAS" src='https://static.toiimg.com/thumb/56200851.cms?width=170&height=240&imgsize=88803' /></div>
-                            <div><p style={{fontSize:"12px"}}>{item.name}</p>
-                            <p style={{fontSize:"12px"}}>{item.username}</p></div>
+                            <div style={{marginLeft:'5px'}}><b><p style={{fontSize:"12px", marginTop:'30px'}}>{item.name}</p></b>
+                            <p style={{fontSize:"12px", marginTop:"-15px"}}>{item.username}</p></div>
+                          </div>
+                          <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
+                            <b><p style={{fontSize:"10px"}} className='costAS'>cost: Rs.{item.cost}</p></b>
+                            <a href="/BMCampaignDetails"><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateAS"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Post</p></a>
+                            <a href=""><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateAS"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Profile</p></a>
+                          </div>
+                          <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
+                            <b><p style={{fontSize:"10px", marginTop:"5px"}} className="dateAS">date: {item.date}</p></b>
+                            <p style={{fontSize:"10px", marginTop:"-10px"}} className="hashtagAS">hashtag: #{item.hashtag}</p>
+                          </div>
                         </div>
-                        <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto" }} className="mx-5">
-                            <p style={{fontSize:"12px"}} className='costAS'>cost: Rs.{item.cost}</p>
-                            <p style={{fontSize:"12px"}} className="dateAS">date: {item.date}</p>
-                            <p style={{fontSize:"12px"}} className="hashtagAS">hashtag: #{item.hashtag}</p>
-                        </div></div>
                     </div>
                 </Col>
                
@@ -88,7 +115,7 @@ const AllStories = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         </div>
         </Col>
       </div>
-    <AllStories
+    <AllPosts
         itemsPerPage={itemsPerPage}
         totalItems={filteredResults.length}
         paginate={paginate}/>
