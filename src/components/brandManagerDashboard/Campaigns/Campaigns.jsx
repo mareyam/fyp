@@ -6,7 +6,7 @@ import { ArrowBack, Search } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
 import '../../../Style/brandManagerDashboard/campaigns.css';
 import { Container, Row, Col } from 'react-grid-system';
-import { Home } from '@mui/icons-material';
+import { Home, People } from '@mui/icons-material';
 
 const Campaigns = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -37,35 +37,30 @@ const Campaigns = () => {
             <a href="/BMCampaigns" className="mx-3">View all</a>
           </div>
         </Col>
-        {/* <div className="text-center">
-          <Col xs={12} sm={12} md={6} lg={6}>
-            <div className="d-flex">
-              <h6>Active Campaigns</h6>
-              <input type="text" placeholder="search for campaign" value={searchValue} onChange={handleSearch} />
-              <Button>
-                <div style={{marginTop:"-6px"}}>
-                  <AddIcon style={{fontSize:"15px"}}/>
-                </div>
-              </Button>
-              <a href="/BMCampaigns" className="mx-3">View all</a>
-            </div>
-          </Col>
-        </div>  */}
 
     <div className="mainContainerC" style={{display: 'flex', flexWrap: "nowrap"}}> 
       {filteredResults.map(item => {
         return (
             <div className="subContainerC" >
-                <div>
-                <div><img className="imageC" src={item.image}/></div>
-                <div style={{display: 'flex',justifyContent:'space-between'}}>
-                <p className='typeC'>{item.type}</p>
-                <p className="hashtagC">{item.hashtag}</p>
-                </div>
-                <h3 className='nameC'>{item.name}</h3>
-                <p className='influencersC'>{item.influencers}</p>
+              <div><img className="imageC" src={item.image}/></div>
+              <Row className='mt-2'>
+                  <Col xs={12} sm={12} md={6} lg={7}>
+                      <h3 className='nameC'>{item.name}</h3>
+                      <p className='influencersC'><People style={{height:"15px"}}/>{item.influencers}</p>                      
+                  </Col>
+                  <Col xs={12} sm={12} md={6} lg={5}>
+                      <p className="hashtagC">{item.hashtag}</p>
+                      <p className='typeC'>{item.type}</p> 
+                  </Col>
+                </Row>
                 <p className='dateC'>{item.startDate}</p>
-                </div>
+                  {/* <div style={{display: 'flex',justifyContent:'space-between'}}>
+                    <h3 className='nameC'>{item.name}</h3>
+                    <div><p className="hashtagC">{item.hashtag}</p>
+                    <p className='typeC'>{item.type}</p></div>
+                  </div> */}
+                  {/* <p className='influencersC'>{item.influencers}</p>
+                  <p className='dateC'>{item.startDate}</p> */}
             </div>
         )})}
     </div>

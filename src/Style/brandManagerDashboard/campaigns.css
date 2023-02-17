@@ -1,6 +1,6 @@
 .mainContainerC {
     overflow-x: scroll;
-    height: 250px;
+    height: 280px;
     overflow-y: hidden;
     margin-bottom: 3%;
     margin-top: 1%;
@@ -10,40 +10,42 @@
     padding: 10px;
     width: 180px;
     margin-left: 15px;
-    
-    border-radius: 16px;
-    
+    border-radius: 16px;    
 }
 .typeC {
-    font-size: 10px;
+    font-size: 8px;
     color: white;
     background-color: green;
-    margin-top: 5%;
+    /* margin-top: -10px; */
     border-radius: 16px;
     padding: 0px 5px 3px 5px;
     text-align: center;
 }
 .hashtagC {
-    font-size: 10px;
-    /* color: blue; */
-    margin-top: 5%;
+    font-size: 8px;
+    text-align: right;
+    /* margin-top: 5px; */
 }
 .imageC {
     width: 150px;
     border-radius: 15%;
+    height: 150px;
+    object-fit: cover;
 }
 .nameC {
-    font-size: 15px;
-    margin-top:-15px;
+    font-size: 10px;
+    text-align: start;
+    /* margin-top:5px; */
 }
 .influencersC {
-    font-size: 12px;
-    margin-top: -5px;
-    /* color: blue; */
+    font-size: 10px;
+    text-align: start;
 }
 .dateC {
     font-size: 10px;
-    margin-top: -10px;
+    text-align: start;
+    margin-top: -13px;
+    /* margin-top: -10px; */
 }
 .createButton {
     margin-top: -10px;

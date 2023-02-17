@@ -1,8 +1,6 @@
 .mainContainerAC {
     align-items: center;
     justify-content: center;
-
-
 }
 .subContainerAC {
     border: 1px solid rgb(198, 198, 198);
@@ -24,7 +22,10 @@
     margin-top: 5%;
 }
 .imageAC {
-    width: 100%;
+    padding-top: 5px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
     /* border-radius: 15%; */
 
 }

@@ -7,6 +7,10 @@
 }
 .subContainerTPP{
     border: 1px solid rgb(212, 211, 211);
+    padding: 10px;
+    width: 180px;
+    margin-left: 15px;
+    border-radius: 16px;  
 }
 
 .influencerImageTPP {
@@ -17,7 +21,7 @@
 }
 
 .influencerNameTPP {
-    font-size: 12px;
+    font-size: 10px;
     height: auto;
     width: 50px;
     text-align: left;
@@ -42,4 +46,22 @@
 .likesTPP, .commentsTPP {
     font-size: 10px;
     color: grey;
+}
+.nameTPP {
+    font-size: 10px;
+    text-align: start;
+}
+.hashtagTPP {
+    font-size: 8px;
+    text-align: right;
+    /* margin-top: 5px; */
+}
+.dateTPP {
+    font-size: 10px;
+    text-align: start;
+    margin-top: -13px;
+}
+.commentsTPP {
+    text-align: right;
+    margin-top: -10px;
 }

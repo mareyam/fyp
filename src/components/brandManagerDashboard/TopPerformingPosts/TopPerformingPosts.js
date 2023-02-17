@@ -17,8 +17,7 @@ const TopPerformingPosts = () => {
        {TopPerformingPostsList.map(item => {
         return (
               <Col className="subContainerTPP" xs={12} sm={12} md={12} lg={4}  >
-            <div style={{display:"flex", alignItems:"center"}}>
-    
+            <div style={{display:"flex", alignItems:"center", height:'75px'}}>
                     <div>
                       <img src={item.influencerImage} className='influencerImageTPP'/>
                   </div> 
@@ -28,23 +27,28 @@ const TopPerformingPosts = () => {
                   </div>
                   <div style={{marginLeft:"auto"}}>
                       <p className='detailsTPP'><ArrowForwardIosIcon/></p>
-                    </div>
-                
+                    </div> 
                </div>
                 <img className='postTPP' src={item.post} />
-               <div style={{display: "flex"}}>
-                  <p className='likesTPP'>
-                    <FavoriteIcon style={{color: "red", fontSize: "13px"}} />
-                    {item.likes}
-                  </p>
-                  <p className='commentsTPP' style={{marginLeft:"auto"}}>
-                    <MessageIcon style={{fontSize: "13px"}} />
-                    {item.comments}
-                  </p>  
-              </div>
+                <Row>
+                    <Col xs={12} sm={12} md={6} lg={7}>
+                      <h3 className='nameTPP'>{item.name}</h3>
+                      <p className='likesTPP'>
+                        <FavoriteIcon style={{color: "red", fontSize: "13px"}} />
+                        {item.likes}
+                      </p> 
+                    </Col>
+                    <Col xs={12} sm={12} md={6} lg={5}>
+                      <p className="hashtagTPP">{item.hashtag}</p>
+                      <p className='commentsTPP'>
+                          <MessageIcon style={{fontSize: "13px"}} />
+                          {item.comments}
+                      </p>  
+                    </Col>
+                  </Row>
+                  <p className='dateTPP'>{item.startDate}</p>
                </Col>
         )})}
-        {/* </Col> */}
         </Row>
       </Container>
       </div>

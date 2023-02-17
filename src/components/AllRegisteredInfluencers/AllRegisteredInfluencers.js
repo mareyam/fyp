@@ -6,6 +6,7 @@ import "../../Style/AllCampaigns/AllCampaigns.css"
 import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';
 import Card from 'react-bootstrap/Card';
 import LaunchIcon from '@mui/icons-material/Launch';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 
 const AllCampaigns = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];
@@ -59,11 +60,11 @@ const Pagintation = () => {
                   <div className="align-item-center"><h6>All Campaigns({RegisteredInfluencersList.length})</h6></div>
                   <div className="d-flex">
                       <input  style={{height:"25px"}} placeholder="Search by name &#x1F50D;"/>
-                      <button 
+                      <a href="/BMCompare" style={{textDecoration:"none"}}><button 
                         type="button" 
-                        className="btn btn-outline-dark d-flex align-items-center" 
+                        className="btn btn-dark d-flex align-items-center" 
                         data-mdb-ripple-color="dark" 
-                        style={{fontSize:"12px",height:"25px"}}><AddIcon style={{fontSize:"12px",height:"25px"}}/>Create</button>
+                        style={{fontSize:"12px",height:"25px"}}><CompareArrowsIcon style={{fontSize:"15px",height:"25px"}}/>Compare</button></a>
                     </div>
                     <div className="d-flex d-xs-justify-center d-xs-align-center">
                       <button type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}><FilterList style={{fontSize:"12px",height:"25px"}} />Filter</button>
@@ -90,11 +91,11 @@ const Pagintation = () => {
       // </Col>
       <Col xs={8} sm={8} md={2} lg={2} className="subContainerARI mx-3 my-3">
       <Card style={{ height: "100%", width:"200px"}}>
-        <Card.Img style={{height:"150px", width:"100%", objectFit:"cover", border:"2px solid red"}} className="CardImg" src={item.image} />
+        <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={item.image} />
         <Card.Body className="d-flex flex-column">
           <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ fontFamily: 'Oswald' }}>
             <h6 style={{ fontWeight: "bolder", fontSize: "20px" }}>{item.name}</h6>
-            <p>{item.userName}</p>
+            <p style={{fontSize: '13px'}}>@{item.userName}</p>
             <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followers}K</p>
             <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
               <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>

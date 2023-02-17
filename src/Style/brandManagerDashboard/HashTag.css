@@ -1,30 +1,30 @@
-.topContainer {
+/* .topContainer {
     height: auto;
     border: 1px solid rgb(212, 211, 211);
     margin-top: 5%;
+} */
+.tablee {
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
-.mainContainerHT {
-    height: 220px;
-    /* border: 1px solid red; */
-    overflow-x: hidden;
-    overflow-y: scroll;
+
+
+.campaignNameHT,
+.brandLogoHT,
+.startDateHT,
+.endDateHT,
+.hashtagHT,
+.typeHT,
+.totalPostsHT,
+.statusHT
+.detailsHT {
+    font-size: 12px;
+    text-align: start;
 }
 .subContainerHT {
     /* border: 1px solid blue; */
     display: flex;
 }
-.hashtagsHT {
-    font-size: 12px;
-}
-.postsHT {
-    font-size: 12px;
-}
-.likesHT {
-    font-size: 12px;
-}
-.commentsHT {
-    font-size: 12px;
-}
-.detailsHT {
-    font-size: 12px;
+.statusHT {
+    font-size:12px;
 }

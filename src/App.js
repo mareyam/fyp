@@ -9,6 +9,8 @@ import Try from './components/Try';
 import HashTags from './components/brandManagerDashboard/Hashtags/HashTags';
 import AllPosts from './components/PostsAndStories/AllPostsOfInfluencers';
 import CampaignDetails from './components/AllCampaignsPage/CampaignDetails';
+import CompareInfluencers from './components/AllRegisteredInfluencers/CompareInfluencers';
+import NewCampaign from './components/NewCampaigns/NewCampaign';
 
 const App = () => {
   return (
@@ -24,6 +26,8 @@ const App = () => {
         <Route path="/BMAllStories" element={<AllStories/>}/>
         <Route path="/BMAllPosts" element={<AllPosts/>}/>
         <Route path="/BMCampaignDetails" element={<CampaignDetails/>}/>
+        <Route path="/BMCompare" element={<CompareInfluencers/>}/>
+        <Route path="/BMNewCampaign" element={<NewCampaign/>}/>
       </Routes>
   </div>
   );
