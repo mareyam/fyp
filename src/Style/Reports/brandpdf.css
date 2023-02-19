@@ -1,0 +1,16 @@
+.tableBP {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.influencerNameBP,
+.postsBP,
+.storiesBP,
+.followersBP,
+.likesBP,
+.sharesBP,
+.commentsBP,
+.engagementrateBP {
+    font-size: 12px;
+    text-align: start;
+}

@@ -11,6 +11,11 @@ import AllPosts from './components/PostsAndStories/AllPostsOfInfluencers';
 import CampaignDetails from './components/AllCampaignsPage/CampaignDetails';
 import CompareInfluencers from './components/AllRegisteredInfluencers/CompareInfluencers';
 import NewCampaign from './components/NewCampaigns/NewCampaign';
+import Privacy from './components/others/Privacy';
+import Terms from './components/others/Terms';
+import BrandPDF from './components/Reports/BrandPDF';
+import InfluencerPDF from './components/Reports/InfluencerPDF';
+
 
 const App = () => {
   return (
@@ -28,6 +33,11 @@ const App = () => {
         <Route path="/BMCampaignDetails" element={<CampaignDetails/>}/>
         <Route path="/BMCompare" element={<CompareInfluencers/>}/>
         <Route path="/BMNewCampaign" element={<NewCampaign/>}/>
+        <Route path="/BMPrivacy" element={<Privacy/>}/>
+        <Route path="/BMTerms" element={<Terms/>}/>
+        <Route path="/BMBrandPDF" element={<BrandPDF/>}/>
+        <Route path="/BMInfluencerPDF" element={<InfluencerPDF/>}/>
+        
       </Routes>
   </div>
   );

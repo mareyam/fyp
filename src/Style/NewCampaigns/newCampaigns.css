@@ -3,18 +3,44 @@
     width: auto;
     overflow-y: hidden;
     overflow-x: scroll;
+    background-color: #F5F5F5;
+    border: 1px solid rgb(198, 198, 198)
 }
 .subContainerNC {
-    border:2px solid red;
-    width: 200px;
+    border: 1px solid rgb(198, 198, 198);
+    width: 165px;
     text-align: center;
     align-items: center;
     justify-content: center;
 }
 
 .imageNC {
-    border-radius: 16px;
-    height: 50px;
-    width: 50px;
+    border-radius: 50%;
+    height: 75px;
+    width: 75px;
+}
+.nameNC {
+    font-size: 15px;
+    font-weight: bold;
+}
+.userNameNC {
+    font-size: 12px;
+    margin-top: -10px;
+}
+.EngagementRateNC {
+    margin-top: -15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.NumberNC {
+    margin-top: -15px;
+    font-size: 12px;
+}
 
+.inputNC {
+    background-color: rgb(241, 241, 241);
+}
+
+Button, .purpleButton {
+    background-color: #452c63;
 }

@@ -6,7 +6,7 @@
 }
 .storyImageAS {
     height: 125px;
-    width: 100%;
+    width: 150px;
     object-fit: cover;
 
 }
@@ -19,6 +19,7 @@
     /* height: auto;
     width: auto; */
     border: 1px solid rgb(198, 198, 198);
+    margin-left: 5%;
     /* width: 100%;
     overflow: hidden; */
 }
@@ -31,4 +32,11 @@
 button a {
 color: white;
 text-decoration: none;
+}
+.influencerImageLink {
+    text-decoration: none;
+    outline: none;
+}
+.header1{ 
+    margin-left: 5%;
 }

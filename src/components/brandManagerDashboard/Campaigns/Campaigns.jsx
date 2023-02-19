@@ -29,7 +29,7 @@ const Campaigns = () => {
           <div className="d-flex">
             <h6>Active Campaigns</h6>
             <input type="text" placeholder="search for campaign" value={searchValue} onChange={handleSearch} />
-           <Button>
+           <Button style={{backgroundColor:'#452c63'}}>
               <div style={{marginTop:"-6px"}}>
                 <AddIcon style={{fontSize:"15px"}}/>
               </div>

@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import AllStoriesList from "./AllStoriesList";
+// import AllStoriesList from "./AllStoriesList";
 import { Button } from 'react-bootstrap';
 import { ArrowBack, Search } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
@@ -9,6 +9,7 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import CampaignIcon from '@mui/icons-material/Campaign';
+import CampaignsList from '../brandManagerDashboard/Campaigns/CampaignsList'; 
 
 const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         const pageNumbers = [];
@@ -36,14 +37,14 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         const [currentPage, setCurrentPage] = useState(1);
         const [itemsPerPage] = useState(3);
         const [searchValue, setSearchValue] = useState('');
-        const [filteredResults, setFilteredResults] = useState(AllStoriesList);
+        const [filteredResults, setFilteredResults] = useState(CampaignsList);
         
         const handleSearch = (event) => {
             const searchText = event.target.value;
             setSearchValue(searchText);
-            let results = AllStoriesList;
+            let results = CampaignsList;
             if (searchText) {
-            results = AllStoriesList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+            results = CampaignsList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
             }
             setFilteredResults(results);
         }
@@ -58,7 +59,8 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
       <div className='d-lg-flex d-sm-block'>
         <Col xs={12} sm={12} md={2} lg={2} className="mt-4" > 
             <div className='d-lg-block d-xs-flex'>
-            <a href="BMCampaignDetails"><img className="influencerImage"src='https://media.istockphoto.com/id/487787108/photo/can-of-coca-cola-on-ice.jpg?s=612x612&w=0&k=20&c=xDSO_nl0qeDMBZJBJk09jj5_UeQkyQ70QdXuDMByCaY='></img></a>
+            {/* <a href="/BMCampaignDetails" style={{outline: 'none'}} ></a> */}
+              <img className="influencerImage"src='https://media.istockphoto.com/id/487787108/photo/can-of-coca-cola-on-ice.jpg?s=612x612&w=0&k=20&c=xDSO_nl0qeDMBZJBJk09jj5_UeQkyQ70QdXuDMByCaY='></img>
             <div style={{textAlign:"center"}}><h6>Coke</h6>
             <p style={{fontSize:"12px"}}>Active Influencers: number</p>
             <p style={{fontSize:"12px"}}><b>Started on: date</b> </p>
@@ -81,7 +83,7 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
             </button></div></div>
         </Col>
         <Col xs={12} sm={12} md={6} lg={8}>
-          <div className="d-flex mt-4">
+          <div className="header1 d-flex mt-4">
             <h6>All Posts from coke</h6>
             <input className="mx-2" type="text" placeholder="Search for story" value={searchValue} onChange={handleSearch} />
           </div>
@@ -90,12 +92,12 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
             return (
                 <Col xs={12} sm={12} md={12} lg={12} >
                     <div style={{}} className="subContainerAS my-2 d-lg-flex">
-                        <div><img className="storyImageAS" src={item.image}/></div>
+                        <div><img className="storyImageAS img-fluid" src={item.image}/></div>
                         <div className='d-lg-flex d-sm-block d-xs-block'>
                           <div className="mx-2 d-flex" style={{alignItems:"center"}}>
                             <div><img className="imageAS" src='https://static.toiimg.com/thumb/56200851.cms?width=170&height=240&imgsize=88803' /></div>
-                            <div style={{marginLeft:'5px'}}><b><p style={{fontSize:"12px", marginTop:'30px'}}>{item.name}</p></b>
-                            <p style={{fontSize:"12px", marginTop:"-15px"}}>{item.username}</p></div>
+                            <div style={{marginLeft:'5px'}}><b><p style={{fontSize:"12px", marginTop:'30px'}}>Ali Zafar</p></b>
+                            <p style={{fontSize:"12px", marginTop:"-15px"}}>@username</p></div>
                           </div>
                           <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
                             <b><p style={{fontSize:"10px"}} className='costAS'>cost: Rs.{item.cost}</p></b>
@@ -104,7 +106,7 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
                           </div>
                           <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
                             <b><p style={{fontSize:"10px", marginTop:"5px"}} className="dateAS">date: {item.date}</p></b>
-                            <p style={{fontSize:"10px", marginTop:"-10px"}} className="hashtagAS">hashtag: #{item.hashtag}</p>
+                            <p style={{fontSize:"10px", marginTop:"-10px"}} className="hashtagAS">hashtag: {item.hashtag}</p>
                           </div>
                         </div>
                     </div>
@@ -129,7 +131,7 @@ export default Pagintation;
 // import React from 'react';
 // import { isCompositeComponentWithType } from 'react-dom/test-utils';
 // import '../Style/campaigns.css';
-// import AllStoriesList from "./CampaignsList";
+// import CampaignsList from "./CampaignsList";
 // import { Button } from 'react-bootstrap';
 // import { Search } from '@material-ui/icons';
 // import AddIcon from '@material-ui/icons/Add';

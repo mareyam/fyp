@@ -36,10 +36,10 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{backgroundColor:"#F7F6F7"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <AdbIcon sx={{ color:'black', display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -51,7 +51,7 @@ function ResponsiveAppBar() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'black',
               textDecoration: 'none',
             }}
           >
@@ -65,7 +65,7 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color="black"
             >
               <MenuIcon />
             </IconButton>
@@ -94,7 +94,7 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             variant="h5"
             noWrap
@@ -107,26 +107,26 @@ function ResponsiveAppBar() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'black',
               textDecoration: 'none',
             }}
           >LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMDashboard" style={{ my: 2, color: 'white', display: 'block', textDecoration:"none" }}>Dashboard</a></Button>
+                onClick={handleCloseNavMenu}><a href="/BMDashboard" style={{ my: 2, color: 'black', display: 'block', textDecoration:"none" }}>Dashboard</a></Button>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMCampaigns" style={{ my: 2, color: 'white', display: 'block', textDecoration:"none" }}>Campaigns</a></Button>
+                onClick={handleCloseNavMenu}><a href="/BMCampaigns" style={{ my: 2, color: 'black', display: 'block', textDecoration:"none" }}>Campaigns</a></Button>
            <Button
-                onClick={handleCloseNavMenu}><a href="/BMRegisteredInfluencers" style={{ my: 2, color: 'white', display: 'block', textDecoration:"none" }}>Influencers</a></Button>
+                onClick={handleCloseNavMenu}><a href="/BMRegisteredInfluencers" style={{ my: 2, color: 'black', display: 'block', textDecoration:"none" }}>Influencers</a></Button>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMHashtags" style={{ my: 2, color: 'white', display: 'block', textDecoration:"none" }}>Hashtags</a></Button>
+                onClick={handleCloseNavMenu}><a href="/BMHashtags" style={{ my: 2, color: 'black', display: 'block', textDecoration:"none" }}>Hashtags</a></Button>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMAllPosts" style={{ my: 2, color: 'white', display: 'block', textDecoration:"none" }}>Posts</a></Button>
+                onClick={handleCloseNavMenu}><a href="/BMAllPosts" style={{ my: 2, color: 'black', display: 'block', textDecoration:"none" }}>Posts</a></Button>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMAllStories" style={{ my: 2, color: 'white', display: 'block', textDecoration:"none" }}>Stories</a></Button>
+                onClick={handleCloseNavMenu}><a href="/BMAllStories" style={{ my: 2, color: 'black', display: 'block', textDecoration:"none" }}>Stories</a></Button>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMNewCampaign" style={{ my: 2, color: 'white', display: 'block', textDecoration:"none" }}>New Campaign</a></Button>
+                onClick={handleCloseNavMenu}><a href="/BMNewCampaign" style={{ my: 2, color: 'black', display: 'block', textDecoration:"none" }}>New Campaign</a></Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

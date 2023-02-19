@@ -4,13 +4,17 @@
     overflow-y: hidden;
     margin-bottom: 3%;
     margin-top: 1%;
+    justify-content: left;
+    align-items:start;  
 }
 .subContainerC {
     border: 1px solid rgb(198, 198, 198);
     padding: 10px;
     width: 180px;
     margin-left: 15px;
-    border-radius: 16px;    
+    border-radius: 16px;  
+    justify-content: left;
+    align-items:start;  
 }
 .typeC {
     font-size: 8px;
