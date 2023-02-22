@@ -1,0 +1,17 @@
+
+.tableIP {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.influencerNameIP,
+.postsIP,
+.storiesIP,
+.followersIP,
+.likesIP,
+.sharesIP,
+.commentsIP,
+.engagementrateIP {
+    font-size: 12px;
+    text-align: start;
+}

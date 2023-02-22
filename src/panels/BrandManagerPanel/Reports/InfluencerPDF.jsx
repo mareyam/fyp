@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
-import CampaignsList from '../brandManagerDashboard/Campaigns/CampaignsList';
 import { Container, Row, Col } from 'react-bootstrap';
-import '../../Style/Reports/influencerpdf.css';
+import '../../../Style/BrandManagerPanel/Reports/influencerpdf.css';
+import CampaignsList from '../../BrandManagerPanel/Campaigns/CampaignsList';
 
 const BrandPDF = () => {
     const [results, setResults] = useState(CampaignsList);

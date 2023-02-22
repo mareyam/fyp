@@ -1,20 +1,21 @@
 import './App.css';
-import BrandManagerDashboard from "./components/brandManagerDashboard/BrandManagerDashboard";
-import AllCampaigns from "./components/AllCampaignsPage/AllCampaigns";
-import Navbarr from './components/navbar/Navbarr';
-import AllRegisteredInfluencers from './components/AllRegisteredInfluencers/AllRegisteredInfluencers';
-import AllStories from './components/PostsAndStories/AllStoriesOfInfluencers';
+import BrandManagerDashboard from './panels/BrandManagerPanel/BrandManagerDashboard';
+import AllCampaigns from './panels/BrandManagerPanel/Campaigns/AllCampaigns';
+import Navbarr from './panels/BrandManagerPanel/Navbar/Navbarr';
+import AllRegisteredInfluencers from './panels/BrandManagerPanel/Influencers/AllRegisteredInfluencers';
+import AllStories from './panels/BrandManagerPanel/PostsStories/AllStoriesOfInfluencers';
 import {Route, Routes} from 'react-router-dom';
-import Try from './components/Try';
-import HashTags from './components/brandManagerDashboard/Hashtags/HashTags';
-import AllPosts from './components/PostsAndStories/AllPostsOfInfluencers';
-import CampaignDetails from './components/AllCampaignsPage/CampaignDetails';
-import CompareInfluencers from './components/AllRegisteredInfluencers/CompareInfluencers';
-import NewCampaign from './components/NewCampaigns/NewCampaign';
-import Privacy from './components/others/Privacy';
-import Terms from './components/others/Terms';
-import BrandPDF from './components/Reports/BrandPDF';
-import InfluencerPDF from './components/Reports/InfluencerPDF';
+import HashTags from './panels/BrandManagerPanel/Hashtags/HashTags';
+import AllPosts from './panels/BrandManagerPanel/PostsStories/AllPostsOfInfluencers';
+import CampaignDetails from './panels/BrandManagerPanel/Campaigns/CampaignDetails';
+import CompareInfluencers from './panels/BrandManagerPanel/Influencers/CompareInfluencers'
+import NewCampaign from './panels/BrandManagerPanel/Campaigns/NewCampaign'
+import Privacy from './panels/BrandManagerPanel/Others/Privacy';
+import Terms from './panels/BrandManagerPanel/Others/Terms';
+import BrandPDF from './panels/BrandManagerPanel/Reports/BrandPDF';
+import InfluencerPDF from './panels/BrandManagerPanel/Reports/InfluencerPDF';
+import Login from './panels/BrandManagerPanel/Auth/Login';
+import Signup from './panels/BrandManagerPanel/Auth/Signup';
 
 
 const App = () => {
@@ -26,7 +27,6 @@ const App = () => {
         <Route path="/BMCampaigns" element={<AllCampaigns/>}/>
         <Route path="/BMRegisteredInfluencers" element={<AllRegisteredInfluencers/>}/>
         <Route path="/BMAllStories" element={<AllStories/>}/>
-        <Route path="/BMTry" element={<Try/>}/>
         <Route path="/BMHashtags" element={<HashTags/>}/>
         <Route path="/BMAllStories" element={<AllStories/>}/>
         <Route path="/BMAllPosts" element={<AllPosts/>}/>
@@ -37,6 +37,9 @@ const App = () => {
         <Route path="/BMTerms" element={<Terms/>}/>
         <Route path="/BMBrandPDF" element={<BrandPDF/>}/>
         <Route path="/BMInfluencerPDF" element={<InfluencerPDF/>}/>
+        <Route path="/BMLogin" element={<Login/>}/>
+        <Route path="/BMSignup" element={<Signup/>}/>
+        
         
       </Routes>
   </div>
