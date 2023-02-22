@@ -1,0 +1,50 @@
+/* .mainContainerIP {
+    overflow-y: none;
+    overflow-x: scroll;
+} */
+.postsIP {
+    overflow-y: none;
+    overflow-x: scroll;
+}
+.storiesIP {
+    overflow-y: none;
+    overflow-x: scroll;
+}
+
+/* .mainContainerIP {
+    align-items: center;
+    justify-content: center;
+} */
+.subContainerIP {
+    border: 1px solid rgb(198, 198, 198);
+    margin: 5px;
+    border-radius: 10px;
+}
+.hashtagIP {
+    font-size: 10px;
+    /* color: blue; */
+    margin-top: 5%;
+}
+.imageIP {
+    padding-top: 5px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    /* border-radius: 15%; */
+
+}
+.nameIP {
+    font-size: 15px;
+    margin-top:-15px;
+}
+.influencersIP {
+    font-size: 12px;
+    margin-top: -5px;
+    /* color: blue; */
+}
+.dateIP {
+    font-size: 10px;
+    margin-top: -10px;
+}
+
+  

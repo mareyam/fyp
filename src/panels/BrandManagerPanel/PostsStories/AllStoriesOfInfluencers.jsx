@@ -81,36 +81,40 @@ const AllStories = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
             <h6>All Stories from coke</h6>
             <input className="mx-2" type="text" placeholder="Search for story" value={searchValue} onChange={handleSearch} />
           </div>
-        <div className="mainContainerAS"> 
-        {currentItems.map(item => {
-            return (
-                <Col xs={12} sm={12} md={12} lg={12} >
-                    <div style={{}} className="subContainerAS my-2 d-lg-flex">
-                        <div><img className="storyImageAS" src={item.image}/></div>
-                        <div className='d-lg-flex d-sm-block d-xs-block'>
-                          <div className="mx-2 d-flex" style={{alignItems:"center"}}>
-                            <div><img className="imageAS" src='https://static.toiimg.com/thumb/56200851.cms?width=170&height=240&imgsize=88803' /></div>
-                            <div style={{marginLeft:'5px'}}><p style={{fontSize:"12px", marginTop:'30px'}}>{item.name}</p>
-                            <p style={{fontSize:"12px", marginTop:"-15px"}}>{item.username}</p></div>
-                          </div>
-                          <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-5">
-                            <b><p style={{fontSize:"12px"}} className='costAS'>cost: Rs.{item.cost}</p></b>
-                            <p style={{fontSize:"12px", marginTop:"-10px"}} className="dateAS">date: {item.date}</p>
-                            <p style={{fontSize:"12px", marginTop:"-10px"}} className="hashtagAS">hashtag: #{item.hashtag}</p>
-                          </div>
+          <div className="mainContainerAS"> 
+            {currentItems.map(item => {
+                return (
+                    <Col xs={12} sm={12} md={12} lg={12} >
+                        <div style={{}} className="subContainerAS my-2 d-lg-flex">
+                            <div><img className="storyImageAS" src={item.image}/></div>
+                            <div className='d-lg-flex d-sm-block d-xs-block'>
+                              <div className="mx-2 d-flex" style={{alignItems:"center"}}>
+                                <div><img className="imageAS" src='https://static.toiimg.com/thumb/56200851.cms?width=170&height=240&imgsize=88803' /></div>
+                                <div style={{marginLeft:'5px'}}><p style={{fontSize:"12px", marginTop:'30px'}}>{item.name}</p>
+                                <p style={{fontSize:"12px", marginTop:"-15px"}}>{item.username}</p></div>
+                              </div>
+                              <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-5">
+                                <b><p style={{fontSize:"12px"}} className='costAS'>cost: Rs.{item.cost}</p></b>
+                                <p style={{fontSize:"12px", marginTop:"-10px"}} className="dateAS">date: {item.date}</p>
+                                <p style={{fontSize:"12px", marginTop:"-10px"}} className="hashtagAS">hashtag: #{item.hashtag}</p>
+                              </div>
+                            </div>
                         </div>
-                    </div>
-                </Col>
-               
-              
-            )})}
-        </div>
+                    </Col>
+                )})}
+          </div>
         </Col>
       </div>
-    <AllStories
-        itemsPerPage={itemsPerPage}
-        totalItems={filteredResults.length}
-        paginate={paginate}/>
+      <Row >
+         <Col xs={12} sm={12} md={12} lg={12} >
+          <div>
+              <AllStories
+              itemsPerPage={itemsPerPage}
+              totalItems={filteredResults.length}
+              paginate={paginate}/>
+            </div>
+          </Col>
+      </Row>
     </Container>  
        
   );

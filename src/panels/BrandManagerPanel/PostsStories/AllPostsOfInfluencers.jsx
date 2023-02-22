@@ -59,68 +59,68 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
       <div className='d-lg-flex d-sm-block'>
         <Col xs={12} sm={12} md={2} lg={2} className="mt-4" > 
             <div className='d-lg-block d-xs-flex'>
-            {/* <a href="/BMCampaignDetails" style={{outline: 'none'}} ></a> */}
+               {/* <a href="/BMCampaignDetails" style={{outline: 'none'}} ></a> */}
               <img className="influencerImage"src='https://media.istockphoto.com/id/487787108/photo/can-of-coca-cola-on-ice.jpg?s=612x612&w=0&k=20&c=xDSO_nl0qeDMBZJBJk09jj5_UeQkyQ70QdXuDMByCaY='></img>
-            <div style={{textAlign:"center"}}><h6>Coke</h6>
-            <p style={{fontSize:"12px"}}>Active Influencers: number</p>
-            <p style={{fontSize:"12px"}}><b>Started on: date</b> </p>
-            <p style={{fontSize:"12px"}}><b>Ends on: date</b></p>
-            <p style={{fontSize:"12px"}}><b>Days Left: date</b></p>
-            <p style={{fontSize:"12px"}}><b>Cycle: periodic</b></p>
-            <p style={{fontSize:"12px"}}><b>Type: date</b></p>
-            <p style={{fontSize:"12px"}}><b>Total Likes: number</b></p>
-            <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
-                      <a href="/BMDashboard"><p style={{ fontSize: '12px', margin: '0px', paddingRight:"10px" }}>Inactive Campaign</p></a>
-                      <CampaignIcon style={{ fontSize: "12px", height: "25px" }} />
-             </button>
-            <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
-                      <a href="/BMPDF"><p style={{ fontSize: '12px', margin: '0px',paddingRight:"10px" }}>PDF Report</p></a>
-                      <PictureAsPdfIcon style={{ fontSize: "12px", height: "25px" }} />
-            </button>
-            <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
-                      <a href="/BMStats"><p style={{ fontSize: '12px', margin: '0px',paddingRight:"10px" }}>View Stats</p></a>
-                      <QueryStatsIcon style={{ fontSize: "12px", height: "25px" }} />
-            </button></div></div>
+                <div style={{textAlign:"center"}}><h6>Coke</h6>
+                  <p style={{fontSize:"12px"}}><b>Active Influencers: number</b></p>
+                  <p style={{fontSize:"12px"}}><b>Started on: date</b> </p>
+                  <p style={{fontSize:"12px"}}><b>Ends on: date</b></p>
+                  <p style={{fontSize:"12px"}}><b>Days Left: date</b></p>
+                  <p style={{fontSize:"12px"}}><b>Cycle: periodic</b></p>
+                  <p style={{fontSize:"12px"}}><b>Type: date</b></p>
+                  <p style={{fontSize:"12px"}}><b>Total Likes: number</b></p>
+                  <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
+                            <a href="/BMDashboard"><p style={{ fontSize: '12px', margin: '0px', paddingRight:"10px" }}>Inactive Campaign</p></a>
+                            <CampaignIcon style={{ fontSize: "12px", height: "25px" }} />
+                  </button>
+                  <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
+                            <a href="/BMPDF"><p style={{ fontSize: '12px', margin: '0px',paddingRight:"10px" }}>PDF Report</p></a>
+                            <PictureAsPdfIcon style={{ fontSize: "12px", height: "25px" }} />
+                  </button>
+                  <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
+                            <a href="/BMStats"><p style={{ fontSize: '12px', margin: '0px',paddingRight:"10px" }}>View Stats</p></a>
+                            <QueryStatsIcon style={{ fontSize: "12px", height: "25px" }} />
+                  </button>
+                </div>
+            </div>
         </Col>
         <Col xs={12} sm={12} md={6} lg={8}>
-          <div className="header1 d-flex mt-4">
-            <h6>All Posts from coke</h6>
-            <input className="mx-2" type="text" placeholder="Search for story" value={searchValue} onChange={handleSearch} />
-          </div>
-        <div className="mainContainerAS"> 
-        {currentItems.map(item => {
-            return (
-                <Col xs={12} sm={12} md={12} lg={12} >
-                    <div style={{}} className="subContainerAS my-2 d-lg-flex">
-                        <div><img className="storyImageAS img-fluid" src={item.image}/></div>
-                        <div className='d-lg-flex d-sm-block d-xs-block'>
-                          <div className="mx-2 d-flex" style={{alignItems:"center"}}>
-                            <div><img className="imageAS" src='https://static.toiimg.com/thumb/56200851.cms?width=170&height=240&imgsize=88803' /></div>
-                            <div style={{marginLeft:'5px'}}><b><p style={{fontSize:"12px", marginTop:'30px'}}>Ali Zafar</p></b>
-                            <p style={{fontSize:"12px", marginTop:"-15px"}}>@username</p></div>
-                          </div>
-                          <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
-                            <b><p style={{fontSize:"10px"}} className='costAS'>cost: Rs.{item.cost}</p></b>
-                            <a href="/BMCampaignDetails"><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateAS"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Post</p></a>
-                            <a href=""><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateAS"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Profile</p></a>
-                          </div>
-                          <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
-                            <b><p style={{fontSize:"10px", marginTop:"5px"}} className="dateAS">date: {item.date}</p></b>
-                            <p style={{fontSize:"10px", marginTop:"-10px"}} className="hashtagAS">hashtag: {item.hashtag}</p>
-                          </div>
-                        </div>
-                    </div>
-                </Col>
-               
-              
-            )})}
-        </div>
+              <div className="header1 d-flex mt-4">
+                <h6>All Posts from coke</h6>
+                <input className="mx-2" type="text" placeholder="Search for story" value={searchValue} onChange={handleSearch} />
+              </div>
+              <div className="mainContainerAS"> 
+                {currentItems.map(item => {
+                    return (
+                        <Col xs={12} sm={12} md={12} lg={12} >
+                            <div style={{}} className="subContainerAS my-2 d-lg-flex">
+                                <div><img className="storyImageAS img-fluid" src={item.image}/></div>
+                                <div className='d-lg-flex d-sm-block d-xs-block'>
+                                  <div className="mx-2 d-flex" style={{alignItems:"center"}}>
+                                    <div><img className="imageAS" src='https://static.toiimg.com/thumb/56200851.cms?width=170&height=240&imgsize=88803' /></div>
+                                    <div style={{marginLeft:'5px'}}><b><p style={{fontSize:"12px", marginTop:'30px'}}>Ali Zafar</p></b>
+                                    <p style={{fontSize:"12px", marginTop:"-15px"}}>@username</p></div>
+                                  </div>
+                                  <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
+                                    <b><p style={{fontSize:"10px"}} className='costAS'>cost: Rs.{item.cost}</p></b>
+                                    <a href="/BMCampaignDetails"><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateAS"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Post</p></a>
+                                    <a href=""><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateAS"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Profile</p></a>
+                                  </div>
+                                  <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
+                                    <b><p style={{fontSize:"10px", marginTop:"5px"}} className="dateAS">date: {item.date}</p></b>
+                                    <p style={{fontSize:"10px", marginTop:"-10px"}} className="hashtagAS">hashtag: {item.hashtag}</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </Col>
+                        )})}
+              </div>
         </Col>
       </div>
-    <AllPosts
-        itemsPerPage={itemsPerPage}
-        totalItems={filteredResults.length}
-        paginate={paginate}/>
+      <AllPosts
+              itemsPerPage={itemsPerPage}
+              totalItems={filteredResults.length}
+              paginate={paginate}/>
     </Container>  
        
   );

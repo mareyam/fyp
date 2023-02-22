@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import AllCampaignsList from '../../BrandManagerPanel/Campaigns/AllCampaignsList';
+import CampaignsList from '../../BrandManagerPanel/Campaigns/CampaignsList';
 import AddIcon from '@mui/icons-material/Add';
 import '../../../Style/BrandManagerPanel/AllCampaigns/AllCampaigns.css';
 import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';
@@ -30,14 +30,14 @@ const Pagintation = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
-  const [filteredResults, setFilteredResults] = useState(AllCampaignsList);
+  const [filteredResults, setFilteredResults] = useState(CampaignsList);
   
     const handleSearch = (event) => {
       const searchText = event.target.value;
       setSearchValue(searchText);
-      let results = AllCampaignsList;
+      let results = CampaignsList;
       if (searchText) {
-        results = AllCampaignsList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+        results = CampaignsList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
       }
       setFilteredResults(results);
     }
@@ -55,7 +55,7 @@ const Pagintation = () => {
           <h5 className='campaignHeaderAC' >CAMPAIGNS</h5></div>
 
                 <div className="ms-4 d-lg-flex d-xs-block">
-                  <div className="align-item-center"><h6>All Campaigns({AllCampaignsList.length})</h6></div>
+                  <div className="align-item-center"><h6>All Campaigns({CampaignsList.length})</h6></div>
                   <div className="d-flex">
                       <input  style={{height:"25px"}} placeholder="Search by name &#x1F50D;"/>
                       <button 
@@ -105,22 +105,22 @@ export default Pagintation;
 
 // import React,{useState} from 'react';
 // import { Container, Row, Col, Button } from 'react-bootstrap';
-// import AllCampaignsList from "./AllCampaignsList";
+// import CampaignsList from "./CampaignsList";
 // import Search from '@material-ui/icons/Search';
 // import AddIcon from '@material-ui/icons/Add';
 // import "../../Style/AllCampaigns/AllCampaigns.css"
 
 // const AllCampaigns = () => {
 // const [searchValue, setSearchValue] = useState('');
-// const [filteredResults, setFilteredResults] = useState(AllCampaignsList);
+// const [filteredResults, setFilteredResults] = useState(CampaignsList);
 
 // const handleSearch = (event) => {
 // setSearchValue(event.target.value);
 // let results;
 // if (searchValue === '') {
-// results = AllCampaignsList;
+// results = CampaignsList;
 // } else {
-// results = AllCampaignsList.filter((campaign) => campaign.name.includes(searchValue));
+// results = CampaignsList.filter((campaign) => campaign.name.includes(searchValue));
 // }
 // setFilteredResults(results);
 // }
@@ -183,7 +183,7 @@ export default AllCampaigns; */}
 
 // import React,{useState} from 'react';
 // import { isCompositeComponentWithType } from 'react-dom/test-utils';
-// import AllCampaignsList from "./AllCampaignsList";
+// import CampaignsList from "./CampaignsList";
 // import { Button } from 'react-bootstrap';
 // import { Search } from '@material-ui/icons';
 // import AddIcon from '@material-ui/icons/Add';
@@ -191,15 +191,15 @@ export default AllCampaigns; */}
 // import { Grid } from '@material-ui/core';
 // const AllCampaigns = () => {
 //   const [searchValue, setSearchValue] = useState('');
-//   const [filteredResults, setFilteredResults] = useState(AllCampaignsList);
+//   const [filteredResults, setFilteredResults] = useState(CampaignsList);
   
 //   const handleSearch = (event) => {
 //   setSearchValue(event.target.value);
 //   let results;
 //   if (searchValue === '') {
-//     results = AllCampaignsList;
+//     results = CampaignsList;
 //   } else {
-//     results = AllCampaignsList.filter((campaign) => campaign.name.includes(searchValue));
+//     results = CampaignsList.filter((campaign) => campaign.name.includes(searchValue));
 //   }
 //   setFilteredResults(results);
 //   }

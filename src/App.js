@@ -16,6 +16,7 @@ import BrandPDF from './panels/BrandManagerPanel/Reports/BrandPDF';
 import InfluencerPDF from './panels/BrandManagerPanel/Reports/InfluencerPDF';
 import Login from './panels/BrandManagerPanel/Auth/Login';
 import Signup from './panels/BrandManagerPanel/Auth/Signup';
+import InfluencerPage from './panels/BrandManagerPanel/Influencers/InfluencerPage';
 
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/BMInfluencerPDF" element={<InfluencerPDF/>}/>
         <Route path="/BMLogin" element={<Login/>}/>
         <Route path="/BMSignup" element={<Signup/>}/>
+        <Route path="/BMInfluencerPage" element={<InfluencerPage/>}/>
         
         
       </Routes>
