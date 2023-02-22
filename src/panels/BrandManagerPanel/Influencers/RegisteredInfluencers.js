@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import RegisteredInfluencersList from "./RegisteredInfluencersList";
 import { Grid } from '@material-ui/core';
 import { ArrowBack, Search } from '@material-ui/icons';
-import '../../../Style/brandManagerDashboard/registeredInfluencers.css';
+import '../../../Style/BrandManagerPanel/brandManagerDashboard/registeredInfluencers.css';
 import { Container, Row, Col } from 'react-grid-system';
 import { Diversity1Rounded } from '@mui/icons-material';
 

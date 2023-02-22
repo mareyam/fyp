@@ -3,10 +3,9 @@ import CampaignList from "./CampaignsList";
 import { Button } from 'react-bootstrap';
 import { ArrowBack, Search } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
-import '../../../Style/brandManagerDashboard/campaigns.css';
 import { Container, Row, Col } from 'react-grid-system';
 import { Home, People } from '@mui/icons-material';
-
+import '../../../Style/BrandManagerPanel/brandManagerDashboard/campaigns.css'
 const Campaigns = () => {
   const sortedInfluencers = CampaignList.sort((a, b) => parseFloat(b.engagementRate) - parseFloat(a.engagementRate));
   const [searchValue, setSearchValue] = useState('');

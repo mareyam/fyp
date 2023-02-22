@@ -1,6 +1,6 @@
 import React from 'react';
-import '../../../Style/brandManagerDashboard/TopPerformingPosts.css';
-import TopPerformingPostsList from "./TopPerformingPostsList";
+import '../../../Style/BrandManagerPanel/brandManagerDashboard/TopPerformingPosts.css';
+import TopPerformingPostsList from './TopPerformingPostsList';
 import { Divider, Grid } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import MessageIcon from '@material-ui/icons/Message';

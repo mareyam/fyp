@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import HashTagList from './HashTagList';
 import { Container, Row, Col } from 'react-bootstrap';
-import '../../../Style/brandManagerDashboard/HashTag.css';
+import '../../../Style/BrandManagerPanel/brandManagerDashboard/HashTag.css';
 import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';
 import AddIcon from '@mui/icons-material/Add';
 
