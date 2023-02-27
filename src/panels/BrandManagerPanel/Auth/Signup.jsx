@@ -1,16 +1,17 @@
 import { Checkbox } from '@material-ui/core';
 import React from 'react';
 import { Container, Row, Col } from 'react-grid-system';
+import authAbstract from '../../../images/authAbstract.png';
 
 
 function Login() {
 return (
 
-  <Container className="d-lg-mt-5">
+  <Container className="mt-3">
       <Row className="d-lg-mt-5">
         <div className='d-lg-flex d-sm-block' style={{justifyContent:'center', alignItems:"center"}}>
           <Col xs={12} sm={12} md={12} lg={6}>
-            <img style={{width: '100%', objectFit:'cover'}}src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"/>
+            <img style={{width: '100%', objectFit:'cover'}}src={authAbstract} />
           </Col>
           <Col xs={12} sm={12} md={12} lg={6}>
           <div className='text-left justify-content-center align-center d-lg-mt-5'><h4 className='text-center'>Brand Manager's Signup</h4>
@@ -38,8 +39,10 @@ return (
                 </small> */}
               </Col>
 
+
               <Col md="4" className="mb-3">
-              <div class="input-group mb-3">
+              <label for="inputPassword5">Upload Profile Picture</label>
+              <div className="input-group mb-3">
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="inputGroupFile02"/>
                 </div>

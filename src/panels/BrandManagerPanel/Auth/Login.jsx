@@ -1,16 +1,18 @@
 import { Checkbox } from '@material-ui/core';
 import React from 'react';
 import { Container, Row, Col } from 'react-grid-system';
+import authAbstract from '../../../images/authAbstract.png';
+
 
 
 function Login() {
 return (
 
-  <Container>
+  <Container className='mt-2'>
       <Row>
         <div className='d-lg-flex d-sm-block d-lg-mt-5' style={{justifyContent:'center', alignItems:"center"}}>
           <Col xs={12} sm={12} md={12} lg={6}>
-            <img style={{width: '100%', objectFit:'cover'}}src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"/>
+            <img style={{width: '100%', objectFit:'cover'}}src={authAbstract}/>
           </Col>
           <Col xs={12} sm={12} md={12} lg={6}>
           <div className='text-left justify-content-center align-center'><h4 className='text-center'>Brand Manager's Login</h4>

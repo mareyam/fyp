@@ -1,50 +1,67 @@
-/* .mainContainerIP {
-    overflow-y: none;
+.mainContainerIP {
+    /* border: 1px solid rgb(212, 211, 211); */
+    margin-top: 10px;
+    /* height: 320px; */
+    overflow-y: hidden;
     overflow-x: scroll;
-} */
-.postsIP {
-    overflow-y: none;
-    overflow-x: scroll;
+    display:flex;
 }
-.storiesIP {
-    overflow-y: none;
-    overflow-x: scroll;
+.subContainerIP{
+    border: 1px solid rgb(212, 211, 211);
+    /* padding: 10px; */
+    width: 800px;
+    /* margin-left: 15px; */
+    border-radius: 16px;  
 }
 
-/* .mainContainerIP {
-    align-items: center;
-    justify-content: center;
-} */
-.subContainerIP {
-    border: 1px solid rgb(198, 198, 198);
-    margin: 5px;
-    border-radius: 10px;
+.influencerImageIP {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 5px;
 }
-.hashtagIP {
+
+.influencerNameIP {
     font-size: 10px;
-    /* color: blue; */
-    margin-top: 5%;
+    height: auto;
+    width: 50px;
+    text-align: left;
+    margin-top: 10px;
 }
-.imageIP {
-    padding-top: 5px;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    /* border-radius: 15%; */
+.influencerUserNameIP {
+    font-size: 10px;
+    color: grey;
+    margin-top: -15px;
+    text-align: left;
+}
+.detailsIP {
+    font-size: 10px;
+    color: grey;
+}
 
+.postIP {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+.likesIP, .commentsIP {
+    font-size: 10px;
+    color: grey;
 }
 .nameIP {
-    font-size: 15px;
-    margin-top:-15px;
+    font-size: 10px;
+    text-align: start;
 }
-.influencersIP {
-    font-size: 12px;
-    margin-top: -5px;
-    /* color: blue; */
+.hashtagIP {
+    font-size: 8px;
+    text-align: start;
+    /* margin-top: 5px; */
 }
 .dateIP {
     font-size: 10px;
-    margin-top: -10px;
+    text-align: start;
+   
 }
-
-  
+.commentsIP {
+    text-align: right;
+}
