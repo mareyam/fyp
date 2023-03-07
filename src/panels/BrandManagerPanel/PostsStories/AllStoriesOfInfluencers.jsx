@@ -55,7 +55,7 @@ const AllStories = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   return (
     <Container className="mt-2" style={{border:"1px solid rgb(198, 198, 198)"}}>
       <div className='d-lg-flex d-sm-block'>
-      <Col xs={12} sm={12} md={2} lg={2} className="mt-5" > 
+      `<Col xs={12} sm={12} md={2} lg={2} className="mt-5" > 
             <div className='d-lg-block d-xs-flex'>
             <a href="BMCampaignDetails"><img className="influencerImage"src='https://media.istockphoto.com/id/487787108/photo/can-of-coca-cola-on-ice.jpg?s=612x612&w=0&k=20&c=xDSO_nl0qeDMBZJBJk09jj5_UeQkyQ70QdXuDMByCaY='></img></a>
             <div style={{textAlign:"center"}}><h6>Ali Zafar</h6>
@@ -75,16 +75,17 @@ const AllStories = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
                       <a href="/BMStats"><p style={{ fontSize: '12px', margin: '0px',paddingRight:"10px" }}>View Stats</p></a>
                       <QueryStatsIcon style={{ fontSize: "12px", height: "25px" }} />
             </button></div></div>
-        </Col>
+      </Col>`
+
         <Col xs={12} sm={12} md={6} lg={8}>
           <div className="d-flex mt-3">
             <h6>All Stories from coke</h6>
             <input className="mx-2" type="text" placeholder="Search for story" value={searchValue} onChange={handleSearch} />
           </div>
-          <div className="mainContainerAS"> 
+          <div>
             {currentItems.map(item => {
                 return (
-                    <Col xs={12} sm={12} md={12} lg={12} >
+                    <Col xs={12} sm={12} md={12} lg={12}>
                         <div style={{}} className="subContainerAS my-2 d-lg-flex">
                             <div><img className="storyImageAS" src={item.image}/></div>
                             <div className='d-lg-flex d-sm-block d-xs-block'>
@@ -102,19 +103,14 @@ const AllStories = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
                         </div>
                     </Col>
                 )})}
+              <AllStories
+                itemsPerPage={itemsPerPage}
+                totalItems={filteredResults.length}
+                paginate={paginate}/>
+            
           </div>
         </Col>
       </div>
-      <Row >
-         <Col xs={12} sm={12} md={12} lg={12} >
-          <div>
-              <AllStories
-              itemsPerPage={itemsPerPage}
-              totalItems={filteredResults.length}
-              paginate={paginate}/>
-            </div>
-          </Col>
-      </Row>
     </Container>  
        
   );

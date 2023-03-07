@@ -1,9 +1,3 @@
-.mainContainerAS {
-    /* height: 800px; */
-    /* width: 1500px;  */
-    /* overflow-y: scroll;
-    overflow-x: none; */
-}
 .storyImageAS {
     height: 125px;
     width: 100%;
@@ -21,6 +15,7 @@
     border: 1px solid rgb(198, 198, 198);
     /* width: 100%;
     overflow: hidden; */
+    margin-left: 0;
 }
 .influencerImage {
     height: 150px;

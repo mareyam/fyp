@@ -67,58 +67,45 @@ const CampaignDetails = ({ itemsPerPage, totalItems, paginate, currentPage }) =>
                     <p style={{fontSize:"12px"}}>Saves</p>
                     <p style={{fontSize:"12px"}}>Likes</p>
                     <p style={{fontSize:"12px"}}>Comments</p></div></div>
-                    {/* <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
-                      <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
-                      <LaunchIcon style={{ fontSize: "12px", height: "25px" }} />
-                    </button>
-                    <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
-                      <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
-                      <LaunchIcon style={{ fontSize: "12px", height: "25px" }} />
-                    </button>
-                    <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
-                      <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
-                      <LaunchIcon style={{ fontSize: "12px", height: "25px" }} />
-                    </button> */}
-                </Col>
-                <Col xs={12} sm={12} md={6} lg={8}>
+                 </Col>
+                 <Col xs={12} sm={12} md={6} lg={8}>
                   <div className="d-flex mt-3">
                     <h6>Coke Campaign Statistics with Ali Zafar</h6>
                   </div>
-                  <div className="mainContainerCD"> 
-        {currentItems.map(item => {
-            return (
-                <Col xs={12} sm={12} md={12} lg={12} >
-                    <div style={{}} className="subContainerCD my-2 d-lg-flex">
-                        <div><img className="storyImageCD" src={item.image}/></div>
-                        <div className='d-lg-flex d-sm-block d-xs-block'>
-                          <div className="mx-2 d-flex" style={{alignItems:"center"}}>
-                            <div><img className="imageCD" src='https://static.toiimg.com/thumb/56200851.cms?width=170&height=240&imgsize=88803' /></div>
-                            <div style={{marginLeft:'5px'}}><b><p style={{fontSize:"12px", marginTop:'30px'}}>{item.name}</p></b>
-                            <p style={{fontSize:"12px", marginTop:"-15px"}}>{item.username}</p></div>
-                          </div>
-                          <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
-                            <b><p style={{fontSize:"10px"}} className='costCD'>cost: Rs.{item.cost}</p></b>
-                            <a href="/BMCampaignDetails"><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateCD"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Post</p></a>
-                            <a href=""><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateCD"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Profile</p></a>
-                          </div>
-                          <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
-                            <b><p style={{fontSize:"10px", marginTop:"5px"}} className="dateCD">date: {item.date}</p></b>
-                            <p style={{fontSize:"10px", marginTop:"-10px"}} className="hashtagCD">hashtag: #{item.hashtag}</p>
-                          </div>
-                        </div>
-                    </div>
-                </Col>
-               
-              
-            )})}
-        </div>
+                  <div> 
+                  {currentItems.map(item => {
+                      return (
+                          <Col xs={12} sm={12} md={12} lg={12} >
+                              <div style={{}} className="subContainerCD my-2 d-lg-flex">
+                                  <div><img className="storyImageCD" src={item.image}/></div>
+                                  <div className='d-lg-flex d-sm-block d-xs-block'>
+                                    <div className="mx-2 d-flex" style={{alignItems:"center"}}>
+                                      <div><img className="imageCD" src='https://static.toiimg.com/thumb/56200851.cms?width=170&height=240&imgsize=88803' /></div>
+                                      <div style={{marginLeft:'5px'}}><b><p style={{fontSize:"12px", marginTop:'30px'}}>{item.name}</p></b>
+                                      <p style={{fontSize:"12px", marginTop:"-15px"}}>{item.username}</p></div>
+                                    </div>
+                                    <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
+                                      <b><p style={{fontSize:"10px"}} className='costCD'>cost: Rs.{item.cost}</p></b>
+                                      <a href="/BMCampaignDetails"><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateCD"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Post</p></a>
+                                      <a href=""><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateCD"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Profile</p></a>
+                                    </div>
+                                    <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
+                                      <b><p style={{fontSize:"10px", marginTop:"5px"}} className="dateCD">date: {item.date}</p></b>
+                                      <p style={{fontSize:"10px", marginTop:"-10px"}} className="hashtagCD">hashtag: #{item.hashtag}</p>
+                                    </div>
+                                  </div>
+                              </div>
+                          </Col>
+                      )})}
+                  <CampaignDetails
+                    itemsPerPage={itemsPerPage}
+                    totalItems={filteredResults.length}
+                    paginate={paginate}
+                  />
+               </div>
                 </Col>
               </div>
-      <CampaignDetails
-        itemsPerPage={itemsPerPage}
-        totalItems={filteredResults.length}
-        paginate={paginate}
-      />
+      
     </Container>  
         );
       };

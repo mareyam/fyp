@@ -25,14 +25,22 @@ return (
                   Looks good!
                 </div>
               </Col>
-              <Col md="4" className="mb-3">
+              <Col md="4" className="mb-1">
                 <label for="inputPassword5">Password</label>
                 <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock"/>
                 {/* <small id="passwordHelpBlock" class="form-text text-muted">
                   Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                 </small> */}
               </Col>
-              <div className='justify-content-center align-items-center text-center'><button className="btn btn-primary " type="submit">Submit form</button></div>
+              <Col md="4" className="mb-1">
+                <div style={{fontSize:'10px', textAlign:'end', justifyContent:'right', alignItems:'right'}}>
+                   <label><b><span style={{color: 'purple', textDecoration:'underline'}}>Forgot Password?</span></b></label>
+                </div>
+                <div style={{fontSize:'10px', textAlign:'center', justifyContent:'center', alignItems:'center'}}>
+                   <label>by signing up you agree to our <b><span style={{color: 'purple'}}>terms and conditions</span></b></label>
+                </div>
+              </Col>
+              <div className='justify-content-center align-items-center text-center'><button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'200px'}} type="submit">Submit form</button></div>
           </form>
         </div>
           </Col>

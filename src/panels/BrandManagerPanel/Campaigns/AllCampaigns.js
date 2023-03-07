@@ -57,13 +57,21 @@ const Pagintation = () => {
                 <div className="ms-4 d-lg-flex d-xs-block">
                   <div className="align-item-center"><h6>All Campaigns({CampaignsList.length})</h6></div>
                   <div className="d-flex">
-                      <input  style={{height:"25px"}} placeholder="Search by name &#x1F50D;"/>
-                      <button 
-                        type="button" 
-                        className="btn btn-outline-dark d-flex align-items-center" 
-                        data-mdb-ripple-color="dark" 
-                        style={{fontSize:"12px",height:"25px"}}><AddIcon style={{fontSize:"12px",height:"25px"}}/>Create</button>
-                    </div>
+                      {/* <input  style={{height:"25px"}} placeholder="Search by name &#x1F50D;"/> */}
+                       <input style={{height:"25px"}}  type="text" placeholder="search for name &#x1F50D;" value={searchValue} onChange={handleSearch} />
+                        <a href='/BMNewCampaign'>
+                        <Button style={{backgroundColor:'#452c63', height:'30px', marginLeft:'5px'}}>
+                          <div style={{marginTop:"-6px"}}>
+                            Create<AddIcon style={{fontSize:"12px",height:"25px"}}/>
+                          </div>
+                        </Button></a>
+                         <a href='/BMInactiveCampaigns'>
+                         <Button style={{backgroundColor:'#452c63', height:'30px', marginLeft:'5px'}}>
+                          <div style={{marginTop:"-6px"}}>
+                            <p>Inactive campaigns</p>
+                          </div>
+                        </Button></a>
+                  </div>
                     <div className="d-flex d-xs-justify-center d-xs-align-center">
                       <button type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}><FilterList style={{fontSize:"12px",height:"25px"}} />Filter</button>
                       <button type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}><ArrowDropDown style={{fontSize:"12px",height:"25px"}} />To</button>

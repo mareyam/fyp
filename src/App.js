@@ -17,6 +17,12 @@ import InfluencerPDF from './panels/BrandManagerPanel/Reports/InfluencerPDF';
 import Login from './panels/BrandManagerPanel/Auth/Login';
 import Signup from './panels/BrandManagerPanel/Auth/Signup';
 import InfluencerPage from './panels/BrandManagerPanel/Influencers/InfluencerPage';
+import ForgotPassword from './panels/BrandManagerPanel/Auth/ForgotPassword';
+import EmailSent from './panels/BrandManagerPanel/Auth/EmailSent';
+import ResetPassword from './panels/BrandManagerPanel/Auth/ResetPassword';
+import Resetted from './panels/BrandManagerPanel/Auth/Resetted';
+
+
 
 
 const App = () => {
@@ -29,7 +35,6 @@ const App = () => {
         <Route path="/BMRegisteredInfluencers" element={<AllRegisteredInfluencers/>}/>
         <Route path="/BMAllStories" element={<AllStories/>}/>
         <Route path="/BMHashtags" element={<HashTags/>}/>
-        <Route path="/BMAllStories" element={<AllStories/>}/>
         <Route path="/BMAllPosts" element={<AllPosts/>}/>
         <Route path="/BMCampaignDetails" element={<CampaignDetails/>}/>
         <Route path="/BMCompare" element={<CompareInfluencers/>}/>
@@ -41,8 +46,12 @@ const App = () => {
         <Route path="/BMLogin" element={<Login/>}/>
         <Route path="/BMSignup" element={<Signup/>}/>
         <Route path="/BMInfluencerPage" element={<InfluencerPage/>}/>
-        
-        
+        <Route path="/BMForgotPassword" element={<ForgotPassword/>}/>
+        <Route path="/BMEmailSent" element={<EmailSent/>}/>  
+        <Route path="/BMResetPassword" element={<ResetPassword/>}/>  
+        <Route path="/BMResetted" element={<Resetted/>}/>  
+              
+
       </Routes>
   </div>
   );

@@ -17,19 +17,17 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
           pageNumbers.push(i); //number of pages i.e 3
         }
         return (
-          <nav>
+          <Col xs={12} sm={12} md={12} lg={12}>
             <ul className='pagination'>
               {pageNumbers.map(number => (
-                // <Col xs={1} sm={6} md={12} lg={12} className="mt-1" >
                   <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
                     <a onClick={() => paginate(number)} href={currentPage} className='page-link'>
                       {number}
                     </a>
                   </li>
-                // </Col>
               ))}
             </ul>
-          </nav>
+          </Col>
         );
       };
     
@@ -115,12 +113,15 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
                         </Col>
                         )})}
               </div>
+              <div xs={12} sm={12} md={12} lg={12}>
+                  <AllPosts
+                    itemsPerPage={itemsPerPage}
+                    totalItems={filteredResults.length}
+                    paginate={paginate}/>
+             </div>
         </Col>
       </div>
-      <AllPosts
-              itemsPerPage={itemsPerPage}
-              totalItems={filteredResults.length}
-              paginate={paginate}/>
+      
     </Container>  
        
   );

@@ -25,14 +25,14 @@ const RegisteredInfluencers = () => {
       <Row>
         <Col xs={12} sm={12} md={12} lg={12}>
           <div style={{display:"flex"}}>
-            <h6>Registred Inflencers ({RegisteredInfluencersList.length})</h6>
-            <input className='' style={{height:"25px"}} placeholder="Search by name" type="text" value={searchValue} onChange={handleSearch}></input>
-            <div className="" style={{display:"flex"}}><p style={{fontSize:"13px"}}>View all</p>
-            </div>
+            <h5>Registered Influencers ({RegisteredInfluencersList.length})</h5>
+            {/* <input className='' style={{height:"25px"}} placeholder="Search by name" type="text" value={searchValue} onChange={handleSearch}></input> */}
+            <a href="/BMCampaigns" className="mx-3 text-dark"><p><u>View all</u></p></a>
           </div>
         </Col>
       </Row>
-  <Row className="mx-1"> 
+      {/* style={{border:'2px solid red'}}; */}
+  <Row className="mx-1" >
     {filteredResults.map(item => (
       <Col xs={5} sm={5} md={4} lg={3} className="subContainerRI m-1">
         <Col xs={5} lg={3}><img className="imageRI" src={item.image}/></Col>

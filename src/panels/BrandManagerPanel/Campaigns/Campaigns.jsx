@@ -6,34 +6,45 @@ import AddIcon from '@material-ui/icons/Add';
 import { Container, Row, Col } from 'react-grid-system';
 import { Home, People } from '@mui/icons-material';
 import '../../../Style/BrandManagerPanel/brandManagerDashboard/campaigns.css'
+import AllCampaigns from './AllCampaigns';
+
 const Campaigns = () => {
   const sortedInfluencers = CampaignList.sort((a, b) => parseFloat(b.engagementRate) - parseFloat(a.engagementRate));
-  const [searchValue, setSearchValue] = useState('');
-  const [filteredResults, setFilteredResults] = useState(CampaignList);
-  const handleSearch = (event) => {
-    const searchText = event.target.value;
-    setSearchValue(searchText);
-    let results = CampaignList;
-    if (searchText) {
-      results = CampaignList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
-    }
-    setFilteredResults(results);
-  }
+  // const [searchValue, setSearchValue] = useState('');
+  // const [filteredResults, setFilteredResults] = useState(CampaignList);
+  // const handleSearch = (event) => {
+  //   const searchText = event.target.value;
+  //   setSearchValue(searchText);
+  //   let results = CampaignList;
+  //   if (searchText) {
+  //     results = CampaignList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+  //   }
+  //   setFilteredResults(results);
+  // }
 
   return (
       <Row style={{border:"1px solid rgb(198, 198, 198)"}}>
-        <Col xs={12} sm={12} md={6} lg={6}>
-          <div className="d-flex">
-            <h6>Active Campaigns</h6>
-            <input type="text" placeholder="search for campaign" value={searchValue} onChange={handleSearch} />
-           <Button style={{backgroundColor:'#452c63'}}>
-              <div style={{marginTop:"-6px"}}>
-                <AddIcon style={{fontSize:"15px"}}/>
-              </div>
-            </Button>
-            <a href="/BMCampaigns" className="mx-3">View all</a>
+        <Col xs={12} sm={12} md={12} lg={12}>
+          <div className="d-lg-flex mt-2">
+            <h5 className='d-sm-text-center'>Active Campaigns</h5>
+                <Button style={{backgroundColor:'#452c63', height:'30px', marginLeft:'5px'}}>
+                    <div style={{marginTop:"-6px"}}>
+                      <a href="/BMNewCampaign" className="mx-3" style={{display: 'block'}}>
+                        <p>Create<AddIcon style={{fontSize:"15px"}}/></p>
+                      </a>
+                    </div>
+                 </Button>
+                 {/* <Button style={{backgroundColor:'#452c63', height:'30px', marginLeft:'5px'}}>
+                    <div style={{marginTop:"-6px"}}>
+                      <p>Inactive campaigns</p>
+                    </div>
+                 </Button> */}
+                   <a href="/BMCampaigns" className="mx-3 text-dark"><p><u>View all</u></p></a>     
           </div>
         </Col>
+        
+
+
 
     <div className="mainContainerC" style={{display: 'flex', flexWrap: "nowrap"}}> 
       {sortedInfluencers.slice(0,20).map(item => {

@@ -109,10 +109,11 @@ const NewCampaign = () => {
       </Col>
       <div className="mt-3 mb-2 d-lg-flex d-sm-block" style={{justifyContent:'space-between'}}>
           <h5 className="pickedInfluencersNC">Picked Influencers</h5>
+          <a href='/BMRegisteredInfluencers'>
           <Button style={{backgroundColor: '#452c63'}}>
                   <AddIcon style={{ fontSize: '15px' }} />
                   Add Influencer
-          </Button>
+          </Button></a>
        </div>
            <div className="pickedInfluencers" style={{display: 'flex', flexWrap: "nowrap"}}> 
             {filteredResults.map(item => {

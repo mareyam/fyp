@@ -9,8 +9,8 @@ import { Container, Row, Col } from 'react-grid-system';
 
 const TopPerformingPosts = () => {
   return (
-    <div className="mainContainerTPP">
-    <h6>Top Performing Postss</h6>
+    <div className="mt-1">
+    <h5>Top Performing Posts</h5>
     <p style={{fontSize:"12px"}}>Posts with highest stats and public activity</p>
      <Container >
         <Row>

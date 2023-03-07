@@ -14,11 +14,7 @@ const NewCampaign = () => {
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
   const [filteredResults, setFilteredResults] = useState(RegisteredInfluencersList);
   const [selected, setSelected] = useState('single');
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
+  const [gender, setGender] = useState(null);
 
   const handleToggle = (value) => {
     setSelected(value);

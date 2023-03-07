@@ -41,14 +41,16 @@ return (
 
 
               <Col md="4" className="mb-3">
-              <label for="inputPassword5">Upload Profile Picture</label>
-              <div className="input-group mb-3">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputGroupFile02"/>
-                </div>
-                </div>
+                <>
+                    <label for="inputPassword5">Upload Profile Picture</label>
+                    <div className="input-group mb-3">
+                      <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="inputGroupFile02"/>
+                      </div>
+                    </div>
+                </>
             </Col>
-              <div className='justify-content-center align-items-center text-center'><button className="btn btn-primary " type="submit">Submit form</button></div>
+              <div className='justify-content-center align-items-center text-center'><button className="btn btn-primary " type="submit" style={{backgroundColor:'#452c63', width:'200px'}}>Submit form</button></div>
           </form>
         </div>
           </Col>
