@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
 import PR from './PR';
+import NewPRPopup from './NewPRPopup';
 
 const Hashtag = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
     const pageNumbers = [];
@@ -30,9 +31,8 @@ const PRList = () => {
   const [itemsPerPage] = useState(7);
   const [searchValue, setSearchValue] = useState('');
   const [filteredResults, setFilteredResults] = useState(PR);
-  const [selected, setSelected] = useState('active');
-  
-  
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
     const handleSearch = (event) => {
     const searchText = event.target.value;
     setSearchValue(searchText);
@@ -98,23 +98,49 @@ const PRList = () => {
     }
   };
 
+  const handleOpenPopUp = () => {
+    setIsPopUpOpen(true);
+  };
+
+  const handleClosePopUp = () => {
+    setIsPopUpOpen(false);
+  };
+
+
 return (
   <Container className='mt-1'>
       <Row>
           <Col xs={12} sm={12} md={12} lg={12} className='d-flex'>
             <h5>PR Agencies</h5>
-            <a href='/BMNewCampaign'>
-            <Button style={{backgroundColor:'#452c63', height:'30px', marginLeft:'5px'}}>
-             <div style={{marginTop:"-6px"}}>
-                Add<AddIcon style={{fontSize:"12px",height:"25px"}}/>
-              </div>
-            </Button></a>
-
+            <div className='addNewPR'>
+                  <Button style={{ backgroundColor:'#452c63', height:'30px', marginLeft:'5px' }} onClick={handleOpenPopUp}>
+                    <div style={{ marginTop:"-6px" }}>
+                      Add<AddIcon style={{ fontSize:"12px", height:"25px" }}/>
+                    </div>
+                  </Button>
+                  {isPopUpOpen && (
+                    <>
+                      <div
+                        style={{
+                          position: 'fixed',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                          zIndex: 1,
+                        }}
+                        onClick={handleClosePopUp}
+                      />
+                      <NewPRPopup onClose={handleClosePopUp} />
+                    </>
+                  )}
+            </div>
           </Col>
           <Col>
           <div className="tablee">
-            <table class="table">
-              <thead class="thead-dark">
+            <table className="table">
+              <thead className="thead-dark">
                 <tr>
                     <th className="">Name</th>
                     <th className="" scope="col">Email</th>

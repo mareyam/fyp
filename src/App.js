@@ -24,7 +24,7 @@ import Resetted from './panels/BrandManagerPanel/Auth/Resetted';
 
 import AdminLogin from './panels/AdminPanel/Auth/Login';
 import PRList from './panels/AdminPanel/PRList/PRList';
-
+import NewPRPopup from './panels/AdminPanel/PRList/NewPRPopup';
 
 
 const App = () => {
@@ -54,7 +54,8 @@ const App = () => {
         <Route path="/BMResetted" element={<Resetted/>}/>  
         <Route path="/AdminLogin" element={<AdminLogin/>}/>
         <Route path="/PRList" element={<PRList/>}/>
-
+        <Route path="/NewPRPopup" element={<NewPRPopup/>}/>
+        
       </Routes>
   </div>
   );
