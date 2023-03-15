@@ -25,21 +25,16 @@ const Campaigns = () => {
   return (
       <Row style={{border:"1px solid rgb(198, 198, 198)"}}>
         <Col xs={12} sm={12} md={12} lg={12}>
-          <div className="d-lg-flex mt-2">
+          <div className='campaignsHeadersC d-lg-flex mt-2'>
             <h5 className='d-sm-text-center'>Active Campaigns</h5>
-                <Button style={{backgroundColor:'#452c63', height:'30px', marginLeft:'5px'}}>
+               <Button style={{backgroundColor:'#452c63', height:'30px', marginLeft:'5px'}}>
                     <div style={{marginTop:"-6px"}}>
                       <a href="/BMNewCampaign" className="mx-3" style={{display: 'block'}}>
-                        <p>Create<AddIcon style={{fontSize:"15px"}}/></p>
+                        <p>Create<AddIcon className='AddIcon' style={{fontSize:"15px"}}/></p>
                       </a>
                     </div>
                  </Button>
-                 {/* <Button style={{backgroundColor:'#452c63', height:'30px', marginLeft:'5px'}}>
-                    <div style={{marginTop:"-6px"}}>
-                      <p>Inactive campaigns</p>
-                    </div>
-                 </Button> */}
-                   <a href="/BMCampaigns" className="mx-3 text-dark"><p><u>View all</u></p></a>     
+                <a href="/BMCampaigns" className="mx-3 text-dark"><p><u>View all</u></p></a>
           </div>
         </Col>
         

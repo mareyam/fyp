@@ -7,11 +7,7 @@ import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons
 import Card from 'react-bootstrap/Card';
 import LaunchIcon from '@mui/icons-material/Launch';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
-import Accordion from 'react-bootstrap/Accordion';
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
-import InputRange from 'react-input-range';
-
+import Filters from './Filters';
 
 const AllCampaigns = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];
@@ -60,15 +56,19 @@ const Pagintation = () => {
     <Container >
       <Row>
          <Col xs={8} sm={8} md={12} lg={2}>
-            <div style={{border:'2px solid red'}}>
-              <h6>Filters</h6>
-              <AllCollapseExample/>
-            </div>
+          <div >
+            <h3 style={{textAlign:'center'}}>Filters</h3>
+            <Filters/>
+          </div>
           </Col>
           <Col xs={8} sm={8} md={12} lg={10}>
-          <div style={{display:"flex"}}><ArrowBack/>
-          <h5 className='campaignHeaderAC' >CAMPAIGNS</h5></div>
+        
 
+                
+
+                <Row className="mainContainerARI ms-4">
+                <div style={{display:"flex"}}><ArrowBack/>
+                <h3 className='campaignHeaderAC' >Campaigns</h3></div>
                 <div className="ms-4 d-lg-flex d-xs-block" >
                   <div className="align-item-center"><h6>All Campaigns({RegisteredInfluencersList.length})</h6></div>
                   <div className="d-flex">
@@ -87,34 +87,33 @@ const Pagintation = () => {
                       <button type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}><ArrowDropDown style={{fontSize:"12px",height:"25px"}} />From</button>
                     </div>
                 </div>
-
-                <Row className="mainContainerARI ms-4">
-    {currentItems.map(item => {
-    return (
-      <Col xs={8} sm={8} md={2} lg={2} className="subContainerARI mx-3 my-3">
-      <Card style={{ height: "100%", width:"200px"}}>
-        <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={item.image} />
-        <Card.Body className="d-flex flex-column">
-          <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ fontFamily: 'Oswald' }}>
-            <h6 style={{ fontWeight: "bolder", fontSize: "20px" }}>{item.name}</h6>
-            <p style={{fontSize: '13px'}}>@{item.userName}</p>
-            <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followers}K</p>
-            <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
-              <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
-              <LaunchIcon style={{ fontSize: "12px", height: "25px" }} />
-            </button>
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    </Col>
-    )})}
-    
-    <AllCampaigns
-        itemsPerPage={itemsPerPage}
-        totalItems={filteredResults.length}
-        paginate={paginate}
-      />
-        </Row>
+                  {currentItems.map(item => {
+                  return (
+                    <Col xs={8} sm={8} md={2} lg={2} className="subContainerARI mx-3 my-3">
+                    <Card style={{ height: "100%", width:"200px"}}>
+                      <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={item.image} />
+                      <Card.Body className="d-flex flex-column">
+                        <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ fontFamily: 'Oswald' }}>
+                          <h6 style={{ fontWeight: "bolder", fontSize: "20px" }}>{item.name}</h6>
+                          <p style={{fontSize: '13px'}}>@{item.userName}</p>
+                          <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followers}K</p>
+                          <a href='instagram.com'>
+                          <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
+                            <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
+                            <LaunchIcon style={{ fontSize: "12px", height: "25px" }} />
+                          </button></a>
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                  )})}
+                  
+              <AllCampaigns
+                  itemsPerPage={itemsPerPage}
+                  totalItems={filteredResults.length}
+                  paginate={paginate}
+                />
+           </Row>
          </Col> 
       </Row>
   </Container>     
@@ -123,137 +122,6 @@ const Pagintation = () => {
 
 export default Pagintation;
 
-
-function AllCollapseExample() {
-  return (
-    <Accordion>
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Select Gender</Accordion.Header>
-        <Accordion.Body>
-          <GenderCheckbox/>  
-        </Accordion.Body>
-      </Accordion.Item>
-      <Accordion.Item eventKey="1">
-        <Accordion.Header>Parents?</Accordion.Header>
-        <Accordion.Body>
-          <ParentCheckbox/>
-        </Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-
-
-function GenderCheckbox() {
-  const [gender, setGender] = useState('');
-
-  const handleGenderCheckbox = (e) => {
-    setGender(e.target.value);
-  };
-
-  return (
-    <div>
-      <label>
-        <input
-          type="checkbox"
-          value="male"
-          checked={gender === 'male'}
-          onChange={handleGenderCheckbox}
-        />
-        Male
-      </label><br/>
-      <label>
-        <input
-          type="checkbox"
-          value="female"
-          checked={gender === 'female'}
-          onChange={handleGenderCheckbox}
-        />
-        Female
-      </label>
-    </div>
-  );
-}
-
-function ParentCheckbox() {
-  const [isParent, setIsParent] = useState(false);
-  const [childrenCount, setChildrenCount] = useState(0);
-   const [childAge, setChildAge] = useState("");
-   const [values, setValues] = useState({ min: 0, max: 100 });
-
-
-  const handleParentCheckbox = (e) => {
-    setIsParent(e.target.checked);
-  }
-
-  const handleChildrenCountAdd = () => {
-    setChildrenCount(childrenCount + 1);
-  }
-
-  const handleChildrenCountMinus = () => {
-    if (childrenCount == 0)
-      childrenCount = 0;
-    setChildrenCount(childrenCount - 1);
-  }
-
-   function handleChildAge(event) {
-    setChildAge(event.target.value);
-  }
-
-  const handleChange = (values) => {
-    setValues(values);
-  };
-
-
-  return (
-    <div>
-      <div>
-        <label> 
-          <input type='checkbox' onChange={handleParentCheckbox} />
-          Are you a parent?
-        </label>
-      </div>
-
-      <div>
-        <div>How many children do you have?</div>
-        <div>
-          <AddCircleOutlineRoundedIcon onClick={handleChildrenCountAdd}/>
-          {childrenCount}
-          <RemoveCircleOutlineRoundedIcon onClick={handleChildrenCountMinus}/>
-        </div>
-      </div>
-      <div>
-        <div>Children age group?</div>
-        <div>
-           <select value={childAge} onChange={handleChildAge}>
-              <option value=''></option>
-              <option value=''>0-12 months old</option>
-              <option value=''>1-2 years old</option>
-              <option value=''>3-6 years old</option>
-              <option value=''>7-12 years old</option>
-              <option value=''>13-18 years old</option>
-              <option value=''>Adult years old</option>
-           </select>
-           <p>selected is {childAge} </p>
-        </div>
-      </div>
-      <div>
-      <InputRange
-        minValue={0}
-        maxValue={100}
-        value={values}
-        onChange={handleChange}
-        draggableTrack
-        allowSameValues
-      />
-      <p>Min: {values.min}</p>
-      <p>Max: {values.max}</p>
-      </div>
-
-
-    </div>
-  )
-}
 
 
 

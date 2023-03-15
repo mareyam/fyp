@@ -22,6 +22,8 @@ import EmailSent from './panels/BrandManagerPanel/Auth/EmailSent';
 import ResetPassword from './panels/BrandManagerPanel/Auth/ResetPassword';
 import Resetted from './panels/BrandManagerPanel/Auth/Resetted';
 
+import AdminLogin from './panels/AdminPanel/Auth/Login';
+import PRList from './panels/AdminPanel/PRList/PRList';
 
 
 
@@ -50,7 +52,8 @@ const App = () => {
         <Route path="/BMEmailSent" element={<EmailSent/>}/>  
         <Route path="/BMResetPassword" element={<ResetPassword/>}/>  
         <Route path="/BMResetted" element={<Resetted/>}/>  
-              
+        <Route path="/AdminLogin" element={<AdminLogin/>}/>
+        <Route path="/PRList" element={<PRList/>}/>
 
       </Routes>
   </div>

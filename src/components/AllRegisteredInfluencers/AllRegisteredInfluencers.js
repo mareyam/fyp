@@ -7,6 +7,7 @@ import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons
 import Card from 'react-bootstrap/Card';
 import LaunchIcon from '@mui/icons-material/Launch';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import NumbersIcon from '@mui/icons-material/Numbers';
 
 const AllCampaigns = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];

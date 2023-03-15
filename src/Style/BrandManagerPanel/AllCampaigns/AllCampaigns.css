@@ -53,4 +53,13 @@
     white-space: normal;
   }
 
+  @media (max-width: 425px) {
+    .compareInfluencersC {
+        font-size: 18px;  
+        text-align: center;
+    }
+    .budget h6{
+       font-size: 13px; 
+    }
+  }
   

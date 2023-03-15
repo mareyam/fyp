@@ -24,9 +24,8 @@ const RegisteredInfluencers = () => {
     <div className='mainContainerRI'>
       <Row>
         <Col xs={12} sm={12} md={12} lg={12}>
-          <div style={{display:"flex"}}>
-            <h5>Registered Influencers ({RegisteredInfluencersList.length})</h5>
-            {/* <input className='' style={{height:"25px"}} placeholder="Search by name" type="text" value={searchValue} onChange={handleSearch}></input> */}
+          <div className='mainContainerHeadersRI'style={{display:"flex"}}>
+            <h5 className=''>Registered Influencers ({RegisteredInfluencersList.length})</h5>
             <a href="/BMCampaigns" className="mx-3 text-dark"><p><u>View all</u></p></a>
           </div>
         </Col>
