@@ -1,0 +1,97 @@
+
+
+const PendingCampaignsList = [
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'pending',        
+    }, 
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'pending',        
+    }, 
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'pending',        
+    }, 
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'pending',        
+    }, 
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'pending',        
+    }, 
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'pending',        
+    }, 
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'pending',        
+    }, 
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'pending',        
+    }, 
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'pending',        
+    }, 
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'active',        
+    }, 
+    , 
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'active',        
+    }, 
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'active',        
+    }, 
+    {
+        brandName: 'coke',
+        hashtag:'coke',
+        type:'story',
+        cost: '25,000',
+        status: 'active',        
+    }, 
+]
+export default PendingCampaignsList;

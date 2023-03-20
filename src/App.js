@@ -26,6 +26,23 @@ import AdminLogin from './panels/AdminPanel/Auth/Login';
 import PRList from './panels/AdminPanel/PRList/PRList';
 import NewPRPopup from './panels/AdminPanel/PRList/NewPRPopup';
 
+import PRLogin from './panels/PRAgency/Auth/Login';
+import PRSignup from './panels/PRAgency/Auth/Signup';
+import PRForgotPassword from './panels/PRAgency/Auth/ForgotPassword';
+import PREmailSent from './panels/PRAgency/Auth/EmailSent';
+import PRResetPassword from './panels/PRAgency/Auth/ResetPassword';
+import PRResetted from './panels/PRAgency/Auth/Resetted';
+import BMList from './panels/PRAgency/BrandManagerList/BMList';
+import NewBMPopup from './panels/PRAgency/BrandManagerList/NewBMPopup';
+
+import InfluencerLogin from './panels/InfluencerPanel/Auth/InfluencerLogin';
+import InfluencerSignup from './panels/InfluencerPanel/Auth/InfluencerSignup';
+import InfluencerRegDetails from './panels/InfluencerPanel/Auth/InfluencerRegDetails';
+import InfluencerRegDetails2 from './panels/InfluencerPanel/Auth/InfluencerRegDetails2';
+import InfluencerRegDetails3 from './panels/InfluencerPanel/Auth/InfluencerRegDetails3';
+import InfluencerPosts from './panels/InfluencerPanel/PostsStories/InfluencerPosts';
+import InfluencerDashboard from './panels/InfluencerPanel/PostsStories/InfluencerDashboard';
+import PendingCampaigns from './panels/InfluencerPanel/Campaigns/PendingCampaigns';
 
 const App = () => {
   return (
@@ -55,6 +72,26 @@ const App = () => {
         <Route path="/AdminLogin" element={<AdminLogin/>}/>
         <Route path="/PRList" element={<PRList/>}/>
         <Route path="/NewPRPopup" element={<NewPRPopup/>}/>
+
+        <Route path="/PRLogin" element={<PRLogin/>}/>
+        <Route path="/PRSignup" element={<PRSignup/>}/>
+        <Route path="/PRForgotPassword" element={<PRForgotPassword/>}/>
+        <Route path="/PREmailSent" element={<PREmailSent/>}/>  
+        <Route path="/PRResetPassword" element={<PRResetPassword/>}/>  
+        <Route path="/PRResetted" element={<PRResetted/>}/>  
+        <Route path="/BMList" element={<BMList/>}/>
+        <Route path="/NewBMPopup" element={<NewBMPopup/>}/>
+
+        <Route path="/InfluencerLogin" element={<InfluencerLogin/>}/>
+        <Route path="/InfluencerSignup" element={<InfluencerSignup/>}/>
+        <Route path="/InfluencerRegDetails" element={<InfluencerRegDetails/>}/>
+        <Route path="/InfluencerRegDetails2" element={<InfluencerRegDetails2/>}/>
+        <Route path="/InfluencerRegDetails3" element={<InfluencerRegDetails3/>}/>
+        <Route path="/InfluencerPosts" element={<InfluencerPosts/>}/>
+        <Route path="/InfluencerDashboard" element={<InfluencerDashboard/>}/>
+        <Route path="/InfluencerPendingCampaigns" element={<PendingCampaigns/>}/>
+        
+ 
         
       </Routes>
   </div>

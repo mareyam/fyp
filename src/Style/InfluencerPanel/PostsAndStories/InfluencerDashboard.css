@@ -1,0 +1,36 @@
+.storyImageIPIP {
+    height: 125px;
+    width: 150px;
+    object-fit: cover;
+
+}
+.imageIPIP {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.subContainerIPIP {
+    /* height: auto;
+    width: auto; */
+    border: 1px solid rgb(198, 198, 198);
+    margin-left: 5%;
+    /* width: 100%;
+    overflow: hidden; */
+}
+.influencerImage {
+    height: 150px;
+    width:100%;
+    object-fit:fill;
+    border: 2px solid;
+}
+button a {
+color: white;
+text-decoration: none;
+}
+.influencerImageLinkIPIP {
+    text-decoration: none;
+    outline: none;
+}
+.header1IPIP{ 
+    margin-left: 5%;
+}

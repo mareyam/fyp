@@ -14,7 +14,7 @@ return (
             <img style={{width: '100%', objectFit:'cover'}}src={authAbstract} />
           </Col>
           <Col xs={12} sm={12} md={12} lg={6}>
-          <div className='text-left justify-content-center align-center d-lg-mt-5'><h4 className='text-center'>Brand Manager's Signup</h4>
+          <div className='text-left justify-content-center align-center d-lg-mt-5'><h4 className='text-center'>PR Agency's Signup</h4>
             <form className="needs-validation" noValidate>
               <Col md="4" className="mb-3">
                 <label htmlFor="validationTooltip01" style={{textAlign:'left'}}>Email</label>
