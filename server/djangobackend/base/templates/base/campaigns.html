@@ -1,0 +1,21 @@
+<h1>home heh</h1>
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>home</h1>
+
+<div>
+    <a href="{% url 'create-campaign' %}">create campaign</a>
+<div>
+    {% for campaign in campaigns %}
+    <div>
+        <a href="{% url 'update-campaign' campaign.id%}">update campaign</a>
+        <a href="{% url 'delete-campaign' campaign.id%}">delete campaign</a>
+        <h5>{{campaign.id}} -- <a href="{% url 'campaign' campaign.id %}">{{campaign.name}}</a></h5>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock content %}
+
