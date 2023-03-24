@@ -6,6 +6,7 @@
 <h1>home</h1>
 
 <div>
+    <h6>{{room_count}}rooms available</h6>
     <a href="{% url 'create-room' %}">create room</a>
 <div>
     {% for room in rooms %}

@@ -8,7 +8,6 @@ urlpatterns = [
     path('update-room/<str:pk>/', views.updateRoom, name='update-room'),
     path('delete-room/<str:pk>/', views.deleteRoom, name='delete-room'),
    
-
     path('campaigns/', views.campaigns, name="campaigns"), 
     path('campaign/<str:pk>/', views.campaign, name="campaign"),   
     path('create-campaign/', views.createCampaign, name='create-campaign'),

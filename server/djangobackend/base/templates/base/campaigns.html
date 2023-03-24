@@ -6,6 +6,7 @@
 <h1>home</h1>
 
 <div>
+    <h6>{{campaign_count}}campaigns available</h6>
     <a href="{% url 'create-campaign' %}">create campaign</a>
 <div>
     {% for campaign in campaigns %}

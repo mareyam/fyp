@@ -1,32 +1,25 @@
 from django.shortcuts import render, redirect
 
-from .models import Room
+from .models import Room, Topic
 from .models import Campaign
 
 from .forms import RoomForm
 from .forms import CampaignForm
 
 
-# Create your views here.
-rooms = [
-    {'id':1, 'name': 'lets learn python'},
-    {'id':2, 'name': 'python'},
-    {'id':3, 'name': 'lets '},
-]
 
-campaignsList = [
-    {'id':1, 'name': 'lets learn python'},
-    {'id':2, 'name': 'python'},
-    {'id':3, 'name': 'lets '},
-]
+# Create your views here.
+
 def home(request):
     rooms = Room.objects.all()
-    context = {'rooms':rooms}
+    room_count = rooms.count()
+    context = {'rooms':rooms, 'room_count': room_count}
     return render(request, 'base/home.html', context)
 
 def campaigns(request):
     campaigns = Campaign.objects.all()
-    context = {'campaigns':campaigns}
+    campaign_count = campaigns.count()
+    context = {'campaigns':campaigns, 'campaigns':campaigns}
     return render(request, 'base/campaigns.html', context)
 
 def room(request,pk):
@@ -92,10 +85,10 @@ def updateCampaign(request,pk):
     return render(request, 'base/campaign_form.html', context)
 
 def deleteCampaign(request,pk):
-    campaign = Room.objects.get(id=pk)
+    campaign = Campaign.objects.get(id=pk)
     if request.method == "POST":
         campaign.delete()
-        return redirect('home')
+        return redirect('campaigns')
     return render(request, 'base/campaign_form.html', {'obj':campaign})
 
 
