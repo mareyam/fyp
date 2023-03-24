@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect
 
 from .models import Room, Topic
 from .models import Campaign
+from .models import Influencer
+
 
 from .forms import RoomForm
 from .forms import CampaignForm
+from .forms import InfluencerForm
+
 
 
 
@@ -22,6 +26,13 @@ def campaigns(request):
     context = {'campaigns':campaigns, 'campaigns':campaigns}
     return render(request, 'base/campaigns.html', context)
 
+def influencers(request):
+    influencers = Campaign.objects.all()
+    influencer_count = influencers.count()
+    context = {'influencers':influencers, 'influencers':influencers}
+    return render(request, 'base/influencers.html', context)
+
+
 def room(request,pk):
     room = Room.objects.get(id=pk)
     context = {'room':room}
@@ -32,6 +43,7 @@ def campaign(request,pk):
     campaign = Campaign.objects.get(id=pk)
     context = {'campaign':campaign}
     return render(request, 'base/campaign.html',context)
+
 
 def createRoom(request):
     form = RoomForm()
@@ -90,6 +102,22 @@ def deleteCampaign(request,pk):
         campaign.delete()
         return redirect('campaigns')
     return render(request, 'base/campaign_form.html', {'obj':campaign})
+
+def influencers(request):
+    campaigns = Campaign.objects.all()
+    campaign_count = campaigns.count()
+    context = {'campaigns':campaigns, 'campaigns':campaigns}
+    return render(request, 'base/influencers.html', context)
+
+def createInfluencer(request):
+    form = CampaignForm()
+    if request.method == 'POST':
+        form = CampaignForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('influencers')
+    context = {'form':form}
+    return render(request, 'base/influencer_form.html', context)
 
 
 # def campaigns(request):

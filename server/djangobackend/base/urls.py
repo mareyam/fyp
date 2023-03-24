@@ -13,6 +13,8 @@ urlpatterns = [
     path('create-campaign/', views.createCampaign, name='create-campaign'),
     path('update-campaign/<str:pk>/', views.updateCampaign, name='update-campaign'),
     path('delete-campaign/<str:pk>/', views.deleteCampaign, name='delete-campaign'),
-    
+
+    path('influencers/', views.influencers, name="influencers"), 
+    path('create-influencer/', views.createInfluencer, name='create-influencer'),
 
 ]
