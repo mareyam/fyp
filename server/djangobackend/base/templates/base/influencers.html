@@ -13,7 +13,7 @@
     <div>
         <a href="{% url 'update-influencer' influencer.id%}">update influencer</a>
         <a href="{% url 'delete-influencer' influencer.id%}">delete influencer</a>
-        <h5>{{influencer.id}} -- <a href="{% url 'influencer' influencer.id %}">{{influencer.name}}</a></h5>
+        <h5>{{influencer.id}} -- <a href="{% url 'influencer' influencer.id %}">{{influencer.influencerFullName}}</a></h5>
     </div>
     {% endfor %}
 </div>

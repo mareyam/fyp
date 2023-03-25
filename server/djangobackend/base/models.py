@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django import forms
 
 
 # Create your models here.
@@ -71,6 +72,21 @@ class Campaign(models.Model):
    
 
 class Influencer(models.Model):
+    influencerInterest_choices = (
+         ("Fashion", "Fashion"),
+         ("Gaming", "Gaming"),
+         ("Food", "Food"),
+         ("Entertainment", "Entertainment"),
+         ("Family", "Family"),
+         ("Gaming", "Gaming"),
+         
+     )
+    SOME_CHOICES = (
+    ('yes', 'Yes'),
+    ('no', 'No'),
+    ('cancelled', 'Cancelled'),
+    )
+    
     influencerUsername = models.CharField(max_length=20, unique=True, blank=False, null=False)
     influencerFullName = models.CharField(max_length=200)
     influencerBio =  models.TextField(null=True, blank=True)
@@ -85,3 +101,41 @@ class Influencer(models.Model):
     #influencerFollowerCount
     #influencerFollowingCount
     #influencerPostCount
+    
+    # my_field = forms.MultipleChoiceField(choices=influencerInterest_choices, widget=forms.CheckboxSelectMultiple())
+    # def clean_my_field(self):
+    #     if len(self.cleaned_data['my_field']) > 3:
+    #         raise forms.ValidationError('Select no more than 3.')
+    #     return self.cleaned_data['my_field']
+
+
+class BrandManager(models.Model):   
+    host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    brandmanager_name = models.CharField(max_length=200)
+    brandmanager_username = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    password = models.CharField(max_length=200)
+    phone_number = models.IntegerField(blank=True, null=True)
+    # pfp
+    # email
+    updated = models.DateTimeField(auto_now = True)
+    created = models.DateTimeField(auto_now_add = True)
+    
+    class Meta:
+        ordering = ['-updated', '-created']
+        
+    def __str__(self):
+        return self.name
+
+class Brand(models.Model):
+    brandmanager_name = models.ForeignKey(BrandManager.brandmanager_name, on_delete=models.SET_NULL, unique=True, blank=False, null=False)
+    brand_name = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    campaigns_done = models.CharField(max_length=20, unique=True, blank=False, null=False)
+
+class Admin(models.Model):
+    admin_username:models.CharField(max_length=20, unique=True, blank=False, null=False)
+    # admin_password:
+
+class PRAgency(models.Model):
+    pragency_username:models.CharField(max_length=20, unique=True, blank=False, null=False)
+    # pragency_password:
+

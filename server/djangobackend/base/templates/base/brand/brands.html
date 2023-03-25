@@ -1,0 +1,20 @@
+<h1>brands heh</h1>
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>
+    <h6>{{brand_count}}brands available</h6>
+    <a href="{% url 'create-brand' %}">create brand</a>
+<div>
+    {% for brand in brands %}
+    <div>
+        <a href="{% url 'update-brand' brand.id%}">update brand</a>
+        <a href="{% url 'delete-brand' brand.id%}">delete brand</a>
+        <h5>{{brand.id}} -- <a href="{% url 'brand' brand.id %}">{{brand.name}}</a></h5>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock content %}
+

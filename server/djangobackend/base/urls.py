@@ -16,5 +16,14 @@ urlpatterns = [
 
     path('influencers/', views.influencers, name="influencers"), 
     path('create-influencer/', views.createInfluencer, name='create-influencer'),
+    path('influencer/<str:pk>/', views.influencer, name="influencer"),   
+    path('update-influencer/<str:pk>/', views.updateInfluencer, name='update-influencer'),
+    path('delete-influencer/<str:pk>/', views.deleteInfluencer, name='delete-influencer'),
+
+    path('brands/', views.brands, name="brands"), 
+    path('create-brand/', views.createBrand, name='create-brand'),
+    path('brand/<str:pk>/', views.brand, name="brand"),   
+    path('update-brand/<str:pk>/', views.updateBrand, name='update-brand'),
+    path('delete-brand/<str:pk>/', views.deleteBrand, name='delete-brand'),
 
 ]
