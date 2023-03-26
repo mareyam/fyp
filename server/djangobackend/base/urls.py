@@ -26,4 +26,10 @@ urlpatterns = [
     path('update-brand/<str:pk>/', views.updateBrand, name='update-brand'),
     path('delete-brand/<str:pk>/', views.deleteBrand, name='delete-brand'),
 
+    path('brandmanagers/', views.brandManagers, name="brandmanagers"), 
+    path('create-brandmanager/', views.createBrand, name='create-brandmanager'),
+    path('brandmanager/<str:pk>/', views.brandManager, name="brandmanager"),   
+    path('update-brandmanager/<str:pk>/', views.updateBrandManager, name='update-brandmanager'),
+    path('delete-brandmanager/<str:pk>/', views.deleteBrandManager, name='delete-brandmanager'),
+
 ]

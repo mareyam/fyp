@@ -1,10 +1,9 @@
 from django.forms import ModelForm
 from .models import Room
 from .models import Campaign
-from .models import Influencer
 from .models import Brand
-
-
+from .models import BrandManager
+from .models import Influencer
 
 class RoomForm(ModelForm):
     class Meta:
@@ -24,4 +23,9 @@ class InfluencerForm(ModelForm):
 class BrandForm(ModelForm):
     class Meta:
         model = Brand
+        fields = '__all__'
+        
+class BrandManagerForm(ModelForm):
+    class Meta:
+        model = BrandManager
         fields = '__all__'

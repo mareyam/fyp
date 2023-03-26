@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect
 
 from .models import Room, Topic
 from .models import Campaign
+from .models import Brand, BrandManager
 from .models import Influencer
-
 
 from .forms import RoomForm
 from .forms import CampaignForm
+from .forms import BrandForm, BrandManagerForm
 from .forms import InfluencerForm
 
 
@@ -97,6 +98,91 @@ def deleteCampaign(request,pk):
     return render(request, 'base/campaign_form.html', {'obj':campaign})
 
 
+
+
+def brand(request,pk):
+    brand = Brand.objects.get(id=pk)
+    context = {'brand':brand}
+    return render(request, 'base/brand/brand.html',context)
+
+
+def brands(request):
+    brands = Brand.objects.all()
+    brand_count = brands.count()
+    context = {'brands':brands, 'brands':brands}
+    return render(request, 'base/brand/brands.html', context)
+
+def createBrand(request):
+    form = BrandForm()
+    if request.method == 'POST':
+        form = BrandForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('brands')
+    context = {'form':form}
+    return render(request, 'base/brand/brand_form.html', context)
+
+def updateBrand(request,pk):
+    brand = Brand.objects.get(id=pk)
+    form = BrandForm(instance=brand)
+    if request.method == "POST":
+        form = BrandForm(request.POST, instance=brand)
+        if form.is_valid():
+            form.save()
+            return redirect('brands')
+    context = {'form':form}
+    return render(request, 'base/brand/brand_form.html', context)
+
+def deleteBrand(request,pk):
+    brand = Brand.objects.get(id=pk)
+    if request.method == "POST":
+        brand.delete()
+        return redirect('brands')
+    return render(request, 'base/brand/brand_form.html', {'obj':brand})
+
+
+
+def brandManager(request,pk):
+    brandManager = BrandManager.objects.get(id=pk)
+    context = {'brandManager':brandManager}
+    return render(request, 'base/brandManager/brandManager.html',context)
+
+
+def brandManagers(request):
+    brandManagers = BrandManager.objects.all()
+    brandManager_count = brandManagers.count()
+    context = {'brandManagers':brandManagers, 'brandManagers':brandManagers}
+    return render(request, 'base/brand/brandManagers.html', context)
+
+def createBrandManager(request):
+    form = BrandManagerForm()
+    if request.method == 'POST':
+        form = BrandManagerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('brandManagers')
+    context = {'form':form}
+    return render(request, 'base/brandManager/brandManager_form.html', context)
+
+def updateBrandManager(request,pk):
+    brandManager = BrandManager.objects.get(id=pk)
+    form = BrandManagerForm(instance=brandManager)
+    if request.method == "POST":
+        form = BrandManagerForm(request.POST, instance=brandManager)
+        if form.is_valid():
+            form.save()
+            return redirect('brandManagers')
+    context = {'form':form}
+    return render(request, 'base/brandManager/brandManager_form.html', context)
+
+def deleteBrandManager(request,pk):
+    brandManager = BrandManager.objects.get(id=pk)
+    if request.method == "POST":
+        brandManager.delete()
+        return redirect('brandManagers')
+    return render(request, 'base/brandManager/brandManager_form.html', {'obj':brandManager})
+
+
 def influencer(request,pk):
     influencer = Influencer.objects.get(id=pk)
     context = {'influencer':influencer}
@@ -138,45 +224,7 @@ def deleteInfluencer(request,pk):
     return render(request, 'base/influencer_form.html', {'obj':influencer})
 
 
-def brand(request,pk):
-    brand = Brand.objects.get(id=pk)
-    context = {'brand':brand}
-    return render(request, 'base/brand.html',context)
 
-
-def brands(request):
-    brands = Brand.objects.all()
-    brand_count = brands.count()
-    context = {'brands':brands, 'brands':brands}
-    return render(request, 'base/brands.html', context)
-
-def createBrand(request):
-    form = BrandForm()
-    if request.method == 'POST':
-        form = BrandForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('brands')
-    context = {'form':form}
-    return render(request, 'base/brand_form.html', context)
-
-def updateBrand(request,pk):
-    brand = Brand.objects.get(id=pk)
-    form = BrandForm(instance=brand)
-    if request.method == "POST":
-        form = BrandForm(request.POST, instance=brand)
-        if form.is_valid():
-            form.save()
-            return redirect('brands')
-    context = {'form':form}
-    return render(request, 'base/brand_form.html', context)
-
-def deleteBrand(request,pk):
-    brand = Brand.objects.get(id=pk)
-    if request.method == "POST":
-        brand.delete()
-        return redirect('brands')
-    return render(request, 'base/brand_form.html', {'obj':brand})
 # def campaigns(request):
 #     context = {'campaigns':campaigns}
 #     return render(request, 'base/campaigns.html', context)
@@ -188,4 +236,5 @@ def deleteBrand(request,pk):
 #             campaign = i
 #     context = {'campaign':campaign}
 #     return render(request, 'base/campaign.html', context)
+
 
