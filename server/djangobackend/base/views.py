@@ -4,17 +4,12 @@ from .models import Room, Topic
 from .models import Campaign
 from .models import Brand, BrandManager
 from .models import Influencer
-from .models import SampleModel
 
 
 from .forms import RoomForm
 from .forms import CampaignForm
 from .forms import BrandForm, BrandManagerForm
 from .forms import InfluencerForm
-from .forms import SampleModelForm
-
-
-
 
 # Create your views here.
 
@@ -28,12 +23,6 @@ def room(request,pk):
     room = Room.objects.get(id=pk)
     context = {'room':room}
     return render(request, 'base/room.html',context)
-
-def sampleModel(request):
-    sampleModels = SampleModel.objects.all()
-    sampleModel_count = sampleModels.count()
-    context = {'sampleModels':sampleModels, 'sampleModel_count': sampleModel_count}
-    return render(request, 'base/samplemodel.html', context)
 
 
 def campaign(request,pk):
@@ -203,6 +192,7 @@ def influencers(request):
     influencer_count = influencers.count()
     context = {'influencers':influencers, 'influencers':influencers}
     return render(request, 'base/influencers.html', context)
+
 
 def createInfluencer(request):
     form = InfluencerForm()

@@ -48,7 +48,7 @@ class SampleModel(models.Model):
         ordering = ['-updated', '-created']
     
     def __str__(self):
-        return self.body
+        return self.user
 
 class Campaign(models.Model):    
     campaignType_choices = (
@@ -105,7 +105,6 @@ class Influencer(models.Model):
     influencerFollowerCount = models.IntegerField(blank=True, null=True)
     influencerFollowingCount = models.IntegerField(blank=True, null=True)
     influencerPostCount = models.IntegerField(blank=True, null=True)
-
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -146,29 +145,29 @@ class Brand(models.Model):
     def __str__(self):
         return self.brand_name
 
-class Admin(models.Model):
-    admin_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
-    # admin_password:
-    updated = models.DateTimeField(auto_now = True)
-    created = models.DateTimeField(auto_now_add = True)
+# class Admin(models.Model):
+#     admin_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
+#     # admin_password:
+#     updated = models.DateTimeField(auto_now = True)
+#     created = models.DateTimeField(auto_now_add = True)
 
-    class Meta:
-        ordering = ['-updated', '-created']
+#     class Meta:
+#         ordering = ['-updated', '-created']
         
-    def __str__(self):
-        return self.admin_username
+#     def __str__(self):
+#         return self.admin_username
     
 
-class PRAgency(models.Model):
-    pragency_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
-    # pragency_password:
-    updated = models.DateTimeField(auto_now = True)
-    created = models.DateTimeField(auto_now_add = True)
-    class Meta:
-        ordering = ['-updated', '-created']
+# class PRAgency(models.Model):
+#     pragency_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
+#     # pragency_password:
+#     updated = models.DateTimeField(auto_now = True)
+#     created = models.DateTimeField(auto_now_add = True)
+#     class Meta:
+#         ordering = ['-updated', '-created']
         
-    def __str__(self):
-        return self.pragency_username
+#     def __str__(self):
+#         return self.pragency_username
 
 
 
