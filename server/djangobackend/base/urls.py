@@ -14,6 +14,8 @@ urlpatterns = [
     path('update-campaign/<str:pk>/', views.updateCampaign, name='update-campaign'),
     path('delete-campaign/<str:pk>/', views.deleteCampaign, name='delete-campaign'),
 
+    path('sample-model/', views.sampleModel, name="sample-model"), 
+    
     path('influencers/', views.influencers, name="influencers"), 
     path('create-influencer/', views.createInfluencer, name='create-influencer'),
     path('influencer/<str:pk>/', views.influencer, name="influencer"),   

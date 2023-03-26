@@ -24,6 +24,7 @@ class Room(models.Model):
         
     def __str__(self):
         return self.name
+    
 
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -36,26 +37,36 @@ class Message(models.Model):
         ordering = ['-updated', '-created']
     
     def __str__(self):
-        return self.name
+        return self.body
     
+class SampleModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    updated = models.DateTimeField(auto_now = True)
+    created = models.DateTimeField(auto_now_add = True)
+
+    class Meta:
+        ordering = ['-updated', '-created']
+    
+    def __str__(self):
+        return self.body
 
 class Campaign(models.Model):    
     campaignType_choices = (
-         ("Periodic", "Periodic"),
-         ("Single", "Single"),
-     )
+        ("Periodic", "Periodic"),
+        ("Single", "Single"),
+    )
     campaignStatus_choices = (
-         ("Active", "Active"),
-         ("Inactive", "Inactive"),
-         ("Completed", "Completed"),
-     )
+        ("Active", "Active"),
+        ("Inactive", "Inactive"),
+        ("Completed", "Completed"),
+    )
 
     campaignStoryPost = (
-         ("Post", "Post"),
-         ("Story", "Story"),
-         ("Both", "Both"),
-     )
-    # PID = models.AutoField
+        ("Post", "Post"),
+        ("Story", "Story"),
+        ("Both", "Both"),
+    )
+
     host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200)
     hashtag = models.CharField(max_length=20, unique=True, blank=False, null=False)
@@ -64,15 +75,14 @@ class Campaign(models.Model):
     content_type = models.CharField(max_length=20, choices=campaignStoryPost, blank=True, null=True)
     total_cost = models.IntegerField(blank=True, null=True)
     description = models.TextField(null=True, blank=True)
-    updated = models.DateTimeField(auto_now = True)
-    created = models.DateTimeField(auto_now_add = True)
-    
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         ordering = ['-updated', '-created']
-        
+
     def __str__(self):
-        return self.name
-   
+        return self.name 
 
 class Influencer(models.Model):
     INFLUENCER_INTEREST_CHOICES = (
@@ -85,6 +95,17 @@ class Influencer(models.Model):
     
     influencer_username = models.CharField(max_length=20, unique=True)
     influencer_full_name = models.CharField(max_length=200)
+    influencerChildrenCount = models.IntegerField(blank=True, null=True)
+    influencerCampaignCount = models.IntegerField(blank=True, null=True)
+    influencerChildrenAge = models.IntegerField(blank=True, null=True)
+    influencerInfluencerPostCost = models.IntegerField(blank=True, null=True)
+    influencerStoryCost = models.IntegerField(blank=True, null=True)
+    #influencerInterests
+    influencerStoryCount = models.IntegerField(blank=True, null=True)
+    influencerFollowerCount = models.IntegerField(blank=True, null=True)
+    influencerFollowingCount = models.IntegerField(blank=True, null=True)
+    influencerPostCount = models.IntegerField(blank=True, null=True)
+
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -126,7 +147,7 @@ class Brand(models.Model):
         return self.brand_name
 
 class Admin(models.Model):
-    admin_username:models.CharField(max_length=20, unique=True, blank=False, null=False)
+    admin_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
     # admin_password:
     updated = models.DateTimeField(auto_now = True)
     created = models.DateTimeField(auto_now_add = True)
@@ -139,7 +160,7 @@ class Admin(models.Model):
     
 
 class PRAgency(models.Model):
-    pragency_username:models.CharField(max_length=20, unique=True, blank=False, null=False)
+    pragency_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
     # pragency_password:
     updated = models.DateTimeField(auto_now = True)
     created = models.DateTimeField(auto_now_add = True)
@@ -152,16 +173,6 @@ class PRAgency(models.Model):
 
 
 #  #influencerProfilePicture
-#     influencerChildrenCount = models.IntegerField(blank=True, null=True)
-#     influencerCampaignCount = models.IntegerField(blank=True, null=True)
-#     influencerChildrenAge = models.IntegerField(blank=True, null=True)
-#     influencerInfluencerPostCost = models.IntegerField(blank=True, null=True)
-#     influencerStoryCost = models.IntegerField(blank=True, null=True)
-#     #influencerInterests
-#     influencerStoryCount = models.IntegerField(blank=True, null=True)
-#     influencerFollowerCount = models.IntegerField(blank=True, null=True)
-#     influencerFollowingCount = models.IntegerField(blank=True, null=True)
-#     influencerPostCount = models.IntegerField(blank=True, null=True)
 
     # influencer_bio = models.TextField(blank=True, null=True)
     # influencer_children_count = models.IntegerField(blank=True, null=True)

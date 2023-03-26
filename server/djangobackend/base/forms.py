@@ -4,6 +4,7 @@ from .models import Campaign
 from .models import Brand
 from .models import BrandManager
 from .models import Influencer
+from .models import SampleModel
 
 class RoomForm(ModelForm):
     class Meta:
@@ -15,6 +16,11 @@ class CampaignForm(ModelForm):
         model = Campaign
         fields = '__all__'
 
+class SampleModelForm(ModelForm):
+    class Meta:
+        model = SampleModel
+        fields = '__all__'
+        
 class InfluencerForm(ModelForm):
     class Meta:
         model = Influencer
