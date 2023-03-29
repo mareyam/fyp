@@ -1,0 +1,21 @@
+<h1>pragencys heh</h1>
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>
+    <h6>{{pragency_count}}pragencys available</h6>
+    <a href="{% url 'create-pragency' %}">create pragency</a>
+<div>
+    {% for pragency in pragencys %}
+    <img>
+        <a href="{% url 'update-pragency' pragency.id%}">update pragency</a>
+        <a href="{% url 'delete-pragency' pragency.id%}">delete pragency</a>
+        <h5>{{pragency.id}} -- <a href="{% url 'pragency' pragency.id %}">{{pragency.pragency_username}}</a></h5>
+        <img src="{{ pragency.image.url }}" alt="My Image">
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock content %}
+

@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django import forms
-
+from datetime import datetime
+from django.utils import timezone
 
 # Create your models here.
 
@@ -105,8 +106,8 @@ class Influencer(models.Model):
     influencerFollowerCount = models.IntegerField(blank=True, null=True)
     influencerFollowingCount = models.IntegerField(blank=True, null=True)
     influencerPostCount = models.IntegerField(blank=True, null=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(default=datetime.now)
+    updated = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ['-updated', '-created']
@@ -145,29 +146,30 @@ class Brand(models.Model):
     def __str__(self):
         return self.brand_name
 
-# class Admin(models.Model):
-#     admin_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
-#     # admin_password:
-#     updated = models.DateTimeField(auto_now = True)
-#     created = models.DateTimeField(auto_now_add = True)
+class Admin(models.Model):
+    admin_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
+    # admin_password:
+    updated = models.DateTimeField(auto_now = True)
+    created = models.DateTimeField(auto_now_add = True)
 
-#     class Meta:
-#         ordering = ['-updated', '-created']
+    class Meta:
+        ordering = ['-updated', '-created']
         
-#     def __str__(self):
-#         return self.admin_username
+    def __str__(self):
+        return self.admin_username
     
 
-# class PRAgency(models.Model):
-#     pragency_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
-#     # pragency_password:
-#     updated = models.DateTimeField(auto_now = True)
-#     created = models.DateTimeField(auto_now_add = True)
-#     class Meta:
-#         ordering = ['-updated', '-created']
+class PRAgency(models.Model):
+    pragency_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
+    # pragency_password:
+    image = models.ImageField(upload_to='images/',  default='')
+    updated = models.DateTimeField(auto_now = True)
+    created = models.DateTimeField(auto_now_add = True)
+    class Meta:
+        ordering = ['-updated', '-created']
         
-#     def __str__(self):
-#         return self.pragency_username
+    def __str__(self):
+        return self.pragency_username
 
 
 

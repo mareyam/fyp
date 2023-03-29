@@ -27,9 +27,14 @@ urlpatterns = [
     path('delete-brand/<str:pk>/', views.deleteBrand, name='delete-brand'),
 
     path('brandmanagers/', views.brandManagers, name="brandmanagers"), 
-    path('create-brandmanager/', views.createBrand, name='create-brandmanager'),
+    path('create-brandmanager/', views.createBrandManager, name='create-brandmanager'),
     path('brandmanager/<str:pk>/', views.brandManager, name="brandmanager"),   
     path('update-brandmanager/<str:pk>/', views.updateBrandManager, name='update-brandmanager'),
     path('delete-brandmanager/<str:pk>/', views.deleteBrandManager, name='delete-brandmanager'),
 
+    path('pragencys/', views.PRAgencys, name="pragencys"), 
+    path('pragency/<str:pk>/', views.pragency, name="pragency"),   
+    path('create-pragency/', views.createPRAgency, name='create-pragency'),
+    path('update-pragency/<str:pk>/', views.updatePRAgency, name='update-pragency'),
+    path('delete-pragency/<str:pk>/', views.deletePRAgency, name='delete-pragency'),
 ]

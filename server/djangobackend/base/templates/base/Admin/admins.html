@@ -1,0 +1,20 @@
+<h1>Admin heh</h1>
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>
+    <h6>{{admin_count}}Admin available</h6>
+    <a href="{% url 'create-admin' %}">create admin</a>
+<div>
+    {% for admin in admins %}
+    <div>
+        <a href="{% url 'update-admin' admin.id%}">update admin</a>
+        <a href="{% url 'delete-admin' admin.id%}">delete admin</a>
+        <h5>{{admin.id}} -- <a href="{% url 'admin' admin.id %}">{{admin.admin_username}}</a></h5>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock content %}
+

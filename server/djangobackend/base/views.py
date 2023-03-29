@@ -1,18 +1,11 @@
 from django.shortcuts import render, redirect
 
-from .models import Room, Topic
-from .models import Campaign
-from .models import Brand, BrandManager
-from .models import Influencer
+from .models import Room, Campaign, Brand, BrandManager,Influencer, PRAgency
 
 
-from .forms import RoomForm
-from .forms import CampaignForm
-from .forms import BrandForm, BrandManagerForm
-from .forms import InfluencerForm
+from .forms import RoomForm, CampaignForm, BrandForm, BrandManagerForm, InfluencerForm, PRAgencyForm
 
 # Create your views here.
-
 def home(request):
     rooms = Room.objects.all()
     room_count = rooms.count()
@@ -23,19 +16,6 @@ def room(request,pk):
     room = Room.objects.get(id=pk)
     context = {'room':room}
     return render(request, 'base/room.html',context)
-
-
-def campaign(request,pk):
-    campaign = Campaign.objects.get(id=pk)
-    context = {'campaign':campaign}
-    return render(request, 'base/campaign.html',context)
-
-
-def campaigns(request):
-    campaigns = Campaign.objects.all()
-    campaign_count = campaigns.count()
-    context = {'campaigns':campaigns, 'campaigns':campaigns}
-    return render(request, 'base/campaigns.html', context)
 
 def createRoom(request):
     form = RoomForm()
@@ -66,6 +46,17 @@ def deleteRoom(request,pk):
         return redirect('home')
     return render(request, 'base/room_form.html', {'obj':room})
 
+#Campaigns
+def campaign(request,pk):
+    campaign = Campaign.objects.get(id=pk)
+    context = {'campaign':campaign}
+    return render(request, 'base/campaigns/campaign.html',context)
+
+def campaigns(request):
+    campaigns = Campaign.objects.all()
+    campaign_count = campaigns.count()
+    context = {'campaigns':campaigns, 'campaigns':campaigns}
+    return render(request, 'base/campaigns/campaigns.html', context)
 
 def createCampaign(request):
     form = CampaignForm()
@@ -75,7 +66,7 @@ def createCampaign(request):
             form.save()
             return redirect('campaigns')
     context = {'form':form}
-    return render(request, 'base/campaign_form.html', context)
+    return render(request, 'base/campaigns/campaign_form.html', context)
 
 def updateCampaign(request,pk):
     room = Campaign.objects.get(id=pk)
@@ -86,23 +77,22 @@ def updateCampaign(request,pk):
             form.save()
             return redirect('campaigns')
     context = {'form':form}
-    return render(request, 'base/campaign_form.html', context)
+    return render(request, 'base/campaigns/campaign_form.html', context)
 
 def deleteCampaign(request,pk):
     campaign = Campaign.objects.get(id=pk)
     if request.method == "POST":
         campaign.delete()
         return redirect('campaigns')
-    return render(request, 'base/campaign_form.html', {'obj':campaign})
+    return render(request, 'base/campaigns/campaign_form.html', {'obj':campaign})
 
 
 
-
+#brand
 def brand(request,pk):
     brand = Brand.objects.get(id=pk)
     context = {'brand':brand}
     return render(request, 'base/brand/brand.html',context)
-
 
 def brands(request):
     brands = Brand.objects.all()
@@ -138,13 +128,11 @@ def deleteBrand(request,pk):
         return redirect('brands')
     return render(request, 'base/brand/brand_form.html', {'obj':brand})
 
-
-
+#brandManager
 def brandManager(request,pk):
     brandManager = BrandManager.objects.get(id=pk)
     context = {'brandManager':brandManager}
     return render(request, 'base/brandManager/brandManager.html',context)
-
 
 def brandManagers(request):
     brandManagers = BrandManager.objects.all()
@@ -180,19 +168,17 @@ def deleteBrandManager(request,pk):
         return redirect('brandManagers')
     return render(request, 'base/brandManager/brandManager_form.html', {'obj':brandManager})
 
-
+#Influencer
 def influencer(request,pk):
     influencer = Influencer.objects.get(id=pk)
     context = {'influencer':influencer}
-    return render(request, 'base/influencer.html',context)
-
+    return render(request, 'base/influencers/influencer.html',context)
 
 def influencers(request):
     influencers = Influencer.objects.all()
     influencer_count = influencers.count()
     context = {'influencers':influencers, 'influencers':influencers}
-    return render(request, 'base/influencers.html', context)
-
+    return render(request, 'base/influencers/influencers.html', context)
 
 def createInfluencer(request):
     form = InfluencerForm()
@@ -202,7 +188,7 @@ def createInfluencer(request):
             form.save()
             return redirect('influencers')
     context = {'form':form}
-    return render(request, 'base/influencer_form.html', context)
+    return render(request, 'base/influencers/influencer_form.html', context)
 
 def updateInfluencer(request,pk):
     influencer = Influencer.objects.get(id=pk)
@@ -213,27 +199,57 @@ def updateInfluencer(request,pk):
             form.save()
             return redirect('influencers')
     context = {'form':form}
-    return render(request, 'base/influencer_form.html', context)
+    return render(request, 'base/influencers/influencer_form.html', context)
 
 def deleteInfluencer(request,pk):
     influencer = Influencer.objects.get(id=pk)
     if request.method == "POST":
         influencer.delete()
         return redirect('influencers')
-    return render(request, 'base/influencer_form.html', {'obj':influencer})
+    return render(request, 'base/influencers/influencer_form.html', {'obj':influencer})
+
+
+#PRAgency
+def pragency(request,pk):
+    pragency = PRAgency.objects.get(id=pk)
+    context = {'pragency':pragency}
+    return render(request, 'base/PRAgency/pragency.html',context)
+
+def PRAgencys(request):
+    pragencys = PRAgency.objects.all()
+    pragency_count = pragencys.count()
+    context = {'pragencys':pragencys, 'pragencys':pragencys}
+    return render(request, 'base/PRAgency/pragencys.html', context)
+
+def createPRAgency(request):
+    form = PRAgencyForm()
+    if request.method == 'POST':
+        form = PRAgencyForm(request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('pragencys')
+    context = {'form':form}
+    return render(request, 'base/PRAgency/pragency_form.html', context)
+
+def updatePRAgency(request,pk):
+    PRAgency = PRAgency.objects.get(id=pk)
+    form = PRAgencyForm(instance=PRAgency)
+    if request.method == "POST":
+        form = PRAgencyForm(request.POST, instance=PRAgency)
+        if form.is_valid():
+            form.save()
+            return redirect('PRAgencys')
+    context = {'form':form}
+    return render(request, 'base/PRAgency/pragency_form.html', context)
+
+def deletePRAgency(request,pk):
+    PRAgency = PRAgency.objects.get(id=pk)
+    if request.method == "POST":
+        PRAgency.delete()
+        return redirect('PRAgencys')
+    return render(request, 'base/PRAgency/pragency_form.html', {'obj':PRAgency})
 
 
 
-# def campaigns(request):
-#     context = {'campaigns':campaigns}
-#     return render(request, 'base/campaigns.html', context)
-
-# def campaign(request,pk):
-#     campaign = None
-#     for i in campaigns:
-#         if i['id'] == int(pk):
-#             campaign = i
-#     context = {'campaign':campaign}
-#     return render(request, 'base/campaign.html', context)
 
 
