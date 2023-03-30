@@ -1,5 +1,6 @@
 from django.forms import ModelForm
-from .models import Room , Campaign , Brand , BrandManager , Influencer , SampleModel, PRAgency
+from django import forms
+from .models import Room , Campaign , Brand , BrandManager , Influencer , SampleModel, PRAgency, Hashtag, Filter
 
 
 class RoomForm(ModelForm):
@@ -7,7 +8,8 @@ class RoomForm(ModelForm):
         model = Room
         fields = '__all__'
 
-class CampaignForm(ModelForm):
+class CampaignForm(forms.ModelForm):
+    influencers = forms.ModelMultipleChoiceField(queryset=Influencer.objects.all())
     class Meta:
         model = Campaign
         fields = '__all__'
@@ -35,4 +37,14 @@ class BrandManagerForm(ModelForm):
 class PRAgencyForm(ModelForm):
     class Meta:
         model = PRAgency
+        fields = '__all__'
+
+class HashtagForm(ModelForm):
+    class Meta:
+        model = Hashtag
+        fields = '__all__'
+
+class FilterForm(ModelForm):
+    class Meta:
+        model = Filter
         fields = '__all__'

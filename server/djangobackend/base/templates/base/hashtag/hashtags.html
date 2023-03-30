@@ -1,0 +1,22 @@
+<h1>hashtags heh</h1>
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>hashtags</h1>
+
+<div>
+    <h6>{{hashtag_count}}hashtags available</h6>
+    <a href="{% url 'create-hashtag' %}">create hashtag</a>
+<div>
+    {% for hashtag in hashtags %}
+    <div>
+        <a href="{% url 'update-hashtag' hashtag.id%}">update hashtag</a>
+        <a href="{% url 'delete-hashtag' hashtag.id%}">delete hashtag</a>
+        <h5> {{hashtag.id}} -- <a href="{% url 'hashtag' hashtag.id %}">{{hashtag.name}}</a></h5>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock content %}
+

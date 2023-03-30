@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
-
-from .models import Room, Campaign, Brand, BrandManager,Influencer, PRAgency
-
-
-from .forms import RoomForm, CampaignForm, BrandForm, BrandManagerForm, InfluencerForm, PRAgencyForm
+from django.db.models import Q
+from .models import Room, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, Filter
+from .forms import RoomForm, CampaignForm, BrandForm, BrandManagerForm, InfluencerForm, PRAgencyForm, HashtagForm, FilterForm
 
 # Create your views here.
 def home(request):
@@ -53,9 +51,13 @@ def campaign(request,pk):
     return render(request, 'base/campaigns/campaign.html',context)
 
 def campaigns(request):
-    campaigns = Campaign.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    campaigns = Campaign.objects.filter(
+        Q(hashtag__name=q)
+    )
+    hashtags = Hashtag.objects.all()
     campaign_count = campaigns.count()
-    context = {'campaigns':campaigns, 'campaigns':campaigns}
+    context = {'campaigns':campaigns, 'hashtags': hashtags}
     return render(request, 'base/campaigns/campaigns.html', context)
 
 def createCampaign(request):
@@ -250,6 +252,86 @@ def deletePRAgency(request,pk):
     return render(request, 'base/PRAgency/pragency_form.html', {'obj':PRAgency})
 
 
+#Hashtags
+def hashtag(request,pk):
+    hashtag = Hashtag.objects.get(id=pk)
+    context = {'hashtag':hashtag}
+    return render(request, 'base/hashtag/hashtag.html',context)
+
+def hashtags(request):
+    hashtags = Hashtag.objects.all()
+    hashtag_count = hashtags.count()
+    context = {'hashtags':hashtags, 'hashtags':hashtags}
+    return render(request, 'base/hashtag/hashtags.html', context)
+
+def createHashtag(request):
+    form = HashtagForm()
+    if request.method == 'POST':
+        form = HashtagForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('hashtags')
+    context = {'form':form}
+    return render(request, 'base/hashtag/hashtag_form.html', context)
+
+def updateHashtag(request,pk):
+    hashtag = Hashtag.objects.get(id=pk)
+    form = HashtagForm(instance=hashtag)
+    if request.method == "POST":
+        form = HashtagForm(request.POST, instance=hashtag)
+        if form.is_valid():
+            form.save()
+            return redirect('hashtags')
+    context = {'form':form}
+    return render(request, 'base/hashtag/hashtag_form.html', context)
+
+def deleteHashtag(request,pk):
+    hashtag = Hashtag.objects.get(id=pk)
+    if request.method == "POST":
+        hashtag.delete()
+        return redirect('hashtags')
+    return render(request, 'base/hashtag/hashtag_form.html', {'obj':hashtag})
+
+
+#Filters
+def filters(request,pk):
+    filters = Filter.objects.get(id=pk)
+    context = {'filters':filters}
+    return render(request, 'base/filters/filters.html',context)
+
+def filters(request):
+    filters = Filter.objects.all()
+    filter_count = filters.count()
+    context = {'filters':filters, 'filters':filters}
+    return render(request, 'base/filter/filters.html', context)
+
+def createFilter(request):
+    form = FilterForm()
+    if request.method == 'POST':
+        form = FilterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('filters')
+    context = {'form':form}
+    return render(request, 'base/filter/filter_form.html', context)
+
+def updateFilter(request,pk):
+    filter = Filter.objects.get(id=pk)
+    form = FilterForm(instance=filter)
+    if request.method == "POST":
+        form = FilterForm(request.POST, instance=filter)
+        if form.is_valid():
+            form.save()
+            return redirect('filters')
+    context = {'form':form}
+    return render(request, 'base/filter/filter_form.html', context)
+
+def deleteFilter(request,pk):
+    filter = Filter.objects.get(id=pk)
+    if request.method == "POST":
+        filter.delete()
+        return redirect('filters')
+    return render(request, 'base/filter/filter_form.html', {'obj':filter})
 
 
 

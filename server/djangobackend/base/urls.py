@@ -37,4 +37,17 @@ urlpatterns = [
     path('create-pragency/', views.createPRAgency, name='create-pragency'),
     path('update-pragency/<str:pk>/', views.updatePRAgency, name='update-pragency'),
     path('delete-pragency/<str:pk>/', views.deletePRAgency, name='delete-pragency'),
+
+    path('hashtags/', views.hashtags, name="hashtags"), 
+    path('hashtag/<str:pk>/', views.hashtag, name="hashtag"),   
+    path('create-hashtag/', views.createHashtag, name='create-hashtag'),
+    path('update-hashtag/<str:pk>/', views.updateHashtag, name='update-hashtag'),
+    path('delete-hashtag/<str:pk>/', views.deleteHashtag, name='delete-hashtag'),
+
+    path('filters/', views.filters, name="filters"), 
+    path('filter/<str:pk>/', views.filter, name="filter"),   
+    path('create-filter/', views.createFilter, name='create-filter'),
+    path('update-filter/<str:pk>/', views.updateFilter, name='update-filter'),
+    path('delete-filter/<str:pk>/', views.deleteFilter, name='delete-filter'),
 ]
+
