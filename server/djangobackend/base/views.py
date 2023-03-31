@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from .models import Room, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, Filter
 from .forms import RoomForm, CampaignForm, BrandForm, BrandManagerForm, InfluencerForm, PRAgencyForm, HashtagForm, FilterForm
-
+from django.http import JsonResponse
 # Create your views here.
 def home(request):
     rooms = Room.objects.all()
@@ -50,15 +50,19 @@ def campaign(request,pk):
     context = {'campaign':campaign}
     return render(request, 'base/campaigns/campaign.html',context)
 
+# def campaigns(request):
+#     q = request.GET.get('q') if request.GET.get('q') != None else ''
+#     campaigns = Campaign.objects.filter(
+#         Q(hashtag__name=q)
+#     )
+#     hashtags = Hashtag.objects.all()
+#     campaign_count = campaigns.count()
+#     context = {'campaigns':campaigns, 'hashtags': hashtags}
+#     return render(request, 'base/campaigns/campaigns.html', context)
 def campaigns(request):
-    q = request.GET.get('q') if request.GET.get('q') != None else ''
-    campaigns = Campaign.objects.filter(
-        Q(hashtag__name=q)
-    )
-    hashtags = Hashtag.objects.all()
-    campaign_count = campaigns.count()
-    context = {'campaigns':campaigns, 'hashtags': hashtags}
-    return render(request, 'base/campaigns/campaigns.html', context)
+     campaigns = Campaign.objects.all()
+     campaign_data = list(campaigns.values())
+     return JsonResponse({'campaigns': campaign_data})
 
 def createCampaign(request):
     form = CampaignForm()

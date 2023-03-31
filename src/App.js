@@ -43,6 +43,7 @@ import InfluencerRegDetails3 from './panels/InfluencerPanel/Auth/InfluencerRegDe
 import InfluencerPosts from './panels/InfluencerPanel/PostsStories/InfluencerPosts';
 import InfluencerDashboard from './panels/InfluencerPanel/PostsStories/InfluencerDashboard';
 import PendingCampaigns from './panels/InfluencerPanel/Campaigns/PendingCampaigns';
+import Test from './components/AllCampaignsPage/Test';
 
 const App = () => {
   return (
@@ -50,7 +51,7 @@ const App = () => {
       <Navbarr/>
       <Routes>
         <Route path="/BMDashboard" element={<BrandManagerDashboard/>}/>
-        <Route path="/BMCampaigns" element={<AllCampaigns/>}/>
+        <Route path="/BMCampaigns" element={<Test/>}/>
         <Route path="/BMRegisteredInfluencers" element={<AllRegisteredInfluencers/>}/>
         <Route path="/BMAllStories" element={<AllStories/>}/>
         <Route path="/BMHashtags" element={<HashTags/>}/>
