@@ -175,10 +175,17 @@ class PRAgency(models.Model):
         return self.pragency_username
 
 
-class Filter(models.Model):    
-    host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+
+class Filter(models.Model):   
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other'),
+    )
+    name = models.CharField(max_length=200, unique=True, blank=False, null=False),
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES), 
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=200)
     hashtag = models.CharField(max_length=20, unique=True, blank=False, null=False)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

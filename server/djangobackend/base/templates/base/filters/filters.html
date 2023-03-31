@@ -1,0 +1,22 @@
+<h1>filters heh</h1>
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>filters</h1>
+
+<div>
+    <h6>{{filter_count}}filters available</h6>
+    <a href="{% url 'create-filter' %}">create filter</a>
+<div>
+    {% for filter in filters %}
+    <div>
+        <a href="{% url 'update-filter' filter.id%}">update filter</a>
+        <a href="{% url 'delete-filter' filter.id%}">delete filter</a>
+        <h5> {{filter.id}} -- <a href="{% url 'filter' filter.id %}">{{filter.name}}</a></h5>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock content %}
+

@@ -294,16 +294,11 @@ def deleteHashtag(request,pk):
 
 
 #Filters
-def filters(request,pk):
-    filters = Filter.objects.get(id=pk)
-    context = {'filters':filters}
-    return render(request, 'base/filters/filters.html',context)
-
 def filters(request):
     filters = Filter.objects.all()
     filter_count = filters.count()
     context = {'filters':filters, 'filters':filters}
-    return render(request, 'base/filter/filters.html', context)
+    return render(request, 'base/filters/filters.html', context)
 
 def createFilter(request):
     form = FilterForm()
@@ -313,7 +308,7 @@ def createFilter(request):
             form.save()
             return redirect('filters')
     context = {'form':form}
-    return render(request, 'base/filter/filter_form.html', context)
+    return render(request, 'base/filters/filter_form.html', context)
 
 def updateFilter(request,pk):
     filter = Filter.objects.get(id=pk)
@@ -324,7 +319,7 @@ def updateFilter(request,pk):
             form.save()
             return redirect('filters')
     context = {'form':form}
-    return render(request, 'base/filter/filter_form.html', context)
+    return render(request, 'base/filters/filter_form.html', context)
 
 def deleteFilter(request,pk):
     filter = Filter.objects.get(id=pk)
@@ -332,6 +327,4 @@ def deleteFilter(request,pk):
         filter.delete()
         return redirect('filters')
     return render(request, 'base/filter/filter_form.html', {'obj':filter})
-
-
 

@@ -44,8 +44,7 @@ urlpatterns = [
     path('update-hashtag/<str:pk>/', views.updateHashtag, name='update-hashtag'),
     path('delete-hashtag/<str:pk>/', views.deleteHashtag, name='delete-hashtag'),
 
-    path('filters/', views.filters, name="filters"), 
-    path('filter/<str:pk>/', views.filter, name="filter"),   
+    path('filters/', views.filters, name="filters"),  
     path('create-filter/', views.createFilter, name='create-filter'),
     path('update-filter/<str:pk>/', views.updateFilter, name='update-filter'),
     path('delete-filter/<str:pk>/', views.deleteFilter, name='delete-filter'),

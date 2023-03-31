@@ -2,7 +2,6 @@ from django.forms import ModelForm
 from django import forms
 from .models import Room , Campaign , Brand , BrandManager , Influencer , SampleModel, PRAgency, Hashtag, Filter
 
-
 class RoomForm(ModelForm):
     class Meta:
         model = Room
@@ -48,3 +47,4 @@ class FilterForm(ModelForm):
     class Meta:
         model = Filter
         fields = '__all__'
+
