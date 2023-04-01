@@ -1,6 +1,7 @@
 import './App.css';
 import BrandManagerDashboard from './panels/BrandManagerPanel/BrandManagerDashboard';
 import AllCampaigns from './panels/BrandManagerPanel/Campaigns/AllCampaigns';
+// import AllCampaigns from './components/AllCampaignsPage/AllCampaigns';
 import Navbarr from './panels/BrandManagerPanel/Navbar/Navbarr';
 import AllRegisteredInfluencers from './panels/BrandManagerPanel/Influencers/AllRegisteredInfluencers';
 import AllStories from './panels/BrandManagerPanel/PostsStories/AllStoriesOfInfluencers';
@@ -51,7 +52,8 @@ const App = () => {
       <Navbarr/>
       <Routes>
         <Route path="/BMDashboard" element={<BrandManagerDashboard/>}/>
-        <Route path="/BMCampaigns" element={<Test/>}/>
+        <Route path="/BMCampaigns" element={<AllCampaigns/>}/>
+        <Route path="/Test" element={<Test/>}/>
         <Route path="/BMRegisteredInfluencers" element={<AllRegisteredInfluencers/>}/>
         <Route path="/BMAllStories" element={<AllStories/>}/>
         <Route path="/BMHashtags" element={<HashTags/>}/>

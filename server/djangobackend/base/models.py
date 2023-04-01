@@ -161,6 +161,18 @@ class Campaign(models.Model):
 
     def __str__(self):
         return self.name 
+    
+class CampaignDetailsWithInfluencer(models.Model): 
+    brandName= models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True) 
+    created= models.DateTimeField(auto_now_add=True)
+    influencerName= models.OneToManyField(Influencer, blank=True)
+    influencerUsername =models.OneToManyField(Influencer, blank=True)
+    cost= models.OneToOneField(Influencer, blank=True)
+    # linkToPost=
+    postedDate = models.DateTimeField(auto_now_add=True)
+    hashtag = models.OneToOneField(Hashtag, unique=True, blank=False, null=False ,  on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images/',  default='')
+    
 
 class PRAgency(models.Model):
     pragency_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
