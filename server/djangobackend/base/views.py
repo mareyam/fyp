@@ -60,9 +60,13 @@ def campaign(request,pk):
 #     context = {'campaigns':campaigns, 'hashtags': hashtags}
 #     return render(request, 'base/campaigns/campaigns.html', context)
 def campaigns(request):
+    #  campaigns = Campaign.objects.all()
+    #  campaign_data = list(campaigns.values())
+    #  return JsonResponse({'campaigns': campaign_data})
+
      campaigns = Campaign.objects.all()
-     campaign_data = list(campaigns.values())
-     return JsonResponse({'campaigns': campaign_data})
+    #  campaign_data = list(campaigns.values())
+     return render(request, 'base/campaigns/campaigns.html', {'campaigns':campaigns})
 
 def createCampaign(request):
     form = CampaignForm()

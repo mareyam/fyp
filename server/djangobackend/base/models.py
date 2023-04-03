@@ -59,7 +59,7 @@ class Influencer(models.Model):
         ('Family', 'Family'),
     )
     
-    influencer_username = models.CharField(max_length=20, unique=True)
+    influencer_username = models.CharField(max_length=20, unique=False)
     influencer_full_name = models.CharField(max_length=200)
     influencerChildrenCount = models.IntegerField(blank=True, null=True)
     influencerCampaignCount = models.IntegerField(blank=True, null=True)
@@ -81,9 +81,9 @@ class Influencer(models.Model):
         return self.influencer_username
 
 class BrandManager(models.Model):   
-    host = models.OneToOneField(User, unique=True, on_delete=models.CASCADE, blank=False, null=False)
+    host = models.OneToOneField(User, unique=False, on_delete=models.CASCADE, blank=False, null=False)
     brandmanager_name = models.CharField(max_length=200)
-    brandmanager_username = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    brandmanager_username = models.CharField(max_length=20, unique=False, blank=False, null=False)
     password = models.CharField(max_length=200)
     phone_number = models.IntegerField(blank=True, null=True)
     # pfp
@@ -99,7 +99,7 @@ class BrandManager(models.Model):
 
 class Brand(models.Model):
     brandmanager_name = models.OneToOneField(BrandManager, on_delete=models.CASCADE, blank=False, null=False)
-    brand_name = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    brand_name = models.CharField(max_length=20, unique=False, blank=False, null=False)
     campaigns_done = models.CharField(max_length=20, blank=False, null=False)
     updated = models.DateTimeField(auto_now = True)
     created = models.DateTimeField(auto_now_add = True)
@@ -114,7 +114,7 @@ class Hashtag(models.Model):
     host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200)
-    hashtag = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    hashtag = models.CharField(max_length=20, unique=False, blank=False, null=False)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     
@@ -144,7 +144,7 @@ class Campaign(models.Model):
 
     host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200)
-    hashtag = models.OneToOneField(Hashtag, unique=True, blank=False, null=False ,  on_delete=models.CASCADE)
+    hashtag = models.OneToOneField(Hashtag, unique=False, blank=False, null=False ,  on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, blank=False, null=False, on_delete=models.CASCADE, default='')
     campaign_type = models.CharField(max_length=10, choices=campaignType_choices, blank=False, null=False, default='DEFAULT')
     status = models.CharField(max_length=20, choices=campaignStatus_choices, blank=True, null=True)
@@ -153,6 +153,7 @@ class Campaign(models.Model):
     description = models.TextField(null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
+    image = models.ImageField(upload_to='images/', default='')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     influencers = models.ManyToManyField(Influencer, blank=True)
@@ -165,17 +166,17 @@ class Campaign(models.Model):
 class CampaignDetailsWithInfluencer(models.Model): 
     brandName= models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True) 
     created= models.DateTimeField(auto_now_add=True)
-    influencerName= models.OneToManyField(Influencer, blank=True)
-    influencerUsername =models.OneToManyField(Influencer, blank=True)
-    cost= models.OneToOneField(Influencer, blank=True)
+    influencerName= models.OneToOneField(Influencer, on_delete=models.CASCADE, blank=True)
+    # influencerUsername =models.ManyToManyField(Influencer, blank=True,  on_delete=models.CASCADE)
+    # cost= models.OneToOneField(Influencer, blank=True, on_delete=models.CASCADE)
     # linkToPost=
     postedDate = models.DateTimeField(auto_now_add=True)
-    hashtag = models.OneToOneField(Hashtag, unique=True, blank=False, null=False ,  on_delete=models.CASCADE)
+    hashtag = models.OneToOneField(Hashtag, unique=False, blank=False, null=False ,  on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/',  default='')
     
 
 class PRAgency(models.Model):
-    pragency_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
+    pragency_username = models.CharField(max_length=20, unique=False, blank=False, null=False, default='')
     # pragency_password:
     image = models.ImageField(upload_to='images/',  default='')
     updated = models.DateTimeField(auto_now = True)
@@ -195,10 +196,10 @@ class Filter(models.Model):
         ('F', 'Female'),
         ('O', 'Other'),
     )
-    name = models.CharField(max_length=200, unique=True, blank=False, null=False),
+    name = models.CharField(max_length=200, unique=False, blank=False, null=False),
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES), 
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
-    hashtag = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    hashtag = models.CharField(max_length=20, unique=False, blank=False, null=False)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     

@@ -27,6 +27,7 @@
                 <a href="{% url 'update-campaign' campaign.id%}">update campaign</a>
                 <a href="{% url 'delete-campaign' campaign.id%}">delete campaign</a>
                 <h5>{{campaign.id}} -- <a href="{% url 'campaign' campaign.id %}">{{campaign.name}}</a></h5>
+                <img style="max-width: 100px" src={{campaign.image.url}}/>
             </div>
             {% endfor %}
         </div>
