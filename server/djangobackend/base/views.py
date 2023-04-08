@@ -1,9 +1,46 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from .models import Room, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, Filter
+from .models import Room, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, Filter, CampaignSample
 from .forms import RoomForm, CampaignForm, BrandForm, BrandManagerForm, InfluencerForm, PRAgencyForm, HashtagForm, FilterForm
 from django.http import JsonResponse
+from rest_framework.renderers import JSONRenderer
+from django.http import HttpResponse, JsonResponse
+from rest_framework import generics
+from .serializers import CampaignSerializer
+from rest_framework.parsers import JSONParser
+import io
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
+
+def campaignsample(request):
+    campaign = CampaignSample.objects.get(id=1)
+    serializer = CampaignSerializer(campaign)
+    return JsonResponse(serializer.data)
+
+def campaign_list(request):
+    campaign = CampaignSample.objects.all()
+    serializer = CampaignSerializer(campaign, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+@csrf_exempt    
+def campaign_create(request):
+    if request.method == 'POST':
+     json_data = request.body
+     stream = io.BytesIO(json_data)
+     pythondata = JSONParser().parse(stream)
+     serializer = CampaignSerializer(data=pythondata)
+     if serializer.is_valid():
+         serializer.save()
+         res = {'msg': 'data created'}
+         json_data =  JSONRenderer().render(res)
+         return HttpResponse(json_data, content_type='application/json')
+    json_data = JSONRenderer().render(serializer.errors)
+    return HttpResponse(json_data, content_type='application/json')
+
+
+
+
 def home(request):
     rooms = Room.objects.all()
     room_count = rooms.count()
@@ -50,23 +87,15 @@ def campaign(request,pk):
     context = {'campaign':campaign}
     return render(request, 'base/campaigns/campaign.html',context)
 
-# def campaigns(request):
-#     q = request.GET.get('q') if request.GET.get('q') != None else ''
-#     campaigns = Campaign.objects.filter(
-#         Q(hashtag__name=q)
-#     )
-#     hashtags = Hashtag.objects.all()
-#     campaign_count = campaigns.count()
-#     context = {'campaigns':campaigns, 'hashtags': hashtags}
-#     return render(request, 'base/campaigns/campaigns.html', context)
 def campaigns(request):
-    #  campaigns = Campaign.objects.all()
-    #  campaign_data = list(campaigns.values())
-    #  return JsonResponse({'campaigns': campaign_data})
-
      campaigns = Campaign.objects.all()
-    #  campaign_data = list(campaigns.values())
-     return render(request, 'base/campaigns/campaigns.html', {'campaigns':campaigns})
+     campaign_data = list(campaigns.values())
+     return JsonResponse({'campaigns': campaign_data})
+
+
+# def campaigns(request):
+#      campaigns = Campaign.objects.all()
+#      return render(request, 'base/campaigns/campaigns.html', {'campaigns':campaigns})
 
 def createCampaign(request):
     form = CampaignForm()
@@ -140,15 +169,22 @@ def deleteBrand(request,pk):
 
 #brandManager
 def brandManager(request,pk):
-    brandManager = BrandManager.objects.get(id=pk)
-    context = {'brandManager':brandManager}
-    return render(request, 'base/brandManager/brandManager.html',context)
+    brandmanager = BrandManager.objects.filter(id=pk).values()
+    return JsonResponse({'brandmanager': list(brandmanager)})    
+    # brandManager = BrandManager.objects.get(id=pk)
+    # context = {'brandManager':brandManager}
+    # return render(request, 'base/brandManager/brandManager.html',context)
 
 def brandManagers(request):
-    brandManagers = BrandManager.objects.all()
-    brandManager_count = brandManagers.count()
-    context = {'brandManagers':brandManagers, 'brandManagers':brandManagers}
-    return render(request, 'base/brand/brandManagers.html', context)
+    brandmanagers = BrandManager.objects.all()
+    brandmanager_data = list(brandmanagers.values())
+    return JsonResponse({'brandmanagers': brandmanager_data})
+    # brandManagers = BrandManager.objects.all()
+    # brandManager_count = brandManagers.count()
+    # context = {'brandManagers':brandManagers, 'brandManagers':brandManagers}
+    # return render(request, 'base/brand/brandManagers.html', context)
+
+
 
 def createBrandManager(request):
     form = BrandManagerForm()
@@ -335,4 +371,3 @@ def deleteFilter(request,pk):
         filter.delete()
         return redirect('filters')
     return render(request, 'base/filter/filter_form.html', {'obj':filter})
-

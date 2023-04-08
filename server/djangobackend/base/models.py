@@ -6,6 +6,13 @@ from django.utils import timezone
 
 # Create your models here.
 
+class CampaignSample(models.Model):
+    name = models.CharField(max_length=100)
+    brandmanager = models.CharField(max_length=100)
+    cost = models.IntegerField()
+
+
+
 class Topic(models.Model):
     name = models.CharField(max_length=200)
 
@@ -82,7 +89,7 @@ class BrandManager(models.Model):
 class Brand(models.Model):
     brandmanager_name = models.OneToOneField(BrandManager, on_delete=models.CASCADE, blank=False, null=False)
     brand_name = models.CharField(max_length=20, unique=False, blank=False, null=False)
-    campaigns_count = models.IntegerField(max_length=20, blank=False, null=False)
+    campaigns_count = models.IntegerField(blank=False, null=False)
     updated = models.DateTimeField(auto_now = True)
     created = models.DateTimeField(auto_now_add = True)
     # campaigns = models.ForeignKey(Campaign, unique=False, blank=True, null=True)
@@ -160,7 +167,7 @@ class Campaign(models.Model):
 
     brand_manager = models.ForeignKey(BrandManager, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=200)
-    # hashtag = models.OneToOneField(Hashtag, unique=False, blank=False, null=False ,  on_delete=models.CASCADE)
+    hashtag_campaign = models.CharField(max_length=10, unique=False, blank=False, null=False)
     # brand = models.ForeignKey(Brand, blank=False, null=False, on_delete=models.CASCADE, default='')
     campaign_type = models.CharField(max_length=20,choices=campaignType_choices, blank=False, null=False, default='DEFAULT')
     status = models.CharField(max_length=20,choices=campaignStatus_choices, blank=True, null=True)
@@ -193,7 +200,7 @@ class Hashtag(models.Model):
     host = models.ForeignKey(BrandManager, on_delete=models.CASCADE, null=False)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=False)
     # influencer_hashtag = models.ForeignKey(Hashtag, on_delete=models.SET_NULL, null=True)
-    campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, null=False)
+    campaign_hashtag = models.ForeignKey(Campaign, on_delete=models.CASCADE, null=False)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     
@@ -236,7 +243,7 @@ class Filter(models.Model):
     min_child_age = models.IntegerField(null=True, blank=True)
     max_child_age = models.IntegerField(null=True, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=False)
-    hashtag = models.ForeignKey(Hashtag,unique=True, blank=False, null=False, on_delete=models.CASCADE)
+    hashtag = models.ForeignKey(Hashtag,blank=False, null=False, on_delete=models.CASCADE)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     

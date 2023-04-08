@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 
+
 urlpatterns = [
     path('', views.home, name="home"),
     path('room/<str:pk>/', views.room, name="room"),   
@@ -51,6 +52,9 @@ urlpatterns = [
     path('create-filter/', views.createFilter, name='create-filter'),
     path('update-filter/<str:pk>/', views.updateFilter, name='update-filter'),
     path('delete-filter/<str:pk>/', views.deleteFilter, name='delete-filter'),
+
+    path('campaignsample', views.campaignsample),
+    path('campaignlist/', views.campaign_list) 
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

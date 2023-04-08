@@ -42,8 +42,6 @@ const Pagintation = () => {
             .catch(error => console.error(error));
     }, []);
 
-
-
     const handleSearch = (event) => {
       const searchText = event.target.value;
       setSearchValue(searchText);
@@ -99,12 +97,12 @@ const Pagintation = () => {
         <div>
         <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}><img className="imageAC" src={item.image}/></div>
         <div style={{display: 'flex',justifyContent:'space-between'}}>
-        <p className='typeAC'>{item.type}</p>
-        <p className="hashtagAC">{item.hashtag}</p>
+        <p className='typeAC'>{item.campaign_type}</p>
+        <p className="hashtagAC">{item.hashtag_campaign}</p>
         </div>
         <h3 className='nameAC'>{item.name}</h3>
         <p className='influencersAC'>{item.influencers}</p>
-        <p className='dateAC'>{item.startDate}</p>
+        <p className='dateAC'>{item.start_date}</p>
         </div>
       </Col>
     )})}
