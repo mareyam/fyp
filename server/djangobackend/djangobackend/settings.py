@@ -36,19 +36,34 @@ AUTHENTICATION_BACKENDS = (
     ('django.contrib.auth.backends.ModelBackend'),
 )
 
-INSTALLED_APPS = [
-    'djangobackend',
-    'django.contrib.admin',
-    'django.contrib.auth',
+# INSTALLED_APPS = [
+#     'djangobackend',
+#     'django.contrib.admin',
+#     'django.contrib.auth',
+#     'django.contrib.contenttypes',
+#     'django.contrib.sessions',
+#     'django.contrib.messages',
+#     'django.contrib.staticfiles',
+#     'base.apps.BaseConfig',
+#     'campaigns.apps.CampaignsConfig,'
+#     # 'corsheaders',
+#     'rest_framework',
+# ]
+
+INSTALLED_APPS = [    
+    'djangobackend',   
+    'django.contrib.admin',    
+    'django.contrib.auth',    
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base.apps.BaseConfig',
-    'corsheaders',
+    'campaigns.apps.CampaignsConfig',
+    'corsheaders',    
     'rest_framework',
-    'campaigns',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

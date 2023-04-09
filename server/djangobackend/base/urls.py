@@ -1,8 +1,9 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = [
@@ -12,11 +13,11 @@ urlpatterns = [
     path('update-room/<str:pk>/', views.updateRoom, name='update-room'),
     path('delete-room/<str:pk>/', views.deleteRoom, name='delete-room'),
    
-    path('campaigns/', views.campaigns, name="campaigns"), 
-    path('campaign/<str:pk>/', views.campaign, name="campaign"),   
-    path('create-campaign/', views.createCampaign, name='create-campaign'),
-    path('update-campaign/<str:pk>/', views.updateCampaign, name='update-campaign'),
-    path('delete-campaign/<str:pk>/', views.deleteCampaign, name='delete-campaign'),
+    # path('campaigns/', views.campaigns, name="campaigns"), 
+    # path('campaign/<str:pk>/', views.campaign, name="campaign"),   
+    # path('create-campaign/', views.createCampaign, name='create-campaign'),
+    # path('update-campaign/<str:pk>/', views.updateCampaign, name='update-campaign'),
+    # path('delete-campaign/<str:pk>/', views.deleteCampaign, name='delete-campaign'),
     
     path('influencers/', views.influencers, name="influencers"), 
     path('influencer/<str:pk>/', views.influencer, name="influencer"),   
@@ -53,8 +54,17 @@ urlpatterns = [
     path('update-filter/<str:pk>/', views.updateFilter, name='update-filter'),
     path('delete-filter/<str:pk>/', views.deleteFilter, name='delete-filter'),
 
-    path('campaignsample', views.campaignsample),
-    path('campaignlist/', views.campaign_list) 
+    path('campaigns/', views.campaigns),
+    path('campaignlist/<str:id>/', views.campaign_detail),
+
+
+    path('brandmanagers/', views.brandmanagers),
+    path('brandmanager/<str:id>/', views.brandmanager_detail),
+
+    
+    
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns = format_suffix_patterns(urlpatterns)

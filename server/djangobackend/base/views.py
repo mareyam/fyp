@@ -1,42 +1,88 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from .models import Room, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, Filter, CampaignSample
+from .models import Room, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, Filter, Drinks, Campaigns
 from .forms import RoomForm, CampaignForm, BrandForm, BrandManagerForm, InfluencerForm, PRAgencyForm, HashtagForm, FilterForm
 from django.http import JsonResponse
-from rest_framework.renderers import JSONRenderer
-from django.http import HttpResponse, JsonResponse
-from rest_framework import generics
-from .serializers import CampaignSerializer
-from rest_framework.parsers import JSONParser
-import io
-from django.views.decorators.csrf import csrf_exempt
+from .serializers import BrandManagerSerializer, CampaignSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 
 # Create your views here.
 
-def campaignsample(request):
-    campaign = CampaignSample.objects.get(id=1)
-    serializer = CampaignSerializer(campaign)
-    return JsonResponse(serializer.data)
-
-def campaign_list(request):
-    campaign = CampaignSample.objects.all()
-    serializer = CampaignSerializer(campaign, many=True)
-    return JsonResponse(serializer.data, safe=False)
-
-@csrf_exempt    
-def campaign_create(request):
+@api_view(['GET', 'POST'])
+def campaigns(request, format=None):
+    if request.method == 'GET':
+     campaigns = Campaign.objects.all()
+     serializer = CampaignSerializer(campaigns, many=True)
+     return Response(serializer.data)
+    
     if request.method == 'POST':
-     json_data = request.body
-     stream = io.BytesIO(json_data)
-     pythondata = JSONParser().parse(stream)
-     serializer = CampaignSerializer(data=pythondata)
+     serializer = CampaignSerializer(data=request.data)
      if serializer.is_valid():
          serializer.save()
-         res = {'msg': 'data created'}
-         json_data =  JSONRenderer().render(res)
-         return HttpResponse(json_data, content_type='application/json')
-    json_data = JSONRenderer().render(serializer.errors)
-    return HttpResponse(json_data, content_type='application/json')
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def campaign_detail(request, id, format=None):
+
+    try:
+        campaign = Campaign.objects.get(pk=id)
+    except Campaign.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = CampaignSerializer(campaign)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = CampaignSerializer(campaign, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        campaign.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+   
+
+@api_view(['GET', 'POST'])
+def brandmanagers(request, format=None):
+    if request.method == 'GET':
+     brandmanager = BrandManager.objects.all()
+     serializer = BrandManagerSerializer(brandmanager, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = BrandManagerSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def brandmanager_detail(request, id, format=None):
+
+    try:
+        brandmanager = BrandManager.objects.get(pk=id)
+    except BrandManager.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = BrandManagerSerializer(campaign)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = BrandManagerSerializer(campaign, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        brandmanager.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
@@ -87,10 +133,10 @@ def campaign(request,pk):
     context = {'campaign':campaign}
     return render(request, 'base/campaigns/campaign.html',context)
 
-def campaigns(request):
-     campaigns = Campaign.objects.all()
-     campaign_data = list(campaigns.values())
-     return JsonResponse({'campaigns': campaign_data})
+# def campaigns(request):
+#      campaigns = Campaign.objects.all()
+#      campaign_data = list(campaigns.values())
+#      return JsonResponse({'campaigns': campaign_data})
 
 
 # def campaigns(request):

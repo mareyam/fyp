@@ -1,11 +1,15 @@
-
 from rest_framework import serializers
-from .models import CampaignSample
+from .models import BrandManager, Campaign
 
-class CampaignSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=100)
-    brandmanager = serializers.CharField(max_length=100)
-    cost = serializers.IntegerField()
-    
-def create(self, validate_data):
-    return CampaignSample.objects.create(**validate_data)
+class BrandManagerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BrandManager
+        fields = ['id','name']
+
+
+
+
+class CampaignSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Campaign
+        fields = "__all__"

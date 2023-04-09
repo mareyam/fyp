@@ -6,12 +6,19 @@ from django.utils import timezone
 
 # Create your models here.
 
-class CampaignSample(models.Model):
-    name = models.CharField(max_length=100)
-    brandmanager = models.CharField(max_length=100)
+
+class Campaigns(models.Model):
+    name = models.CharField(max_length=200)
     cost = models.IntegerField()
 
-
+    def __str__(self):
+        return self.name
+    
+    
+class Drinks(models.Model):
+    name =  models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
 
 class Topic(models.Model):
     name = models.CharField(max_length=200)
