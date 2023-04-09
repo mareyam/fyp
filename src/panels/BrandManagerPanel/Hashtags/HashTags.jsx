@@ -1,4 +1,5 @@
-import React,{useState} from 'react';
+import axios from "axios";
+import React,{useState, useEffect} from 'react';
 import HashTagList from './HashTagList';
 import { Container, Row, Col } from 'react-bootstrap';
 import '../../../Style/BrandManagerPanel/brandManagerDashboard/HashTag.css';
@@ -30,7 +31,20 @@ const Pagintation = () => {
   const [itemsPerPage] = useState(7);
   const [searchValue, setSearchValue] = useState('');
   const [filteredResults, setFilteredResults] = useState(HashTagList);
+  const [hashtags, setHashtags] = useState([]);
   
+
+  useEffect(() => {
+      axios.get('http://127.0.0.1:8000/hashtags/')
+        .then(response => {
+          setHashtags(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }, []);
+  
+
     const handleSearch = (event) => {
     const searchText = event.target.value;
     setSearchValue(searchText);
@@ -43,7 +57,7 @@ const Pagintation = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredResults.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = hashtags.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
@@ -114,33 +128,33 @@ const Pagintation = () => {
                 </table>
             </div> */}
             <div className="tablee">
-            <table class="table">
-              <thead class="thead-dark">
+            <table className="table">
+              <thead className="thead-dark">
                 <tr>
                     <th className="">Campaign</th>
                     <th className="" scope="col">Brands</th>
                     <th className="" scope="col">Created</th>
-                    <th className="" scope="col">End Date</th>
+                    {/* <th className="" scope="col">End Date</th> */}
                     <th className="" scope="col">Hashtag</th>
-                    <th className="" scope="col">Type</th>
+                    {/* <th className="" scope="col">Type</th> */}
                     <th className="" scope="col">Total posts</th>
-                    <th className="" scope="col">Status</th>
+                    {/* <th className="" scope="col">Status</th> */}
                 </tr>
                </thead>
               <tbody style={{border:'1px solid rgb(212, 211, 211)'}} className="">
                         {currentItems.map(item => {
                           return (
                               <tr>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="campaignNameHT">{item.campaignName}</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="campaignNameHT">{item.campaign_hashtag}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="brandLogoHT">{item.brandLogo}</p></td>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="startDateHT">{item.startDate}</p></td>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="endDateHT">{item.endDate}</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="startDateHT">{item.created}</p></td>
+                                  {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="endDateHT">{item.endDate}</p></td> */}
                                   
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="hashtagHT">{item.hashtag}</p></td>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="typeHT">{item.type}</p></td>
+                                  {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="typeHT">{item.type}</p></td> */}
                     
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="totalPostsHT">{item.totalPosts}</p></td>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="statusHT">{item.status}</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="totalPostsHT">{item.total_posts}</p></td>
+                                  {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="statusHT">{item.status}</p></td> */}
                               </tr> )})}
                       <Hashtag
                           itemsPerPage={itemsPerPage}

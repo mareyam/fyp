@@ -1,6 +1,5 @@
 const HashTagList = [
     {
-        
         campaignName: 'netcafe',
         brandLogo:'',
         endDate:'13 january 2022',
@@ -11,7 +10,6 @@ const HashTagList = [
         startDate: '13 Janurary 2022'
     }, 
     {
-        
         campaignName: 'Iphone 14 Pro',
         brandLogo:'',
         endDate:'13 january 2022',
@@ -22,7 +20,6 @@ const HashTagList = [
         startDate: '13 February 2022'
     }, 
     {
-        
         campaignName: 'coke',
         brandLogo:'',
         endDate:'13 january 2022',
@@ -42,7 +39,6 @@ const HashTagList = [
         startDate: '15 March 2022'
     }, 
     {
-        
         campaignName: 'Owen Hairoil',
         brandLogo:'',
         endDate:'13 january 2022',
@@ -53,7 +49,6 @@ const HashTagList = [
         startDate: '13 Janurary 2022'
     }, 
     {
-        
         campaignName: 'BK HairOil',
         brandLogo:'',
         endDate:'13 january 2022',
@@ -64,7 +59,6 @@ const HashTagList = [
         startDate: '13 March 2022'
     },
     {
-        
         campaignName: 'Gison',
         brandLogo:'',
         endDate:'13 january 2022',

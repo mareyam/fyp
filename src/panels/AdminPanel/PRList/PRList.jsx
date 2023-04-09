@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import axios from "axios";
+import React, {useState, useEffect} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
 import PR from './PR';
@@ -30,22 +31,32 @@ const PRList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(7);
   const [searchValue, setSearchValue] = useState('');
-  const [filteredResults, setFilteredResults] = useState(PR);
+  const [PR, setPR] = useState([]);
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
-    const handleSearch = (event) => {
+   useEffect(() => {
+      axios.get('http://127.0.0.1:8000/pragencys/')
+        .then(response => {
+          setPR(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }, []);
+
+  const handleSearch = (event) => {
     const searchText = event.target.value;
     setSearchValue(searchText);
     let results = PR;
     if (searchText) {
       results = PR.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
     }
-    setFilteredResults(results);
+    setPR(results);
   }
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredResults.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = PR.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
   
@@ -152,8 +163,9 @@ return (
                         {currentItems.map(item => {
                           return (
                               <tr>
-                                 <TableCell>{item.name}</TableCell>
-                                  <TableCell>{item.email}</TableCell>
+                                 <TableCell>{item.pragency_username}</TableCell>
+                                  <TableCell>{item.pragency_email}</TableCell>
+                                  <TableCell>{item.image}</TableCell>                  
                                    <TableCell><Status status={item.status} /></TableCell>
                                   <TableCell><ActionButton status={item.status}   onClick={() => handleButtonState(item.status)}/></TableCell>                                  
 
@@ -161,7 +173,7 @@ return (
                                  
                       <Hashtag
                           itemsPerPage={itemsPerPage}
-                          totalItems={filteredResults.length}
+                          totalItems={PR.length}
                           paginate={paginate}/>
                 </tbody>      
           </table>

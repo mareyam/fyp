@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django import forms
 from datetime import datetime
 from django.utils import timezone
+from django.contrib.auth.hashers import make_password, check_password
+from django.core import validators
 
 # Create your models here.
 
@@ -65,8 +67,31 @@ class SampleModel(models.Model):
         return self.user
 
 class PRAgency(models.Model):
-    pragency_username = models.CharField(max_length=20, unique=False, blank=False, null=False, default='')
-    # pragency_password:
+    pragency_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
+    pragency_email = models.EmailField(max_length=254, unique=True, default='')
+    
+    password = models.CharField(max_length=128, default='', null=False, blank=False
+    #                              validators=[
+    #     validators.MinLengthValidator(8),
+    #     validators.RegexValidator(
+    #         regex=r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$',
+    #         message='Password must contain at least 8 characters including at least one lowercase letter, one uppercase letter, one digit, and one special character',
+    #     ),
+    # ]
+    )
+    confirm_password = models.CharField(max_length=128, default='')
+
+    # def save(self, *args, **kwargs):
+    #     if self.password != self.confirm_password:
+    #         raise ValueError("Passwords do not match")
+    #     self.password = make_password(self.password)
+    #     super().save(*args, **kwargs)
+
+    # def save(self, *args, **kwargs):
+    #     self.clean()
+    #     super(User, self).save(*args, **kwargs)
+
+
     image = models.ImageField(upload_to='images/',  default='')
     updated = models.DateTimeField(auto_now = True)
     created = models.DateTimeField(auto_now_add = True)
@@ -80,6 +105,7 @@ class BrandManager(models.Model):
     host = models.OneToOneField(User, unique=False, on_delete=models.CASCADE, blank=False, null=False)
     brandmanager_name = models.CharField(max_length=200)
     brandmanager_username = models.CharField(max_length=20, unique=False, blank=False, null=False)
+    brandmanager_email = models.EmailField(max_length=254, unique=True, default='')
     password = models.CharField(max_length=200)
     phone_number = models.IntegerField(blank=True, null=True)
     # pfp
@@ -208,8 +234,9 @@ class Hashtag(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=False)
     # influencer_hashtag = models.ForeignKey(Hashtag, on_delete=models.SET_NULL, null=True)
     campaign_hashtag = models.ForeignKey(Campaign, on_delete=models.CASCADE, null=False)
-    updated = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(default=datetime.now)
+    created = models.DateTimeField(default=datetime.now)
+    total_posts = models.IntegerField(default=0)
     
     class Meta:
         ordering = ['-updated', '-created']

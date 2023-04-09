@@ -34,13 +34,24 @@ const Pagintation = () => {
   const [campaigns, setCampaigns] = useState([]);
 
     console.log(campaigns);
+    // useEffect(() => {
+    //     axios.get('http://127.0.0.1:8000/campaigns/')
+    //         .then((response) => {
+    //             setCampaigns(response.data.campaigns);
+    //         })
+    //         .catch(error => console.error(error));
+    // }, []);
+
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/campaigns/')
-            .then((response) => {
-                setCampaigns(response.data.campaigns);
-            })
-            .catch(error => console.error(error));
+      axios.get('http://127.0.0.1:8000/campaigns/')
+        .then(response => {
+          setCampaigns(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }, []);
+  
 
     const handleSearch = (event) => {
       const searchText = event.target.value;

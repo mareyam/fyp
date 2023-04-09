@@ -57,7 +57,6 @@ urlpatterns = [
     path('campaigns/', views.campaigns),
     path('campaignlist/<str:id>/', views.campaign_detail),
 
-
     path('brandmanagers/', views.brandmanagers),
     path('brandmanager/<str:id>/', views.brandmanager_detail),
 
@@ -72,7 +71,6 @@ urlpatterns = [
     
     path('pragencys/', views.pragencys),
     path('pragency/<str:id>/', views.pragency_detail),
-
 
     path('brands/', views.brands),
     path('brand/<str:id>/', views.brand_detail),

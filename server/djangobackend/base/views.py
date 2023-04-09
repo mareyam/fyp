@@ -22,6 +22,11 @@ def campaigns(request, format=None):
      if serializer.is_valid():
          serializer.save()
          return Response(serializer.data, status=status.HTTP_201_CREATED)
+     
+
+     #      campaigns = Campaign.objects.all()
+#      campaign_data = list(campaigns.values())
+#      return JsonResponse({'campaigns': campaign_data})
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def campaign_detail(request, id, format=None):
