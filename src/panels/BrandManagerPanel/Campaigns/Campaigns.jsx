@@ -1,4 +1,5 @@
-import React,{useState} from 'react';
+import axios from "axios"
+import React,{useEffect, useState} from 'react';
 import CampaignList from "./CampaignsList";
 import { Button } from 'react-bootstrap';
 import { ArrowBack, Search } from '@material-ui/icons';
@@ -9,18 +10,17 @@ import '../../../Style/BrandManagerPanel/brandManagerDashboard/campaigns.css'
 import AllCampaigns from './AllCampaigns';
 
 const Campaigns = () => {
-  const sortedInfluencers = CampaignList.sort((a, b) => parseFloat(b.engagementRate) - parseFloat(a.engagementRate));
-  // const [searchValue, setSearchValue] = useState('');
-  // const [filteredResults, setFilteredResults] = useState(CampaignList);
-  // const handleSearch = (event) => {
-  //   const searchText = event.target.value;
-  //   setSearchValue(searchText);
-  //   let results = CampaignList;
-  //   if (searchText) {
-  //     results = CampaignList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
-  //   }
-  //   setFilteredResults(results);
-  // }
+ const [campaigns, setCampaigns] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/campaigns/')
+      .then(response => {
+        setCampaigns(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
   return (
       <Row style={{border:"1px solid rgb(198, 198, 198)"}}>
@@ -37,12 +37,10 @@ const Campaigns = () => {
                 <a href="/BMCampaigns" className="mx-3 text-dark"><p><u>View all</u></p></a>
           </div>
         </Col>
-        
-
 
 
     <div className="mainContainerC" style={{display: 'flex', flexWrap: "nowrap"}}> 
-      {sortedInfluencers.slice(0,20).map(item => {
+      {campaigns.slice(0,20).map(item => {
         return (
             <div className="subContainerC" >
               <div><img className="imageC" src={item.image}/></div>

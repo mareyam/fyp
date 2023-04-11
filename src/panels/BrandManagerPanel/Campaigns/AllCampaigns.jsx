@@ -1,7 +1,6 @@
 import axios from "axios"
 import React,{useEffect, useState} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import CampaignsList from './CampaignsList';
 import AddIcon from '@mui/icons-material/Add';
 import '../../../Style/BrandManagerPanel/AllCampaigns/AllCampaigns.css';
 import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';

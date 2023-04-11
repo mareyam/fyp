@@ -1,4 +1,5 @@
-import React,{useState} from 'react';
+import axios from "axios"
+import React,{useState, useEffect} from 'react';
 import RegisteredInfluencersList from "./RegisteredInfluencersList";
 import { Grid } from '@material-ui/core';
 import { ArrowBack, Search } from '@material-ui/icons';
@@ -8,17 +9,19 @@ import { Diversity1Rounded } from '@mui/icons-material';
 
 const RegisteredInfluencers = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [filteredResults, setFilteredResults] = useState(RegisteredInfluencersList);
+  const [campaigns, setCampaigns] = useState([]);
 
-  const handleSearch = (event) => {
-    const searchText = event.target.value;
-    setSearchValue(searchText);
-    let results = RegisteredInfluencersList;
-    if (searchText) {
-      results = RegisteredInfluencersList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
-    }
-    setFilteredResults(results);
-  }
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/campaigns/')
+      .then(response => {
+        setCampaigns(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
 
   return (
     <div className='mainContainerRI'>
@@ -32,7 +35,7 @@ const RegisteredInfluencers = () => {
       </Row>
       {/* style={{border:'2px solid red'}}; */}
   <Row className="mx-1" >
-    {filteredResults.map(item => (
+    {campaigns.map(item => (
       <Col xs={5} sm={5} md={4} lg={3} className="subContainerRI m-1">
         <Col xs={5} lg={3}><img className="imageRI" src={item.image}/></Col>
         <Col xs={5} lg={9}>

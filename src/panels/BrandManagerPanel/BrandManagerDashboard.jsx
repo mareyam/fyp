@@ -1,4 +1,5 @@
 import Campaigns from '../../panels/BrandManagerPanel/Campaigns/Campaigns';
+import HashtagsForDashboard from '../BrandManagerPanel/Hashtags/HashTagsForDashboard';
 import RegisteredInfluencers from '../../panels/BrandManagerPanel/Influencers/RegisteredInfluencers';
 import { Container, Row, Col } from 'react-grid-system';
 import TopPerformingPosts from '../../panels/BrandManagerPanel/PostsStories/TopPerformingPosts';
@@ -15,9 +16,7 @@ const App = () => {
               <RegisteredInfluencers />
               </Col>
               <Col xs={12} sm={12} md={6} lg={6} style={{marginTop:"5px",border:'1px solid rgb(212, 211, 211)'}} >
-              {/* <TopInfluencers /> */}
-              <TopPerformingPosts />
-              {/* <HashTag /> */}
+              <HashtagsForDashboard />
               </Col>
           </Row>
         </Container>
