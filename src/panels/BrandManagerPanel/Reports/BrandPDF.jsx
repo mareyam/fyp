@@ -1,6 +1,5 @@
 import axios from "axios";
 import React,{useState, useEffect} from 'react';
-import RegisteredInfluencersList from '../Influencers/RegisteredInfluencersList';
 import { Container, Row, Col } from 'react-bootstrap';
 import '../../../Style/BrandManagerPanel/Reports/brandpdf.css';
 

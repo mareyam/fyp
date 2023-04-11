@@ -22,7 +22,7 @@ import ResetPassword from './panels/BrandManagerPanel/Auth/ResetPassword';
 import Resetted from './panels/BrandManagerPanel/Auth/Resetted';
 
 import AdminLogin from './panels/AdminPanel/Auth/Login';
-import PRList from './panels/AdminPanel/PRList/PRList';
+import PRList from './panels/AdminPanel/PRList/PR';
 import NewPRPopup from './panels/AdminPanel/PRList/NewPRPopup';
 
 import PRLogin from './panels/PRAgency/Auth/Login';
@@ -42,6 +42,7 @@ import InfluencerRegDetails3 from './panels/InfluencerPanel/Auth/InfluencerRegDe
 import InfluencerPosts from './panels/InfluencerPanel/PostsStories/InfluencerPosts';
 import InfluencerDashboard from './panels/InfluencerPanel/PostsStories/InfluencerDashboard';
 import PendingCampaigns from './panels/InfluencerPanel/Campaigns/PendingCampaigns';
+
 
 const App = () => {
   return (

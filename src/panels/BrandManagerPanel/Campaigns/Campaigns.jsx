@@ -1,13 +1,11 @@
 import axios from "axios"
 import React,{useEffect, useState} from 'react';
-import CampaignList from "./CampaignsList";
 import { Button } from 'react-bootstrap';
 import { ArrowBack, Search } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
 import { Container, Row, Col } from 'react-grid-system';
 import { Home, People } from '@mui/icons-material';
 import '../../../Style/BrandManagerPanel/brandManagerDashboard/campaigns.css'
-import AllCampaigns from './AllCampaigns';
 
 const Campaigns = () => {
  const [campaigns, setCampaigns] = useState([]);

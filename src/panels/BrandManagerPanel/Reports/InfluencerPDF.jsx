@@ -1,10 +1,21 @@
-import React,{useState} from 'react';
+import axios from "axios";
+import React,{useState, useEffect} from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import '../../../Style/BrandManagerPanel/Reports/influencerpdf.css';
-import CampaignsList from '../../BrandManagerPanel/Campaigns/CampaignsList';
 
 const BrandPDF = () => {
-    const [results, setResults] = useState(CampaignsList);
+    const [report, setReport] = useState([]);
+
+    useEffect(() => {
+      axios.get('http://127.0.0.1:8000/hashtags/')
+        .then(response => {
+          setReport(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }, []);
+
   return (
       <Container style={{border:'1px solid rgb(212, 211, 211)'}} className="mt-2">
 
@@ -26,7 +37,7 @@ const BrandPDF = () => {
                 </tr>
                </thead>
               <tbody style={{border:'1px solid rgb(212, 211, 211)'}} className="">
-                        {results.map(item => {
+                        {report.map(item => {
                           return (
                               <tr>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="influencerNameIP">{item.type}</p></td>

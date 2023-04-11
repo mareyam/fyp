@@ -1,16 +1,8 @@
-import React,{useState} from 'react';
-// import AllStoriesList from "./AllStoriesList";
-import { Button } from 'react-bootstrap';
-import { ArrowBack, Search } from '@material-ui/icons';
-import AddIcon from '@material-ui/icons/Add';
+import axios from "axios";
+import React,{useState, useEffect} from 'react';
 import '../../../Style/InfluencerPanel/PostsAndStories/InfluencerPosts.css';
 
 import { Container, Row, Col } from 'react-grid-system';
-import LaunchIcon from '@mui/icons-material/Launch';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import QueryStatsIcon from '@mui/icons-material/QueryStats';
-import CampaignIcon from '@mui/icons-material/Campaign';
-import InfluencerPostsList from './InfluencerPostsList';
 
 const InfluencerPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         const pageNumbers = [];
@@ -36,20 +28,31 @@ const InfluencerPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) =>
         const [currentPage, setCurrentPage] = useState(1);
         const [itemsPerPage] = useState(3);
         const [searchValue, setSearchValue] = useState('');
-        const [filteredResults, setFilteredResults] = useState(InfluencerPostsList);
-        
+        const [posts, setPosts] = useState([]);
+            
         const handleSearch = (event) => {
             const searchText = event.target.value;
             setSearchValue(searchText);
-            let results = InfluencerPostsList;
+            let results = posts;
             if (searchText) {
-            results = InfluencerPostsList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+            results = posts.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
             }
-            setFilteredResults(results);
+            setPosts(results);
         }
+
+        useEffect(() => {
+          axios.get('http://127.0.0.1:8000/campaigns/')
+            .then(response => {
+              setPosts(response.data);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }, []);
+
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-        const currentItems = filteredResults.slice(indexOfFirstItem, indexOfLastItem);
+        const currentItems = posts.slice(indexOfFirstItem, indexOfLastItem);
       
         const paginate = pageNumber => setCurrentPage(pageNumber);
       
@@ -98,18 +101,6 @@ const InfluencerPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) =>
                                       </div>
                                     </Col>
                                 </Row>
-                               
-                                {/* <div className='d-lg-flex d-sm-block d-xs-block'>
-                                 
-                                  <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
-                                    <b><p style={{fontSize:"10px"}} className='costAS'>cost: Rs.{item.cost}</p></b>
-                                    <a href="/BMCampaignDetails"><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateAS"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Post</p></a>
-                                  </div>
-                                  <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
-                                    <b><p style={{fontSize:"10px", marginTop:"5px"}} className="dateAS">date: {item.date}</p></b>
-                                    <p style={{fontSize:"10px", marginTop:"-10px"}} className="hashtagAS">hashtag: {item.hashtag}</p>
-                                  </div>
-                                </div> */}
                             </div>
                         </Col>
                         )})}
@@ -117,7 +108,7 @@ const InfluencerPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) =>
               <Col xs={12} sm={12} md={12} lg={12}>
                   <InfluencerPosts
                     itemsPerPage={itemsPerPage}
-                    totalItems={filteredResults.length}
+                    totalItems={posts.length}
                     paginate={paginate}/>
              </Col>
         </Col>
@@ -129,108 +120,3 @@ const InfluencerPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) =>
 }
 
 export default Pagintation;
-
-// import React from 'react';
-// import { isCompositeComponentWithType } from 'react-dom/test-utils';
-// import '../Style/campaigns.css';
-// import InfluencerPostsList from "./InfluencerPostsList";
-// import { Button } from 'react-bootstrap';
-// import { Search } from '@material-ui/icons';
-// import AddIcon from '@material-ui/icons/Add';
-
-// const Campaigns = () => {
-//   return (
-//     <div style={{margin: '1%'}}>
-//       <h5>DashBoard</h5>
-//       <div style={{display: "flex"}}>
-//         <h6 style={{marginRight:"10px"}}>Active Campaigns</h6>
-//         <input style={{height:"25px"}} type="text"></input><Search className="mx-3"/>
-//         <Button style={{height:"25px"}} >
-//           <div style={{marginTop:"-6px"}}>
-//              <AddIcon style={{fontSize:"15px"}}/>Create
-//           </div>
-//         </Button>
-//         <a  href="#" className="mx-3">View all campaigns</a>
-//       </div>
-//     <div className="mainContainerC" style={{display: 'flex', flexWrap: "nowrap"}}>
-        
-//       {AllStoriesList.map(item => {
-//         return (
-//             <div className="subContainerC" >
-//                 <div>
-//                 <div><img className="imageC" src={item.image}/></div>
-//                 <div style={{display: 'flex',justifyContent:'space-between'}}>
-//                 <p className='typeC'>{item.type}</p>
-//                     <p className="hashtagC">{item.hashtag}</p>
-//                 </div>
-//                 <h3 className='nameC'>{item.name}</h3>
-//                 <p className='influencersC'>{item.influencers}</p>
-//                 <p className='dateC'>{item.startDate}</p>
-//                 </div>
-//             </div>
-//         )})}
-//     </div>
-//     </div>
-//   );
-// }
-
-// export default Campaigns;
-
-
-//   return (
-//     <Container style={{ margin: '1%' }}>
-//       <Row>
-//         <Col xs={12} sm={12} md={6} lg={6}>
-//           <h5>DashBoard</h5>
-//         </Col>
-//         <Col xs={12} sm={12} md={6} lg={6}>
-//           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-//             <Button style={{ height: '25px' }}>
-//               <AddIcon style={{ fontSize: '15px' }} />
-//               Create
-//             </Button>
-//             <a href="#" className="mx-3">
-//               View all campaigns
-//             </a>
-//           </div>
-//         </Col>
-//       </Row>
-//       <Row>
-//         <Col xs={12} sm={12} md={6} lg={6}>
-//           <h6 style={{ marginRight: '10px' }}>Active Campaigns</h6>
-//         </Col>
-//         <Col xs={12} sm={12} md={6} lg={6}>
-//           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-//             <input
-//               style={{ height: '25px' }}
-//               type="text"
-//               value={searchValue}
-//               onChange={handleSearch}
-//             />
-//             <Search className="mx-3" />
-//           </div>
-//         </Col>
-//       </Row>
-//       <Row>
-//         <Col xs={12}>
-//           <div className="mainContainerC" style={{ display: 'flex', flexWrap: 'wrap' }}>
-//             {filteredResults.map(item => (
-//               <div className="subContainerC">
-//                 <div>
-//                   <div>
-//                     <img className="imageC" src={item.image} alt="campaign image" />
-//                   </div>
-//                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-//                     <p className="typeC">{item.type}</p>
-//                     <p className="hashtagC">{item.hashtag}</p>
-//                   </div>
-//                   <h3 className="nameC">{item.name}</h3>
-//                 </div>
-//                 </div>
-//             ))}</div>
-//             </Col>
-//             </Row>
-//             </Container>
-//   )}
-
-// export default Campaigns;
