@@ -1,10 +1,24 @@
-import React,{useState} from 'react';
+import axios from "axios";
+import React,{useState, useEffect} from 'react';
 import RegisteredInfluencersList from '../Influencers/RegisteredInfluencersList';
 import { Container, Row, Col } from 'react-bootstrap';
 import '../../../Style/BrandManagerPanel/Reports/brandpdf.css';
 
 const BrandPDF = () => {
-    const [results, setResults] = useState(RegisteredInfluencersList);
+    const [report, setReport] = useState([]);
+
+    useEffect(() => {
+          axios.get('http://127.0.0.1:8000/hashtags/')
+            .then(response => {
+              setReport(response.data);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }, []);
+      
+
+
   return (
       <Container style={{border:'1px solid rgb(212, 211, 211)'}} className="mt-2">
 
@@ -28,12 +42,12 @@ const BrandPDF = () => {
                 </tr>
                </thead>
               <tbody style={{border:'1px solid rgb(212, 211, 211)'}} className="">
-                        {results.map(item => {
+                        {report.map(item => {
                           return (
                               <tr>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="influencerNameBP">{item.name}</p></td>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="postsBP">{item.posts}</p></td>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="storiesBP">{item.stories}</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="postsBP">{item.campaign_count}</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="storiesBP">{item.start_date}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="followersBP">{item.followers}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="likesBP">{item.likes}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="sharesBP">{item.shares}</p></td>

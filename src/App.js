@@ -4,10 +4,9 @@ import AllCampaigns from './panels/BrandManagerPanel/Campaigns/AllCampaigns';
 // import AllCampaigns from './components/AllCampaignsPage/AllCampaigns';
 import Navbarr from './panels/BrandManagerPanel/Navbar/Navbarr';
 import AllRegisteredInfluencers from './panels/BrandManagerPanel/Influencers/AllRegisteredInfluencers';
-import AllStories from './panels/BrandManagerPanel/PostsStories/AllStoriesOfInfluencers';
 import {Route, Routes} from 'react-router-dom';
 import HashTags from './panels/BrandManagerPanel/Hashtags/HashTags';
-import AllPosts from './panels/BrandManagerPanel/PostsStories/AllPostsOfInfluencers';
+import AllContent from './panels/BrandManagerPanel/PostsStories/AllContentOfInfluencers';
 import CampaignDetails from './panels/BrandManagerPanel/Campaigns/CampaignDetails';
 import CompareInfluencers from './panels/BrandManagerPanel/Influencers/CompareInfluencers'
 import NewCampaign from './panels/BrandManagerPanel/Campaigns/NewCampaign'
@@ -55,9 +54,8 @@ const App = () => {
         <Route path="/BMCampaigns" element={<AllCampaigns/>}/>
         <Route path="/Test" element={<Test/>}/>
         <Route path="/BMRegisteredInfluencers" element={<AllRegisteredInfluencers/>}/>
-        <Route path="/BMAllStories" element={<AllStories/>}/>
         <Route path="/BMHashtags" element={<HashTags/>}/>
-        <Route path="/BMAllPosts" element={<AllPosts/>}/>
+        <Route path="/BMAllContent" element={<AllContent/>}/>
         <Route path="/BMCampaignDetails" element={<CampaignDetails/>}/>
         <Route path="/BMCompare" element={<CompareInfluencers/>}/>
         <Route path="/BMNewCampaign" element={<NewCampaign/>}/>

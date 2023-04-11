@@ -1,6 +1,6 @@
-import React,{useState} from 'react';
+import axios from "axios";
+import React, {useState, useEffect} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import RegisteredInfluencersList from './RegisteredInfluencersList';
 import AddIcon from '@mui/icons-material/Add';
 import "../../../Style/BrandManagerPanel/AllCampaigns/AllCampaigns.css"
 import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';
@@ -31,24 +31,35 @@ const AllCampaigns = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
 
 const Pagintation = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+  const [itemsPerPage] = useState(8);
   const [searchValue, setSearchValue] = useState('');
-  const [filteredResults, setFilteredResults] = useState(RegisteredInfluencersList);
- 
+  const [influencers, setInfluencers] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/influencers/')
+      .then(response => {
+        setInfluencers(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
+
     const handleSearch = (event) => {
       const searchText = event.target.value;
       setSearchValue(searchText);
-      let results = RegisteredInfluencersList;
+      let results = influencers;
       if (searchText) {
-        results = RegisteredInfluencersList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+        results = influencers.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
       }
-      setFilteredResults(results);
+      setInfluencers(results);
     }
 
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredResults.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = influencers.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
@@ -70,7 +81,7 @@ const Pagintation = () => {
                 <div style={{display:"flex"}}><ArrowBack/>
                 <h3 className='campaignHeaderAC' >Campaigns</h3></div>
                 <div className="ms-4 d-lg-flex d-xs-block" >
-                  <div className="align-item-center"><h6>All Campaigns({RegisteredInfluencersList.length})</h6></div>
+                  <div className="align-item-center"><h6>All Campaigns({influencers.length})</h6></div>
                   <div className="d-flex">
                       <input  style={{height:"25px"}} placeholder="Search by name &#x1F50D;"/>
                       <Button style={{backgroundColor:'#452c63',fontSize:"12px",height:"25px", marginLeft:'5px'}}>
@@ -94,9 +105,9 @@ const Pagintation = () => {
                       <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={item.image} />
                       <Card.Body className="d-flex flex-column">
                         <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ fontFamily: 'Oswald' }}>
-                          <h6 style={{ fontWeight: "bolder", fontSize: "20px" }}>{item.name}</h6>
-                          <p style={{fontSize: '13px'}}>@{item.userName}</p>
-                          <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followers}K</p>
+                          <h6 style={{ fontWeight: "bolder", fontSize: "20px" }}>{item.influencer_full_name}</h6>
+                          <p style={{fontSize: '13px'}}>@{item.influencer_username}</p>
+                          <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.influencerFollowerCount}K</p>
                           <a href='instagram.com'>
                           <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
                             <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
@@ -110,7 +121,7 @@ const Pagintation = () => {
                   
               <AllCampaigns
                   itemsPerPage={itemsPerPage}
-                  totalItems={filteredResults.length}
+                  totalItems={influencers.length}
                   paginate={paginate}
                 />
            </Row>
@@ -165,7 +176,7 @@ export default Pagintation;
 
 
        // import React,{useState} from 'react';
-// import RegisteredInfluencersList from "../../components/brandManagerDashboard/RegisteredInfluencers/RegisteredInfluencersList";
+// import influencers from "../../components/brandManagerDashboard/RegisteredInfluencers/influencers";
 // import { Container, Row, Col } from 'react-grid-system';
 // import "../../Style/AllRegisteredInfluencers/AllRegisteredInfluencers.css";
 
@@ -195,18 +206,18 @@ export default Pagintation;
 //   const [currentPage, setCurrentPage] = useState(1);
 //   const [itemsPerPage] = useState(10);
 //   const [searchValue, setSearchValue] = useState('');
-//   const [filteredResults, setFilteredResults] = useState(RegisteredInfluencersList);
+//   const [influencers, setFilteredResults] = useState(influencers);
   
 //   const indexOfLastItem = currentPage * itemsPerPage;
 //   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-//   const currentItems = filteredResults.slice(indexOfFirstItem, indexOfLastItem);
+//   const currentItems = influencers.slice(indexOfFirstItem, indexOfLastItem);
 
 //   const handleSearch = (event) => {
 //       const searchText = event.target.value;
 //       setSearchValue(searchText);
-//       let results = RegisteredInfluencersList;
+//       let results = influencers;
 //       if (searchText) {
-//         results = RegisteredInfluencersList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+//         results = influencers.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
 //       }
 //       setFilteredResults(results);
 //     }
@@ -219,7 +230,7 @@ export default Pagintation;
 //         <Col xs={7} sm={7} md={12} lg={12} >
 //             <div style={{display: "flex", justifyContent: "space-between"}}>
 //               <div>
-//                 <h6>Registred Inflencers ({RegisteredInfluencersList.length})</h6>
+//                 <h6>Registred Inflencers ({influencers.length})</h6>
 //               </div>
 //               <div style={{display:"flex"}}>
 //                 <input style={{height:"25px"}} placeholder="Search by name" type="text" value={searchValue} onChange={handleSearch}></input>
@@ -245,7 +256,7 @@ export default Pagintation;
 //     </Row>
 //     <AllRegisteredInfluencers
 //         itemsPerPage={itemsPerPage}
-//         totalItems={filteredResults.length}
+//         totalItems={influencers.length}
 //         paginate={paginate}
 //       />
 //     </Container>

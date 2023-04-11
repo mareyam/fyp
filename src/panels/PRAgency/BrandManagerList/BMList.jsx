@@ -2,8 +2,8 @@ import axios from "axios";
 import React, {useState, useEffect} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
-import PR from './BM';
-import NewPRPopup from './NewBMPopup';
+import BM from './BM';
+import NewBMPopup from './NewBMPopup';
 
 const BMPagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
     const pageNumbers = [];
@@ -31,13 +31,13 @@ const BMList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(7);
   const [searchValue, setSearchValue] = useState('');
-  const [brandManager, setBrandManager] = useState([]);
+  const [BM, setBM] = useState([]);
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
     useEffect(() => {
       axios.get('http://127.0.0.1:8000/brandmanagers/')
         .then(response => {
-          setBrandManager(response.data);
+          setBM(response.data);
         })
         .catch(error => {
           console.error(error);
@@ -47,16 +47,16 @@ const BMList = () => {
     const handleSearch = (event) => {
     const searchText = event.target.value;
     setSearchValue(searchText);
-    let results = PR;
+    let results = BM;
     if (searchText) {
-      results = PR.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+      results = BM.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
     }
-    setBrandManager(results);
+    setBM(results);
   }
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = brandManager.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = BM.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
   
@@ -143,7 +143,7 @@ return (
                         }}
                         onClick={handleClosePopUp}
                       />
-                      <NewPRPopup onClose={handleClosePopUp} />
+                      <NewBMPopup onClose={handleClosePopUp} />
                     </>
                   )}
             </div>
@@ -177,7 +177,7 @@ return (
                                  
                       <BMPagintation
                           itemsPerPage={itemsPerPage}
-                          totalItems={brandManager.length}
+                          totalItems={BM.length}
                           paginate={paginate}/>
                 </tbody>      
           </table>

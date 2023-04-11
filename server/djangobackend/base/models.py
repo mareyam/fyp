@@ -101,23 +101,23 @@ class PRAgency(models.Model):
     def __str__(self):
         return self.pragency_username
 
+
 class BrandManager(models.Model):   
     host = models.OneToOneField(User, unique=False, on_delete=models.CASCADE, blank=False, null=False)
     brandmanager_name = models.CharField(max_length=200)
-    brandmanager_username = models.CharField(max_length=20, unique=False, blank=False, null=False)
+    brandmanager_username = models.CharField(max_length=20, unique=True, blank=False, null=False)
     brandmanager_email = models.EmailField(max_length=254, unique=True, default='')
     password = models.CharField(max_length=200)
     phone_number = models.IntegerField(blank=True, null=True)
-    # pfp
-    # email
-    updated = models.DateTimeField(auto_now = True)
-    created = models.DateTimeField(auto_now_add = True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
     
     class Meta:
         ordering = ['-updated', '-created']
         
     def __str__(self):
         return self.brandmanager_name
+
 
 class Brand(models.Model):
     brandmanager_name = models.OneToOneField(BrandManager, on_delete=models.CASCADE, blank=False, null=False)
@@ -214,7 +214,7 @@ class Campaign(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     influencers = models.ManyToManyField(Influencer, blank=True)
     cost_per_influencer = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
-    
+    # campaign_cost = models.IntegerField()
     class Meta:
         ordering = ['-updated', '-created']
 
@@ -287,7 +287,23 @@ class Filter(models.Model):
     def __str__(self):
         return self.gender
 
-    
+class BrandReport(models.Model):  
+    active_influencers = models.ManyToManyField(Influencer, blank=True)
+    campaign_count = models.ForeignKey(Campaign, on_delete=models.CASCADE, null=False)
+    # followers = models.ManyToManyField(Influencer, blank=True)
+    # likes = 
+    # shares = 
+    # comments = 
+    # engagementRate = 
+    updated = models.DateTimeField(default=datetime.now)
+    created = models.DateTimeField(default=datetime.now)
+       
+    class Meta:
+        ordering = ['-updated', '-created']
+
+    def __str__(self):
+        return f"{self.campaign_count} ({self.active_influencers.count()} active influencers)"
+
 
 
 
@@ -307,18 +323,3 @@ class CampaignDetailsWithInfluencer(models.Model):
 
 
 
-
-
-#  #influencerProfilePicture
-
-    # influencer_bio = models.TextField(blank=True, null=True)
-    # influencer_children_count = models.IntegerField(blank=True, null=True)
-    # influencer_campaign_count = models.IntegerField(blank=True, null=True)
-    # influencer_children_age = models.IntegerField(blank=True, null=True)
-    # influencer_post_cost = models.IntegerField(blank=True, null=True)
-    # influencer_story_cost = models.IntegerField(blank=True, null=True)
-    # influencer_story_count = models.IntegerField(blank=True, null=True)
-    # influencer_follower_count = models.IntegerField(blank=True, null=True)
-    # influencer_following_count = models.IntegerField(blank=True, null=True)
-    # influencer_post_count = models.IntegerField(blank=True, null=True)
-    # influencer_interest = models.CharField(max_length=20, choices=INFLUENCER_INTEREST_CHOICES, blank=True, null=True)

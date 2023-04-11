@@ -1,4 +1,5 @@
-import React,{useState} from 'react';
+import axios from "axios";
+import React, {useState, useEffect} from 'react';
 // import AllStoriesList from "./AllStoriesList";
 import { Button } from 'react-bootstrap';
 import { ArrowBack, Search } from '@material-ui/icons';
@@ -9,7 +10,8 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import CampaignIcon from '@mui/icons-material/Campaign';
-import AllCampaignsList from '../Campaigns/AllCampaignsList';
+import { isContentEditable } from "@testing-library/user-event/dist/utils";
+// import AllCampaignsList from '../Campaigns/AllCampaignsList';
 
 const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         const pageNumbers = [];
@@ -35,20 +37,48 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         const [currentPage, setCurrentPage] = useState(1);
         const [itemsPerPage] = useState(3);
         const [searchValue, setSearchValue] = useState('');
-        const [filteredResults, setFilteredResults] = useState(AllCampaignsList);
-        
+        const [campaign, setCampaign] = useState([]);
+        const [selected, setSelected] = useState('');
+
+        const handleToggle = (value) => {
+          setSelected(value);
+        };
+      
+        useEffect(() => {
+          axios.get('http://127.0.0.1:8000/campaigns/')
+            .then(response => {
+              setCampaign(response.data);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }, []);
+
+
         const handleSearch = (event) => {
             const searchText = event.target.value;
             setSearchValue(searchText);
-            let results = AllCampaignsList;
+            let results = campaign;
             if (searchText) {
-            results = AllCampaignsList.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+            results = campaign.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
             }
-            setFilteredResults(results);
+            setCampaign(results);
         }
+
+        const filteredCampaigns = campaign.filter(item => {
+          if (selected === 'Post') {
+            return item.content_type === 'Post';
+          } else if (selected === 'Story') {
+            return item.content_type === 'Story';
+          } else {
+            return true; // show all campaigns
+          }
+        });
+
+
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-        const currentItems = filteredResults.slice(indexOfFirstItem, indexOfLastItem);
+        const currentItems = campaign.slice(indexOfFirstItem, indexOfLastItem);
       
         const paginate = pageNumber => setCurrentPage(pageNumber);
       
@@ -64,7 +94,7 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
                   <p style={{fontSize:"12px"}}><b>Started on: date</b> </p>
                   <p style={{fontSize:"12px"}}><b>Ends on: date</b></p>
                   <p style={{fontSize:"12px"}}><b>Days Left: date</b></p>
-                  <p style={{fontSize:"12px"}}><b>Cycle: periodic</b></p>
+                  <p style={{fontSize:"12px"}}><b>Cycle: Periodic</b></p>
                   <p style={{fontSize:"12px"}}><b>Type: date</b></p>
                   <p style={{fontSize:"12px"}}><b>Total Likes: number</b></p>
                   <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
@@ -83,12 +113,47 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
             </div>
         </Col>
         <Col xs={12} sm={12} md={6} lg={8}>
-              <div className="header1 d-flex mt-4">
+              <div className="header1 d-lg-flex mt-4 d-xs-block ">
                 <h6>All Posts from coke</h6>
-                <input className="mx-2" type="text" placeholder="Search for story" value={searchValue} onChange={handleSearch} />
+                <input style={{height:'20%'}}className="mx-2" type="text" placeholder="Search for story" value={searchValue} onChange={handleSearch} />
+                <div className="d-xs-block ">
+                  <button
+                    onClick={() => handleToggle('Post')}
+                    style={{
+                      backgroundColor: selected === 'Post' ? '#452c63' : 'white',
+                      color: selected === 'Post' ? 'white' : 'black',
+                      width: '110px',
+                      borderRadius:'16px'
+                    }}>
+                    Post
+                  </button>
+                  <button
+                    onClick={() => handleToggle('Story')}
+                    style={{
+                      backgroundColor: selected === 'Story' ? '#452c63' : 'white',
+                      color: selected === 'Story' ? 'white' : 'black',
+                      width: '110px',
+                      borderRadius:'16px'
+                    }}
+                  >
+                    Story
+                  </button>
+                  <button
+                    onClick={() => handleToggle('Both')}
+                    style={{
+                      backgroundColor: selected === 'Both' ? '#452c63' : 'white',
+                      color: selected === 'Both' ? 'white' : 'black',
+                      width: '110px',
+                      borderRadius:'16px'
+                    }}
+                  >
+                    Both
+                  </button>
+                </div>
+
               </div>
               <div className="mainContainerAS"> 
-                {currentItems.map(item => {
+                {filteredCampaigns.map(item => {
                     return (
                         <Col xs={12} sm={12} md={12} lg={12} >
                             <div style={{}} className="subContainerAS my-2 d-lg-flex">
@@ -96,17 +161,17 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
                                 <div className='d-lg-flex d-sm-block d-xs-block'>
                                   <div className="mx-2 d-flex" style={{alignItems:"center"}}>
                                     <div><img className="imageAS" src='https://static.toiimg.com/thumb/56200851.cms?width=170&height=240&imgsize=88803' /></div>
-                                    <div style={{marginLeft:'5px'}}><b><p style={{fontSize:"12px", marginTop:'30px'}}>Ali Zafar</p></b>
-                                    <p style={{fontSize:"12px", marginTop:"-15px"}}>@username</p></div>
+                                    <div style={{marginLeft:'5px'}}><b><p style={{fontSize:"12px", marginTop:'30px'}}>{item.influencers}</p></b>
+                                    <p style={{fontSize:"12px", marginTop:"-15px"}}>@{item.influencers}</p></div>
                                   </div>
                                   <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
-                                    <b><p style={{fontSize:"10px"}} className='costAS'>cost: Rs.{item.cost}</p></b>
+                                    <b><p style={{fontSize:"10px"}} className='costAS'>cost: Rs.{item.campaign_cost}</p></b>
                                     <a href="/BMCampaignDetails"><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateAS"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Post</p></a>
                                     <a href=""><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateAS"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Profile</p></a>
                                   </div>
                                   <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
-                                    <b><p style={{fontSize:"10px", marginTop:"5px"}} className="dateAS">date: {item.date}</p></b>
-                                    <p style={{fontSize:"10px", marginTop:"-10px"}} className="hashtagAS">hashtag: {item.hashtag}</p>
+                                    <b><p style={{fontSize:"10px", marginTop:"5px"}} className="dateAS">date: {item.start_date}</p></b>
+                                    <p style={{fontSize:"10px", marginTop:"-10px"}} className="hashtagAS">hashtag: {item.hashtag_campaign}</p>
                                   </div>
                                 </div>
                             </div>
@@ -116,7 +181,7 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
               <div xs={12} sm={12} md={12} lg={12}>
                   <AllPosts
                     itemsPerPage={itemsPerPage}
-                    totalItems={filteredResults.length}
+                    totalItems={campaign.length}
                     paginate={paginate}/>
              </div>
         </Col>

@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from .models import BrandManager, Campaign, Influencer, Brand, PRAgency, Hashtag, Filter
+from .models import BrandManager, Campaign, Influencer, Brand, PRAgency, Hashtag, Filter, BrandReport    
 
 
 class BrandManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = BrandManager
-        fields = ['id','name']
+        fields = "__all__"
 
 class CampaignSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,10 +25,10 @@ class BrandSerializer(serializers.ModelSerializer):
 class BrandNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
-        fields = ('brand_name',)
+        fields = "__all__"
 
 class HashtagSerializer(serializers.ModelSerializer):
-    brand = BrandNameSerializer()
+    # brand = BrandNameSerializer()
     class Meta:
         model = Hashtag
         fields = "__all__"
@@ -43,4 +43,9 @@ class PRAgencySerializer(serializers.ModelSerializer):
 class FilterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Filter
+        fields = "__all__"
+
+class BrandReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BrandReport
         fields = "__all__"

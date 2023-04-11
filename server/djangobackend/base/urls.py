@@ -75,6 +75,9 @@ urlpatterns = [
     path('brands/', views.brands),
     path('brand/<str:id>/', views.brand_detail),
 
+    path('brandreport/', views.brandreports),
+    path('brandreport/<str:id>/', views.brandreport_detail),
+
     
    
 

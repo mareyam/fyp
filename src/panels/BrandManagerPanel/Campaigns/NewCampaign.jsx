@@ -104,7 +104,18 @@ const NewCampaign = () => {
                     >
                       Periodic
                     </button>
-              </div>
+                    <button
+                    onClick={() => handleToggle('both')}
+                    style={{
+                      backgroundColor: selected === 'both' ? '#452c63' : 'white',
+                      color: selected === 'both' ? 'white' : 'black',
+                      width: '110px',
+                      borderRadius:'16px'
+                    }}
+                  >
+                    Both
+                  </button>
+                  </div>
         </Col>  
       </Col>
       <div className="mt-3 mb-2 d-lg-flex d-sm-block" style={{justifyContent:'space-between'}}>

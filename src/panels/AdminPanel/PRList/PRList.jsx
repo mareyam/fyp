@@ -5,7 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import PR from './PR';
 import NewPRPopup from './NewPRPopup';
 
-const Hashtag = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
+const PRPagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
       pageNumbers.push(i); //number of pages i.e 3
@@ -171,7 +171,7 @@ return (
 
                               </tr> )})}                                 
                                  
-                      <Hashtag
+                      <PRPagintation
                           itemsPerPage={itemsPerPage}
                           totalItems={PR.length}
                           paginate={paginate}/>

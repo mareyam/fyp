@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from .models import Room, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, Filter, Drinks, Campaigns
-from .forms import RoomForm, CampaignForm, BrandForm, BrandManagerForm, InfluencerForm, PRAgencyForm, HashtagForm, FilterForm
-from django.http import JsonResponse
-from .serializers import BrandManagerSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, FilterSerializer, PRAgencySerializer
+from .models import Room, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, Filter, BrandReport
+from .serializers import BrandManagerSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, FilterSerializer, PRAgencySerializer, BrandReportSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -53,6 +51,7 @@ def campaign_detail(request, id, format=None):
 
    
 
+
 @api_view(['GET', 'POST'])
 def brandmanagers(request, format=None):
     if request.method == 'GET':
@@ -71,7 +70,7 @@ def brandmanager_detail(request, id, format=None):
 
     try:
         brandmanager = BrandManager.objects.get(pk=id)
-    except BrandManager.DoesNotExist:
+    except brandmanager.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
@@ -272,6 +271,42 @@ def pragency_detail(request, id, format=None):
 
     elif request.method == 'DELETE':
         pragency.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def brandreports(request, format=None):
+    if request.method == 'GET':
+     report = report.objects.all()
+     serializer = BrandReportSerializer(report, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = BrandReportSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def brandreport_detail(request, id, format=None):
+
+    try:
+        report = report.objects.get(pk=id)
+    except report.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = BrandReportSerializer(report)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = BrandReportSerializer(report, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        report.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 

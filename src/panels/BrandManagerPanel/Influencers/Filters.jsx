@@ -1,17 +1,30 @@
+import axios from "axios";
+import React, {useState, useEffect} from 'react';
 import 'react-input-range/lib/css/index.css';
 import InputRange from 'react-input-range';
-import React,{useState} from 'react';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
 import Accordion from 'react-bootstrap/Accordion';
 
 function Filters() {
-    const [gender, setGender] = useState('');
+    // const [gender, setGender] = useState('');
     const [isParent, setIsParent] = useState(false);
     const [childrenCount, setChildrenCount] = useState({ min: 0, max: 10 });
     const [childAge, setChildAge] = useState({ min: 0, max: 25 });
     const [followers, setFollowers] = useState({ min: 100000, max: 300000 });
     const [age, setAge] = useState({ min: 15, max: 100 });
+
+    const [gender, setGender] = useState([]);
+    useEffect(() => {
+      axios.get('http://127.0.0.1:8000/filters/')
+        .then(response => {
+          setAge(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }, []);
+
 
     const handleGenderChange = (gender) => {
       setGender(gender);
