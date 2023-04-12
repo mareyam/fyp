@@ -19,7 +19,7 @@ const TopPerformingPosts = () => {
               <Col className="subContainerTPP" xs={12} sm={12} md={12} lg={4}  >
             <div style={{display:"flex", alignItems:"center", height:'75px'}}>
                     <div>
-                      <img src={item.influencerImage} className='influencerImageTPP'/>
+                      <img src={`http://127.0.0.1:8000/${item.image}`} className='influencerImageTPP'/>
                   </div> 
                   <div>
                       <p className='influencerNameTPP'>{item.influencerName}</p>

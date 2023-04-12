@@ -87,7 +87,7 @@ const AllStories = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
                 return (
                     <Col xs={12} sm={12} md={12} lg={12}>
                         <div style={{}} className="subContainerAS my-2 d-lg-flex">
-                            <div><img className="storyImageAS" src={item.image}/></div>
+                            <div><img className="storyImageAS" src={`http://127.0.0.1:8000/${item.image}`} /></div>
                             <div className='d-lg-flex d-sm-block d-xs-block'>
                               <div className="mx-2 d-flex" style={{alignItems:"center"}}>
                                 <div><img className="imageAS" src='https://static.toiimg.com/thumb/56200851.cms?width=170&height=240&imgsize=88803' /></div>

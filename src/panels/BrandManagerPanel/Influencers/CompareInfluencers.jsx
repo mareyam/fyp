@@ -1,4 +1,5 @@
-import React,{useState} from 'react';
+import axios from "axios";
+import React, {useState, useEffect} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import RegisteredInfluencersList from './RegisteredInfluencersList';
 import "../../../Style/BrandManagerPanel/AllCampaigns/AllCampaigns.css"
@@ -16,7 +17,19 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 const CompareInfluencers = () => {
   const [searchValue, setSearchValue] = useState('');
   const [filteredResults, setFilteredResults] = useState(RegisteredInfluencersList);
-  
+  const [influencers, setInfluencers] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/influencers/')
+      .then(response => {
+        setInfluencers(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
+
     const handleSearch = (event) => {
       const searchText = event.target.value;
       setSearchValue(searchText);

@@ -64,7 +64,7 @@ const AllCampaigns = () => {
       <Row>
           <Col xs={8} sm={8} md={12} lg={12}>
           <div style={{display:"flex"}}><ArrowBack/>
-          <h5 className='campaignHeaderAC' >CAMPAIGNS</h5></div>
+          <h5 className='campaignHeaderAC' >CAMPAIGNSss</h5></div>
 
                 <div className="ms-4 d-lg-flex d-xs-block">
                   <div className="align-item-center"><h6>All Campaigns({campaigns.length})</h6></div>
@@ -97,8 +97,9 @@ const AllCampaigns = () => {
     return (
       <Col xs={8} sm={8} md={2} lg={2} className="subContainerAC mx-1">
         <div>
-        {/* <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}><img className="imageAC" src={item.image}/>
-        </div> */}
+        <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+          <img className="imageAC" src={`http://127.0.0.1:8000/${item.image}`} />
+        </div>
         <div style={{display: 'flex',justifyContent:'space-between'}}>
         <p className='typeAC'>{item.campaign_type}</p>
         <p className="hashtagAC">{item.hashtag_campaign}</p>

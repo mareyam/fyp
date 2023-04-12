@@ -102,7 +102,8 @@ const Pagintation = () => {
                   return (
                     <Col xs={8} sm={8} md={2} lg={2} className="subContainerARI mx-3 my-3">
                     <Card style={{ height: "100%", width:"200px"}}>
-                      <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={item.image} />
+                      <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={`http://127.0.0.1:8000/${item.image}`} />
+                      
                       <Card.Body className="d-flex flex-column">
                         <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ fontFamily: 'Oswald' }}>
                           <h6 style={{ fontWeight: "bolder", fontSize: "20px" }}>{item.influencer_full_name}</h6>

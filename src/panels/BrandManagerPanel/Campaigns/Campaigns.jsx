@@ -10,6 +10,7 @@ import '../../../Style/BrandManagerPanel/brandManagerDashboard/campaigns.css'
 const Campaigns = () => {
  const [campaigns, setCampaigns] = useState([]);
 
+ console.log(campaigns.image);
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/campaigns/')
       .then(response => {
@@ -41,7 +42,10 @@ const Campaigns = () => {
       {campaigns.slice(0,20).map(item => {
         return (
             <div className="subContainerC" >
-              <div><img className="imageC" src={item.image}/></div>
+              <div>
+                <img className="imageC" src={`http://127.0.0.1:8000/${item.image}`} />
+              </div>
+
               <Row className='mt-2'>
                   <Col xs={12} sm={12} md={6} lg={7}>
                       <h3 className='nameC'>{item.name}</h3>

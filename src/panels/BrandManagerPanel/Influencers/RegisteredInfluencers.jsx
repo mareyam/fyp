@@ -37,7 +37,9 @@ const RegisteredInfluencers = () => {
   <Row className="mx-1" >
     {campaigns.map(item => (
       <Col xs={5} sm={5} md={4} lg={3} className="subContainerRI m-1">
-        <Col xs={5} lg={3}><img className="imageRI" src={item.image}/></Col>
+        <Col xs={5} lg={3}>
+          <img className="imageRI" src={`http://127.0.0.1:8000/${item.image}`} />  
+        </Col>
         <Col xs={5} lg={9}>
             <div className="ColDetailsRI">
               <p className='nameRI'>{item.name}</p>

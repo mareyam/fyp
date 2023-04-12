@@ -80,7 +80,7 @@ const InfluencerPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) =>
                     return (
                         <Col xs={12} sm={12} md={12} lg={12} >
                             <div style={{}} className="subContainerIPIP my-2 d-lg-flex">
-                                <div style={{marginRight:'2%'}}><img className="storyImageIPIP img-fluid" src={item.image}/></div>
+                                <div style={{marginRight:'2%'}}><img className="storyImageIPIP img-fluid"src={`http://127.0.0.1:8000/${item.image}`}/></div>
                                 <Row>
                                     <Col xs={12} sm={12} md={12} lg={12} >
                                       <div>

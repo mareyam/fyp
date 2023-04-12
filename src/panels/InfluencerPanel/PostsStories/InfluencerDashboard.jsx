@@ -72,7 +72,7 @@ const InfluencerDashboard = () => {
               <Col className="subContainerIP" xs={12} sm={12} md={12} lg={3}>
                 <div className='d-flex' style={{display:"flex", alignItems:"center", height:'75px'}}>
                         <div>
-                          <img src={item.influencerImage} className='influencerImageIP'/>
+                          <img src={`http://127.0.0.1:8000/${item.image}`} className='influencerImageIP'/>
                       </div> 
                       <div>
                           <p className='influencerNameIP'>{item.name}</p>
@@ -112,7 +112,7 @@ const InfluencerDashboard = () => {
               <Col className="subContainerIP" xs={12} sm={12} md={12} lg={3}>
                 <div className='d-flex' style={{display:"flex", alignItems:"center", height:'75px'}}>
                         <div>
-                          <img src={item.influencerImage} className='influencerImageIP'/>
+                          <img src={`http://127.0.0.1:8000/${item.image}`} className='influencerImageIP'/>
                       </div> 
                       <div>
                           <p className='influencerNameIP'>{item.name}</p>
