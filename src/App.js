@@ -49,17 +49,19 @@ const App = () => {
     <div>
       <Navbarr/>
       <Routes>
+         <Route path="/BMList" element={<BMList/>}/>
+         <Route path="/PRLogin" element={<PRLogin/>}/>
         <Route path="/BMDashboard" element={<BrandManagerDashboard/>}/>
-        <Route path="/BMCampaigns" element={<AllCampaigns/>}/>
-        <Route path="/BMRegisteredInfluencers" element={<AllRegisteredInfluencers/>}/>
         <Route path="/BMHashtags" element={<HashTags/>}/>
         <Route path="/BMAllContent" element={<AllContent/>}/>
+        <Route path="/BMCampaigns" element={<AllCampaigns/>}/> 
+        <Route path="/BMRegisteredInfluencers" element={<AllRegisteredInfluencers/>}/>
         <Route path="/BMCampaignDetails" element={<CampaignDetails/>}/>
         <Route path="/BMCompare" element={<CompareInfluencers/>}/>
         <Route path="/BMNewCampaign" element={<NewCampaign/>}/>
         <Route path="/BMPrivacy" element={<Privacy/>}/>
         <Route path="/BMTerms" element={<Terms/>}/>
-        <Route path="/BMBrandPDF" element={<BrandPDF/>}/>
+        <Route path="/BMBrandPDF" element={<BrandPDF/>}/> 
         <Route path="/BMInfluencerPDF" element={<InfluencerPDF/>}/>
         <Route path="/BMLogin" element={<Login/>}/>
         <Route path="/BMSignup" element={<Signup/>}/>
@@ -69,9 +71,10 @@ const App = () => {
         <Route path="/BMResetPassword" element={<ResetPassword/>}/>  
         <Route path="/BMResetted" element={<Resetted/>}/>  
         <Route path="/AdminLogin" element={<AdminLogin/>}/>
+       
+       
         <Route path="/PRList" element={<PRList/>}/>
         <Route path="/NewPRPopup" element={<NewPRPopup/>}/>
-
         <Route path="/PRLogin" element={<PRLogin/>}/>
         <Route path="/PRSignup" element={<PRSignup/>}/>
         <Route path="/PRForgotPassword" element={<PRForgotPassword/>}/>
@@ -81,6 +84,7 @@ const App = () => {
         <Route path="/BMList" element={<BMList/>}/>
         <Route path="/NewBMPopup" element={<NewBMPopup/>}/>
 
+
         <Route path="/InfluencerLogin" element={<InfluencerLogin/>}/>
         <Route path="/InfluencerSignup" element={<InfluencerSignup/>}/>
         <Route path="/InfluencerRegDetails" element={<InfluencerRegDetails/>}/>
@@ -89,9 +93,7 @@ const App = () => {
         <Route path="/InfluencerPosts" element={<InfluencerPosts/>}/>
         <Route path="/InfluencerDashboard" element={<InfluencerDashboard/>}/>
         <Route path="/InfluencerPendingCampaigns" element={<PendingCampaigns/>}/>
-        
- 
-        
+
       </Routes>
   </div>
   );

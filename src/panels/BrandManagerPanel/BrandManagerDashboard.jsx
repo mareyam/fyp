@@ -2,7 +2,7 @@ import Campaigns from '../../panels/BrandManagerPanel/Campaigns/Campaigns';
 import HashtagsForDashboard from '../BrandManagerPanel/Hashtags/HashTagsForDashboard';
 import RegisteredInfluencers from '../../panels/BrandManagerPanel/Influencers/RegisteredInfluencers';
 import { Container, Row, Col } from 'react-grid-system';
-import TopPerformingPosts from '../../panels/BrandManagerPanel/PostsStories/TopPerformingPosts';
+
 
 const App = () => {
   return (

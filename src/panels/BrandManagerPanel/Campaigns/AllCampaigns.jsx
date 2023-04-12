@@ -6,7 +6,7 @@ import '../../../Style/BrandManagerPanel/AllCampaigns/AllCampaigns.css';
 import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';
 
 
-const AllCampaigns = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
+const Pagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
     pageNumbers.push(i); //number of pages i.e 3
@@ -26,22 +26,14 @@ const AllCampaigns = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   );
 };
 
-const Pagintation = () => {
+const AllCampaigns = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
   const [campaigns, setCampaigns] = useState([]);
 
     console.log(campaigns);
-    // useEffect(() => {
-    //     axios.get('http://127.0.0.1:8000/campaigns/')
-    //         .then((response) => {
-    //             setCampaigns(response.data.campaigns);
-    //         })
-    //         .catch(error => console.error(error));
-    // }, []);
-
-    useEffect(() => {
+      useEffect(() => {
       axios.get('http://127.0.0.1:8000/campaigns/')
         .then(response => {
           setCampaigns(response.data);
@@ -105,7 +97,8 @@ const Pagintation = () => {
     return (
       <Col xs={8} sm={8} md={2} lg={2} className="subContainerAC mx-1">
         <div>
-        <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}><img className="imageAC" src={item.image}/></div>
+        {/* <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}><img className="imageAC" src={item.image}/>
+        </div> */}
         <div style={{display: 'flex',justifyContent:'space-between'}}>
         <p className='typeAC'>{item.campaign_type}</p>
         <p className="hashtagAC">{item.hashtag_campaign}</p>
@@ -117,156 +110,16 @@ const Pagintation = () => {
       </Col>
     )})}
     
-    <AllCampaigns
+    <Pagintation
         itemsPerPage={itemsPerPage}
         totalItems={campaigns.length}
         paginate={paginate}
       />
-      </Row></Row>
+      </Row>
+    </Row>
   </Container>     
   );
 };
 
-export default Pagintation;
+export default AllCampaigns;
 
-
-
-// import React,{useState} from 'react';
-// import { Container, Row, Col, Button } from 'react-bootstrap';
-// import campaigns from "./CampaignsList";
-// import Search from '@material-ui/icons/Search';
-// import AddIcon from '@material-ui/icons/Add';
-// import "../../Style/AllCampaigns/AllCampaigns.css"
-
-// const AllCampaigns = () => {
-// const [searchValue, setSearchValue] = useState('');
-// const [filteredResults, setFilteredResults] = useState(CampaignsList);
-
-// const handleSearch = (event) => {
-// setSearchValue(event.target.value);
-// let results;
-// if (searchValue === '') {
-// results = CampaignsList;
-// } else {
-// results = CampaignsList.filter((campaign) => campaign.name.includes(searchValue));
-// }
-// setFilteredResults(results);
-// }
-
-// return (
-//   <Container style={{border:"2px solid green"}} >
-//   <h5>DashBoard</h5>
-//   <Row style={{border:"2px solid orange"}} >
-    {/* <h6 style={{}}>Active Campaigns</h6>
-    <input style={{height:"25px"}} className="" type="text" value={searchValue} onChange={handleSearch} />
-      <Button style={{height:"25px"}} >
-        <div style={{border:"2px solid purple"}} >
-         <AddIcon style={{fontSize:"15px"}}/>Create
-        </div>
-      </Button> */}
-      {/* <Col xs={12} sm={12} md={6} lg={6} style={{display:"flex"}}>
-          <div className="d-flex">
-            <h6 className="my-1">Active Campaigns</h6><input type="text" placeholder="search for campaign" value={searchValue} onChange={handleSearch} />
-            <Button>
-              <div style={{marginTop:"-6px"}}>
-                <AddIcon style={{fontSize:"15px"}}/>
-              </div>
-            </Button>
-          </div>
-          <div>
-            <p>filter</p>
-          </div>
-        </Col>
-    </Row>
-    <Row className="mainContainerAC" style={{border:"2px solid blue"}} >
-    {filteredResults.map(item => {
-    return (
-      <Col xs={8} sm={8} md={2} lg={2} className="subContainerAC mx-1 my-1" style={{border:"2px solid red"}}>
-      <div>
-      <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}><img className="imageAC" src={item.image}/></div>
-      <div style={{display: 'flex',justifyContent:'space-between'}}>
-      <p className='typeAC'>{item.type}</p>
-      <p className="hashtagAC">{item.hashtag}</p>
-      </div>
-      <h3 className='nameAC'>{item.name}</h3>
-      <p className='influencersAC'>{item.influencers}</p>
-      <p className='dateAC'>{item.startDate}</p>
-      </div>
-      </Col>
-    )})}
-    </Row>
-  </Container>
-);
-}
-
-export default AllCampaigns; */}
-
-
-
-
-
-
-
-
-
-// import React,{useState} from 'react';
-// import { isCompositeComponentWithType } from 'react-dom/test-utils';
-// import CampaignsList from "./CampaignsList";
-// import { Button } from 'react-bootstrap';
-// import { Search } from '@material-ui/icons';
-// import AddIcon from '@material-ui/icons/Add';
-// import "../../Style/AllCampaigns/AllCampaigns.css"
-// import { Grid } from '@material-ui/core';
-// const AllCampaigns = () => {
-//   const [searchValue, setSearchValue] = useState('');
-//   const [filteredResults, setFilteredResults] = useState(CampaignsList);
-  
-//   const handleSearch = (event) => {
-//   setSearchValue(event.target.value);
-//   let results;
-//   if (searchValue === '') {
-//     results = CampaignsList;
-//   } else {
-//     results = CampaignsList.filter((campaign) => campaign.name.includes(searchValue));
-//   }
-//   setFilteredResults(results);
-//   }
-
-//   return (
-//     <div style={{margin: '1%'}}>
-//       <h5>DashBoard</h5>
-//       <div style={{display: "flex"}}>
-//         <h6 style={{marginRight:"10px"}}>Active Campaigns</h6>
-//         {/* <input style={{height:"25px"}} type="text"></input><Search className="mx-3"/>\ */}
-//         <input style={{height:"25px"}} className="mx-3" type="text" value={searchValue} onChange={handleSearch} />
-//         <Button style={{height:"25px"}} >
-//           <div style={{marginTop:"-6px"}}>
-//              <AddIcon style={{fontSize:"15px"}}/>Create
-//           </div>
-//         </Button>
-//       </div>
-//     {/* <div className="mainContainerAC" style={{display: 'flex', flexWrap: "nowrap"}}> */}
-
-//      <Grid item xs={12} container spacing={2} className="mainContainerAC mx-4">
-//       {filteredResults.map(item => {
-//         return (
-//           <Grid className="subContainerAC mx-3 my-3" item lg={2} xs={12}>
-//                 <div>
-//                 <div><img className="imageAC" src={item.image}/></div>
-//                 <div style={{display: 'flex',justifyContent:'space-between'}}>
-//                 <p className='typeAC'>{item.type}</p>
-//                     <p className="hashtagAC">{item.hashtag}</p>
-//                 </div>
-//                 <h3 className='nameAC'>{item.name}</h3>
-//                 <p className='influencersAC'>{item.influencers}</p>
-//                 <p className='dateAC'>{item.startDate}</p>
-//                 </div>
-//           </Grid>
-//         )})}
-//       </Grid>
-//     </div>    
-//     // </div> 
-//     );
-// }
-
-// export default AllCampaigns;

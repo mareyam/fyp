@@ -37,17 +37,17 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         const [currentPage, setCurrentPage] = useState(1);
         const [itemsPerPage] = useState(3);
         const [searchValue, setSearchValue] = useState('');
-        const [campaign, setCampaign] = useState([]);
+        const [campaigns, setCampaigns] = useState([]);
         const [selected, setSelected] = useState('');
 
         const handleToggle = (value) => {
           setSelected(value);
         };
-      
+
         useEffect(() => {
           axios.get('http://127.0.0.1:8000/campaigns/')
             .then(response => {
-              setCampaign(response.data);
+              setCampaigns(response.data);
             })
             .catch(error => {
               console.error(error);
@@ -58,14 +58,14 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         const handleSearch = (event) => {
             const searchText = event.target.value;
             setSearchValue(searchText);
-            let results = campaign;
+            let results = campaigns;
             if (searchText) {
-            results = campaign.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+            results = campaigns.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
             }
-            setCampaign(results);
+            setCampaigns(results);
         }
 
-        const filteredCampaigns = campaign.filter(item => {
+        const filteredCampaigns = campaigns.filter(item => {
           if (selected === 'Post') {
             return item.content_type === 'Post';
           } else if (selected === 'Story') {
@@ -78,7 +78,7 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
 
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-        const currentItems = campaign.slice(indexOfFirstItem, indexOfLastItem);
+        const currentItems = campaigns.slice(indexOfFirstItem, indexOfLastItem);
       
         const paginate = pageNumber => setCurrentPage(pageNumber);
       
@@ -181,7 +181,7 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
               <div xs={12} sm={12} md={12} lg={12}>
                   <AllPosts
                     itemsPerPage={itemsPerPage}
-                    totalItems={campaign.length}
+                    totalItems={campaigns.length}
                     paginate={paginate}/>
              </div>
         </Col>
