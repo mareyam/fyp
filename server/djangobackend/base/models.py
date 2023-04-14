@@ -181,6 +181,8 @@ class Influencer(models.Model):
     # filters =  models.ForeignKey(Filter, on_delete=models.SET_NULL, null=True, unique=False)
     created = models.DateTimeField(default=datetime.now)
     updated = models.DateTimeField(default=timezone.now)
+    image = models.ImageField(upload_to='images/', default='')
+    engagement_ratee = models.IntegerField(blank=False, null=True, default=0)
 
     class Meta:
         ordering = ['-updated', '-created']
