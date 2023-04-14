@@ -22,7 +22,7 @@ const Campaigns = () => {
   }, []);
 
   return (
-      <Row style={{border:"1px solid rgb(198, 198, 198)"}}>
+      <Row style={{border: '0.1px solid rgb(235, 232, 232)'}}>
         <Col xs={12} sm={12} md={12} lg={12}>
           <div className='campaignsHeadersC d-lg-flex mt-2'>
             <h5 className='d-sm-text-center'>Active Campaigns</h5>

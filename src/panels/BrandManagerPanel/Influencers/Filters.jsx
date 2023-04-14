@@ -79,6 +79,7 @@ function Filters() {
 
   
     return (
+      <div>
       <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header> Gender</Accordion.Header>
@@ -117,7 +118,8 @@ function Filters() {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
-    
+      <button className="btn btn-primary " type="submit" style={{backgroundColor:'#452c63', width:'170px'}}>Filter Items</button>
+      </div>
     );
   
   }

@@ -1,4 +1,6 @@
 import './App.css';
+import { useLocation } from 'react-router-dom';
+
 import BrandManagerDashboard from './panels/BrandManagerPanel/BrandManagerDashboard';
 import AllCampaigns from './panels/BrandManagerPanel/Campaigns/AllCampaigns';
 import Navbarr from './panels/BrandManagerPanel/Navbar/Navbarr';
@@ -43,14 +45,18 @@ import InfluencerPosts from './panels/InfluencerPanel/PostsStories/InfluencerPos
 import InfluencerDashboard from './panels/InfluencerPanel/PostsStories/InfluencerDashboard';
 import PendingCampaigns from './panels/InfluencerPanel/Campaigns/PendingCampaigns';
 
+import Home from './Home';
+import Test from './Test';
 
 const App = () => {
+  const location = useLocation();
   return (
     <div>
-      <Navbarr/>
+       {location.pathname !== '/' && location.pathname !== '/Signup'&& location.pathname !== '/PRSignup' &&  location.pathname !== '/AdminLogin' &&  location.pathname !== '/PRLogin' &&  location.pathname !== '/BMLogin' ? <Navbarr/> : null}     
       <Routes>
-         <Route path="/BMList" element={<BMList/>}/>
-         <Route path="/PRLogin" element={<PRLogin/>}/>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/BMList" element={<BMList/>}/>
+        <Route path="/PRLogin" element={<PRLogin/>}/>
         <Route path="/BMDashboard" element={<BrandManagerDashboard/>}/>
         <Route path="/BMHashtags" element={<HashTags/>}/>
         <Route path="/BMAllContent" element={<AllContent/>}/>
@@ -93,6 +99,8 @@ const App = () => {
         <Route path="/InfluencerPosts" element={<InfluencerPosts/>}/>
         <Route path="/InfluencerDashboard" element={<InfluencerDashboard/>}/>
         <Route path="/InfluencerPendingCampaigns" element={<PendingCampaigns/>}/>
+
+        <Route path="/Test" element={<Test/>}/>
 
       </Routes>
   </div>

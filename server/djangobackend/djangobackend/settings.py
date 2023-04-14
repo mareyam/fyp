@@ -18,7 +18,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'djangobackend')
 MEDIA_URL = '/media/'
-CORS_ORIGIN_WHITELIST = 'http://localhost:3000',
+# CORS_ORIGIN_WHITELIST = 'http://localhost:3000',
 
 # MEDIA_URL = ''
 # Quick-start development settings - unsuitable for production

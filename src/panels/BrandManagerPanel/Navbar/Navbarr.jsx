@@ -12,11 +12,12 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import brandsenselogo from '../../../images/brandsenselogo.png';
 
 const pages = ['Dashboard', 'Campaigns', 'Influencers'];
 const settings = ['Profile', 'Account', '', 'Logout'];
 
-function ResponsiveAppBar() {
+function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -39,7 +40,7 @@ function ResponsiveAppBar() {
     <AppBar position="static" style={{backgroundColor:"#F7F6F7"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ color:'black', display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+         <img style={{height: '80px', width:'150px', paddingTop:'10px'}}src={brandsenselogo} />
           <Typography
             variant="h6"
             href="/"
@@ -52,7 +53,6 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            BrandSense
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -84,13 +84,14 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <p textAlign="center">{page}</p>
+                  <p style={{textTransform:'lowercase'}}>{page}</p>
                 </MenuItem>
               ))}
               
             </Menu>
+            <img style={{height: '80px', width:'150px', marginTop:'10px'}}src={brandsenselogo} />
           </Box>
           {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
@@ -108,19 +109,19 @@ function ResponsiveAppBar() {
               color: 'black',
               textDecoration: 'none',
             }}
-          >LOGO
+          >
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMDashboard" style={{ my: 2, color: 'black', display: 'block', textDecoration:"none" }}>Dashboard</a></Button>
+                onClick={handleCloseNavMenu}><a href="/BMDashboard" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Dashboard</a></Button>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMCampaigns" style={{ my: 2, color: 'black', display: 'block', textDecoration:"none" }}>Campaigns</a></Button>
+                onClick={handleCloseNavMenu}><a href="/BMCampaigns" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Campaigns</a></Button>
            <Button
-                onClick={handleCloseNavMenu}><a href="/BMRegisteredInfluencers" style={{ my: 2, color: 'black', display: 'block', textDecoration:"none" }}>Influencers</a></Button>
+                onClick={handleCloseNavMenu}><a href="/BMRegisteredInfluencers" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Influencers</a></Button>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMHashtags" style={{ my: 2, color: 'black', display: 'block', textDecoration:"none" }}>Hashtags</a></Button>
+                onClick={handleCloseNavMenu}><a href="/BMHashtags" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Hashtags</a></Button>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMAllContent" style={{ my: 2, color: 'black', display: 'block', textDecoration:"none" }}>Content</a></Button>
+                onClick={handleCloseNavMenu}><a href="/BMAllContent" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Content</a></Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -156,7 +157,7 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default Navbar;
 
 // import * as React from 'react';
 // import AppBar from '@mui/material/AppBar';
