@@ -1,7 +1,7 @@
-
+import axios from "axios"
+import {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import React,{useState} from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import RegisteredInfluencersList from '../Influencers/RegisteredInfluencersList';
 import '../../../Style/BrandManagerPanel/NewCampaigns/newCampaigns.css';
@@ -15,6 +15,18 @@ const NewCampaign = () => {
   const [filteredResults, setFilteredResults] = useState(RegisteredInfluencersList);
   const [selected, setSelected] = useState('single');
   const [isChecked, setIsChecked] = useState(false);
+  const [influencers, setInfluencers] = useState([]);
+  
+  useEffect(() => {
+    axios
+      .get('http://127.0.0.1:8000/influencers/')
+      .then((response) => {
+        setInfluencers(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -127,15 +139,15 @@ const NewCampaign = () => {
           </Button></a>
        </div>
            <div className="pickedInfluencers" style={{display: 'flex', flexWrap: "nowrap"}}> 
-            {filteredResults.map(item => {
+            {influencers.map(item => {
               return (
                 <Col xs={6} sm={12} md={2} lg={2}>
                   <div className="subContainerNC">
-                    <img className='imageNC' src={item.image}/>
-                    <p className='nameNC'>{item.name}</p>
-                    <p className='userNameNC'>@{item.userName}</p>
+                    <img className='imageNC' src={`http://127.0.0.1:8000/${item.image}`}/>
+                    <p className='nameNC'>{item.influencer_full_name}</p>
+                    <p className='userNameNC'>@{item.influencer_username}</p>
                     <p className='EngagementRateNC'>Engagement Rate</p>
-                    <p className='NumberNC'>{item.engagementRate}</p>
+                    {/* <p className='NumberNC'>{item.engagement_rate}</p> */}
                   </div>
                 </Col>
               )})}

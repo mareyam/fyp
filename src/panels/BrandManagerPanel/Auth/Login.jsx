@@ -37,10 +37,10 @@ return (
                    <label><b><span style={{color: 'purple', textDecoration:'underline'}}>Forgot Password?</span></b></label>
                 </div>
                 <div style={{fontSize:'10px', textAlign:'center', justifyContent:'center', alignItems:'center'}}>
-                   <label>by signing up you agree to our <b><span style={{color: 'purple'}}>terms and conditions</span></b></label>
+                   <label>by signing in you agree to our <b><span style={{color: 'purple'}}>terms and conditions</span></b></label>
                 </div>
               </Col>
-              <div className='justify-content-center align-items-center text-center'><button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'200px'}} type="submit">Submit form</button></div>
+              <div className='justify-content-center align-items-center text-center'><button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'200px'}} type="submit">Login</button></div>
           </form>
         </div>
           </Col>

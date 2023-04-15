@@ -182,7 +182,7 @@ class Influencer(models.Model):
     created = models.DateTimeField(default=datetime.now)
     updated = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/', default='')
-    engagement_ratee = models.IntegerField(blank=False, null=True, default=0)
+    engagement_rate = models.IntegerField(blank=False, null=True, default=0)
 
     class Meta:
         ordering = ['-updated', '-created']

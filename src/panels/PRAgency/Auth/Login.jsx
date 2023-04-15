@@ -34,7 +34,8 @@ return (
               </Col>
               <Col md="4" className="mb-1">
                 <div style={{fontSize:'10px', textAlign:'end', justifyContent:'right', alignItems:'right'}}>
-                   <label><b><span style={{color: 'purple', textDecoration:'underline'}}>Forgot Password?</span></b></label>
+                   {/* <label><b><span style={{color: 'purple', textDecoration:'underline'}}>Forgot Password?</span></b></label> */}
+                   <label><b><a href="/PRForgot"><span style={{color: 'purple', textDecoration:'underline'}}>Forgot Password?</span></a></b></label>
                 </div>
                 <div style={{fontSize:'10px', textAlign:'center', justifyContent:'center', alignItems:'center'}}>
                    <label>by signing up you agree to our <b><span style={{color: 'purple'}}>terms and conditions</span></b></label>

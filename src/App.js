@@ -24,6 +24,13 @@ import ResetPassword from './panels/BrandManagerPanel/Auth/ResetPassword';
 import Resetted from './panels/BrandManagerPanel/Auth/Resetted';
 
 import AdminLogin from './panels/AdminPanel/Auth/Login';
+import AdminForgotPassword from './panels/AdminPanel/Auth/ForgotPassword';
+import AdminEmailSent from './panels/AdminPanel/Auth/EmailSent';
+import AdminResetPassword from './panels/AdminPanel/Auth/ResetPassword';
+import AdminResetted from './panels/AdminPanel/Auth/Resetted';
+
+
+
 import PRList from './panels/AdminPanel/PRList/PR';
 import NewPRPopup from './panels/AdminPanel/PRList/NewPRPopup';
 
@@ -75,15 +82,22 @@ const App = () => {
         <Route path="/BMForgotPassword" element={<ForgotPassword/>}/>
         <Route path="/BMEmailSent" element={<EmailSent/>}/>  
         <Route path="/BMResetPassword" element={<ResetPassword/>}/>  
-        <Route path="/BMResetted" element={<Resetted/>}/>  
+        <Route path="/BMResetted" element={<Resetted/>}/>
+        
+
         <Route path="/AdminLogin" element={<AdminLogin/>}/>
+        <Route path="/AdminForgot" element={<AdminForgotPassword/>}/>
+        <Route path="/AdminReset" element={<AdminResetPassword/>}/>
+        <Route path="/AdminResetted" element={<AdminResetted/>}/>
+        <Route path="/AdminEmailSent" element={<AdminEmailSent/>}/>
+        
        
        
         <Route path="/PRList" element={<PRList/>}/>
         <Route path="/NewPRPopup" element={<NewPRPopup/>}/>
         <Route path="/PRLogin" element={<PRLogin/>}/>
         <Route path="/PRSignup" element={<PRSignup/>}/>
-        <Route path="/PRForgotPassword" element={<PRForgotPassword/>}/>
+        <Route path="/PRForgot" element={<PRForgotPassword/>}/>
         <Route path="/PREmailSent" element={<PREmailSent/>}/>  
         <Route path="/PRResetPassword" element={<PRResetPassword/>}/>  
         <Route path="/PRResetted" element={<PRResetted/>}/>  
