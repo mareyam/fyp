@@ -59,7 +59,17 @@ const App = () => {
   const location = useLocation();
   return (
     <div>
-       {location.pathname !== '/' && location.pathname !== '/Signup'&& location.pathname !== '/PRSignup' &&  location.pathname !== '/AdminLogin' &&  location.pathname !== '/PRLogin' &&  location.pathname !== '/BMLogin' ? <Navbarr/> : null}     
+       {location.pathname !== '/' && location.pathname !== '/BMSignup'&& location.pathname !== '/PRSignup' &&  location.pathname !== '/AdminLogin'
+       &&  location.pathname !== '/PRLogin' &&  location.pathname !== '/BMLogin'  &&  location.pathname !== '/BMForgotPassword' 
+       && location.pathname !== '/BMResetted' && location.pathname !== '/AdminLogin' && location.pathname !== '/AdminForgotPassword' 
+       && location.pathname !== '/AdminReset' && location.pathname !== '/AdminResetted' && location.pathname !== '/AdminEmailSent' 
+       && location.pathname !== '/PRLogin' && location.pathname !== '/PRForgot' && location.pathname !== '/PREmailSent' 
+       && location.pathname !== '/PRResetPassword' && location.pathname !== '/PRResetted' && location.pathname !== '/InfluencerLogin'
+       && location.pathname !== '/InfluencerSignup' && location.pathname !== '/InfluencerRegDetails' && location.pathname !== '/InfluencerRegDetails2'
+       && location.pathname !== '/InfluencerRegDetails3'
+       ? <Navbarr/> : null} 
+
+
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/BMList" element={<BMList/>}/>

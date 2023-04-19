@@ -14,7 +14,7 @@ import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutl
 function InfluencerRegDetails() {
 return (
 
-  <Container className="mt-3">
+  <Container className="mt-5">
       <Row className="d-lg-mt-5">
         <div className='d-lg-flex d-sm-block' style={{justifyContent:'center', alignItems:"center"}}>
           <Col xs={12} sm={12} md={12} lg={6}>

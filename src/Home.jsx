@@ -2,6 +2,7 @@ import {React, useState} from 'react';
 import { Container, Row, Col } from 'react-grid-system';
 import authAbstract from './images/authAbstract.png';
 import { Link } from 'react-router-dom';
+import './Home.css'
 
 const Home = () => {
       const [selectedOption, setSelectedOption] = useState('');
@@ -13,7 +14,7 @@ const Home = () => {
       const handleSubmit = (event) => {
         event.preventDefault();
         if (selectedOption === 'option1') {
-          window.location.href = '/Signup';
+          window.location.href = '/BMSignup';
         } 
         if (selectedOption === 'option2') {
             window.location.href = '/PRSignup';
@@ -66,11 +67,12 @@ const Home = () => {
           </label>
         </div>
         <div className='d-flex justify-content-center align-items-center'>
-          {selectedOption === 'option1' ? (
+            <button className="btn btn-primary " type="submit" style={{backgroundColor:'#452c63', width:'200px'}}>Continue</button>
+          {/* {selectedOption === 'option1' ? (
             <Link to="/BMSignup" className="btn btn-primary" style={{backgroundColor:'#452c63', width:'200px'}}>Proceed</Link>
           ) : (
             <button className="btn btn-primary " type="submit" style={{backgroundColor:'#452c63', width:'200px'}}>Proceed</button>
-          )}
+          )} */}
         </div>
       </form>
     </div>

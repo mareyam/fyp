@@ -10,7 +10,7 @@ import emailSent from '../../../images/emailSent.png';
 function EmailSent() {
 return (
 
-  <Container className='mt-2'>
+  <Container className='mt-5'>
       <Row>
         <div className='d-lg-flex d-sm-block d-lg-mt-5' style={{justifyContent:'center', alignItems:"center"}}>
           <Col xs={12} sm={12} md={12} lg={6}>
