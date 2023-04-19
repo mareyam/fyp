@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from .models import Room, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, Filter, BrandReport
-from .serializers import BrandManagerSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, FilterSerializer, PRAgencySerializer, BrandReportSerializer, UserSerializer
+from .models import Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, SubBrand
+from .serializers import BrandManagerSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, PRAgencySerializer, SubBrandSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -13,41 +13,42 @@ import jwt, datetime
 
 # Create your views here.
 
-class RegisterView(APIView):
-    def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+# class RegisterView(APIView):
+#     def post(self, request):
+#         serializer = UserSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
 
-def LoginView(APIView):
-    def post(self, request):
-        email = request.data['email']
-        password = request.data['password']
+# def LoginView(APIView):
+#     def post(self, request):
+#         email = request.data['email']
+#         password = request.data['password']
 
-        user = User.objects.filter(email=email).first()
+#         user = User.objects.filter(email=email).first()
 
-        if user is None:
-            raise AuthenticationFailed('user not failed')
+#         if user is None:
+#             raise AuthenticationFailed('user not failed')
         
-        if not user.check_password(password):
-            raise AuthenticationFailed('Incorrect password')
+#         if not user.check_password(password):
+#             raise AuthenticationFailed('Incorrect password')
     
-        payload = {
-            'id':user.id,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-            'iat': datetime.datetime.utcnow() 
-        }
+#         payload = {
+#             'id':user.id,
+#             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+#             'iat': datetime.datetime.utcnow() 
+#         }
 
         
-        return Response({
-            'message':'success'
-        })
+#         return Response({
+#             'message':'success'
+#         })
 
 
 
 @api_view(['GET', 'POST'])
 def campaigns(request, format=None):
+    
     if request.method == 'GET':
      campaigns = Campaign.objects.all()
      serializer = CampaignSerializer(campaigns, many=True)
@@ -125,6 +126,45 @@ def brandmanager_detail(request, id, format=None):
     elif request.method == 'DELETE':
         brandmanager.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'POST'])
+def subbrands(request, format=None):
+    if request.method == 'GET':
+     subbrand = SubBrand.objects.all()
+     serializer = SubBrandSerializer(subbrand, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = SubBrandSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def subbrand_detail(request, id, format=None):
+
+    try:
+        subbrand = SubBrand.objects.get(pk=id)
+    except subbrand.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = SubBrandSerializer(subbrand)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = SubBrandSerializer(subbrand, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        subbrand.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 
 
 @api_view(['GET', 'POST'])

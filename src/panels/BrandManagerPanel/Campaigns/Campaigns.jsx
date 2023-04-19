@@ -10,11 +10,12 @@ import '../../../Style/BrandManagerPanel/brandManagerDashboard/campaigns.css'
 const Campaigns = () => {
  const [campaigns, setCampaigns] = useState([]);
 
- console.log(campaigns.image);
+
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/campaigns/')
       .then(response => {
         setCampaigns(response.data);
+        console.log(response.data);
       })
       .catch(error => {
         console.error(error);
@@ -26,14 +27,14 @@ const Campaigns = () => {
         <Col xs={12} sm={12} md={12} lg={12}>
           <div className='campaignsHeadersC d-lg-flex mt-2'>
             <h5 className='d-sm-text-center'>Active Campaigns</h5>
-               <Button style={{backgroundColor:'#452c63', height:'30px', marginLeft:'5px'}}>
+               <Button style={{backgroundColor:'#452c63', height:'25px', marginLeft:'5px'}}>
                     <div style={{marginTop:"-6px"}}>
                       <a href="/BMNewCampaign" className="mx-3" style={{display: 'block'}}>
                         <p>Create<AddIcon className='AddIcon' style={{fontSize:"15px"}}/></p>
                       </a>
                     </div>
                  </Button>
-                <a href="/BMCampaigns" className="mx-3 text-dark"><p><u>View all</u></p></a>
+                <a href="/BMCampaigns" className="mx-3 text-dark"><p><u style={{fontSize:'13px'}}>View all</u></p></a>
           </div>
         </Col>
 
@@ -49,14 +50,16 @@ const Campaigns = () => {
               <Row className='mt-2'>
                   <Col xs={12} sm={12} md={6} lg={7}>
                       <h3 className='nameC'>{item.name}</h3>
-                      <p className='influencersC'><People style={{height:"15px"}}/>{item.influencers}</p>                      
+                      <p className='influencersC'><People style={{height:"15px"}}/>{item.influencers.length}</p>                      
                   </Col>
                   <Col xs={12} sm={12} md={6} lg={5}>
-                      <p className="hashtagC">{item.hashtag}</p>
-                      <p className='typeC'>{item.type}</p> 
+                      {/* <p className="hashtagC">{item.hashtag_campaign}</p> */}
+                      <p className="hashtagC">#{item.hashtag_campaign.hashtag}</p>
+                      <p className='typeC'>{item.campaign_type}</p> 
                   </Col>
                 </Row>
-                <p className='dateC'>{item.startDate}</p>
+                <p className='dateC'>{item.start_date}</p>
+                <p className='dateC'>{new Date(item.start_date).toLocaleDateString()}</p>
                   {/* <div style={{display: 'flex',justifyContent:'space-between'}}>
                     <h3 className='nameC'>{item.name}</h3>
                     <div><p className="hashtagC">{item.hashtag}</p>

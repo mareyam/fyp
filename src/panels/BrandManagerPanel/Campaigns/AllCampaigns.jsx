@@ -83,7 +83,7 @@ const AllCampaigns = () => {
       <Row>
         <Col xs={8} sm={8} md={12} lg={12}>
           <div style={{display:"flex"}}><ArrowBack/>
-          <h5 className='campaignHeaderAC' >CAMPAIGNSss</h5></div>
+          <h5 className='campaignHeaderAC' >Campaigns</h5></div>
 
                 <div className="ms-4 d-lg-flex d-xs-block">
                   <div className="align-item-center"><h6>All Campaigns({campaigns.length})</h6></div>

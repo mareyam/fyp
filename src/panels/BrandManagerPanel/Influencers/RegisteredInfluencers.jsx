@@ -8,14 +8,13 @@ import { Container, Row, Col } from 'react-grid-system';
 import { Diversity1Rounded } from '@mui/icons-material';
 
 const RegisteredInfluencers = () => {
-  const [searchValue, setSearchValue] = useState('');
-  const [campaigns, setCampaigns] = useState([]);
+  const [influencers, setInfluencers] = useState([]);
 
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/campaigns/')
+    axios.get('http://127.0.0.1:8000/influencers/')
       .then(response => {
-        setCampaigns(response.data);
+        setInfluencers(response.data);
       })
       .catch(error => {
         console.error(error);
@@ -29,21 +28,21 @@ const RegisteredInfluencers = () => {
         <Col xs={12} sm={12} md={12} lg={12}>
           <div className='mainContainerHeadersRI'style={{display:"flex"}}>
             <h5 className=''>Registered Influencers ({RegisteredInfluencersList.length})</h5>
-            <a href="/BMCampaigns" className="mx-3 text-dark"><p><u>View all</u></p></a>
+            <a href="/BMCampaigns" className="mx-3 text-dark"><p><u style={{fontSize:'13px'}}>View all</u></p></a>
           </div>
         </Col>
       </Row>
       {/* style={{border:'2px solid red'}}; */}
   <Row className="mx-1" >
-    {campaigns.map(item => (
+    {influencers.map(item => (
       <Col xs={5} sm={5} md={4} lg={3} className="subContainerRI m-1">
         <Col xs={5} lg={3}>
           <img className="imageRI" src={`http://127.0.0.1:8000/${item.image}`} />  
         </Col>
         <Col xs={5} lg={9}>
             <div className="ColDetailsRI">
-              <p className='nameRI'>{item.name}</p>
-              <p className='usernameRI'>@{item.userName}</p>
+              <p className='nameRI'>{item.influencer_full_name}</p>
+              <p className='usernameRI'>@{item.influencer_username}</p>
             </div>
         </Col>
       </Col>

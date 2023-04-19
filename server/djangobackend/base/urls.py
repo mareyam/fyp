@@ -78,10 +78,10 @@ urlpatterns = [
     path('brandreport/', views.brandreports),
     path('brandreport/<str:id>/', views.brandreport_detail),
 
-    path('register/', views.RegisterView),
+    path('subbrands/', views.subbrands),
+    path('subbrand/<str:id>/', views.subbrand_detail),
 
-    
-   
+    # path('register/', views.RegisterView),
 
 ]
 

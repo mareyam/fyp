@@ -34,8 +34,8 @@ const Home = () => {
       </Col>
       <Col xs={12} sm={12} md={12} lg={6}>
       <div className='text-left justify-content-center align-center d-lg-mt-5'>
-      <h4 className='text-center'>Welcome to Brand Sense</h4>
-      <h6 className='text-center'>Continue as:</h6>
+      <h4 className='h4home text-center'>Welcome to Brand Sense</h4>
+      <h6 className='h6home text-center'>Continue as:</h6>
       <form className="needs-validation" noValidate onSubmit={handleSubmit}>
         <div className='d-flex justify-content-center align-items-center'>
           <label className='m-2'>

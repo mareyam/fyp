@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='influencer',
             name='engagement_rate',
-            field=models.IntegerField(blank=True, default='', null=True),
+            field=models.IntegerField(blank=True, default=0, null=True),
         ),
     ]
