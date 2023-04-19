@@ -52,10 +52,11 @@ const Campaigns = () => {
                       <h3 className='nameC'>{item.name}</h3>
                       <p className='influencersC'><People style={{height:"15px"}}/>{item.influencers.length}</p>                      
                   </Col>
-                  <Col xs={12} sm={12} md={6} lg={5}>
+                  <Col xs={12} sm={12} md={6} lg={5} key={item.id}>
                       {/* <p className="hashtagC">{item.hashtag_campaign}</p> */}
                       <p className="hashtagC">#{item.hashtag_campaign.hashtag}</p>
-                      <p className='typeC'>{item.campaign_type}</p> 
+                      <p className='typeC' style={{ backgroundColor: item.campaign_type === "Single" ? "#B47EE5" : "green" }}>{item.campaign_type}</p>
+
                   </Col>
                 </Row>
                 <p className='dateC'>{item.start_date}</p>

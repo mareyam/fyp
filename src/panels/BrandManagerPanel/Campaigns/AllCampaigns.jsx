@@ -4,6 +4,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
 import '../../../Style/BrandManagerPanel/AllCampaigns/AllCampaigns.css';
 import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';
+import { Home, People } from '@mui/icons-material';
 import Test from "../../../Test";
 
 const Pagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
@@ -119,7 +120,7 @@ const AllCampaigns = () => {
 
       </Row>
 
-      <Row className="mainContainerAC">
+      <Row className="mainContainerAC mt-2">
         {campaigns.map((item) => {
           return (
             <Col xs={8} sm={8} md={2} lg={2} className="subContainerAC mx-1">
@@ -128,12 +129,15 @@ const AllCampaigns = () => {
            <img className="imageAC" src={`http://127.0.0.1:8000/${item.image}`} />
          </div>
          <div style={{display: 'flex',justifyContent:'space-between'}}>
-         <p className='typeAC'>{item.campaign_type}</p>
-         <p className="hashtagAC">{item.hashtag_campaign}</p>
+         <p className='typeAC' style={{ backgroundColor: item.campaign_type === "Single" ? "#B47EE5" : "green" }}>{item.campaign_type}</p>
+
+         <p className="hashtagAC">#{item.hashtag_campaign}</p>
         </div>
          <h3 className='nameAC'>{item.name}</h3>
-         <p className='influencersAC'>{item.influencers}</p>
-         <p className='dateAC'>{item.start_date}</p>
+         {/* <p className='influencersAC'>{item.influencers}</p> */}
+         <p className='influencersAC'><People style={{height:"15px"}}/>{item.influencers.length}</p>   
+         {/* <p className='dateAC'>{item.start_date}</p> */}
+         <p className='dateC'>{new Date(item.start_date).toLocaleDateString()}</p>
          </div>
        </Col>
           );

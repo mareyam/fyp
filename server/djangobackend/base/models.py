@@ -11,8 +11,6 @@ from django.core import validators
 class PRAgency(models.Model):
     pragency_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
     pragency_email = models.EmailField(max_length=254, unique=True, default='')
-    password = models.CharField(max_length=128, default='', null=False, blank=False)
-    confirm_password = models.CharField(max_length=128, default='')
     image = models.ImageField(upload_to='images/',  default='')
     updated = models.DateTimeField(auto_now = True)
     created = models.DateTimeField(auto_now_add = True)
@@ -22,14 +20,11 @@ class PRAgency(models.Model):
     def __str__(self):
         return self.pragency_username
 
-
 class BrandManager(models.Model):   
     host = models.OneToOneField(User, unique=False, on_delete=models.CASCADE, blank=False, null=False)
     brandmanager_name = models.CharField(max_length=200)
     brandmanager_username = models.CharField(max_length=20, unique=True, blank=False, null=False)
     brandmanager_email = models.EmailField(max_length=254, unique=True, default='')
-    # password = models.CharField(max_length=200)
-    phone_number = models.IntegerField(blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     
@@ -79,15 +74,12 @@ class Influencer(models.Model):
     influencer_username = models.CharField(max_length=20, unique=False)
     influencer_full_name = models.CharField(max_length=200)
     influencerChildrenCount = models.IntegerField(blank=True, null=True)
-    influencerCampaignCount = models.IntegerField(blank=True, null=True)
+   
     influencerChildrenAge = models.IntegerField(blank=True, null=True)
     influencerInfluencerPostCost = models.IntegerField(blank=True, null=True)
     influencerStoryCost = models.IntegerField(blank=True, null=True)
     #influencerInterests
-    influencerStoryCount = models.IntegerField(blank=True, null=True)
-    influencerFollowerCount = models.IntegerField(blank=True, null=True)
-    influencerFollowingCount = models.IntegerField(blank=True, null=True)
-    influencerPostCount = models.IntegerField(blank=True, null=True)
+  
     brandmanager = models.ForeignKey(BrandManager, on_delete=models.CASCADE, null=True, unique=False)
     # influencer_campaign_cost =  models.ForeignKey(InfluencerCost, on_delete=models.SET_NULL, null=True, unique=False)
     # filters =  models.ForeignKey(Filter, on_delete=models.SET_NULL, null=True, unique=False)

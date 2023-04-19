@@ -103,10 +103,12 @@ const Pagintation = () => {
                       <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={`http://127.0.0.1:8000/${item.image}`} />
                       
                       <Card.Body className="d-flex flex-column">
-                        <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ fontFamily: 'Oswald' }}>
-                          <h6 style={{ fontWeight: "bolder", fontSize: "20px" }}>{item.influencer_full_name}</h6>
+                        <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
+                        
+                          <h6 style={{ fontWeight: "bolder", fontSize: "16px", height: '40px', width:'80%', overflow:'hidden' }}>{item.influencer_full_name}</h6>
                           <p style={{fontSize: '13px'}}>@{item.influencer_username}</p>
                           <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.influencerFollowerCount}K</p>
+                          
                           <a href='instagram.com'>
                           <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
                             <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
