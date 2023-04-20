@@ -54,8 +54,11 @@ urlpatterns = [
     # path('update-filter/<str:pk>/', views.updateFilter, name='update-filter'),
     # path('delete-filter/<str:pk>/', views.deleteFilter, name='delete-filter'),
 
-    path('campaigns/', views.campaigns),
-    path('campaignlist/<str:id>/', views.campaign_detail),
+    path('activecampaigns/', views.active_campaigns),
+    path('activecampaignlist/<str:id>/', views.activecampaign_detail),
+
+    path('inactivecampaigns/', views.inactivecampaigns),
+    path('inactivecampaignlist/<str:id>/', views.inactivecampaign_detail),
 
     path('brandmanagers/', views.brandmanagers),
     path('brandmanager/<str:id>/', views.brandmanager_detail),

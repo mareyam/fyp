@@ -44,13 +44,12 @@ import jwt, datetime
 #             'message':'success'
 #         })
 
-
-
 @api_view(['GET', 'POST'])
-def campaigns(request, format=None):
+def active_campaigns(request, format=None):
     
     if request.method == 'GET':
-     campaigns = Campaign.objects.all()
+     campaigns = Campaign.objects.filter(status='Active').all()
+    #  campaigns = Campaign.objects.all()
      serializer = CampaignSerializer(campaigns, many=True)
      return Response(serializer.data)
     
@@ -59,15 +58,45 @@ def campaigns(request, format=None):
      if serializer.is_valid():
          serializer.save()
          return Response(serializer.data, status=status.HTTP_201_CREATED)
-     
-
-     #      campaigns = Campaign.objects.all()
-#      campaign_data = list(campaigns.values())
-#      return JsonResponse({'campaigns': campaign_data})
-
 @api_view(['GET', 'PUT', 'DELETE'])
-def campaign_detail(request, id, format=None):
+def activecampaign_detail(request, id, format=None):
+    try:
+        campaign = Campaign.objects.get(pk=id)
+    except Campaign.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
+    if request.method == 'GET':
+        serializer = CampaignSerializer(campaign)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = CampaignSerializer(campaign, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        campaign.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'POST'])
+def inactivecampaigns(request, format=None):
+    
+    if request.method == 'GET':
+     campaigns = Campaign.objects.filter(status='Inactive').all()
+    #  campaigns = Campaign.objects.all()
+     serializer = CampaignSerializer(campaigns, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = CampaignSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+@api_view(['GET', 'PUT', 'DELETE'])
+def inactivecampaign_detail(request, id, format=None):
     try:
         campaign = Campaign.objects.get(pk=id)
     except Campaign.DoesNotExist:

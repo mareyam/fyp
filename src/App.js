@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import BrandManagerDashboard from './panels/BrandManagerPanel/BrandManagerDashboard';
 import AllCampaigns from './panels/BrandManagerPanel/Campaigns/AllCampaigns';
+import InactiveCampaigns from './panels/BrandManagerPanel/Campaigns/InactiveCampaigns';
 import Navbarr from './panels/BrandManagerPanel/Navbar/Navbarr';
 import AllRegisteredInfluencers from './panels/BrandManagerPanel/Influencers/AllRegisteredInfluencers';
 import {Route, Routes} from 'react-router-dom';
@@ -78,6 +79,8 @@ const App = () => {
         <Route path="/BMHashtags" element={<HashTags/>}/>
         <Route path="/BMAllContent" element={<AllContent/>}/>
         <Route path="/BMCampaigns" element={<AllCampaigns/>}/> 
+        <Route path="/BMInactiveCampaigns" element={<InactiveCampaigns/>}/>
+        
         <Route path="/BMRegisteredInfluencers" element={<AllRegisteredInfluencers/>}/>
         <Route path="/BMCampaignDetails" element={<CampaignDetails/>}/>
         <Route path="/BMCompare" element={<CompareInfluencers/>}/>
@@ -93,6 +96,7 @@ const App = () => {
         <Route path="/BMEmailSent" element={<EmailSent/>}/>  
         <Route path="/BMResetPassword" element={<ResetPassword/>}/>  
         <Route path="/BMResetted" element={<Resetted/>}/>
+
         
 
         <Route path="/AdminLogin" element={<AdminLogin/>}/>
