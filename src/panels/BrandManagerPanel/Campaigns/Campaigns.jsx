@@ -12,7 +12,7 @@ const Campaigns = () => {
 
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/campaigns/')
+    axios.get('http://127.0.0.1:8000/activecampaigns/')
       .then(response => {
         setCampaigns(response.data);
         console.log(response.data);
@@ -49,11 +49,10 @@ const Campaigns = () => {
 
               <Row className='mt-2'>
                   <Col xs={12} sm={12} md={6} lg={7}>
-                      <h3 className='nameC'>{item.name}</h3>
+                      <h3 className='nameC'>{item.name.slice(0, 10)}</h3>
                       <p className='influencersC'><People style={{height:"15px"}}/>{item.influencers.length}</p>                      
                   </Col>
                   <Col xs={12} sm={12} md={6} lg={5} key={item.id}>
-                      {/* <p className="hashtagC">{item.hashtag_campaign}</p> */}
                       <p className="hashtagC">#{item.hashtag_campaign.hashtag}</p>
                       <p className='typeC' style={{ backgroundColor: item.campaign_type === "Single" ? "#B47EE5" : "green" }}>{item.campaign_type}</p>
 
@@ -61,13 +60,7 @@ const Campaigns = () => {
                 </Row>
                 <p className='dateC'>{item.start_date}</p>
                 <p className='dateC'>{new Date(item.start_date).toLocaleDateString()}</p>
-                  {/* <div style={{display: 'flex',justifyContent:'space-between'}}>
-                    <h3 className='nameC'>{item.name}</h3>
-                    <div><p className="hashtagC">{item.hashtag}</p>
-                    <p className='typeC'>{item.type}</p></div>
-                  </div> */}
-                  {/* <p className='influencersC'>{item.influencers}</p>
-                  <p className='dateC'>{item.startDate}</p> */}
+               
             </div>
         )})}
     </div>

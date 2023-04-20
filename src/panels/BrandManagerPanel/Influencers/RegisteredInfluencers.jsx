@@ -1,11 +1,8 @@
 import axios from "axios"
 import React,{useState, useEffect} from 'react';
 import RegisteredInfluencersList from "./RegisteredInfluencersList";
-import { Grid } from '@material-ui/core';
-import { ArrowBack, Search } from '@material-ui/icons';
 import '../../../Style/BrandManagerPanel/brandManagerDashboard/registeredInfluencers.css';
 import { Container, Row, Col } from 'react-grid-system';
-import { Diversity1Rounded } from '@mui/icons-material';
 
 const RegisteredInfluencers = () => {
   const [influencers, setInfluencers] = useState([]);
@@ -32,7 +29,7 @@ const RegisteredInfluencers = () => {
           </div>
         </Col>
       </Row>
-      {/* style={{border:'2px solid red'}}; */}
+
   <Row className="mx-1" >
     {influencers.map(item => (
       <Col xs={5} sm={5} md={4} lg={3} className="subContainerRI m-1">
@@ -41,8 +38,8 @@ const RegisteredInfluencers = () => {
         </Col>
         <Col xs={12} lg={12}>
             <div className="ColDetailsRI" style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
-              <p className='nameRI'>{item.influencer_full_name}</p>
-              <p className='usernameRI'>@{item.influencer_username}</p>
+              <p className='nameRI'>{item.influencer_full_name.slice(0, 15)}</p>
+              <p className='usernameRI'>@{item.influencer_username.slice(0, 12)}</p>
             </div>
         </Col>
       </Col>

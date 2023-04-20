@@ -6,12 +6,17 @@
     background-color: #F5F5F5;
     border: 1px solid rgb(198, 198, 198)
 }
+
+.CostNC {
+    margin-top: -20px;
+}
+
 .subContainerNC {
     border: 1px solid rgb(198, 198, 198);
-    width: 165px;
     text-align: center;
     align-items: center;
     justify-content: center;
+    height: auto;
 }
 
 .imageNC {
@@ -22,6 +27,7 @@
 .nameNC {
     font-size: 15px;
     font-weight: bold;
+    overflow:hidden;
 }
 .userNameNC {
     font-size: 12px;
@@ -44,3 +50,55 @@
 Button, .purpleButton {
     background-color: #452c63;
 }
+/* .pickedInfluencers {
+    height: auto;
+    width: auto;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    background-color: #F5F5F5;
+    border: 1px solid rgb(198, 198, 198)
+}
+
+.CostNC {
+    margin-top: -20px;
+}
+
+.subContainerNC {
+    border: 1px solid rgb(198, 198, 198);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+}
+
+.imageNC {
+    border-radius: 50%;
+    height: 75px;
+    width: 75px;
+}
+.nameNC {
+    font-size: 15px;
+    font-weight: bold;
+    overflow:hidden;
+}
+.userNameNC {
+    font-size: 12px;
+    margin-top: -10px;
+}
+.EngagementRateNC {
+    margin-top: -15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.NumberNC {
+    margin-top: -15px;
+    font-size: 12px;
+}
+
+.inputNC {
+    background-color: rgb(241, 241, 241);
+}
+
+Button, .purpleButton {
+    background-color: #452c63;
+} */

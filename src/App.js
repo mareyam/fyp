@@ -55,6 +55,7 @@ import PendingCampaigns from './panels/InfluencerPanel/Campaigns/PendingCampaign
 
 import Home from './Home';
 import Test from './Test';
+import Error404 from './panels/Error404';
 
 const App = () => {
   const location = useLocation();
@@ -72,63 +73,64 @@ const App = () => {
 
 
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/BMList" element={<BMList/>}/>
-        <Route path="/PRLogin" element={<PRLogin/>}/>
-        <Route path="/BMDashboard" element={<BrandManagerDashboard/>}/>
-        <Route path="/BMHashtags" element={<HashTags/>}/>
-        <Route path="/BMAllContent" element={<AllContent/>}/>
-        <Route path="/BMCampaigns" element={<AllCampaigns/>}/> 
-        <Route path="/BMInactiveCampaigns" element={<InactiveCampaigns/>}/>
+        <Route exact path="/" element={<Home/>}/>
+        <Route exact path="/BMList" element={<BMList/>}/>
+        <Route exact path="/PRLogin" element={<PRLogin/>}/>
+        <Route exact path="/BMDashboard" element={<BrandManagerDashboard/>}/>
+        <Route exact path="/BMHashtags" element={<HashTags/>}/>
+        <Route exact path="/BMAllContent" element={<AllContent/>}/>
+        <Route exact path="/BMCampaigns" element={<AllCampaigns/>}/> 
+        <Route exact path="/BMInactiveCampaigns" element={<InactiveCampaigns/>}/>
         
-        <Route path="/BMRegisteredInfluencers" element={<AllRegisteredInfluencers/>}/>
-        <Route path="/BMCampaignDetails" element={<CampaignDetails/>}/>
-        <Route path="/BMCompare" element={<CompareInfluencers/>}/>
-        <Route path="/BMNewCampaign" element={<NewCampaign/>}/>
-        <Route path="/BMPrivacy" element={<Privacy/>}/>
-        <Route path="/BMTerms" element={<Terms/>}/>
-        <Route path="/BMBrandPDF" element={<BrandPDF/>}/> 
-        <Route path="/BMInfluencerPDF" element={<InfluencerPDF/>}/>
-        <Route path="/BMLogin" element={<Login/>}/>
-        <Route path="/BMSignup" element={<Signup/>}/>
-        <Route path="/BMInfluencerPage" element={<InfluencerPage/>}/>
-        <Route path="/BMForgotPassword" element={<ForgotPassword/>}/>
-        <Route path="/BMEmailSent" element={<EmailSent/>}/>  
-        <Route path="/BMResetPassword" element={<ResetPassword/>}/>  
-        <Route path="/BMResetted" element={<Resetted/>}/>
+        <Route exact path="/BMRegisteredInfluencers" element={<AllRegisteredInfluencers/>}/>
+        <Route exact path="/BMCampaignDetails" element={<CampaignDetails/>}/>
+        <Route exact path="/BMCompare" element={<CompareInfluencers/>}/>
+        <Route exact path="/BMNewCampaign" element={<NewCampaign/>}/>
+        <Route exact path="/BMPrivacy" element={<Privacy/>}/>
+        <Route exact path="/BMTerms" element={<Terms/>}/>
+        <Route exact path="/BMBrandPDF" element={<BrandPDF/>}/> 
+        <Route exact path="/BMInfluencerPDF" element={<InfluencerPDF/>}/>
+        <Route exact path="/BMLogin" element={<Login/>}/>
+        <Route exact path="/BMSignup" element={<Signup/>}/>
+        <Route exact path="/BMInfluencerPage" element={<InfluencerPage/>}/>
+        <Route exact path="/BMForgotPassword" element={<ForgotPassword/>}/>
+        <Route exact path="/BMEmailSent" element={<EmailSent/>}/>  
+        <Route exact path="/BMResetPassword" element={<ResetPassword/>}/>  
+        <Route exact path="/BMResetted" element={<Resetted/>}/>
 
         
 
-        <Route path="/AdminLogin" element={<AdminLogin/>}/>
-        <Route path="/AdminForgot" element={<AdminForgotPassword/>}/>
-        <Route path="/AdminReset" element={<AdminResetPassword/>}/>
-        <Route path="/AdminResetted" element={<AdminResetted/>}/>
-        <Route path="/AdminEmailSent" element={<AdminEmailSent/>}/>
+        <Route exact path="/AdminLogin" element={<AdminLogin/>}/>
+        <Route exact path="/AdminForgot" element={<AdminForgotPassword/>}/>
+        <Route exact path="/AdminReset" element={<AdminResetPassword/>}/>
+        <Route exact path="/AdminResetted" element={<AdminResetted/>}/>
+        <Route exact path="/AdminEmailSent" element={<AdminEmailSent/>}/>
         
        
        
-        <Route path="/PRList" element={<PRList/>}/>
-        <Route path="/NewPRPopup" element={<NewPRPopup/>}/>
-        <Route path="/PRLogin" element={<PRLogin/>}/>
-        <Route path="/PRSignup" element={<PRSignup/>}/>
-        <Route path="/PRForgot" element={<PRForgotPassword/>}/>
-        <Route path="/PREmailSent" element={<PREmailSent/>}/>  
-        <Route path="/PRResetPassword" element={<PRResetPassword/>}/>  
-        <Route path="/PRResetted" element={<PRResetted/>}/>  
-        <Route path="/BMList" element={<BMList/>}/>
-        <Route path="/NewBMPopup" element={<NewBMPopup/>}/>
+        <Route exact path="/PRList" element={<PRList/>}/>
+        <Route exact path="/NewPRPopup" element={<NewPRPopup/>}/>
+        <Route exact path="/PRLogin" element={<PRLogin/>}/>
+        <Route exact path="/PRSignup" element={<PRSignup/>}/>
+        <Route exact path="/PRForgot" element={<PRForgotPassword/>}/>
+        <Route exact path="/PREmailSent" element={<PREmailSent/>}/>  
+        <Route exact path="/PRResetPassword" element={<PRResetPassword/>}/>  
+        <Route exact path="/PRResetted" element={<PRResetted/>}/>  
+        <Route exact path="/BMList" element={<BMList/>}/>
+        <Route exact path="/NewBMPopup" element={<NewBMPopup/>}/>
 
 
-        <Route path="/InfluencerLogin" element={<InfluencerLogin/>}/>
-        <Route path="/InfluencerSignup" element={<InfluencerSignup/>}/>
-        <Route path="/InfluencerRegDetails" element={<InfluencerRegDetails/>}/>
-        <Route path="/InfluencerRegDetails2" element={<InfluencerRegDetails2/>}/>
-        <Route path="/InfluencerRegDetails3" element={<InfluencerRegDetails3/>}/>
-        <Route path="/InfluencerPosts" element={<InfluencerPosts/>}/>
-        <Route path="/InfluencerDashboard" element={<InfluencerDashboard/>}/>
-        <Route path="/InfluencerPendingCampaigns" element={<PendingCampaigns/>}/>
+        <Route exact path="/InfluencerLogin" element={<InfluencerLogin/>}/>
+        <Route exact path="/InfluencerSignup" element={<InfluencerSignup/>}/>
+        <Route exact path="/InfluencerRegDetails" element={<InfluencerRegDetails/>}/>
+        <Route exact path="/InfluencerRegDetails2" element={<InfluencerRegDetails2/>}/>
+        <Route exact path="/InfluencerRegDetails3" element={<InfluencerRegDetails3/>}/>
+        <Route exact path="/InfluencerPosts" element={<InfluencerPosts/>}/>
+        <Route exact path="/InfluencerDashboard" element={<InfluencerDashboard/>}/>
+        <Route exact path="/InfluencerPendingCampaigns" element={<PendingCampaigns/>}/>
 
-        <Route path="/Test" element={<Test/>}/>
+        <Route exact path="/Test" element={<Test/>}/>
+        <Route path="*" element={<Error404/>}/>
 
       </Routes>
   </div>

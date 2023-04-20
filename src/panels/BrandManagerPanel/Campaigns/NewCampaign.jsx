@@ -46,6 +46,9 @@ const NewCampaign = () => {
     cursor: "pointer"
   };
 
+  const removeInfluencer = (indexToRemove) => {
+    setInfluencers(influencers.filter((_, index) => index !== indexToRemove));
+  };
 
 
 
@@ -139,15 +142,16 @@ const NewCampaign = () => {
           </Button></a>
        </div>
            <div className="pickedInfluencers" style={{display: 'flex', flexWrap: "nowrap"}}> 
-            {influencers.map(item => {
+            {influencers.map((item,index) => {
               return (
-                <Col xs={6} sm={12} md={2} lg={2}>
-                  <div className="subContainerNC">
+                <Col xs={8} sm={8} md={2} lg={2}>
+                  <div className="subContainerNC" style={{overflow:'hidden'}}>
                     <img className='imageNC' src={`http://127.0.0.1:8000/${item.image}`}/>
-                    <p className='nameNC'>{item.influencer_full_name}</p>
+                    <p className='nameNC'>{item.influencer_full_name.slice(0, 15)}...</p>
                     <p className='userNameNC'>@{item.influencer_username}</p>
                     <p className='EngagementRateNC'>Engagement Rate</p>
                     {/* <p className='NumberNC'>{item.engagement_rate}</p> */}
+                    <button style={{backgroundColor:'red', borderRadius:'50%'}} onClick={() => removeInfluencer(index)}>-</button>
                   </div>
                 </Col>
               )})}

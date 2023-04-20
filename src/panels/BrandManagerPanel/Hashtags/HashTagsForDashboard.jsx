@@ -10,7 +10,7 @@ const HashtagsForDashboard = () => {
   
 
   useEffect(() => {
-      axios.get('http://127.0.0.1:8000/campaigns/')
+      axios.get('http://127.0.0.1:8000/activecampaigns/')
         .then(response => {
           setCampaigns(response.data);
         })
@@ -36,11 +36,8 @@ const HashtagsForDashboard = () => {
                     <th className="">Campaign</th>
                     <th className="" scope="col">Hashtag</th>
                     <th className="" scope="col">Created</th>
-                    {/* <th className="" scope="col">End Date</th> */}
-                    {/* <th className="" scope="col">Hashtag</th> */}
-                    {/* <th className="" scope="col">Type</th> */}
                     <th className="" scope="col">Total posts</th>
-                    {/* <th className="" scope="col">Status</th> */}
+                
                 </tr>
                </thead>
               <tbody style={{border:'1px solid rgb(212, 211, 211)'}} className="">
@@ -51,13 +48,10 @@ const HashtagsForDashboard = () => {
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="campaignNameHT">{item.hashtag_campaign}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="startDateHT">{item.created}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}>
-                                    {/* <p className="totalPostsHT">{item.hashtag_campaign.length}</p> */}
                                     <p className="">{item.usage_count}</p>
 
                                     </td>
-                                 
-                                  {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="typeHT">{item.type}</p></td> */}
-                              </tr> )})}
+                                   </tr> )})}
                 </tbody>      
           </table>
           </div>
