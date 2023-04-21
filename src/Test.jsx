@@ -50,7 +50,6 @@ const NewCampaign = () => {
     setPostCost(postCost + cost);
   };
 
-
   const removeInfluencer = (indexToRemove) => {
   const removedInfluencer = influencers[indexToRemove];
   const updatedInfluencers = influencers.filter((_, index) => index !== indexToRemove);
@@ -79,14 +78,7 @@ const fetchInfluencers = () => {
   }, [storyCost, postCost]);
 
 
-  const handleCreateCampaign = async () => {
-    const campaignData = {
-      influencers: influencers.map((influencer) => influencer.id),
-      storyCost: storyCost,
-      postCost: postCost,
-      totalCost: totalCost
-    };
-
+const handleCreateCampaign = async (campaignData) => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/activecampaigns/', campaignData);
       console.log(response.data);
@@ -140,11 +132,10 @@ const fetchInfluencers = () => {
                   </div>
                 </Col>
 
-               
               )})}
            </div>
 
-           <div className="d-lg-flex justify-content-between align-items-end d-sm-block ">
+           <div className="d-lg-flex justify-content-between align-items-end d-sm-block " style={{border:'2px solid red'}}>
               <div>
                   <input
                     className='inputNC'
@@ -154,19 +145,14 @@ const fetchInfluencers = () => {
                   />
                   <label>Make Campaign Live</label>
               </div>
-              <Button style={{backgroundColor: '#452c63'}} onClick={() => {
-                 const campaignData = {
-                
-                };
-            
-              }}>
+              <Button style={{backgroundColor: '#452c63'}}>
                   <AddIcon style={{ fontSize: '15px' }} />
                   Add Influencer
               </Button>
 
               <div className="d-block">
                 <p>Total Cost: {totalCost}</p>
-                <Button style={{backgroundColor: '#452c63'}} onClick={handleCreateCampaign}>
+                <Button style={{backgroundColor: '#452c63'}} onClick={handleCreateCampaign(campaignData)}>
                   Create Campaign
                 </Button>
               </div>
