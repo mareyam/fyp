@@ -16,10 +16,6 @@ const NewCampaign = () => {
   const [storyCost, setStoryCost] = useState(0);
   const [postCost, setPostCost] = useState(0);
 
-  const [story, setStory] = useState(false);
-  const [post, setPost] = useState(false);
-
-
   useEffect(() => {
     axios
       .get('http://127.0.0.1:8000/influencers/')
@@ -40,44 +36,82 @@ const NewCampaign = () => {
     const updatedInfluencers = [...influencers];
     updatedInfluencers[index].story = e.target.checked;
     setInfluencers(updatedInfluencers);
+
+    const cost = e.target.checked ? influencers[index].influencerStoryCost : -influencers[index].influencerStoryCost;
+    setStoryCost(storyCost + cost);
   };
 
   const handleInfluencerChangePost = (index, e) => {
     const updatedInfluencers = [...influencers];
     updatedInfluencers[index].post = e.target.checked;
     setInfluencers(updatedInfluencers);
+
+    const cost = e.target.checked ? influencers[index].influencerInfluencerPostCost : -influencers[index].influencerInfluencerPostCost;
+    setPostCost(postCost + cost);
   };
+
 
   const removeInfluencer = (indexToRemove) => {
-    const updatedInfluencers = influencers.filter((_, index) => index !== indexToRemove);
-    setInfluencers(updatedInfluencers);
-  };
+  const removedInfluencer = influencers[indexToRemove];
+  const updatedInfluencers = influencers.filter((_, index) => index !== indexToRemove);
+  setInfluencers(updatedInfluencers);
+
+  const storyCostChange = removedInfluencer.story ? -removedInfluencer.influencerStoryCost : 0;
+  const postCostChange = removedInfluencer.post ? -removedInfluencer.influencerInfluencerPostCost : 0;
+  setStoryCost(storyCost => storyCost + storyCostChange);
+  setPostCost(postCost => postCost + postCostChange);
+};
+
+const fetchInfluencers = () => {
+  axios
+    .get('http://127.0.0.1:8000/influencers/')
+    .then((response) => {
+      setInfluencers(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
   useEffect(() => {
-  
-    let storyCostTotal = 0;
-    let postCostTotal = 0;
-    influencers.forEach((influencer) => {
-     
-      
-      if (influencer.isChecked) {
-        console.log(storyCostTotal);
-        console.log(postCostTotal); 
-        storyCostTotal += influencer.influencerStoryCost;
-        postCostTotal += influencer.influencerInfluencerPostCost;
-      }
-    });
-    setStoryCost(storyCostTotal);
-    setPostCost(postCostTotal);
-  }, [influencers]);
+    // Calculate the total cost based on the sum of storyCost and postCost
+    setTotalCost(storyCost + postCost);
+  }, [storyCost, postCost]);
 
-  const total = storyCost + postCost;
+
+  const handleCreateCampaign = async () => {
+    const campaignData = {
+      influencers: influencers.map((influencer) => influencer.id),
+      storyCost: storyCost,
+      postCost: postCost,
+      totalCost: totalCost
+    };
+
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/activecampaigns/', campaignData);
+      console.log(response.data);
+      // Do something with the response, such as show a success message
+    } catch (error) {
+      console.error(error);
+      // Handle the error, such as showing an error message to the user
+    }
+  };
+
 
   return (
     <Container className="mt-2" style={{border:"1px solid rgb(198, 198, 198)"}}>
       <Row>
        <div className="pickedInfluencers" style={{display: 'flex', flexWrap: "nowrap"}}> 
             {influencers.map((item,index) => {
+               const campaignData = {
+                influencer_full_name : item.influencer_full_name,
+                influencer_username : item.influencer_username,
+                influencers: influencers.map((influencer) => influencer.id),
+                storyCost: storyCost,
+                postCost: postCost,
+                totalCost: totalCost
+              }
+
               return (
                 <Col xs={8} sm={8} md={2} lg={2}>
                   <div className="subContainerNC" style={{overflow:'hidden'}}>
@@ -86,24 +120,27 @@ const NewCampaign = () => {
                     <p className='userNameNC'>@{item.influencer_username}</p>
                     <p className='EngagementRateNC'>Engagement Rate</p>
                     <p className='NumberNC'>{item.engagement_rate}</p>
+
                     <input
                       type="checkbox"
                       checked={item.story}
                       onChange={(e) => handleInfluencerChangeStory(index, e)}
                     />
-                    <label>Story</label>
+                    <label>Story {item.influencerStoryCost}</label>
 
                     <input
                       type="checkbox"
                       checked={item.post}
                       onChange={(e) => handleInfluencerChangePost(index, e)}
                     />
-                    <label>Post</label>
+                    <label>Post {item.influencerInfluencerPostCost}</label>
 
 
                     <button style={{backgroundColor:'red', borderRadius:'50%'}} onClick={() => removeInfluencer(index)}>-</button>
                   </div>
                 </Col>
+
+               
               )})}
            </div>
 
@@ -117,9 +154,19 @@ const NewCampaign = () => {
                   />
                   <label>Make Campaign Live</label>
               </div>
+              <Button style={{backgroundColor: '#452c63'}} onClick={() => {
+                 const campaignData = {
+                
+                };
+            
+              }}>
+                  <AddIcon style={{ fontSize: '15px' }} />
+                  Add Influencer
+              </Button>
+
               <div className="d-block">
-                <p>Total Cost: {total}</p>
-                <Button style={{backgroundColor: '#452c63'}}>
+                <p>Total Cost: {totalCost}</p>
+                <Button style={{backgroundColor: '#452c63'}} onClick={handleCreateCampaign}>
                   Create Campaign
                 </Button>
               </div>
