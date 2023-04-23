@@ -8,6 +8,7 @@ function InfluencerList() {
   const [selectedInfluencers, setSelectedInfluencers] = useState([]);
   const [budget, setBudget] = useState(0);
   const [campaignType, setCampaignType] = useState('');
+  const [date, setDate] = useState('');
   
   
   
@@ -33,6 +34,10 @@ function InfluencerList() {
   
   const handleCampaignBudgetChange = (event) => {
     setBudget(event.target.value);
+  }
+
+  const handleDate = (event) => {
+    setDate(event.target.value);
   }
 
   const handleCampaignType = (event) => {
@@ -90,6 +95,10 @@ function InfluencerList() {
           </div>
         ))}
 
+
+        <label htmlFor="date">date:</label>
+        <input type="text" id="date" name="date" value={date} onChange={handleDate} />
+     
 
 
         <button type="submit">Create Campaign</button>

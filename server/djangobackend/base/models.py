@@ -155,8 +155,9 @@ class NewCampaign(models.Model):
    influencers = models.ManyToManyField('Influencer', blank=True)
    budget = models.IntegerField(blank=False, null=False, default=0)
    campaign_type = models.CharField(max_length=20,choices=campaignType_choices, blank=False, null=False, default='DEFAULT')
+   hashtag = models.CharField(max_length=50, blank=False, null=False, default='DEFAULT')
    updated = models.DateTimeField(default=datetime.now)
-   created = models.DateTimeField(default=datetime.now)
+   created = models.DateField(default=datetime.now().date)
    
    class Meta:
         ordering = ['-updated', '-created']
