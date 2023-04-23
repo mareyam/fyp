@@ -57,6 +57,10 @@ urlpatterns = [
     path('activecampaigns/', views.active_campaigns),
     path('activecampaignlist/<str:id>/', views.activecampaign_detail),
 
+    path('newactivecampaigns/', views.newactive_campaigns),
+    path('newactivecampaignlist/<str:id>/', views.newactivecampaign_detail),
+
+
     path('inactivecampaigns/', views.inactivecampaigns),
     path('inactivecampaignlist/<str:id>/', views.inactivecampaign_detail),
 

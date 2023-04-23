@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import BrandManager, Campaign, Influencer, Brand, PRAgency, Hashtag,  User, SubBrand 
+from .models import BrandManager, Campaign, Influencer, Brand, PRAgency, Hashtag,  User, SubBrand, NewCampaign
 
 
 class BrandManagerSerializer(serializers.ModelSerializer):
@@ -11,6 +11,12 @@ class CampaignSerializer(serializers.ModelSerializer):
     class Meta:
         model = Campaign
         fields = "__all__"
+
+class NewCampaignSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewCampaign
+        fields = "__all__"
+
 
 class InfluencerSerializer(serializers.ModelSerializer):
     class Meta:

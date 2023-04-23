@@ -1,11 +1,7 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Room , Campaign , Brand , BrandManager , Influencer , SampleModel, PRAgency, Hashtag, Filter
+from .models import Campaign , Brand , BrandManager , Influencer , SampleModel, PRAgency, Hashtag, Filter
 
-class RoomForm(ModelForm):
-    class Meta:
-        model = Room
-        fields = '__all__'
 
 class CampaignForm(forms.ModelForm):
     influencers = forms.ModelMultipleChoiceField(queryset=Influencer.objects.all())

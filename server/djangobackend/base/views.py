@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from .models import Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, SubBrand
-from .serializers import BrandManagerSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, PRAgencySerializer, SubBrandSerializer
+from .models import NewCampaign, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, SubBrand
+from .serializers import BrandManagerSerializer, CampaignSerializer, NewCampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, PRAgencySerializer, SubBrandSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -79,6 +79,44 @@ def activecampaign_detail(request, id, format=None):
     elif request.method == 'DELETE':
         campaign.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'POST'])
+def newactive_campaigns(request, format=None):
+    
+    if request.method == 'GET':
+     campaigns = Campaign.objects.all()
+     serializer = NewCampaignSerializer(campaigns, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = NewCampaignSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+@api_view(['GET', 'PUT', 'DELETE'])
+def newactivecampaign_detail(request, id, format=None):
+    try:
+        campaign = NewCampaign.objects.get(pk=id)
+    except NewCampaign.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = NewCampaignSerializer(campaign)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = NewCampaignSerializer(campaign, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        campaign.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 
 
 @api_view(['GET', 'POST'])
