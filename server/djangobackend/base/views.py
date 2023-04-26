@@ -1,14 +1,9 @@
 from django.shortcuts import render, redirect
-from django.db.models import Q
 from .models import NewCampaign, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, SubBrand
 from .serializers import BrandManagerSerializer, CampaignSerializer, NewCampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, PRAgencySerializer, SubBrandSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.exceptions import AuthenticationFailed
-from .models import User
-import jwt, datetime
 
 
 # Create your views here.
@@ -48,8 +43,8 @@ import jwt, datetime
 def active_campaigns(request, format=None):
     
     if request.method == 'GET':
-     campaigns = Campaign.objects.filter(status='Active').all()
-    #  campaigns = Campaign.objects.all()
+    #  campaigns = Campaign.objects.filter(status='Active').all()
+     campaigns = Campaign.objects.all()
      serializer = CampaignSerializer(campaigns, many=True)
      return Response(serializer.data)
     
@@ -58,6 +53,7 @@ def active_campaigns(request, format=None):
      if serializer.is_valid():
          serializer.save()
          return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 @api_view(['GET', 'PUT', 'DELETE'])
 def activecampaign_detail(request, id, format=None):
     try:

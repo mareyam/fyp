@@ -1,113 +1,438 @@
 import axios from "axios"
 import React, {useEffect, useState} from 'react';
 import './Style/BrandManagerPanel/NewCampaigns/newCampaigns.css'
-
-function InfluencerList() {
-  const [campaignName, setCampaignName] = useState('');
-  const [influencers, setInfluencers] = useState([]);
-  const [selectedInfluencers, setSelectedInfluencers] = useState([]);
-  const [budget, setBudget] = useState(0);
-  const [campaignType, setCampaignType] = useState('');
-  const [date, setDate] = useState('');
-  
-  
-  
- 
-   useEffect(() => {
-    axios
-      .get('http://127.0.0.1:8000/influencers/')
-      .then((response) => {
-        setInfluencers(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 
+import { Fragment } from 'react'
+import { Listbox, Transition } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
+const people = [
+  { name: 'Wade Cooper' },
+  { name: 'Arlene Mccoy' },
+  { name: 'Devon Webb' },
+  { name: 'Tom Cook' },
+  { name: 'Tanya Fox' },
+  { name: 'Hellen Schmidt' },
+]
 
-  const handleCampaignNameChange = (event) => {
-    setCampaignName(event.target.value);
-  }
-
-  
-  const handleCampaignBudgetChange = (event) => {
-    setBudget(event.target.value);
-  }
-
-  const handleDate = (event) => {
-    setDate(event.target.value);
-  }
-
-  const handleCampaignType = (event) => {
-    setCampaignType(event.target.value);
-  }
-
-   const handleCheckboxChange = (event, influencer) => {
-     if (event.target.checked) {
-       // Add user to selectedUsers list if checkbox is checked
-       setSelectedInfluencers([...selectedInfluencers, influencer]);
-     } else {
-       // Remove user from selectedInfluencers list if checkbox is unchecked
-       setSelectedInfluencers(selectedInfluencers.filter(selectedInfluencer => selectedInfluencer.id !== influencers.id));
-    }
-   }
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = {
-      campaign_name: campaignName,
-      influencers: selectedInfluencers.map(selectedInfluencer => selectedInfluencer.id),
-      budget: budget,
-      campaignType: campaignType
-    };
-
-    console.log(data);
-    axios.post('http://127.0.0.1:8000/newactivecampaigns/', data)
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
-  }
-
- 
+export default function Example() {
+  const [selected, setSelected] = useState(people[0])
 
   return (
-    <div>
-      <h2>Create New Campaign</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="campaignName">Campaign Name:</label>
-        <input type="text" id="campaignName" name="campaignName" value={campaignName} onChange={handleCampaignNameChange} />
+    <div className="fixed top-16 w-72">
+      <Listbox value={selected} onChange={setSelected}>
+        <div className="relative mt-1">
+          <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <span className="block truncate">{selected.name}</span>
+            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+              <ChevronUpDownIcon
+                className="h-5 w-5 text-gray-400"
+                aria-hidden="true"
+              />
+            </span>
+          </Listbox.Button>
+          <Transition
+            as={Fragment}
+            leave="transition ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              {people.map((person, personIdx) => (
+                <Listbox.Option
+                  key={personIdx}
+                  className={({ active }) =>
+                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                    }`
+                  }
+                  value={person}
+                >
+                  {({ selected }) => (
+                    <>
+                      <span
+                        className={`block truncate ${
+                          selected ? 'font-medium' : 'font-normal'
+                        }`}
+                      >
+                        {person.name}
+                      </span>
+                      {selected ? (
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                        </span>
+                      ) : null}
+                    </>
+                  )}
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </Transition>
+        </div>
+      </Listbox>
+    </div>
+  )
+}
+
+
+// function SearchBar() {
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [filteredResults, setFilteredResults] = useState([]);
+//   const [selectedResult, setSelectedResult] = useState(null);
+//   const [influencers, setInfluencers] = useState([]);
+
+//   useEffect(() => {
+//     axios.get('http://127.0.0.1:8000/influencers/')
+//       .then(response => {
+//         setInfluencers(response.data);
+//       })
+//       .catch(error => {
+//         console.error(error);
+//       });
+//   }, []);
+
+
+//   const handleInputChange = (event) => {
+//     setSearchTerm(event.target.value);
+//     const filteredResults = influencers.filter((result) =>
+//       result.influencer_full_name.toLowerCase().includes(event.target.value.toLowerCase())
+//     );
+//     setFilteredResults(filteredResults);
+//     console.log(filteredResults);
+//   };
+
+//   const handleResultClick = (result) => {
+//     setSelectedResult(result);
+//   };
+
+//  return (
+//     <div>
+//       <input
+//         type="text"
+//         placeholder="Search by name..."
+//         value={searchTerm}
+//         onChange={handleInputChange}
+//       />
+      
+//       {searchTerm === "" ? (
+//         <div style={{ maxHeight: '100px', overflow: 'auto', border:'2px solid green' }}>
+//           <ul>
+//             {influencers.map((result) => (
+//               <li key={result.id} onClick={() => handleResultClick(result)}>
+//                 {result.influencer_full_name}
+//               </li>
+//             ))}
+//           </ul>
+//         </div>
+//       ) : (
+
+//         <div style={{ maxHeight: '100px', overflow: 'auto', border:'2px solid red' }}>
+//         <ul>
+//           {filteredResults.map((result) => (
+//             <li key={result.id} onClick={() => handleResultClick(result)}>
+//               {result.influencer_full_name}
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+//     )}
+
+//       {selectedResult && (
+//         <div>
+//           <Col xs={11} sm={11} md={5} lg={5} className="mt-5">
+//          <div style={{border: '1px solid rgb(212, 211, 211)'}}>
+//            <Card style={{ height: "100%", width:"100%"}}>
+//              <Card.Body className="">
+//                <div style={{textAlign:'center', marginTop: '-1%'}}>
+//                  <img style={{borderRadius: '50%', height: '70px', width: '75px'}} src="https://media.gettyimages.com/id/958513664/photo/mahira-khan-attends-the-screening-of-blackkklansman-during-the-71st-annual-cannes-film.jpg?s=612x612&w=gi&k=20&c=hy5zGUyPkyl5gxBh2KqryWf4UIhiv0Lt9bv3z0MiWLA="/>
+//                  <h6 style={{fontSize:'14px'}}>{selectedResult.influencer_full_name}</h6>
+//                  <p style={{fontSize: '11px', marginTop:'-4px'}}>@{selectedResult.influencer_username}</p>
+//                  <p style={{marginTop: '-11px', fontSize:'12px'}}>{selectedResult.budget}</p>
+//                </div>
+//                <Card.Text className="" style={{ fontFamily: 'Oswald' }}>
      
-        <label htmlFor="campaignBudget">Campaign budget:</label>
-        <input type="text" id="budget" name="budget" value={budget} onChange={handleCampaignBudgetChange} />
+//                <div className="otherDetails d-block">
+//                 <h5 style={{fontSize:'15px'}}><b>Details:</b></h5>
+//                  <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+//                    <SellOutlinedIcon  />
+//                    <p className="m-0 ms-2">Fashion</p>
+//                  </div>
+//                  <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+//                    <WcOutlinedIcon />
+//                    <p className="m-0 ms-2">Female</p>
+//                  </div>
+//                  <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+//                    <PaidOutlinedIcon />
+//                    <p className="m-0 ms-2">Rs.100k</p>
+//                  </div>
+//                  <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+//                    <ChildCareIcon />
+//                    <p className="m-0 ms-2">Parent of x kids</p>
+//                  </div>
+//                  <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+//                    <NumbersIcon/>
+//                    <p className="m-0 ms-2">Age group</p>
+//                  </div>
+//               </div>
+//                <hr/>
+//                <div style={{marginTop: '-10px', fontSize:'13px'}}> 
+//                  <input type='checkbox'/><label>Post 25,000</label><br/>
+//                  <input type='checkbox'/><label>Story 25,000</label>
+//                </div>
+//                  <div className='text-center' style={{fontSize:'14px', marginBottom: '-5%'}}>
+//                    <b><p>Engagememt rate 78%</p>
+//                    <p style={{marginTop:'-15px'}}>Amount 90k</p></b>
+//                  </div>
+//                </Card.Text>
+//              </Card.Body>
+//            </Card>
+//          </div>
+//          </Col>
+
+
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default SearchBar;
+
+
+//25.4
+// function SearchBar() {
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [filteredResults, setFilteredResults] = useState([]);
+//   const [selectedResult, setSelectedResult] = useState(null);
+
+//   const handleInputChange = (event) => {
+//     setSearchTerm(event.target.value);
+//     const filteredResults = data.filter((result) =>
+//       result.name.toLowerCase().includes(event.target.value.toLowerCase())
+//     );
+//     setFilteredResults(filteredResults);
+//     console.log(filteredResults);
+//   };
+
+//   const handleResultClick = (result) => {
+//     setSelectedResult(result);
+//   };
+
+//   return (
+//     <div>
+//       <input
+//         type="text"
+//         placeholder="Search by name..."
+//         value={searchTerm}
+//         onChange={handleInputChange}
+//       />
      
-        <label htmlFor="campaignType">Campaign type:</label>
-        <input type="text" id="campaignType" name="campaignType" value={campaignType} onChange={handleCampaignType} />
+//         {filteredResults.map((result) => (
+         
+
+//           <div key={result.id} onClick={() => handleResultClick(result)}>
+//                <p>{result.name}</p>
+//                 {selectedResult && (
+      //    <Col xs={11} sm={11} md={5} lg={5} className="mt-5">
+      //    <div style={{border: '1px solid rgb(212, 211, 211)'}}>
+      //      <Card style={{ height: "100%", width:"100%"}}>
+      //        <Card.Body className="">
+      //          <div style={{textAlign:'center', marginTop: '-1%'}}>
+      //            <img style={{borderRadius: '50%', height: '70px', width: '75px'}} src="https://media.gettyimages.com/id/958513664/photo/mahira-khan-attends-the-screening-of-blackkklansman-during-the-71st-annual-cannes-film.jpg?s=612x612&w=gi&k=20&c=hy5zGUyPkyl5gxBh2KqryWf4UIhiv0Lt9bv3z0MiWLA="/>
+      //            <h6 style={{fontSize:'14px'}}>Mahira Khan</h6>
+      //            <p style={{fontSize: '11px', marginTop:'-4px'}}>@mahirakhan</p>
+      //            <p style={{marginTop: '-11px', fontSize:'12px'}}>9.7K Followers</p>
+      //          </div>
+      //          <Card.Text className="" style={{ fontFamily: 'Oswald' }}>
+     
+      //          <div className="otherDetails d-block">
+      //           <h5 style={{fontSize:'15px'}}><b>Details:</b></h5>
+      //            <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+      //              <SellOutlinedIcon  />
+      //              <p className="m-0 ms-2">Fashion</p>
+      //            </div>
+      //            <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+      //              <WcOutlinedIcon />
+      //              <p className="m-0 ms-2">Female</p>
+      //            </div>
+      //            <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+      //              <PaidOutlinedIcon />
+      //              <p className="m-0 ms-2">Rs.100k</p>
+      //            </div>
+      //            <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+      //              <ChildCareIcon />
+      //              <p className="m-0 ms-2">Parent of x kids</p>
+      //            </div>
+      //            <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+      //              <NumbersIcon/>
+      //              <p className="m-0 ms-2">Age group</p>
+      //            </div>
+      //         </div>
+      //          <hr/>
+      //          <div style={{marginTop: '-10px', fontSize:'13px'}}> 
+      //            <input type='checkbox'/><label>Post 25,000</label><br/>
+      //            <input type='checkbox'/><label>Story 25,000</label>
+      //          </div>
+      //            <div className='text-center' style={{fontSize:'14px', marginBottom: '-5%'}}>
+      //              <b><p>Engagememt rate 78%</p>
+      //              <p style={{marginTop:'-15px'}}>Amount 90k</p></b>
+      //            </div>
+      //          </Card.Text>
+      //        </Card.Body>
+      //      </Card>
+      //    </div>
+      //    </Col>
+      // )}
+//           </div>   
+//         ))}
+
+//         </div>
+
+//   );
+// }
+
+// export default SearchBar;
+
+// const SearchBar = ({ data }) => {
+//   const [searchTerm, setSearchTerm] = useState('');
+//   const [searchResults, setSearchResults] = useState([]);
+
+//   const handleChange = event => {
+//     const { value } = event.target;
+//     setSearchTerm(value);
+//     const results = data.filter(item => item.name.toLowerCase().includes(value.toLowerCase()));
+//     setSearchResults(results);
+//   };
+
+//   const handleClick = item => {
+//     // Display the result
+//     console.log(item);
+//   };
+
+//   return (
+//     <div>
+//       <input type="text" placeholder="Search..." value={searchTerm} onChange={handleChange} />
+//       <ul>
+//         {searchResults.map(item => (
+//           <li key={item.id} onClick={() => handleClick(item)}>
+//             {item.name}
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
+
+// export default SearchBar;
+
+// function InfluencerList() {
+//   const [campaignName, setCampaignName] = useState('');
+//   const [influencers, setInfluencers] = useState([]);
+//   const [selectedInfluencers, setSelectedInfluencers] = useState([]);
+//   const [budget, setBudget] = useState(0);
+//   const [campaignType, setCampaignType] = useState('');
+//   const [date, setDate] = useState('');
+  
+  
+  
+ 
+//    useEffect(() => {
+//     axios
+//       .get('http://127.0.0.1:8000/influencers/')
+//       .then((response) => {
+//         setInfluencers(response.data);
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//       });
+//   }, []);
+
+
+
+
+//   const handleCampaignNameChange = (event) => {
+//     setCampaignName(event.target.value);
+//   }
+
+  
+//   const handleCampaignBudgetChange = (event) => {
+//     setBudget(event.target.value);
+//   }
+
+//   const handleDate = (event) => {
+//     setDate(event.target.value);
+//   }
+
+//   const handleCampaignType = (event) => {
+//     setCampaignType(event.target.value);
+//   }
+
+//    const handleCheckboxChange = (event, influencer) => {
+//      if (event.target.checked) {
+//        // Add user to selectedUsers list if checkbox is checked
+//        setSelectedInfluencers([...selectedInfluencers, influencer]);
+//      } else {
+//        // Remove user from selectedInfluencers list if checkbox is unchecked
+//        setSelectedInfluencers(selectedInfluencers.filter(selectedInfluencer => selectedInfluencer.id !== influencers.id));
+//     }
+//    }
+  
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     const data = {
+//       campaign_name: campaignName,
+//       influencers: selectedInfluencers.map(selectedInfluencer => selectedInfluencer.id),
+//       budget: budget,
+//       campaignType: campaignType
+//     };
+
+//     console.log(data);
+//     axios.post('http://127.0.0.1:8000/newactivecampaigns/', data)
+//       .then(response => console.log(response))
+//       .catch(error => console.log(error));
+//   }
+
+ 
+
+//   return (
+//     <div>
+//       <h2>Create New Campaign</h2>
+//       <form onSubmit={handleSubmit}>
+//         <label htmlFor="campaignName">Campaign Name:</label>
+//         <input type="text" id="campaignName" name="campaignName" value={campaignName} onChange={handleCampaignNameChange} />
+     
+//         <label htmlFor="campaignBudget">Campaign budget:</label>
+//         <input type="text" id="budget" name="budget" value={budget} onChange={handleCampaignBudgetChange} />
+     
+//         <label htmlFor="campaignType">Campaign type:</label>
+//         <input type="text" id="campaignType" name="campaignType" value={campaignType} onChange={handleCampaignType} />
      
     
 
-        <label>Select Influencers: </label>
-        {influencers.map(influencer => (
-          <div key={influencer.id}>
-            <input type="checkbox" id={influencer.id} name="influencers" value={influencer.id} onChange={(e) => handleCheckboxChange(e, influencer)} />
-            <label htmlFor={influencer.id}>{influencer.influencer_username}</label>
+//         <label>Select Influencers: </label>
+//         {influencers.map(influencer => (
+//           <div key={influencer.id}>
+//             <input type="checkbox" id={influencer.id} name="influencers" value={influencer.id} onChange={(e) => handleCheckboxChange(e, influencer)} />
+//             <label htmlFor={influencer.id}>{influencer.influencer_username}</label>
            
-          </div>
-        ))}
+//           </div>
+//         ))}
 
 
-        <label htmlFor="date">date:</label>
-        <input type="text" id="date" name="date" value={date} onChange={handleDate} />
+//         <label htmlFor="date">date:</label>
+//         <input type="text" id="date" name="date" value={date} onChange={handleDate} />
      
 
 
-        <button type="submit">Create Campaign</button>
-      </form>
-    </div>
-  );
-}
+//         <button type="submit">Create Campaign</button>
+//       </form>
+//     </div>
+//   );
+// }
 
-export default InfluencerList;
+// export default InfluencerList;
 
 
 

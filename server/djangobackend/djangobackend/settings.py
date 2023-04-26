@@ -160,6 +160,3 @@ CORS_ALLOW_CREDENTIALS = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AUTH_USER_MODEL = 'base.User'
-
-DATE_FORMAT = 'Y-m-d'
-

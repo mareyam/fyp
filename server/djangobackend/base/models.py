@@ -1,10 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser
-from django import forms
+from django.contrib.auth.models import User
 from datetime import datetime
 from django.utils import timezone
-from django.contrib.auth.hashers import make_password, check_password
-from django.core import validators
+
 
 # Create your models here.
 
@@ -156,11 +154,11 @@ class NewCampaign(models.Model):
    budget = models.IntegerField(blank=False, null=False, default=0)
    campaign_type = models.CharField(max_length=20,choices=campaignType_choices, blank=False, null=False, default='DEFAULT')
    hashtag = models.CharField(max_length=50, blank=False, null=False, default='DEFAULT')
-   updated = models.DateTimeField(default=datetime.now)
-   created = models.DateField(default=datetime.now().date)
+#    updated = models.DateTimeField(default=datetime.now)
+#    created = models.DateTimeField(default=datetime.now)
    
-   class Meta:
-        ordering = ['-updated', '-created']
+#    class Meta:
+#         ordering = ['-updated', '-created']
 
    def __str__(self):
         return self.campaign_name 

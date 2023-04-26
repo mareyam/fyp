@@ -24,8 +24,9 @@ const NewCampaign = () => {
   const [selectedInfluencers, setSelectedInfluencers] = useState([]);
   const [budget, setBudget] = useState(0);
   const [campaignType, setCampaignType] = useState('');
-  const [date, setDate] = useState('');
-  
+  const [created, setCreated] = useState('');
+  const [hashtag, setHashtag] = useState('');
+ 
   
   useEffect(() => {
     axios
@@ -47,15 +48,19 @@ const NewCampaign = () => {
     setBudget(event.target.value);
   }
 
-  const handleDate = (event) => {
-    setDate(event.target.value);
+  const handleCreated = (event) => {
+    setCreated(event.target.value);
   }
 
   const handleCampaignType = (event) => {
     setCampaignType(event.target.value);
   }
 
-
+  const handleHashtag = (event) => {
+    setHashtag(event.target.value);
+  }
+  
+  
   //make campaign live
   const handleCheckboxChange = (event, influencer) => {
     if (event.target.checked) {
@@ -135,7 +140,9 @@ const NewCampaign = () => {
       campaign_name: campaignName,
       influencers: selectedInfluencers.map(selectedInfluencer => selectedInfluencer.id),
       budget: budget,
-      campaignType: campaignType
+      campaign_type: campaignType,
+      hashtag: hashtag,
+      // created: created
     };
 
     console.log(data);
@@ -153,12 +160,12 @@ const NewCampaign = () => {
         <Col xs={12} sm={12} md={12} lg={12} className='d-lg-flex d-sm-block'> 
         <Col xs={12} sm={12} md={4} lg={4} style={{ height:'auto'}}>
               <div>
-                  <label>Select start date</label>
-                  <input type="text" id="date" name="date" value={date} onChange={handleDate} />
+                  <label>Select start created</label>
+                  <input type="text" id="created" name="created" value={created} onChange={handleCreated} />
                 </div>
                 <div>
                   <label>create hashtag</label><br/>
-                  <input className='inputNC' type="text" placeholder="Create Hashtag"/>
+                  <input className='inputNC' type="text" placeholder="Create Hashtag" onChange={handleHashtag}/>
               </div>
         </Col>
 
