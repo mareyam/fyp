@@ -1,80 +1,390 @@
-import axios from "axios"
-import React, {useEffect, useState} from 'react';
-import './Style/BrandManagerPanel/NewCampaigns/newCampaigns.css'
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import "./Test.css";
 
 
-import { Fragment } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
-const people = [
-  { name: 'Wade Cooper' },
-  { name: 'Arlene Mccoy' },
-  { name: 'Devon Webb' },
-  { name: 'Tom Cook' },
-  { name: 'Tanya Fox' },
-  { name: 'Hellen Schmidt' },
-]
+const Test = () => {
+  const FILTER_OPTIONS = ["Option 1", "Option 2", "Option 3"];
+  const GENDER_OPTIONS = ["Male", "Female"];
+  const isParent = ["Yes", "No"];
 
-export default function Example() {
-  const [selected, setSelected] = useState(people[0])
+  const [showFilter, setShowFilter] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedGender, setSelectedGender] = useState("");
+  const [selectedIsParent, setSelectedIsParent] = useState("");
+
+  const toggleFilter = () => {
+    setShowFilter(!showFilter);
+  };
+
+  const handleGenderSelect = (gender) => {
+    setSelectedGender(gender);
+  };
+
+  const handleIsParentSelect = (isParent) => {
+    setSelectedIsParent(isParent);
+  };
+
+
+  const handleCloseFilter = () => {
+    setShowFilter(false);
+  };
+
+  const handleOptionClick = (option) => {
+    if (selectedOptions.includes(option)) {
+      setSelectedOptions(selectedOptions.filter((item) => item !== option));
+    } else {
+      setSelectedOptions([...selectedOptions, option]);
+    }
+  };
+
+  // const handleGenderSelect = (gender) => {
+  //   setSelectedGender(gender);
+  // };
+
+
+  // function handleFilter() {
+  //   const isParentFilteredData = testData.filter(item => {
+  //     return (
+  //       item.gender === selectedGender && 
+  //       (isParent ? item.isParent : true)
+  //     );
+  //   });
+
+
+  // const handleCloseFilter = () => {
+  //   setShowFilter(false);
+  // };
+
+  const filteredOptions = FILTER_OPTIONS.filter((option) =>
+    selectedOptions.includes(option)
+  );
+
+  const filteredData = testData.filter((item) =>
+      (selectedGender === "" || item.gender === selectedGender) &&
+      (filteredOptions.length === 0 || filteredOptions.some((option) => item.options.includes(option))) &&
+      (selectedIsParent === "" || item.isParent === selectedIsParent)        
+  );
+  console.log(filteredData);
 
   return (
-    <div className="fixed top-16 w-72">
-      <Listbox value={selected} onChange={setSelected}>
-        <div className="relative mt-1">
-          <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            <span className="block truncate">{selected.name}</span>
-            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              <ChevronUpDownIcon
-                className="h-5 w-5 text-gray-400"
-                aria-hidden="true"
-              />
-            </span>
-          </Listbox.Button>
-          <Transition
-            as={Fragment}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {people.map((person, personIdx) => (
-                <Listbox.Option
-                  key={personIdx}
-                  className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
-                    }`
-                  }
-                  value={person}
-                >
-                  {({ selected }) => (
-                    <>
-                      <span
-                        className={`block truncate ${
-                          selected ? 'font-medium' : 'font-normal'
-                        }`}
-                      >
-                        {person.name}
-                      </span>
-                      {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                        </span>
-                      ) : null}
-                    </>
-                  )}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
-          </Transition>
+    <div>
+     <div className="header">
+        <div>Header</div>
+        <div>
+          <button onClick={toggleFilter}>Filter</button>
         </div>
-      </Listbox>
+      </div>
+       <div className={`filter ${showFilter ? "show" : ""}`}>
+        <button className="close-btn" onClick={handleCloseFilter}>
+          X
+        </button>
+        <div>
+          <h3>Gender</h3>
+          {GENDER_OPTIONS.map((option) => (
+            <div
+              className={`option ${selectedGender === option ? "selected" : ""}`}
+              key={option}
+              onClick={() => handleGenderSelect(option)}
+            >
+              {option}
+            </div>
+          ))}
+        </div>
+        <div>
+          <h3>Filter Options</h3>
+          {FILTER_OPTIONS.map((option) => (
+            <div
+              className={`option ${
+                filteredOptions.includes(option) ? "selected" : ""
+              }`}
+              key={option}
+              onClick={() => handleOptionClick(option)}
+            >
+              {option}
+            </div>
+          ))}
+        </div>
+        <div>
+        <h3>Are you a parent?</h3>
+        {isParent.map((option) => (
+            <div
+              className={`option ${selectedIsParent === option ? "selected" : ""}`}
+              key={option}
+              onClick={() => handleIsParentSelect(option)}
+            >{option}
+            </div>
+          ))}
+      </div>
+       </div>
+        <div className="content">
+        {filteredData.map((item) => (
+          <div className="data-item" key={item.name}>
+            <div>Name: {item.name}</div>
+            <div>Gender: {item.gender}</div>
+            <div>Options: {item.options.join(", ")}</div>
+            <div>IsParent: {item.isParent}</div>
+            
+          </div>
+        ))}
+      </div>
     </div>
-  )
-}
+  );}
+
+  const testData = [
+  { name: "John", gender: "Male", isParent: 'yes', numOfKids: 2, kidsAge: [4, 6], options: ["Option 1", "Option 2"] },
+  { name: "Jane", gender: "Female", isParent: 'yes', numOfKids: 1, kidsAge: [3], options: ["Option 1", "Option 2"] },
+  { name: "Bob", gender: "Male", isParent: 'no', numOfKids: 0, kidsAge: [],options: ["Option 2"] },
+  { name: "Alice", gender: "Female", isParent: 'yes', numOfKids: 3, kidsAge: [2, 5, 8],options: ["Option 3", "Option 2"] },
+  { name: "Tom", gender: "Male", isParent: 'yes', numOfKids: 2, kidsAge: [7, 9],options: ["Option 1", "Option 3"] },
+  { name: "Sara", gender: "Female", isParent: 'no', numOfKids: 0, kidsAge: [],options: ["Option 1", "Option 3"] }
+];
+
+export default Test;
+
+// import axios from "axios"
+// import React, {useEffect, useState} from 'react';
+// import './Style/BrandManagerPanel/NewCampaigns/newCampaigns.css'
+// import { Container, Row, Col, Button } from 'react-bootstrap';
+
+// import { Fragment } from 'react';
+// import { Listbox, Transition } from '@headlessui/react';
+// import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+
+// import './Test.css';
+// const people = [
+//   { name: 'Wade Cooper', username: 'wadecooper', id: 1 },
+//   { name: 'Arlene Mccoy', username: 'amccoy', id: 2 },
+//   { name: 'Devon Webb', username: 'dwebb', id: 3 },
+//   { name: 'Tom Cook', username: 'tcook', id: 4 },
+//   { name: 'Tanya Fox', username: 'tfox', id: 5 },
+//   { name: 'Hellen Schmidt', username: 'hschmidt', id: 6 },
+// ];
+
+// export default function Example() {
+//   const [selected, setSelected] = useState(people[0]);
+
+//   return (
+//     <div className="listbox-container">
+//       <Listbox value={selected} onChange={setSelected}>
+//         <div className="listbox-wrapper">
+//           <Listbox.Button className="listbox-button" style={{ backgroundColor: 'white' }}>
+//             <span>{selected.name}</span>
+//           </Listbox.Button>
+//           <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+//             <Listbox.Options className="listbox-options">
+//               {people.map((person, personIdx) => (
+//                 <Listbox.Option
+//                   key={personIdx}
+//                   className={`listbox-option ${selected.name === person.name ? 'listbox-option--selected' : ''}`}
+//                   value={person}
+//                 >
+//                   {({ selected }) => (
+//                     <div className="listbox-option-text">
+//                       <span>{person.name}</span>
+//                       {selected && (
+//                         <>
+//                           <span> ({person.username})</span>
+//                           <span> [ID: {person.id}]</span>
+//                         </>
+//                       )}
+//                     </div>
+//                   )}
+//                 </Listbox.Option>
+//               ))}
+//             </Listbox.Options>
+//           </Transition>
+//         </div>
+//       </Listbox>
+//     </div>
+//   );
+// }
+
+// const people = [
+//   { name: 'Wade Cooper' },
+//   { name: 'Arlene Mccoy' },
+//   { name: 'Devon Webb' },
+//   { name: 'Tom Cook' },
+//   { name: 'Tanya Fox' },
+//   { name: 'Hellen Schmidt' },
+// ];
+
+// export default function Example() {
+//   const [selected, setSelected] = useState(people[0]);
+
+//   return (
+//     <div className="listbox-container">
+//       <Listbox value={selected} onChange={setSelected} >
+//         <div className="listbox-wrapper">
+//           <Listbox.Button className="listbox-button" style={{backgroundColor:'white'}}>
+//             <span>{selected.name}</span>
+//             {/* <span className="listbox-icon">
+//               <ChevronUpDownIcon aria-hidden="true" />
+//             </span> */}
+//           </Listbox.Button>
+//           <Transition
+//             as={Fragment}
+//             leave="transition ease-in duration-100"
+//             leaveFrom="opacity-100"
+//             leaveTo="opacity-0"
+//           >
+//             <Listbox.Options className="listbox-options">
+//               {people.map((person, personIdx) => (
+//                 <Listbox.Option
+//                   key={personIdx}
+//                   className={`listbox-option ${selected.name === person.name ? 'listbox-option--selected' : ''}`}
+//                   value={person}
+//                 >
+//                   {({ selected }) => (
+//                     <span className={`listbox-option-text ${selected ? 'listbox-option-text--selected' : ''}`}>
+//                       {person.name}
+//                     </span>
+//                   )}
+//                 </Listbox.Option>
+//               ))}
+//             </Listbox.Options>
+//           </Transition>
+//         </div>
+//       </Listbox>
+//     </div>
+//   );
+// }
+
+// const people = [
+//   { name: 'Wade Cooper' },
+//   { name: 'Arlene Mccoy' },
+//   { name: 'Devon Webb' },
+//   { name: 'Tom Cook' },
+//   { name: 'Tanya Fox' },
+//   { name: 'Hellen Schmidt' },
+// ];
+
+// export default function Example() {
+//   const [selected, setSelected] = useState(people[0]);
+
+//   return (
+//     <div className="">
+//       <Listbox value={selected} onChange={setSelected} >
+//         <div className="listbox  mt-1 " >
+//           <Listbox.Button className="listbox-button">
+//             <span className="listbox-button:focus">{selected.name}</span>
+//             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+//               <ChevronUpDownIcon
+//                 className="listbox-button:focus .chevron-icon"
+//                 aria-hidden="true"
+//               />
+//             </span>
+//           </Listbox.Button>
+//           <Transition
+//             as={Fragment}
+//             leave="transition ease-in duration-100"
+//             leaveFrom="opacity-100"
+//             leaveTo="opacity-0"
+//           >
+//             <Listbox.Options className="listbox-options"  style={{height: '100px', overflow:'scroll', border:'2px solid red'}}>
+//               {people.map((person, personIdx) => (
+//                 <Listbox.Option
+//                   key={personIdx}
+//                   className={`listbox-option ${
+//                     selected.name === person.name ? '.listbox-option:hover.listbox-option:focus' : 'text-gray-900'
+//                   }`}
+//                   value={person}
+//                 >
+//                   {({ selected }) => (
+//                     <>
+//                       <span
+//                         className={`block truncate ${
+//                           selected ? '.listbox-option[selected]' : '.listbox-option[selected]'
+//                         }`}
+//                       >
+//                         {person.name}
+//                       </span>
+                     
+//                     </>
+//                   )}
+//                 </Listbox.Option>
+//               ))}
+//             </Listbox.Options>
+//           </Transition>
+//         </div>
+//       </Listbox>
+//     </div>
+//   );
+// }
+
+
+
+// import { Fragment } from 'react'
+// import { Listbox, Transition } from '@headlessui/react'
+// import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+
+// const people = [
+//   { name: 'Wade Cooper' },
+//   { name: 'Arlene Mccoy' },
+//   { name: 'Devon Webb' },
+//   { name: 'Tom Cook' },
+//   { name: 'Tanya Fox' },
+//   { name: 'Hellen Schmidt' },
+// ]
+
+// export default function Example() {
+//   const [selected, setSelected] = useState(people[0])
+
+//   return (
+//     <div className="fixed top-16 w-72">
+//       <Listbox value={selected} onChange={setSelected}>
+//         <div className="relative mt-1">
+//           <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+//             <span className="block truncate">{selected.name}</span>
+//             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+//               <ChevronUpDownIcon
+//                 className="h-5 w-5 text-gray-400"
+//                 aria-hidden="true"
+//               />
+//             </span>
+//           </Listbox.Button>
+//           <Transition
+//             as={Fragment}
+//             leave="transition ease-in duration-100"
+//             leaveFrom="opacity-100"
+//             leaveTo="opacity-0"
+//           >
+//             <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+//               {people.map((person, personIdx) => (
+//                 <Listbox.Option
+//                   key={personIdx}
+//                   className={({ active }) =>
+//                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
+//                       active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+//                     }`
+//                   }
+//                   value={person}
+//                 >
+//                   {({ selected }) => (
+//                     <>
+//                       <span
+//                         className={`block truncate ${
+//                           selected ? 'font-medium' : 'font-normal'
+//                         }`}
+//                       >
+//                         {person.name}
+//                       </span>
+//                       {selected ? (
+//                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+//                           <CheckIcon className="h-5 w-5" aria-hidden="true" />
+//                         </span>
+//                       ) : null}
+//                     </>
+//                   )}
+//                 </Listbox.Option>
+//               ))}
+//             </Listbox.Options>
+//           </Transition>
+//         </div>
+//       </Listbox>
+//     </div>
+//   )
+// }
 
 
 // function SearchBar() {

@@ -7,12 +7,49 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = [
-    path('', views.home, name="home"),
-    path('room/<str:pk>/', views.room, name="room"),   
-    path('create-room/', views.createRoom, name='create-room'),
-    path('update-room/<str:pk>/', views.updateRoom, name='update-room'),
-    path('delete-room/<str:pk>/', views.deleteRoom, name='delete-room'),
    
+    path('activecampaigns/', views.active_campaigns),
+    path('activecampaignlist/<str:id>/', views.activecampaign_detail),
+
+    path('newactivecampaigns/', views.newactive_campaigns),
+    path('newactivecampaignlist/<str:id>/', views.newactivecampaign_detail),
+
+
+    path('inactivecampaigns/', views.inactivecampaigns),
+    path('inactivecampaignlist/<str:id>/', views.inactivecampaign_detail),
+
+    path('brandmanagers/', views.brandmanagers),
+    path('brandmanager/<str:id>/', views.brandmanager_detail),
+
+    path('influencers/', views.influencers),
+    path('influencer/<str:id>/', views.influencer_detail),
+
+    path('newinfluencers/', views.new_influencers),
+    path('newinfluencer/<str:id>/', views.new_influencer_detail),
+
+
+    path('hashtags/', views.hashtags),
+    path('hashtag/<str:id>/', views.hashtag_detail),
+
+    path('filters/', views.filters),
+    path('filter/<str:id>/', views.filter_detail),
+    
+    path('pragencys/', views.pragencys),
+    path('pragency/<str:id>/', views.pragency_detail),
+
+    path('brands/', views.brands),
+    path('brand/<str:id>/', views.brand_detail),
+
+    path('brandreport/', views.brandreports),
+    path('brandreport/<str:id>/', views.brandreport_detail),
+
+    path('subbrands/', views.subbrands),
+    path('subbrand/<str:id>/', views.subbrand_detail),
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns = format_suffix_patterns(urlpatterns)
+
     # path('campaigns/', views.campaigns, name="campaigns"), 
     # path('campaign/<str:pk>/', views.campaign, name="campaign"),   
     # path('create-campaign/', views.createCampaign, name='create-campaign'),
@@ -53,44 +90,3 @@ urlpatterns = [
     # path('create-filter/', views.createFilter, name='create-filter'),
     # path('update-filter/<str:pk>/', views.updateFilter, name='update-filter'),
     # path('delete-filter/<str:pk>/', views.deleteFilter, name='delete-filter'),
-
-    path('activecampaigns/', views.active_campaigns),
-    path('activecampaignlist/<str:id>/', views.activecampaign_detail),
-
-    path('newactivecampaigns/', views.newactive_campaigns),
-    path('newactivecampaignlist/<str:id>/', views.newactivecampaign_detail),
-
-
-    path('inactivecampaigns/', views.inactivecampaigns),
-    path('inactivecampaignlist/<str:id>/', views.inactivecampaign_detail),
-
-    path('brandmanagers/', views.brandmanagers),
-    path('brandmanager/<str:id>/', views.brandmanager_detail),
-
-    path('influencers/', views.influencers),
-    path('influencer/<str:id>/', views.influencer_detail),
-
-    path('hashtags/', views.hashtags),
-    path('hashtag/<str:id>/', views.hashtag_detail),
-
-    path('filters/', views.filters),
-    path('filter/<str:id>/', views.filter_detail),
-    
-    path('pragencys/', views.pragencys),
-    path('pragency/<str:id>/', views.pragency_detail),
-
-    path('brands/', views.brands),
-    path('brand/<str:id>/', views.brand_detail),
-
-    path('brandreport/', views.brandreports),
-    path('brandreport/<str:id>/', views.brandreport_detail),
-
-    path('subbrands/', views.subbrands),
-    path('subbrand/<str:id>/', views.subbrand_detail),
-
-    # path('register/', views.RegisterView),
-
-]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns = format_suffix_patterns(urlpatterns)

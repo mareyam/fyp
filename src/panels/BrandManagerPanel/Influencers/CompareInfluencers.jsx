@@ -25,7 +25,7 @@ const CompareInfluencers = () => {
   const [selectedResultSecond, setSelectedResultSecond] = useState(null);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/influencers/')
+    axios.get('http://127.0.0.1:8000/newinfluencers/')
       .then(response => {
         setInfluencers(response.data);
       })
@@ -63,14 +63,14 @@ const CompareInfluencers = () => {
 
   return (
     <Container>
-      <Row style={{margin: '0 auto', justifyContent:'center'}}>
+      <Row style={{margin: '0 auto', justifyContent:'left'}}>
       <Col xs={11} sm={11} md={10} lg={10} className='my-2'>
-      <h5 className='compareInfluencersAC'>Compare Influencers</h5>
+      <h3 className='compareInfluencersAC'>Compare Influencers</h3>
       <br/>
       </Col>
       </Row>
 
-    <Row style={{margin: '0 auto', justifyContent:'center'}}>
+    <Row style={{margin: '0 auto', justifyContent:'center'}} >
       <Col  xs={11} sm={11} md={5} lg={6}>
       <div style={{border: '1px solid rgb(212, 211, 211)'}}>
         <Card style={{ height: "100%", width:"100%"}}>
@@ -87,9 +87,9 @@ const CompareInfluencers = () => {
           <div style={{ maxHeight: '100px', overflow: 'auto' }}>
             <ul>
               {influencers.map((result) => (
-                <li key={result.id} onClick={() => handleResultClickFirst(result)}>
+                <p className='hover-effect' key={result.id} onClick={() => handleResultClickFirst(result)}>
                   {result.influencer_full_name}
-                </li>
+                </p>
               ))}
             </ul>
           </div>
@@ -98,9 +98,9 @@ const CompareInfluencers = () => {
           <div style={{ maxHeight: '100px', overflow: 'auto'}}>
           <ul>
             {filteredResultsFirst.map((result) => (
-              <li key={result.id} onClick={() => handleResultClickFirst(result)}>
+              <p className='hover-effect' key={result.id} onClick={() => handleResultClickFirst(result)}>
                 {result.influencer_full_name}
-              </li>
+              </p>
             ))}
           </ul>
         </div>
@@ -113,10 +113,10 @@ const CompareInfluencers = () => {
             <Card style={{ height: "100%", width:"100%"}}>
               <Card.Body className="">
                 <div style={{textAlign:'center', marginTop: '-1%'}}>
-                  <img style={{borderRadius: '50%', height: '70px', width: '75px'}} src="https://media.gettyimages.com/id/958513664/photo/mahira-khan-attends-the-screening-of-blackkklansman-during-the-71st-annual-cannes-film.jpg?s=612x612&w=gi&k=20&c=hy5zGUyPkyl5gxBh2KqryWf4UIhiv0Lt9bv3z0MiWLA="/>
+                  <img style={{borderRadius: '50%', height: '70px', width: '75px'}} src={`http://127.0.0.1:8000/${selectedResultFirst.influencerImage}`} />
                   <h6 style={{fontSize:'14px'}}>{selectedResultFirst.influencer_full_name}</h6>
                   <p style={{fontSize: '11px', marginTop:'-4px'}}>@{selectedResultFirst.influencer_username}</p>
-                  <p style={{marginTop: '-11px', fontSize:'12px'}}>{selectedResultFirst.budget}</p>
+                  <p style={{marginTop: '-11px', fontSize:'12px'}}>Total Cost Rs.{selectedResultFirst.influencerInfluencerPostCost+selectedResultFirst.influencerStoryCost}</p>
                 </div>
                 <Card.Text className="" style={{ fontFamily: 'Oswald' }}>
       
@@ -124,33 +124,53 @@ const CompareInfluencers = () => {
                   <h5 style={{fontSize:'15px'}}><b>Details:</b></h5>
                   <div style={{fontSize:'13px'}} className="d-flex align-items-center">
                     <SellOutlinedIcon  />
-                    <p className="m-0 ms-2">Fashion</p>
+                    <p className="m-0 ms-2">{selectedResultFirst.influencerInterests}</p>
                   </div>
                   <div style={{fontSize:'13px'}} className="d-flex align-items-center">
                     <WcOutlinedIcon />
-                    <p className="m-0 ms-2">Female</p>
+                    <p className="m-0 ms-2">{selectedResultFirst.influencerGender}</p>
                   </div>
                   <div style={{fontSize:'13px'}} className="d-flex align-items-center">
                     <PaidOutlinedIcon />
-                    <p className="m-0 ms-2">Rs.100k</p>
+                    <p className="m-0 ms-2">Post Cost Rs.{selectedResultFirst.influencerInfluencerPostCost}</p>
                   </div>
                   <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+                    <PaidOutlinedIcon />
+                    <p className="m-0 ms-2">Story Cost Rs.{selectedResultFirst.influencerStoryCost}</p>
+                  </div>
+
+                  {selectedResultFirst.influencerChildrenCount > 0 ?
+                  <div>
+                    <div style={{fontSize:'13px'}} className="d-flex align-items-center">
                     <ChildCareIcon />
-                    <p className="m-0 ms-2">Parent of x kids</p>
+                    <p className="m-0 ms-2">Parents of {selectedResultFirst.influencerChildrenCount} kids</p>
+                   </div>
+                    <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+                      <NumbersIcon/>
+                      <p className="m-0 ms-2">Child age {selectedResultFirst.influencerChildrenAge} years old</p>
+                    </div>
                   </div>
+                  :
+                  <div>
                   <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+                  <ChildCareIcon />
+                  <p className="m-0 ms-2">Parents of {selectedResultFirst.influencerChildrenCount} kids</p>
+                 </div>
+                  <div style={{fontSize:'13px', color: 'gray'}} className="d-flex align-items-center">
                     <NumbersIcon/>
-                    <p className="m-0 ms-2">Age group</p>
+                    <p className="m-0 ms-2">NA</p>
                   </div>
+                  followers??????????/
+                </div>
+                  } 
                 </div>
                 <hr/>
-                <div style={{marginTop: '-10px', fontSize:'13px'}}> 
-                  <input type='checkbox'/><label>Post 25,000</label><br/>
-                  <input type='checkbox'/><label>Story 25,000</label>
-                </div>
+                {/* <div style={{marginTop: '-10px', fontSize:'13px'}}> 
+                  <input type='checkbox'/><label>Post Rs.{selectedResultFirst.influencerInfluencerPostCost}</label><br/>
+                  <input type='checkbox'/><label>Story Rs.{selectedResultFirst.influencerStoryCost}</label>
+                </div> */}
                   <div className='text-center' style={{fontSize:'14px', marginBottom: '-5%'}}>
-                    <b><p>Engagememt rate 78%</p>
-                    <p style={{marginTop:'-15px'}}>Amount 90k</p></b>
+                    <b><p>Engagement Rate{selectedResultFirst.engagement_rate}%</p></b>
                   </div>
                 </Card.Text>
               </Card.Body>
@@ -178,13 +198,13 @@ const CompareInfluencers = () => {
           onChange={handleInputChangeSecond}
         />
 
-        {searchTermSecond === "" ? (
-          <div style={{ maxHeight: '100px', overflow: 'auto'}}>
+         {searchTermFirst === "" ? (
+          <div style={{ maxHeight: '100px', overflow: 'auto' }}>
             <ul>
               {influencers.map((result) => (
-                <li key={result.id} onClick={() => handleResultClickSecond(result)}>
+                <p className='hover-effect' key={result.id} onClick={() => handleResultClickSecond(result)}>
                   {result.influencer_full_name}
-                </li>
+                </p>
               ))}
             </ul>
           </div>
@@ -193,9 +213,9 @@ const CompareInfluencers = () => {
           <div style={{ maxHeight: '100px', overflow: 'auto'}}>
           <ul>
             {filteredResultsSecond.map((result) => (
-              <li key={result.id} onClick={() => handleResultClickSecond(result)}>
+              <p className='hover-effect' key={result.id} onClick={() => handleResultClickSecond(result)}>
                 {result.influencer_full_name}
-              </li>
+              </p>
             ))}
           </ul>
         </div>
@@ -208,44 +228,63 @@ const CompareInfluencers = () => {
             <Card style={{ height: "100%", width:"100%"}}>
               <Card.Body className="">
                 <div style={{textAlign:'center', marginTop: '-1%'}}>
-                  <img style={{borderRadius: '50%', height: '70px', width: '75px'}} src="https://media.gettyimages.com/id/958513664/photo/mahira-khan-attends-the-screening-of-blackkklansman-during-the-71st-annual-cannes-film.jpg?s=612x612&w=gi&k=20&c=hy5zGUyPkyl5gxBh2KqryWf4UIhiv0Lt9bv3z0MiWLA="/>
+                  <img style={{borderRadius: '50%', height: '70px', width: '75px'}} src={`http://127.0.0.1:8000/${selectedResultSecond.influencerImage}`}/>
                   <h6 style={{fontSize:'14px'}}>{selectedResultSecond.influencer_full_name}</h6>
                   <p style={{fontSize: '11px', marginTop:'-4px'}}>@{selectedResultSecond.influencer_username}</p>
-                  <p style={{marginTop: '-11px', fontSize:'12px'}}>{selectedResultSecond.budget}</p>
+                  <p style={{marginTop: '-11px', fontSize:'12px'}}>Total Cost Rs.{selectedResultSecond.influencerInfluencerPostCost+selectedResultSecond.influencerStoryCost}</p>
                 </div>
                 <Card.Text className="" style={{ fontFamily: 'Oswald' }}>
       
-                <div className="otherDetails d-block">
+               <div className="otherDetails d-block">
                   <h5 style={{fontSize:'15px'}}><b>Details:</b></h5>
                   <div style={{fontSize:'13px'}} className="d-flex align-items-center">
                     <SellOutlinedIcon  />
-                    <p className="m-0 ms-2">Fashion</p>
+                    <p className="m-0 ms-2">{selectedResultSecond.influencerInterests}</p>
                   </div>
                   <div style={{fontSize:'13px'}} className="d-flex align-items-center">
                     <WcOutlinedIcon />
-                    <p className="m-0 ms-2">Female</p>
+                    <p className="m-0 ms-2">{selectedResultSecond.influencerGender}</p>
                   </div>
                   <div style={{fontSize:'13px'}} className="d-flex align-items-center">
                     <PaidOutlinedIcon />
-                    <p className="m-0 ms-2">Rs.100k</p>
+                    <p className="m-0 ms-2">Post Cost Rs.{selectedResultSecond.influencerInfluencerPostCost}</p>
                   </div>
                   <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+                    <PaidOutlinedIcon />
+                    <p className="m-0 ms-2">Story Cost Rs.{selectedResultSecond.influencerStoryCost}</p>
+                  </div>
+
+                  {selectedResultSecond.influencerChildrenCount > 0 ?
+                  <div>
+                    <div style={{fontSize:'13px'}} className="d-flex align-items-center">
                     <ChildCareIcon />
-                    <p className="m-0 ms-2">Parent of x kids</p>
+                    <p className="m-0 ms-2">Parents of {selectedResultSecond.influencerChildrenCount} kids</p>
+                   </div>
+                    <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+                      <NumbersIcon/>
+                      <p className="m-0 ms-2">Child age {selectedResultSecond.influencerChildrenAge} years old</p>
+                    </div>
                   </div>
+                  :
+                  <div>
                   <div style={{fontSize:'13px'}} className="d-flex align-items-center">
+                  <ChildCareIcon />
+                  <p className="m-0 ms-2">Parents of {selectedResultSecond.influencerChildrenCount} kids</p>
+                 </div>
+                  <div style={{fontSize:'13px', color: 'gray'}} className="d-flex align-items-center">
                     <NumbersIcon/>
-                    <p className="m-0 ms-2">Age group</p>
+                    <p className="m-0 ms-2">NA</p>
                   </div>
+                </div>
+                  } 
                 </div>
                 <hr/>
-                <div style={{marginTop: '-10px', fontSize:'13px'}}> 
-                  <input type='checkbox'/><label>Post 25,000</label><br/>
-                  <input type='checkbox'/><label>Story 25,000</label>
-                </div>
+               {/* <div style={{marginTop: '-10px', fontSize:'13px'}}> 
+                  <input type='checkbox'/><label>Post Rs.{selectedResultSecond.influencerInfluencerPostCost}</label><br/>
+                  <input type='checkbox'/><label>Story Rs.{selectedResultSecond.influencerStoryCost}</label>
+                </div> */}
                   <div className='text-center' style={{fontSize:'14px', marginBottom: '-5%'}}>
-                    <b><p>Engagememt rate 78%</p>
-                    <p style={{marginTop:'-15px'}}>Amount 90k</p></b>
+                    <b><p>Engagement Rate{selectedResultSecond.engagement_rate}%</p></b>
                   </div>
                 </Card.Text>
               </Card.Body>

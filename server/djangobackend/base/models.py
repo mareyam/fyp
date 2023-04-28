@@ -58,15 +58,57 @@ class Brand(models.Model):
     def __str__(self):
         return self.brand_name
 
+class NewInfluencer(models.Model):
+    INFLUENCER_INTEREST_CHOICES = (
+        ('Fashion', 'Fashion'),
+        ('Music', 'Music'),
+         ('Food', 'Food'), 
+         ('Health', 'Health'),
+        ('Gaming', 'Gaming'),
+        ('Dance', 'Dance'),
+        ('Entertainment', 'Entertainment'),
+        ('Family', 'Family'),
+         ('Kids', 'Kids'),
+    )
+
+    GENDER = (
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other'),
+    )
+
+    influencerImage = models.ImageField(upload_to='images/', default='')
+    influencer_username = models.CharField(max_length=20, unique=False)
+    influencer_full_name = models.CharField(max_length=200)
+    influencerInfluencerPostCost = models.IntegerField(blank=True, null=True)
+    influencerStoryCost = models.IntegerField(blank=True, null=True)
+    influencerChildrenCount = models.IntegerField(blank=True, null=True)
+    influencerChildrenAge = models.IntegerField(blank=True, null=True)
+    influencerInterests = models.CharField(max_length=20,choices=INFLUENCER_INTEREST_CHOICES, blank=False, null=False)
+    influencerGender = models.CharField(max_length=20,choices=GENDER, blank=False, null=False)
+    brandmanager = models.ForeignKey(BrandManager, on_delete=models.CASCADE, null=True, unique=False)
+    created = models.DateTimeField(default=datetime.now)
+    updated = models.DateTimeField(default=timezone.now)
+    engagement_rate = models.IntegerField(blank=True, null=True, default=0)
+
+    class Meta:
+        ordering = ['-updated', '-created']
+
+    def __str__(self):
+        return self.influencer_username
 
 
 class Influencer(models.Model):
     INFLUENCER_INTEREST_CHOICES = (
         ('Fashion', 'Fashion'),
+        ('Music', 'Music'),
+         ('Food', 'Food'), 
+         ('Health', 'Health'),
         ('Gaming', 'Gaming'),
-        ('Food', 'Food'),
+        ('Dance', 'Dance'),
         ('Entertainment', 'Entertainment'),
         ('Family', 'Family'),
+         ('Kids', 'Kids'),
     )
     
     influencer_username = models.CharField(max_length=20, unique=False)

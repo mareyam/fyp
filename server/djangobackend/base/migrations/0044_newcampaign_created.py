@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='newcampaign',
             name='created',
-            field=models.DateField(default=0),
+            field = models.DateTimeField(auto_now_add = True)
         ),
     ]

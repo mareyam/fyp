@@ -56,6 +56,8 @@ import PendingCampaigns from './panels/InfluencerPanel/Campaigns/PendingCampaign
 import Home from './Home';
 import Test from './Test';
 import Test2 from './Test2';
+import Test3 from './Test3';
+
 import Error404 from './panels/Error404';
 
 const App = () => {
@@ -132,6 +134,8 @@ const App = () => {
 
         <Route exact path="/Test" element={<Test/>}/>
         <Route exact path="/Test2" element={<Test2/>}/>
+        <Route exact path="/Test3" element={<Test3/>}/>
+        
         
         <Route path="*" element={<Error404/>}/>
 

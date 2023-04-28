@@ -60,3 +60,12 @@
     }
   }
   
+
+  .hover-effect {
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .hover-effect:hover {
+    background-color: rgb(212, 211, 211);
+    color: black;
+  }

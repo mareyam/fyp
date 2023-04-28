@@ -1,43 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import NewCampaign, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, SubBrand
-from .serializers import BrandManagerSerializer, CampaignSerializer, NewCampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, PRAgencySerializer, SubBrandSerializer
+from .models import NewCampaign, Campaign, Brand, BrandManager,Influencer, PRAgency, Hashtag, SubBrand, NewInfluencer
+from .serializers import BrandManagerSerializer, CampaignSerializer, NewCampaignSerializer, NewInfluencerSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, PRAgencySerializer, SubBrandSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-
-
-# Create your views here.
-
-# class RegisterView(APIView):
-#     def post(self, request):
-#         serializer = UserSerializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
-#         return Response(serializer.data)
-
-# def LoginView(APIView):
-#     def post(self, request):
-#         email = request.data['email']
-#         password = request.data['password']
-
-#         user = User.objects.filter(email=email).first()
-
-#         if user is None:
-#             raise AuthenticationFailed('user not failed')
-        
-#         if not user.check_password(password):
-#             raise AuthenticationFailed('Incorrect password')
-    
-#         payload = {
-#             'id':user.id,
-#             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-#             'iat': datetime.datetime.utcnow() 
-#         }
-
-        
-#         return Response({
-#             'message':'success'
-#         })
 
 @api_view(['GET', 'POST'])
 def active_campaigns(request, format=None):
@@ -265,6 +231,44 @@ def influencer_detail(request, id, format=None):
     elif request.method == 'DELETE':
         influencer.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'POST'])
+def new_influencers(request, format=None):
+    if request.method == 'GET':
+     influencer = NewInfluencer.objects.all()
+     serializer = NewInfluencerSerializer(influencer, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = NewInfluencerSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def new_influencer_detail(request, id, format=None):
+
+    try:
+        influencer = Influencer.objects.get(pk=id)
+    except influencer.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = NewInfluencerSerializer(influencer)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = NewInfluencerSerializer(influencer, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        influencer.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 @api_view(['GET', 'POST'])
@@ -781,3 +785,37 @@ def deleteRoom(request,pk):
 #         filter.delete()
 #         return redirect('filters')
 #     return render(request, 'base/filter/filter_form.html', {'obj':filter})
+
+# Create your views here.
+
+# class RegisterView(APIView):
+#     def post(self, request):
+#         serializer = UserSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+
+# def LoginView(APIView):
+#     def post(self, request):
+#         email = request.data['email']
+#         password = request.data['password']
+
+#         user = User.objects.filter(email=email).first()
+
+#         if user is None:
+#             raise AuthenticationFailed('user not failed')
+        
+#         if not user.check_password(password):
+#             raise AuthenticationFailed('Incorrect password')
+    
+#         payload = {
+#             'id':user.id,
+#             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+#             'iat': datetime.datetime.utcnow() 
+#         }
+
+        
+#         return Response({
+#             'message':'success'
+#         })
+
