@@ -1,17 +1,27 @@
 import React, { useState } from "react";
 import "./Test.css";
-
+import 'react-input-range/lib/css/index.css';
+import InputRange from 'react-input-range';
 
 
 const Test = () => {
   const FILTER_OPTIONS = ["Option 1", "Option 2", "Option 3"];
   const GENDER_OPTIONS = ["Male", "Female"];
   const isParent = ["Yes", "No"];
+  const childrenAgeRange = ["toddler", "preschooler", "elementary", "teen", "adult"]
 
   const [showFilter, setShowFilter] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [selectedGender, setSelectedGender] = useState("");
   const [selectedIsParent, setSelectedIsParent] = useState("");
+  const [childrenCount, setChildrenCount] = useState({ min: 0, max: 10 });
+  const [minAge, setMinAge] = useState(0);
+  const [maxAge, setMaxAge] = useState(0);
+  const [followers, setFollowers] = useState({ min: 10, max: 100 });
+  const [childrenAge, setChildrenAge] = useState([]);
+
+    
+
 
   const toggleFilter = () => {
     setShowFilter(!showFilter);
@@ -23,9 +33,17 @@ const Test = () => {
 
   const handleIsParentSelect = (isParent) => {
     setSelectedIsParent(isParent);
+    if (isParent === "No") {
+      setChildrenCount("");
+      setChildrenAge("");
+    }
   };
 
+    const handleChildrenCount = (count) => {
+    setChildrenCount(count);
+  };
 
+  
   const handleCloseFilter = () => {
     setShowFilter(false);
   };
@@ -38,32 +56,44 @@ const Test = () => {
     }
   };
 
-  // const handleGenderSelect = (gender) => {
-  //   setSelectedGender(gender);
-  // };
+  const handleChildAgeClick = (option) => {
+    if (childrenAge.includes(option)) {
+      setChildrenAge(childrenAge.filter((item) => item !== option));
+    } else {
+      setChildrenAge([...childrenAge, option]);
+    }
+  };
 
 
-  // function handleFilter() {
-  //   const isParentFilteredData = testData.filter(item => {
-  //     return (
-  //       item.gender === selectedGender && 
-  //       (isParent ? item.isParent : true)
-  //     );
-  //   });
+  const handleFollowersCountChange = (followers) => {
+    setFollowers((prevState) => {
+      return {
+        ...prevState,
+        max: followers.max,
+        min: followers.min,
+      }
+    })
+  };
 
-
-  // const handleCloseFilter = () => {
-  //   setShowFilter(false);
-  // };
 
   const filteredOptions = FILTER_OPTIONS.filter((option) =>
     selectedOptions.includes(option)
   );
 
+  const filteredChildrenAge = childrenAgeRange.filter((option) =>
+  childrenAge.includes(option)
+);
+
+  
+
   const filteredData = testData.filter((item) =>
       (selectedGender === "" || item.gender === selectedGender) &&
       (filteredOptions.length === 0 || filteredOptions.some((option) => item.options.includes(option))) &&
-      (selectedIsParent === "" || item.isParent === selectedIsParent)        
+      (selectedIsParent === "" || item.isParent === selectedIsParent) &&
+      (item.followersCount >= followers.min && item.followersCount <= followers.max) &&
+      (filteredChildrenAge.length === 0 || filteredChildrenAge.some((option) => item.kidsAge.includes(option)))
+      // &&
+      // item.kidsAge.some((age) => age >= parseInt(minAge) && age <= parseInt(maxAge))
   );
   console.log(filteredData);
 
@@ -106,6 +136,19 @@ const Test = () => {
           ))}
         </div>
         <div>
+          Number of followers:<br/>
+          <InputRange
+          minValue={10}
+          maxValue={100}
+          value={followers}
+          onChange={handleFollowersCountChange}
+          draggableTrack
+          allowSameValues
+          />
+        </div>
+
+
+        <div>
         <h3>Are you a parent?</h3>
         {isParent.map((option) => (
             <div
@@ -116,7 +159,35 @@ const Test = () => {
             </div>
           ))}
       </div>
-       </div>
+
+     
+
+    {selectedIsParent === "Yes" && (
+      <div>
+        <div>
+          <h3>Children Count</h3>
+          <input type="number" min="0" onChange={handleChildrenCount} />
+        </div>
+        <div>
+        <div>
+          Children age :<br/>
+          {childrenAgeRange.map((option) => (
+            <div
+              className={`option ${
+                filteredChildrenAge.includes(option) ? "selected" : ""
+              }`}
+              key={option}
+              onClick={() => handleChildAgeClick(option)}
+            >
+              {option}
+            </div>
+          ))}
+      </div>
+        </div>
+      </div>
+          )}
+       
+        </div>
         <div className="content">
         {filteredData.map((item) => (
           <div className="data-item" key={item.name}>
@@ -124,6 +195,9 @@ const Test = () => {
             <div>Gender: {item.gender}</div>
             <div>Options: {item.options.join(", ")}</div>
             <div>IsParent: {item.isParent}</div>
+            <div>Children Count: {item.numOfKids}</div>
+            <div>Children Age: {item.kidsAge.join(", ")}</div>
+            <div>followersssssssss: {item.followersCount}</div>
             
           </div>
         ))}
@@ -132,15 +206,16 @@ const Test = () => {
   );}
 
   const testData = [
-  { name: "John", gender: "Male", isParent: 'yes', numOfKids: 2, kidsAge: [4, 6], options: ["Option 1", "Option 2"] },
-  { name: "Jane", gender: "Female", isParent: 'yes', numOfKids: 1, kidsAge: [3], options: ["Option 1", "Option 2"] },
-  { name: "Bob", gender: "Male", isParent: 'no', numOfKids: 0, kidsAge: [],options: ["Option 2"] },
-  { name: "Alice", gender: "Female", isParent: 'yes', numOfKids: 3, kidsAge: [2, 5, 8],options: ["Option 3", "Option 2"] },
-  { name: "Tom", gender: "Male", isParent: 'yes', numOfKids: 2, kidsAge: [7, 9],options: ["Option 1", "Option 3"] },
-  { name: "Sara", gender: "Female", isParent: 'no', numOfKids: 0, kidsAge: [],options: ["Option 1", "Option 3"] }
-];
+    { name: "John", gender: "Male", isParent: 'Yes', numOfKids: 2, kidsAge: ['toddler', 'preschooler'], options: ["Option 1", "Option 2"], followersCount: 10 },
+    { name: "Jane", gender: "Female", isParent: 'Yes', numOfKids: 1, kidsAge: ['toddler'], options: ["Option 1", "Option 2"], followersCount: 20 },
+    { name: "Bob", gender: "Male", isParent: 'No', numOfKids: 0, kidsAge: [],options: ["Option 2"], followersCount: 30 },
+    { name: "Alice", gender: "Female", isParent: 'Yes', numOfKids: 3, kidsAge: ['infant', 'preschooler', 'elementary'],options: ["Option 3", "Option 2"], followersCount: 50 },
+    { name: "Tom", gender: "Male", isParent: 'Yes', numOfKids: 2, kidsAge: ['elementary', 'preteen'],options: ["Option 1", "Option 3"], followersCount: 60 },
+    { name: "Sara", gender: "Female", isParent: 'No', numOfKids: 0, kidsAge: [],options: ["Option 1", "Option 3"], followersCount: 100 }
+  ];
 
 export default Test;
+
 
 // import axios from "axios"
 // import React, {useEffect, useState} from 'react';

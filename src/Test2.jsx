@@ -823,3 +823,163 @@ export default App;
   
 //   export default NewCampaign;
   
+
+
+
+
+
+
+
+
+////
+
+
+
+// import React, { useState } from "react";
+// import "./Test.css";
+
+// const Test = () => {
+//   const FILTER_OPTIONS = ["Option 1", "Option 2", "Option 3"];
+//   const GENDER_OPTIONS = ["Male", "Female"];
+//   const isParent = ["Yes", "No"];
+
+//   const [showFilter, setShowFilter] = useState(false);
+//   const [selectedOptions, setSelectedOptions] = useState([]);
+//   const [selectedGender, setSelectedGender] = useState("");
+//   const [selectedIsParent, setSelectedIsParent] = useState("");
+//   const [childrenCount, setChildrenCount] = useState("");
+//   const [childrenAge, setChildrenAge] = useState("");
+
+//   const toggleFilter = () => {
+//     setShowFilter(!showFilter);
+//   };
+
+//   const handleGenderSelect = (gender) => {
+//     setSelectedGender(gender);
+//   };
+
+//   const handleIsParentSelect = (isParent) => {
+//     setSelectedIsParent(isParent);
+//     if (isParent === "No") {
+//       setChildrenCount("");
+//       setChildrenAge("");
+//     }
+//   };
+
+//   const handleChildrenCount = (count) => {
+//     setChildrenCount(count);
+//   };
+
+//   const handleChildrenAge = (age) => {
+//     setChildrenAge(age);
+//   };
+
+//   const handleCloseFilter = () => {
+//     setShowFilter(false);
+//   };
+
+//   const handleOptionClick = (option) => {
+//     if (selectedOptions.includes(option)) {
+//       setSelectedOptions(selectedOptions.filter((item) => item !== option));
+//     } else {
+//       setSelectedOptions([...selectedOptions, option]);
+//     }
+//   };
+
+//   const filteredOptions = FILTER_OPTIONS.filter((option) =>
+//     selectedOptions.includes(option)
+//   );
+
+//   const filteredData = testData.filter((item) =>
+//     (selectedGender === "" || item.gender === selectedGender) &&
+//     (filteredOptions.length === 0 || filteredOptions.some((option) => item.options.includes(option))) &&
+//     (selectedIsParent === "" || item.isParent === selectedIsParent) &&
+//     ((selectedIsParent === "No") || ((selectedIsParent === "Yes") && (item.numOfKids === childrenCount) && (item.kidsAge.includes(parseInt(childrenAge)))))
+//   );
+
+//   return (
+//     <div>
+//       <div className="header">
+//         <div>Header</div>
+//         <div>
+//           <button onClick={toggleFilter}>Filter</button>
+//         </div>
+//       </div>
+//       <div className={`filter ${showFilter ? "show" : ""}`}>
+//         <button className="close-btn" onClick={handleCloseFilter}>
+//           X
+//         </button>
+//         <div>
+//           <h3>Gender</h3>
+//           {GENDER_OPTIONS.map((option) => (
+//             <div
+//               className={`option ${selectedGender === option ? "selected" : ""}`}
+//               key={option}
+//               onClick={() => handleGenderSelect(option)}
+//             >
+//               {option}
+//             </div>
+//           ))}
+//         </div>
+//         <div>
+//           <h3>Filter Options</h3>
+//           {FILTER_OPTIONS.map((option) => (
+//             <div
+//               className={`option ${
+//                 filteredOptions.includes(option) ? "selected" : ""
+//               }`}
+//               key={option}
+//               onClick={() => handleOptionClick(option)}
+//             >
+//               {option}
+//             </div>
+//           ))}
+//         </div>
+//         <div>
+//           <h3>Are you a parent?</h3>
+//           {isParent.map((option) => (
+//             <div
+//               className={`option ${selectedIsParent === option ? "selected" : ""}`}
+//               key={option}
+//               onClick={() => handleIsParentSelect(option)}
+//             >
+//               {option}
+//             </div>
+//           ))}
+//         </div>
+//         {selectedIsParent === "Yes" && (
+//   <div>
+//     <div>
+//       <h3>Children Count</h3>
+//       <input type="number" min="0" value={childrenCount} onChange={handleChildrenCount} />
+//     </div>
+//     <div>
+//       <h3>Children Age</h3>
+//       <input type="text" value={childrenAge} onChange={handleChildrenAge} />
+//     </div>
+//   </div>
+//         )}
+//         <div className="content">
+//         {filteredData.map((item) => (
+//           <div className="data-item" key={item.name}>
+//             <div>Name: {item.name}</div>
+//             <div>Gender: {item.gender}</div>
+//             <div>Options: {item.options.join(", ")}</div>
+//             <div>IsParent: {item.isParent}</div>
+            
+//           </div>
+//         ))}
+//       </div>
+//         </div>
+//         </div>
+//   )}
+//   const testData = [
+//     { name: "John", gender: "Male", isParent: 'yes', numOfKids: 2, kidsAge: [4, 6], options: ["Option 1", "Option 2"] },
+//     { name: "Jane", gender: "Female", isParent: 'yes', numOfKids: 1, kidsAge: [3], options: ["Option 1", "Option 2"] },
+//     { name: "Bob", gender: "Male", isParent: 'no', numOfKids: 0, kidsAge: [],options: ["Option 2"] },
+//     { name: "Alice", gender: "Female", isParent: 'yes', numOfKids: 3, kidsAge: [2, 5, 8],options: ["Option 3", "Option 2"] },
+//     { name: "Tom", gender: "Male", isParent: 'yes', numOfKids: 2, kidsAge: [7, 9],options: ["Option 1", "Option 3"] },
+//     { name: "Sara", gender: "Female", isParent: 'no', numOfKids: 0, kidsAge: [],options: ["Option 1", "Option 3"] }
+//   ];
+
+// export default Test;
