@@ -8,3 +8,77 @@
   border-radius: 10px;
   display: flex;
 }
+
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.filter {
+  position: absolute;
+  right: 0;
+  top: 5rem;
+  background-color: white;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-out;
+  transform: translateX(100%);
+}
+
+.filter.show {
+  transform: translateX(0);
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.option {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: #f0f0f0;
+}
+
+.option.selected {
+  background-color: #eee;
+  font-weight: bold;
+}
+
+.selected-options {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 1rem;
+}
+
+.selected-option {
+  background-color: #eee;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.content {
+  flex: 1;
+}

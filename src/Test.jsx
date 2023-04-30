@@ -14,11 +14,13 @@ const Test = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [selectedGender, setSelectedGender] = useState("");
   const [selectedIsParent, setSelectedIsParent] = useState("");
-  const [childrenCount, setChildrenCount] = useState({ min: 0, max: 10 });
+  const [childrenCount, setChildrenCount] = useState({ min: 1, max: 10 });
   const [minAge, setMinAge] = useState(0);
   const [maxAge, setMaxAge] = useState(0);
   const [followers, setFollowers] = useState({ min: 10, max: 100 });
   const [childrenAge, setChildrenAge] = useState([]);
+  const [influencerAge, setInfluencerAge] = useState({ min: 10, max: 100 });
+  
 
     
 
@@ -37,10 +39,6 @@ const Test = () => {
       setChildrenCount("");
       setChildrenAge("");
     }
-  };
-
-    const handleChildrenCount = (count) => {
-    setChildrenCount(count);
   };
 
   
@@ -75,6 +73,25 @@ const Test = () => {
     })
   };
 
+  const handleChildrenCount = (childrenCount) => {
+    setChildrenCount((prevState) => {
+      return {
+        ...prevState,
+        max: childrenCount.max,
+        min: childrenCount.min,
+      }
+    })
+  };
+
+  const handleInfluencerAge = (influencerAge) => {
+    setInfluencerAge((prevState) => {
+      return {
+        ...prevState,
+        max: influencerAge.max,
+        min: influencerAge.min,
+      }
+    })
+  };
 
   const filteredOptions = FILTER_OPTIONS.filter((option) =>
     selectedOptions.includes(option)
@@ -91,9 +108,9 @@ const Test = () => {
       (filteredOptions.length === 0 || filteredOptions.some((option) => item.options.includes(option))) &&
       (selectedIsParent === "" || item.isParent === selectedIsParent) &&
       (item.followersCount >= followers.min && item.followersCount <= followers.max) &&
-      (filteredChildrenAge.length === 0 || filteredChildrenAge.some((option) => item.kidsAge.includes(option)))
-      // &&
-      // item.kidsAge.some((age) => age >= parseInt(minAge) && age <= parseInt(maxAge))
+      (filteredChildrenAge.length === 0 || filteredChildrenAge.some((option) => item.kidsAge.includes(option))) &&
+      (item.numOfKids >= childrenCount.min && item.numOfKids <= childrenCount.max) &&
+      (item.influencerAge >= influencerAge.min && item.influencerAge <= influencerAge.max)  
   );
   console.log(filteredData);
 
@@ -135,6 +152,20 @@ const Test = () => {
             </div>
           ))}
         </div>
+
+        <div>
+          <h3>Influencer Age</h3>
+              <InputRange
+              minValue={10}
+              maxValue={100}
+              value={influencerAge}
+              onChange={handleInfluencerAge}
+              draggableTrack
+              allowSameValues
+              />
+        </div>
+
+
         <div>
           Number of followers:<br/>
           <InputRange
@@ -166,7 +197,14 @@ const Test = () => {
       <div>
         <div>
           <h3>Children Count</h3>
-          <input type="number" min="0" onChange={handleChildrenCount} />
+              <InputRange
+              minValue={1}
+              maxValue={10}
+              value={childrenCount}
+              onChange={handleChildrenCount}
+              draggableTrack
+              allowSameValues
+              />
         </div>
         <div>
         <div>
@@ -198,6 +236,8 @@ const Test = () => {
             <div>Children Count: {item.numOfKids}</div>
             <div>Children Age: {item.kidsAge.join(", ")}</div>
             <div>followersssssssss: {item.followersCount}</div>
+            <div>influencer age: {item.influencerAge}</div>
+            
             
           </div>
         ))}
@@ -206,12 +246,12 @@ const Test = () => {
   );}
 
   const testData = [
-    { name: "John", gender: "Male", isParent: 'Yes', numOfKids: 2, kidsAge: ['toddler', 'preschooler'], options: ["Option 1", "Option 2"], followersCount: 10 },
-    { name: "Jane", gender: "Female", isParent: 'Yes', numOfKids: 1, kidsAge: ['toddler'], options: ["Option 1", "Option 2"], followersCount: 20 },
-    { name: "Bob", gender: "Male", isParent: 'No', numOfKids: 0, kidsAge: [],options: ["Option 2"], followersCount: 30 },
-    { name: "Alice", gender: "Female", isParent: 'Yes', numOfKids: 3, kidsAge: ['infant', 'preschooler', 'elementary'],options: ["Option 3", "Option 2"], followersCount: 50 },
-    { name: "Tom", gender: "Male", isParent: 'Yes', numOfKids: 2, kidsAge: ['elementary', 'preteen'],options: ["Option 1", "Option 3"], followersCount: 60 },
-    { name: "Sara", gender: "Female", isParent: 'No', numOfKids: 0, kidsAge: [],options: ["Option 1", "Option 3"], followersCount: 100 }
+    { name: "John", influencerAge: 24, gender: "Male", isParent: 'Yes', numOfKids: 2, kidsAge: ['toddler', 'preschooler'], options: ["Option 1", "Option 2"], followersCount: 10 },
+    { name: "Jane", influencerAge: 44, gender: "Female", isParent: 'Yes', numOfKids: 1, kidsAge: ['toddler'], options: ["Option 1", "Option 2"], followersCount: 20 },
+    { name: "Bob", influencerAge: 54, gender: "Male", isParent: 'No', numOfKids: 0, kidsAge: [],options: ["Option 2"], followersCount: 30 },
+    { name: "Alice", influencerAge: 23, gender: "Female", isParent: 'Yes', numOfKids: 3, kidsAge: ['infant', 'preschooler', 'elementary'],options: ["Option 3", "Option 2"], followersCount: 50 },
+    { name: "Tom", influencerAge: 24, gender: "Male", isParent: 'Yes', numOfKids: 2, kidsAge: ['elementary', 'preteen'],options: ["Option 1", "Option 3"], followersCount: 60 },
+    { name: "Sara", influencerAge: 24, gender: "Female", isParent: 'No', numOfKids: 0, kidsAge: [],options: ["Option 1", "Option 3"], followersCount: 100 }
   ];
 
 export default Test;

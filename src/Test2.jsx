@@ -1,73 +1,73 @@
-import React, { useState } from "react";
-import "./Test.css";
+import axios from "axios";
+import React, {useState, useEffect} from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import "./Style/BrandManagerPanel/AllRegisteredInfluencers/AllRegisteredInfluencers.css"
+import { FilterList } from '@material-ui/icons';
+import Card from 'react-bootstrap/Card';
+import LaunchIcon from '@mui/icons-material/Launch';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 
-const FILTER_OPTIONS = ["Option 1", "Option 2", "Option 3"];
-const GENDER_OPTIONS = ["Male", "Female"];
-const isParent = ["Yes", "No"];
+import 'react-input-range/lib/css/index.css';
+import InputRange from 'react-input-range';
 
-
-function App() {
+const Pagintation = () => {
+  
+  const GENDER_OPTIONS = ["Male", "Female", "Other"];
+  const [influencers, setInfluencers] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
   const [selectedGender, setSelectedGender] = useState("");
-  const [selectedIsParent, setSelectedIsParent] = useState(false);
+  
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/newinfluencers/')
+      .then(response => {
+        setInfluencers(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
+    const toggleFilter = () => {
+      setShowFilter(!showFilter);
+    }; 
+    
+    const handleCloseFilter = () => {
+      setShowFilter(false);
+    };
+  
+    
+    const handleGenderSelect = (gender) => {
+      setSelectedGender(gender);
+    };
 
-  const toggleFilter = () => {
-    setShowFilter(!showFilter);
-  };
-
-  const handleOptionClick = (option) => {
-    if (selectedOptions.includes(option)) {
-      setSelectedOptions(selectedOptions.filter((item) => item !== option));
-    } else {
-      setSelectedOptions([...selectedOptions, option]);
-    }
-  };
-
-  const handleGenderSelect = (gender) => {
-    setSelectedGender(gender);
-  };
-
-  const handleIsParentSelect = (isParent) => {
-    setSelectedIsParent(isParent);
-  };
-
-  function handleFilter() {
-    const isParentFilteredData = testData.filter(item => {
-      return (
-        item.gender === selectedGender && 
-        (isParent ? item.isParent : true)
-      );
-    });
-
-
-  const handleCloseFilter = () => {
-    setShowFilter(false);
-  };
-
-  const filteredOptions = FILTER_OPTIONS.filter((option) =>
-    selectedOptions.includes(option)
-  );
-
-  const filteredData = testData.filter((item) =>
-      (selectedGender === "" || item.gender === selectedGender) &&
-      (filteredOptions.length === 0 ||
-        filteredOptions.some((option) => item.options.includes(option))) &&
-        (isParent ? item.isParent : true)
-        
-  );
-  console.log(filteredData);
-
+    const currentData = influencers.filter((item) =>
+    (selectedGender === "" || item.influencerGender === selectedGender) 
+);
+console.log(currentData);
   return (
-    <div className="mt-5 App" style={{backgroundColor:'red'}}>
-      <div className="header">
-        <div>Header</div>
-        <div>
-          <button onClick={toggleFilter}>Filter</button>
-        </div>
-      </div>
-      <div className={`filter ${showFilter ? "show" : ""}`}>
+    <Container >
+      <Row>
+          <Col xs={8} sm={8} md={12} lg={10}>
+             <Row className="mainContainerARI ms-4">
+                <div style={{display:"flex"}}>
+                <h3 className='campaignHeaderARI' >Registered Influencers ({influencers.length}) </h3></div>
+                <div className="ms-4 d-lg-flex d-xs-block" >
+                  
+                  <div className="d-flex">
+                      <input  style={{height:"25px"}} placeholder="Search by name &#x1F50D;"/>
+                      <Button style={{backgroundColor:'#452c63',fontSize:"12px",height:"25px", marginLeft:'5px'}}>
+                        <div style={{marginTop:"-6px"}}>
+                          <a href="/BMCompare" className="mx-3" style={{display: 'block', textDecoration:'none'}}>
+                            <p>Compare<CompareArrowsIcon style={{fontSize:"15px",height:"25px"}}/></p>
+                          </a>
+                        </div>
+                      </Button>
+                    </div>
+                    <div className="d-flex d-xs-justify-center d-xs-align-center">
+                      <button onClick={toggleFilter} type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}>
+                        <FilterList style={{fontSize:"12px",height:"25px"}} />Filter</button>
+                    </div>
+                    <div className={`filter ${showFilter ? "show" : ""}`}>
         <button className="close-btn" onClick={handleCloseFilter}>
           X
         </button>
@@ -83,58 +83,199 @@ function App() {
             </div>
           ))}
         </div>
-        <div>
-          <h3>Filter Options</h3>
-          {FILTER_OPTIONS.map((option) => (
-            <div
-              className={`option ${
-                filteredOptions.includes(option) ? "selected" : ""
-              }`}
-              key={option}
-              onClick={() => handleOptionClick(option)}
-            >
-              {option}
-            </div>
-          ))}
+       
+  
         </div>
-        <div>
-        <h3>Are you a parent?</h3>
-        {isParent.map((option) => (
-            <div
-              className={`option ${selectedIsParent === option ? "selected" : ""}`}
-              key={option}
-              onClick={() => handleIsParentSelect(option)}
-            >
-              {option}
-            </div>
-          ))}
-      </div>
-      </div>
-      <div className="content">
-        {filteredData.map((item) => (
-          <div className="data-item" key={item.name}>
-            <div>Name: {item.name}</div>
-            <div>Gender: {item.gender}</div>
-            <div>Options: {item.options.join(", ")}</div>
-            <div>IsParent: {item.isParent}</div>
-            
-          </div>
-        ))}
-      </div>
-    </div>
+
+         
+                </div>
+                  {currentData.map(item => {
+                  return (
+                    <Col xs={8} sm={8} md={2} lg={2} className="subContainerARI mx-3 my-3">
+                    <Card style={{ height: "100%", width:"200px"}}>
+                      <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={`http://127.0.0.1:8000/${item.influencerImage}`} />
+                      
+                      <Card.Body className="d-flex flex-column">
+                        <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
+                        
+                          <h6 style={{ fontWeight: "bolder", fontSize: "16px", height: '40px', width:'80%', overflow:'hidden' }}>{item.influencer_username}</h6>
+                          <p style={{fontSize: '13px'}}>@{item.age}</p>
+                          <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followersCount}K</p>
+                          
+                          <a href={`instagram.com/${item.influencer_username}`}>
+                          <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
+                            <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
+                            <LaunchIcon style={{ fontSize: "12px", height: "25px" }} />
+                          </button></a>
+                          <div className="data-item" key={item.name}>
+                          <div>Name: {item.influencer_username}</div>
+                          <div>Name: {item.influencer_full_name}</div>
+                          
+                          <div>Gender: {item.influencerGender}</div>
+                          <div>Age: {item.influencerAge}</div>
+
+                          <div>post: {item.influencerStoryCost}</div>
+                          <div>story: {item.influencerInfluencerPostCost}</div>
+                          
+                          {/* <div>Options: {item.options.join(", ")}</div> */}
+                          <div>IsParent: {item.isParent}</div>
+                          <div>Children Count: {item.influencerChildrenCount}</div>
+                          {/* <div>Children Age: {item.kidsAge.join(", ")}</div> */}
+                          <div>followersssssssss: {item.followersCount}</div>
+                          <div>influencer age: {item.influencerAge}</div>
+                          </div>
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                  )})}
+                  
+             
+           </Row>
+         </Col> 
+      </Row>
+  </Container>     
   );
-}}
+};
 
-const testData = [
-  { name: "John", gender: "Male", isParent: 'yes', numOfKids: 2, kidsAge: [4, 6], options: ["Option 1", "Option 2"] },
-  { name: "Jane", gender: "Female", isParent: 'yes', numOfKids: 1, kidsAge: [3], options: ["Option 1", "Option 2"] },
-  { name: "Bob", gender: "Male", isParent: 'no', numOfKids: 0, kidsAge: [],options: ["Option 2"] },
-  { name: "Alice", gender: "Female", isParent: 'yes', numOfKids: 3, kidsAge: [2, 5, 8],options: ["Option 3", "Option 2"] },
-  { name: "Tom", gender: "Male", isParent: 'yes', numOfKids: 2, kidsAge: [7, 9],options: ["Option 1", "Option 3"] },
-  { name: "Sara", gender: "Female", isParent: 'no', numOfKids: 0, kidsAge: [],options: ["Option 1", "Option 3"] }
-];
+export default Pagintation;
+// import React, { useState } from "react";
+// import "./Test.css";
 
-export default App;
+// const FILTER_OPTIONS = ["Option 1", "Option 2", "Option 3"];
+// const GENDER_OPTIONS = ["Male", "Female"];
+// const isParent = ["Yes", "No"];
+
+
+// function App() {
+//   const [showFilter, setShowFilter] = useState(false);
+//   const [selectedOptions, setSelectedOptions] = useState([]);
+//   const [selectedGender, setSelectedGender] = useState("");
+//   const [selectedIsParent, setSelectedIsParent] = useState(false);
+
+
+//   const toggleFilter = () => {
+//     setShowFilter(!showFilter);
+//   };
+
+//   const handleOptionClick = (option) => {
+//     if (selectedOptions.includes(option)) {
+//       setSelectedOptions(selectedOptions.filter((item) => item !== option));
+//     } else {
+//       setSelectedOptions([...selectedOptions, option]);
+//     }
+//   };
+
+//   const handleGenderSelect = (gender) => {
+//     setSelectedGender(gender);
+//   };
+
+//   const handleIsParentSelect = (isParent) => {
+//     setSelectedIsParent(isParent);
+//   };
+
+//   function handleFilter() {
+//     const isParentFilteredData = testData.filter(item => {
+//       return (
+//         item.gender === selectedGender && 
+//         (isParent ? item.isParent : true)
+//       );
+//     });
+
+
+//   const handleCloseFilter = () => {
+//     setShowFilter(false);
+//   };
+
+//   const filteredOptions = FILTER_OPTIONS.filter((option) =>
+//     selectedOptions.includes(option)
+//   );
+
+//   const filteredData = testData.filter((item) =>
+//       (selectedGender === "" || item.gender === selectedGender) &&
+//       (filteredOptions.length === 0 ||
+//         filteredOptions.some((option) => item.options.includes(option))) &&
+//         (isParent ? item.isParent : true)
+        
+//   );
+//   console.log(filteredData);
+
+//   return (
+//     <div className="mt-5 App" style={{backgroundColor:'red'}}>
+//       <div className="header">
+//         <div>Header</div>
+//         <div>
+//           <button onClick={toggleFilter}>Filter</button>
+//         </div>
+//       </div>
+//       <div className={`filter ${showFilter ? "show" : ""}`}>
+//         <button className="close-btn" onClick={handleCloseFilter}>
+//           X
+//         </button>
+//         <div>
+//           <h3>Gender</h3>
+//           {GENDER_OPTIONS.map((option) => (
+//             <div
+//               className={`option ${selectedGender === option ? "selected" : ""}`}
+//               key={option}
+//               onClick={() => handleGenderSelect(option)}
+//             >
+//               {option}
+//             </div>
+//           ))}
+//         </div>
+//         <div>
+//           <h3>Filter Options</h3>
+//           {FILTER_OPTIONS.map((option) => (
+//             <div
+//               className={`option ${
+//                 filteredOptions.includes(option) ? "selected" : ""
+//               }`}
+//               key={option}
+//               onClick={() => handleOptionClick(option)}
+//             >
+//               {option}
+//             </div>
+//           ))}
+//         </div>
+//         <div>
+//         <h3>Are you a parent?</h3>
+//         {isParent.map((option) => (
+//             <div
+//               className={`option ${selectedIsParent === option ? "selected" : ""}`}
+//               key={option}
+//               onClick={() => handleIsParentSelect(option)}
+//             >
+//               {option}
+//             </div>
+//           ))}
+//       </div>
+//       </div>
+//       <div className="content">
+//         {filteredData.map((item) => (
+//           <div className="data-item" key={item.name}>
+//             <div>Name: {item.name}</div>
+//             <div>Gender: {item.gender}</div>
+//             <div>Options: {item.options.join(", ")}</div>
+//             <div>IsParent: {item.isParent}</div>
+            
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }}
+
+// const testData = [
+//   { name: "John", gender: "Male", isParent: 'yes', numOfKids: 2, kidsAge: [4, 6], options: ["Option 1", "Option 2"] },
+//   { name: "Jane", gender: "Female", isParent: 'yes', numOfKids: 1, kidsAge: [3], options: ["Option 1", "Option 2"] },
+//   { name: "Bob", gender: "Male", isParent: 'no', numOfKids: 0, kidsAge: [],options: ["Option 2"] },
+//   { name: "Alice", gender: "Female", isParent: 'yes', numOfKids: 3, kidsAge: [2, 5, 8],options: ["Option 3", "Option 2"] },
+//   { name: "Tom", gender: "Male", isParent: 'yes', numOfKids: 2, kidsAge: [7, 9],options: ["Option 1", "Option 3"] },
+//   { name: "Sara", gender: "Female", isParent: 'no', numOfKids: 0, kidsAge: [],options: ["Option 1", "Option 3"] }
+// ];
+
+// export default App;
 
 // import axios from "axios";
 // import React, {useState, useEffect} from 'react';
