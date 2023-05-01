@@ -112,7 +112,7 @@ class NewInfluencer(models.Model):
         ordering = ['-updated', '-created']
 
     def __str__(self):
-        return self.username
+        return f"{self.username} {self.age}"
 
 
 class Influencer(models.Model):
