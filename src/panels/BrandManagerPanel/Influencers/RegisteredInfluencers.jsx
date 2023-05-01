@@ -34,12 +34,12 @@ const RegisteredInfluencers = () => {
     {influencers.map(item => (
       <Col xs={5} sm={5} md={4} lg={3} className="subContainerRI m-1">
         <Col xs={5} lg={3}>
-          <img className="imageRI" src={`http://127.0.0.1:8000/${item.influencerImage}`} />  
+          <img className="imageRI" src={`http://127.0.0.1:8000/${item.image}`} />  
         </Col>
         <Col xs={12} lg={12}>
             <div className="ColDetailsRI" style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
-              <p className='nameRI'>{item.influencer_full_name.slice(0, 15)}</p>
-              <p className='usernameRI'>@{item.influencer_username.slice(0, 12)}</p>
+              <p className='nameRI'>{item.fullname.slice(0, 15)}</p>
+              <p className='usernameRI'>@{item.username.slice(0, 12)}</p>
             </div>
         </Col>
       </Col>

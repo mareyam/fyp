@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
 import NewPRPopup from './NewPRPopup';
+import PRList from './PRList';
 
 const Pagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
     const pageNumbers = [];
@@ -30,7 +31,7 @@ const PR = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(7);
   const [searchValue, setSearchValue] = useState('');
-  const [PR, setPR] = useState([]);
+  const [PR, setPR] = useState(PRList);
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
    useEffect(() => {
@@ -162,8 +163,8 @@ return (
                         {currentItems.map(item => {
                           return (
                               <tr>
-                                 <TableCell>{item.pragency_username}</TableCell>
-                                  <TableCell>{item.pragency_email}</TableCell>
+                                 <TableCell>{item.name}</TableCell>
+                                  <TableCell>{item.email}</TableCell>
                                   <TableCell>{item.image}</TableCell>                  
                                    <TableCell><Status status={item.status} /></TableCell>
                                   <TableCell><ActionButton status={item.status}   onClick={() => handleButtonState(item.status)}/></TableCell>                                  

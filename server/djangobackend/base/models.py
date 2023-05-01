@@ -77,9 +77,9 @@ class NewInfluencer(models.Model):
         ('Other', 'Other'),
     )
 
-    CHILD_EXIST = (
-        ("yes","yes"),
-        ("no","no"),
+    ISPARENT = (
+        ("Yes","Yes"),
+        ("No","No"),
     )
 
     
@@ -91,18 +91,18 @@ class NewInfluencer(models.Model):
         ("adult","adult"),
     )
 
-    influencerImage = models.ImageField(upload_to='images/', default='')
-    influencer_username = models.CharField(max_length=20, unique=False)
-    influencer_full_name = models.CharField(max_length=200)
-    influencerGender = models.CharField(max_length=20,choices=GENDER, blank=False, null=False)
-    influencerAge = models.IntegerField(blank=True, null=True)
-    influencerFollowers = models.IntegerField(blank=True, null=True)
-    influencerInfluencerPostCost = models.IntegerField(blank=False, null=False, default=0)
-    influencerStoryCost = models.IntegerField(blank=False, null=False , default=0)
-    influencerChildExist = models.CharField(max_length=20,choices=CHILD_EXIST, blank=False, null=False, default="")
-    influencerChildrenCount = models.IntegerField(blank=True, null=True)
-    influencerChildrenAge = models.CharField(max_length=20,choices=CHILD_AGE, blank=True, null=True)
-    influencerInterests = models.CharField(max_length=20,choices=INFLUENCER_INTEREST_CHOICES, blank=False, null=False)
+    image = models.ImageField(upload_to='images/', default='')
+    username = models.CharField(max_length=20, unique=False)
+    fullname = models.CharField(max_length=200)
+    gender = models.CharField(max_length=20,choices=GENDER, blank=False, null=False)
+    age = models.IntegerField(blank=True, null=True)
+    followers = models.IntegerField(blank=True, null=True)
+    postcost = models.IntegerField(blank=False, null=False, default=0)
+    storycost = models.IntegerField(blank=False, null=False , default=0)
+    isparent = models.CharField(max_length=20,choices=ISPARENT, blank=False, null=False, default="No")
+    children_count = models.IntegerField(blank=True, null=True)
+    children_age = models.CharField(max_length=20,choices=CHILD_AGE, blank=True, null=True)
+    interests = models.CharField(max_length=20,choices=INFLUENCER_INTEREST_CHOICES, blank=False, null=False)
     brandmanager = models.ForeignKey(BrandManager, on_delete=models.CASCADE, null=True, unique=False)
     created = models.DateTimeField(default=datetime.now)
     updated = models.DateTimeField(default=timezone.now)
@@ -112,7 +112,7 @@ class NewInfluencer(models.Model):
         ordering = ['-updated', '-created']
 
     def __str__(self):
-        return self.influencer_username
+        return self.username
 
 
 class Influencer(models.Model):

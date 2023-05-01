@@ -38,7 +38,7 @@ const AllCampaigns = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
 const Pagintation = () => {
   
   const FILTER_OPTIONS = ["Option 1", "Option 2", "Option 3"];
-  const GENDER_OPTIONS = ["Male", "Female"];
+  const GENDER_OPTIONS = ["Male", "Female", "Other"];
   const isParent = ["Yes", "No"];
   const childrenAgeRange = ["toddler", "preschooler", "elementary", "teen", "adult"]
 
@@ -49,7 +49,6 @@ const Pagintation = () => {
   const [influencers, setInfluencers] = useState([]);
 
   const [showFilter, setShowFilter] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
   const [selectedGender, setSelectedGender] = useState("");
   const [selectedIsParent, setSelectedIsParent] = useState("");
   const [childrenCount, setChildrenCount] = useState({ min: 1, max: 10 });
@@ -63,11 +62,13 @@ const Pagintation = () => {
     axios.get('http://127.0.0.1:8000/newinfluencers/')
       .then(response => {
         setInfluencers(response.data);
+        console.log(influencers);
       })
       .catch(error => {
         console.error(error);
       });
   }, []);
+
 
 
     
@@ -100,14 +101,7 @@ const Pagintation = () => {
     const handleCloseFilter = () => {
       setShowFilter(false);
     };
-  
-    const handleOptionClick = (option) => {
-      if (selectedOptions.includes(option)) {
-        setSelectedOptions(selectedOptions.filter((item) => item !== option));
-      } else {
-        setSelectedOptions([...selectedOptions, option]);
-      }
-    };
+
   
     const handleChildAgeClick = (option) => {
       if (childrenAge.includes(option)) {
@@ -148,9 +142,7 @@ const Pagintation = () => {
       })
     };
   
-    const filteredOptions = FILTER_OPTIONS.filter((option) =>
-      selectedOptions.includes(option)
-    );
+   
   
     const filteredChildrenAge = childrenAgeRange.filter((option) =>
     childrenAge.includes(option)
@@ -171,19 +163,18 @@ const Pagintation = () => {
   
 
     const currentData = influencers.filter((item) =>
-    (selectedGender === "" || item.influencerGender === selectedGender) &&
-    (filteredOptions.length === 0 || filteredOptions.some((option) => item.options.includes(option))) &&
-    (selectedIsParent === "" || item.InfluencerChildExis === selectedIsParent) &&
-    (item.influencerFollowers >= followers.min && item.influencerFollowers <= followers.max) &&
-    (filteredChildrenAge.length === 0 || filteredChildrenAge.some((option) => item.InfluencerChildrenAge.includes(option))) &&
-    (item.influencerChildrenCount >= childrenCount.min && item.influencerChildrenCount <= childrenCount.max) &&
-    (item.influencerAge >= influencerAge.min && item.influencerAge <= influencerAge.max)  
+    (selectedGender === "" || item.influencerGender === selectedGender)  &&
+     (selectedIsParent === "" || item.InfluencerChildExist === selectedIsParent) 
+    // (item.influencerFollowers >= followers.min && item.influencerFollowers <= followers.max) &&
+    // (filteredChildrenAge.length === 0 || filteredChildrenAge.some((option) => item.InfluencerChildrenAge.includes(option))) &&
+    // (item.influencerChildrenCount >= childrenCount.min && item.influencerChildrenCount <= childrenCount.max) &&
+    // (item.influencerAge >= influencerAge.min && item.influencerAge <= influencerAge.max)  
 );
 console.log(currentData);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = influencers.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = currentData.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
@@ -226,21 +217,6 @@ console.log(currentData);
             </div>
           ))}
         </div>
-        <div>
-          <h3>Filter Options</h3>
-          {FILTER_OPTIONS.map((option) => (
-            <div
-              className={`option ${
-                filteredOptions.includes(option) ? "selected" : ""
-              }`}
-              key={option}
-              onClick={() => handleOptionClick(option)}
-            >
-              {option}
-            </div>
-          ))}
-        </div>
-
         <div>
           <h3>Influencer Age</h3>
               <InputRange
@@ -314,60 +290,31 @@ console.log(currentData);
           )}
        
         </div>
-
-        <div className="content">
-        {/* {filteredData.map((item) => (
-          <div className="data-item" key={item.name}>
-            <div>Name: {item.name}</div>
-            <div>Gender: {item.gender}</div>
-            <div>Options: {item.options.join(", ")}</div>
-            <div>IsParent: {item.isParent}</div>
-            <div>Children Count: {item.numOfKids}</div>
-            <div>Children Age: {item.kidsAge.join(", ")}</div>
-            <div>followersssssssss: {item.followersCount}</div>
-            <div>influencer age: {item.influencerAge}</div>
-            
-            
-          </div>
-        ))} */}
-      </div>
-
-        
-                </div>
-                  {currentItems.map(item => {
+              </div>
+                  {currentData.map(item => {
                   return (
                     <Col xs={8} sm={8} md={2} lg={2} className="subContainerARI mx-3 my-3">
                     <Card style={{ height: "100%", width:"200px"}}>
-                      <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={`http://127.0.0.1:8000/${item.influencerImage}`} />
+                      <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={`http://127.0.0.1:8000/${item.image}`} />
                       
                       <Card.Body className="d-flex flex-column">
                         <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
                         
-                          <h6 style={{ fontWeight: "bolder", fontSize: "16px", height: '40px', width:'80%', overflow:'hidden' }}>{item.influencer_username}</h6>
+                          <h6 style={{ fontWeight: "bolder", fontSize: "16px", height: '40px', width:'80%', overflow:'hidden' }}>{item.username}</h6>
                           <p style={{fontSize: '13px'}}>@{item.age}</p>
                           <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followersCount}K</p>
                           
-                          <a href={`instagram.com/${item.influencer_username}`}>
+                          <a href={`instagram.com/${item.username}`}>
                           <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
                             <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
                             <LaunchIcon style={{ fontSize: "12px", height: "25px" }} />
                           </button></a>
                           <div className="data-item" key={item.name}>
-                          <div>Name: {item.influencer_username}</div>
-                          <div>Name: {item.influencer_full_name}</div>
-                          
-                          <div>Gender: {item.influencerGender}</div>
-                          <div>Age: {item.influencerAge}</div>
-
-                          <div>post: {item.influencerStoryCost}</div>
-                          <div>story: {item.influencerInfluencerPostCost}</div>
-                          
-                          {/* <div>Options: {item.options.join(", ")}</div> */}
+                          <div>Name: {item.username}</div>  
+                          <div>Gender: {item.gender}</div>
+                          <div>Age: {item.age}</div>
                           <div>IsParent: {item.isParent}</div>
-                          <div>Children Count: {item.influencerChildrenCount}</div>
-                          {/* <div>Children Age: {item.kidsAge.join(", ")}</div> */}
-                          <div>followersssssssss: {item.followersCount}</div>
-                          <div>influencer age: {item.influencerAge}</div>
+                        
                           </div>
                         </Card.Text>
                       </Card.Body>

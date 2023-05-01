@@ -129,14 +129,14 @@ const Pagintation = () => {
   return (
     <Container className="mt-4" style={{border:"1px solid rgb(198, 198, 198)"}}>
           <Row className='d-lg-flex d-sm-block d-xs-block'>
-          <Col xs={12} sm={12} md={2} lg={2}>
+          {/* <Col xs={12} sm={12} md={2} lg={2}>
           <div className='d-lg-block d-xs-flex'>
             <img className="influencerImage"src='https://media.istockphoto.com/id/487787108/photo/can-of-coca-cola-on-ice.jpg?s=612x612&w=0&k=20&c=xDSO_nl0qeDMBZJBJk09jj5_UeQkyQ70QdXuDMByCaY='></img>
               <div style={{textAlign:"center"}}><h6>Ali Zafar</h6>
               </div>
           </div>         
-          </Col> 
-          <Col xs={12} sm={12} md={10} lg={10}>
+          </Col>  */}
+          <Col xs={12} sm={12} md={12} lg={12}>
           <h5>Campaign Requests:</h5>
           <div className="tablee">
             <table class="table">
@@ -165,7 +165,13 @@ const Pagintation = () => {
                                   <TableCell>{item.type}</TableCell>
                                   <TableCell>{item.cost}</TableCell>
                                    <TableCell><Status status={item.status} /></TableCell>
-                                  <TableCell><ActionButton status={item.status}   onClick={() => handleButtonState(item.status)}/></TableCell>                                  
+                                  <TableCell>
+                                    <Button className="btn btn-primary">Accept</Button>
+                                    <Button className="btn btn-danger">Reject</Button>
+                                    
+                                    {/* <ActionButton status={item.status}   onClick={() => handleButtonState(item.status)}/>
+                                  <ActionButton status={item.status}   onClick={() => handleButtonState(item.status)}/> */}
+                                  </TableCell>                                  
                               </tr> )})}
                       <Hashtag
                           itemsPerPage={itemsPerPage}

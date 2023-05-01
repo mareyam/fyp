@@ -24,6 +24,8 @@ import EmailSent from './panels/BrandManagerPanel/Auth/EmailSent';
 import ResetPassword from './panels/BrandManagerPanel/Auth/ResetPassword';
 import Resetted from './panels/BrandManagerPanel/Auth/Resetted';
 
+import AdminNavbar from './panels/AdminPanel/Navbar/AdminNavbar';
+import AdminDashboard from './panels/AdminPanel/AdminDashboard';
 import AdminLogin from './panels/AdminPanel/Auth/Login';
 import AdminForgotPassword from './panels/AdminPanel/Auth/ForgotPassword';
 import AdminEmailSent from './panels/AdminPanel/Auth/EmailSent';
@@ -31,10 +33,10 @@ import AdminResetPassword from './panels/AdminPanel/Auth/ResetPassword';
 import AdminResetted from './panels/AdminPanel/Auth/Resetted';
 
 
-
 import PRList from './panels/AdminPanel/PRList/PR';
 import NewPRPopup from './panels/AdminPanel/PRList/NewPRPopup';
 
+import PRNavbar from './panels/PRAgency/Navbar/PRNavbar';
 import PRLogin from './panels/PRAgency/Auth/Login';
 import PRSignup from './panels/PRAgency/Auth/Signup';
 import PRForgotPassword from './panels/PRAgency/Auth/ForgotPassword';
@@ -43,14 +45,17 @@ import PRResetPassword from './panels/PRAgency/Auth/ResetPassword';
 import PRResetted from './panels/PRAgency/Auth/Resetted';
 import BMList from './panels/PRAgency/BrandManagerList/BMList';
 import NewBMPopup from './panels/PRAgency/BrandManagerList/NewBMPopup';
+import PRDashboard from './panels/PRAgency/PRDashboard.jsx';
 
+import InfluencerNavbar from './panels/InfluencerPanel/Navbar/InfluencerNavbar';
 import InfluencerLogin from './panels/InfluencerPanel/Auth/InfluencerLogin';
 import InfluencerSignup from './panels/InfluencerPanel/Auth/InfluencerSignup';
 import InfluencerRegDetails from './panels/InfluencerPanel/Auth/InfluencerRegDetails';
 import InfluencerRegDetails2 from './panels/InfluencerPanel/Auth/InfluencerRegDetails2';
 import InfluencerRegDetails3 from './panels/InfluencerPanel/Auth/InfluencerRegDetails3';
 import InfluencerPosts from './panels/InfluencerPanel/PostsStories/InfluencerPosts';
-import InfluencerDashboard from './panels/InfluencerPanel/PostsStories/InfluencerDashboard';
+import InfluencerContent from './panels/InfluencerPanel/PostsStories/InfluencerContent';
+
 import PendingCampaigns from './panels/InfluencerPanel/Campaigns/PendingCampaigns';
 
 import Home from './Home';
@@ -71,9 +76,17 @@ const App = () => {
        && location.pathname !== '/PRLogin' && location.pathname !== '/PRForgot' && location.pathname !== '/PREmailSent' 
        && location.pathname !== '/PRResetPassword' && location.pathname !== '/PRResetted' && location.pathname !== '/InfluencerLogin'
        && location.pathname !== '/InfluencerSignup' && location.pathname !== '/InfluencerRegDetails' && location.pathname !== '/InfluencerRegDetails2'
-       && location.pathname !== '/InfluencerRegDetails3'
-       ? <Navbarr/> : null} 
+       && location.pathname !== '/InfluencerRegDetails3' && location.pathname !== '/AdminDashboard' && location.pathname !== '/BMList' && location.pathname !== '/InfluencerDashboard' && location.pathname === '/InfluencerContent'
+       && location.pathname !== '/PRDashboard'? <Navbarr/> : null} 
 
+
+      {location.pathname === '/AdminDashboard'? <AdminNavbar/> : null}
+
+      {location.pathname === '/PRDashboard'? <PRNavbar/> : null}
+
+      {location.pathname === '/InfluencerDashboard' && location.pathname === '/InfluencerContent' ? <InfluencerNavbar/> : null}
+
+      
 
       <Routes>
         <Route exact path="/" element={<Home/>}/>
@@ -107,11 +120,10 @@ const App = () => {
         <Route exact path="/AdminForgot" element={<AdminForgotPassword/>}/>
         <Route exact path="/AdminReset" element={<AdminResetPassword/>}/>
         <Route exact path="/AdminResetted" element={<AdminResetted/>}/>
-        <Route exact path="/AdminEmailSent" element={<AdminEmailSent/>}/>
-        
-       
-       
-        <Route exact path="/PRList" element={<PRList/>}/>
+        <Route exact path="/AdminEmailSent" element={<AdminEmailSent/>}/>      
+        <Route exact path="/AdminDashboard" element={<AdminDashboard/>}/>  
+
+
         <Route exact path="/NewPRPopup" element={<NewPRPopup/>}/>
         <Route exact path="/PRLogin" element={<PRLogin/>}/>
         <Route exact path="/PRSignup" element={<PRSignup/>}/>
@@ -121,15 +133,18 @@ const App = () => {
         <Route exact path="/PRResetted" element={<PRResetted/>}/>  
         <Route exact path="/BMList" element={<BMList/>}/>
         <Route exact path="/NewBMPopup" element={<NewBMPopup/>}/>
+        <Route exact path="/PRDashboard" element={<PRDashboard/>}/>
 
 
+
+
+        <Route exact path="/InfluencerContent" element={<InfluencerContent/>}/>
         <Route exact path="/InfluencerLogin" element={<InfluencerLogin/>}/>
         <Route exact path="/InfluencerSignup" element={<InfluencerSignup/>}/>
         <Route exact path="/InfluencerRegDetails" element={<InfluencerRegDetails/>}/>
         <Route exact path="/InfluencerRegDetails2" element={<InfluencerRegDetails2/>}/>
         <Route exact path="/InfluencerRegDetails3" element={<InfluencerRegDetails3/>}/>
         <Route exact path="/InfluencerPosts" element={<InfluencerPosts/>}/>
-        <Route exact path="/InfluencerDashboard" element={<InfluencerDashboard/>}/>
         <Route exact path="/InfluencerPendingCampaigns" element={<PendingCampaigns/>}/>
 
         <Route exact path="/Test" element={<Test/>}/>
