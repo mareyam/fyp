@@ -115,13 +115,13 @@ function Navbar() {
           <Button
                 onClick={handleCloseNavMenu}><a href="/PRList" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>PR List</a></Button>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMList" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>BM List</a></Button>
+                onClick={handleCloseNavMenu}><a href="/AdminBMList" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>BM List</a></Button>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMCampaigns" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Campaigns</a></Button>
+                onClick={handleCloseNavMenu}><a href="/AdminCampaigns" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Campaigns</a></Button>
            <Button
-                onClick={handleCloseNavMenu}><a href="/BMRegisteredInfluencers" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Influencers</a></Button>
+                onClick={handleCloseNavMenu}><a href="/AdminRegisteredInfluencers" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Influencers</a></Button>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMHashtags" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Hashtags</a></Button>
+                onClick={handleCloseNavMenu}><a href="/AdminHashtags" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Hashtags</a></Button>
 
           </Box>
           <Box sx={{ flexGrow: 0 }}>

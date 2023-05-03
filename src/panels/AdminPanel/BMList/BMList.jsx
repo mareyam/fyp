@@ -2,10 +2,11 @@ import axios from "axios";
 import React, {useState, useEffect} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
-import NewPRPopup from './NewPRPopup';
-import PRList from './PRList';
+import BM from './BM';
+import NewBMPopup from './NewBMPopup';
+import Navbar from '../Navbar/AdminNavbar.jsx';
 
-const Pagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
+const BMPagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
       pageNumbers.push(i); //number of pages i.e 3
@@ -26,37 +27,37 @@ const Pagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   };
 
 
-const PR = () => {
+const BMList = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(7);
   const [searchValue, setSearchValue] = useState('');
-  const [PR, setPR] = useState(PRList);
+  const [BM, setBM] = useState([]);
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
-   useEffect(() => {
-      axios.get('http://127.0.0.1:8000/pragencys/')
+    useEffect(() => {
+      axios.get('http://127.0.0.1:8000/brandmanagers/')
         .then(response => {
-          setPR(response.data);
+          setBM(response.data);
         })
         .catch(error => {
           console.error(error);
         });
     }, []);
 
-  const handleSearch = (event) => {
+    const handleSearch = (event) => {
     const searchText = event.target.value;
     setSearchValue(searchText);
-    let results = PR;
+    let results = BM;
     if (searchText) {
-      results = PR.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+      results = BM.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
     }
-    setPR(results);
+    setBM(results);
   }
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = PR.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = BM.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
   
@@ -120,10 +121,11 @@ const PR = () => {
 
 return (
   <div>
+    <Navbar/>
   <Container className='mt-1'>
       <Row>
           <Col xs={12} sm={12} md={12} lg={12} className='d-flex'>
-            <h5>PR Agencies</h5>
+            <h5>Brand Managers</h5>
             <div className='addNewPR'>
                   <Button style={{ backgroundColor:'#452c63', height:'30px', marginLeft:'5px' }} onClick={handleOpenPopUp}>
                     <div style={{ marginTop:"-6px" }}>
@@ -144,7 +146,7 @@ return (
                         }}
                         onClick={handleClosePopUp}
                       />
-                      <NewPRPopup onClose={handleClosePopUp} />
+                      <NewBMPopup onClose={handleClosePopUp} />
                     </>
                   )}
             </div>
@@ -156,6 +158,7 @@ return (
                 <tr>
                     <th className="">Name</th>
                     <th className="" scope="col">Email</th>
+                    <th className="" scope="col">Brand Name</th>
                     <th className="" scope="col">Status</th>
                     <th className="" scope="col">Action</th>
                 </tr>
@@ -164,17 +167,20 @@ return (
                         {currentItems.map(item => {
                           return (
                               <tr>
-                                 <TableCell>{item.name}</TableCell>
-                                  <TableCell>{item.email}</TableCell>
-                                  <TableCell>{item.image}</TableCell>                  
+                                
+                                <TableCell>{item.host}</TableCell>
+                                 <TableCell>{item.brandmanager_name}</TableCell>
+                                  <TableCell>{item.brandmanager_email}</TableCell>
+                                  <TableCell>{item.image}</TableCell>
+                                  <TableCell>{item.brandName}</TableCell>
                                    <TableCell><Status status={item.status} /></TableCell>
                                   <TableCell><ActionButton status={item.status}   onClick={() => handleButtonState(item.status)}/></TableCell>                                  
 
                               </tr> )})}                                 
                                  
-                      <Pagintation
+                      <BMPagintation
                           itemsPerPage={itemsPerPage}
-                          totalItems={PR.length}
+                          totalItems={BM.length}
                           paginate={paginate}/>
                 </tbody>      
           </table>
@@ -184,12 +190,12 @@ return (
           </Col>
       </Row>
   </Container>
-  
   </div>
+
 )
 }
 
-export default PR;
+export default BMList;
 
 
 

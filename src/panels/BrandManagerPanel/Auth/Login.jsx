@@ -15,7 +15,11 @@ return (
             <img style={{width: '100%', objectFit:'cover'}}src={authAbstract}/>
           </Col>
           <Col xs={12} sm={12} md={12} lg={6}>
-          <div className='text-left justify-content-center align-center'><h4 className='text-center'>Brand Manager's Login</h4>
+          <div className='text-left justify-content-center align-center'>
+            <h4 className='text-center'>Brand Manager's Login</h4>
+            <div style={{fontSize:'12px'}} className='text-center'>
+                    <label><a href="/BMSignup" style={{textDecoration:'none', color: 'black'}}>Don't have an account? <span style={{color: 'purple', textDecoration:'underline'}}><b>Register now</b></span></a></label>
+            </div>
             <form className="needs-validation" noValidate>
               <Col md="4" className="mb-3">
                 <label htmlFor="validationTooltip01" style={{textAlign:'left'}}>Email</label>
@@ -33,14 +37,15 @@ return (
                 </small> */}
               </Col>
               <Col md="4" className="mb-1">
-                <div style={{fontSize:'10px', textAlign:'end', justifyContent:'right', alignItems:'right'}}>
-                   <label><b><span style={{color: 'purple', textDecoration:'underline'}}>Forgot Password?</span></b></label>
+              <div style={{fontSize:'10px', textAlign:'end', justifyContent:'right', alignItems:'right'}}>
+                   {/* <label><b><span style={{color: 'purple', textDecoration:'underline'}}>Forgot Password?</span></b></label> */}
+                   <label><b><a href="/BMForgot"><span style={{color: 'purple', textDecoration:'underline'}}>Forgot Password?</span></a></b></label>
                 </div>
                 <div style={{fontSize:'10px', textAlign:'center', justifyContent:'center', alignItems:'center'}}>
                    <label>by signing in you agree to our <b><span style={{color: 'purple'}}>terms and conditions</span></b></label>
                 </div>
               </Col>
-              <div className='justify-content-center align-items-center text-center'><button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'200px'}} type="submit">Login</button></div>
+              <div className='justify-content-center align-items-center text-center'><a href='/Home'><button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'200px'}} type="submit">Login</button></a></div>
           </form>
         </div>
           </Col>

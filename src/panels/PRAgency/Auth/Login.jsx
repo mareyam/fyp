@@ -16,6 +16,9 @@ return (
           </Col>
           <Col xs={12} sm={12} md={12} lg={6}>
           <div className='text-left justify-content-center align-center'><h4 className='text-center'>PR Agency's Login</h4>
+          <div style={{fontSize:'12px'}} className='text-center'>
+                    <label><a href="/PRSignup" style={{textDecoration:'none', color: 'black'}}>Don't have an account? <span style={{color: 'purple', textDecoration:'underline'}}><b>Register now</b></span></a></label>
+            </div>
             <form className="needs-validation" noValidate>
               <Col md="4" className="mb-3">
                 <label htmlFor="validationTooltip01" style={{textAlign:'left'}}>Email</label>

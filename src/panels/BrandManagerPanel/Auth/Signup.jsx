@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-grid-system';
 import authAbstract from '../../../images/authAbstract.png';
 
 
-function Login() {
+function Signup() {
 return (
 
   <Container className="mt-5">
@@ -51,9 +51,16 @@ return (
                 </>
             </Col>
             <Col md="4" className="mb-3 text-align-center">
-              <label for="login">Already have an account? <span style={{color: '#452c63' }}><b>Login</b></span></label>
+              <label for="login">Already have an account?
+                 <a href="/BMLogin" >
+                    <span style={{color: '#452c63', textDecoration:'none' }}><b>Login</b>
+                    </span>
+                 </a>
+                </label>
             </Col>
-              <div className='justify-content-center align-items-center text-center'><button className="btn btn-primary " type="submit" style={{backgroundColor:'#452c63', width:'200px'}}>Submit form</button></div>
+              <div className='justify-content-center align-items-center text-center'>
+                <a href='/Home'><button className="btn btn-primary " type="submit" style={{backgroundColor:'#452c63', width:'200px'}}>Register</button>
+                </a></div>
           </form>
         </div>
           </Col>
@@ -66,4 +73,4 @@ return (
 )
 }
 
-export default Login;
+export default Signup;

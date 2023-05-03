@@ -4,8 +4,8 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
 import '../../../Style/BrandManagerPanel/AllCampaigns/AllCampaigns.css';
 import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';
-import { People } from '@mui/icons-material';
-import Navbarr from '../Navbar/Navbarr';
+import { Home, People } from '@mui/icons-material';
+import Test from "../../../Test";
 
 const Pagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];
@@ -28,7 +28,7 @@ const Pagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
 };
 
 
-const AllCampaigns = () => {
+const InactiveCampaigns = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
@@ -36,7 +36,7 @@ const AllCampaigns = () => {
   
   useEffect(() => {
     axios
-      .get('http://127.0.0.1:8000/activecampaigns/')
+      .get('http://127.0.0.1:8000/inactivecampaigns/')
       .then((response) => {
         setCampaigns(response.data);
       })
@@ -80,29 +80,21 @@ const AllCampaigns = () => {
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
-    <div>
-    <Navbarr/>
-    <Container>
+    <Container className='mt-3'>
       <Row>
         <Col xs={8} sm={8} md={12} lg={12}>
-          <div style={{display:"flex"}}><ArrowBack/>
-          <h5 className='campaignHeaderAC' >Campaigns</h5></div>
+          {/* <div style={{display:"flex"}}><ArrowBack/>
+          <h5 className='campaignHeaderAC' >Campaigns</h5></div> */}
 
                 <div className="ms-4 d-lg-flex d-xs-block">
                   <div className="align-item-center"><h6>All Campaigns({campaigns.length})</h6></div>
                   <div className="d-flex">
                       {/* <input  style={{height:"25px"}} placeholder="Search by name &#x1F50D;"/> */}
                        <input style={{height:"25px"}}  type="text" placeholder="search for name &#x1F50D;" value={searchValue} onChange={handleSearch} />
-                        <a href='/BMNewCampaign'>
-                        <Button style={{backgroundColor:'#452c63', height:'30px', marginLeft:'5px'}}>
+                         <a href='/BMAllCampaigns'>
+                         <Button style={{backgroundColor:'#452c63', height:'28px', marginLeft:'5px'}}>
                           <div style={{marginTop:"-6px"}}>
-                            Create<AddIcon style={{fontSize:"12px",height:"25px"}}/>
-                          </div>
-                        </Button></a>
-                         <a href='/BMInactiveCampaigns'>
-                         <Button style={{backgroundColor:'#452c63', height:'30px', marginLeft:'5px'}}>
-                          <div style={{marginTop:"-6px"}}>
-                            <p>Inactive campaigns</p>
+                            <p>Active campaigns</p>
                           </div>
                         </Button></a>
                   </div>
@@ -151,7 +143,6 @@ const AllCampaigns = () => {
       />
       </Row>
     </Container>
-    </div>
   );
 };
 
@@ -203,7 +194,7 @@ const SortButton = ({ handleSort, handleDateSort }) => {
 };
 
 
-export default AllCampaigns;
+export default InactiveCampaigns;
 
 
 

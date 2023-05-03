@@ -9,7 +9,7 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import 'react-input-range/lib/css/index.css';
 import InputRange from 'react-input-range';
 
-import Navbarr from '../Navbar/Navbarr';
+import Navbar from './Navbar/Navbar';
 
 
 const AllCampaigns = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
@@ -177,7 +177,7 @@ console.log(currentData);
 
   return (
     <div>
-      <Navbarr/>
+      <Navbar/>
 
     <Container >
       <Row>

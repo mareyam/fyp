@@ -11,7 +11,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import { isContentEditable } from "@testing-library/user-event/dist/utils";
-// import AllCampaignsList from '../Campaigns/AllCampaignsList';
+import Navbarr from '../Navbar/Navbarr';
 
 const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         const pageNumbers = [];
@@ -83,6 +83,8 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         const paginate = pageNumber => setCurrentPage(pageNumber);
       
   return (
+    <div>
+      <Navbarr/>
     <Container className="mt-2" style={{border:"1px solid rgb(198, 198, 198)"}}>
       <div className='d-lg-flex d-sm-block'>
         <Col xs={12} sm={12} md={2} lg={2} className="mt-4" > 
@@ -186,8 +188,8 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
              </div>
         </Col>
       </div>
-      
     </Container>  
+    </div>
        
   );
 }

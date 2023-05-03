@@ -31,6 +31,11 @@ import AdminForgotPassword from './panels/AdminPanel/Auth/ForgotPassword';
 import AdminEmailSent from './panels/AdminPanel/Auth/EmailSent';
 import AdminResetPassword from './panels/AdminPanel/Auth/ResetPassword';
 import AdminResetted from './panels/AdminPanel/Auth/Resetted';
+import AdminBMList from './panels/AdminPanel/BMList/BMList';
+import AdminRegisteredInfluencers from './panels/AdminPanel/Influencers/RegisteredInfluencers';
+import AdminHashTags from './panels/AdminPanel/Hashtags/HashTags';
+import AdminCampaigns from './panels/AdminPanel/Campaigns/Campaigns';
+
 
 
 import PRList from './panels/AdminPanel/PRList/PR';
@@ -69,28 +74,34 @@ const App = () => {
   const location = useLocation();
   return (
     <div>
-       {location.pathname !== '/' && location.pathname !== '/BMSignup'&& location.pathname !== '/PRSignup' &&  location.pathname !== '/AdminLogin'
+       {location.pathname !== '/BMSignup'&& location.pathname !== '/PRSignup' &&  location.pathname !== '/AdminLogin'
        &&  location.pathname !== '/PRLogin' &&  location.pathname !== '/BMLogin'  &&  location.pathname !== '/BMForgotPassword' 
        && location.pathname !== '/BMResetted' && location.pathname !== '/AdminLogin' && location.pathname !== '/AdminForgotPassword' 
        && location.pathname !== '/AdminReset' && location.pathname !== '/AdminResetted' && location.pathname !== '/AdminEmailSent' 
        && location.pathname !== '/PRLogin' && location.pathname !== '/PRForgot' && location.pathname !== '/PREmailSent' 
        && location.pathname !== '/PRResetPassword' && location.pathname !== '/PRResetted' && location.pathname !== '/InfluencerLogin'
        && location.pathname !== '/InfluencerSignup' && location.pathname !== '/InfluencerRegDetails' && location.pathname !== '/InfluencerRegDetails2'
-       && location.pathname !== '/InfluencerRegDetails3' && location.pathname !== '/AdminDashboard' && location.pathname !== '/BMList' && location.pathname !== '/InfluencerDashboard' && location.pathname === '/InfluencerContent'
+       && location.pathname !== '/InfluencerRegDetails3' && location.pathname !== '/AdminDashboard' && location.pathname === '/BMList' && location.pathname !== '/InfluencerDashboard' && location.pathname === '/InfluencerContent'
        && location.pathname !== '/PRDashboard'? <Navbarr/> : null} 
 
 
-      {location.pathname === '/AdminDashboard'? <AdminNavbar/> : null}
 
+      {location.pathname === '/BMDashboard' &&
+      location.pathname === '/BMCampaigns' &&
+      location.pathname === '/BMInfluencers' &&
+      location.pathname === '/BMContent' &&
+      location.pathname === '/BMHashtags'?  <Navbarr/> : null}
+
+      {location.pathname === '/AdminDashboard' &&
+       location.pathname === '/BMList'
+      ?
+      <AdminNavbar/> : null}
       {location.pathname === '/PRDashboard'? <PRNavbar/> : null}
-
       {location.pathname === '/InfluencerDashboard' && location.pathname === '/InfluencerContent' ? <InfluencerNavbar/> : null}
 
       
-
       <Routes>
         <Route exact path="/" element={<Home/>}/>
-        <Route exact path="/BMList" element={<BMList/>}/>
         <Route exact path="/PRLogin" element={<PRLogin/>}/>
         <Route exact path="/BMDashboard" element={<BrandManagerDashboard/>}/>
         <Route exact path="/BMHashtags" element={<HashTags/>}/>
@@ -109,7 +120,7 @@ const App = () => {
         <Route exact path="/BMLogin" element={<Login/>}/>
         <Route exact path="/BMSignup" element={<Signup/>}/>
         <Route exact path="/BMInfluencerPage" element={<InfluencerPage/>}/>
-        <Route exact path="/BMForgotPassword" element={<ForgotPassword/>}/>
+        <Route exact path="/BMForgot" element={<ForgotPassword/>}/>
         <Route exact path="/BMEmailSent" element={<EmailSent/>}/>  
         <Route exact path="/BMResetPassword" element={<ResetPassword/>}/>  
         <Route exact path="/BMResetted" element={<Resetted/>}/>
@@ -122,7 +133,10 @@ const App = () => {
         <Route exact path="/AdminResetted" element={<AdminResetted/>}/>
         <Route exact path="/AdminEmailSent" element={<AdminEmailSent/>}/>      
         <Route exact path="/AdminDashboard" element={<AdminDashboard/>}/>  
-
+        <Route exact path="/AdminBMList" element={<AdminBMList/>}/>
+        <Route exact path="/AdminRegisteredInfluencers" element={<AdminRegisteredInfluencers/>}/>
+        <Route exact path="/AdminCampaigns" element={<AdminCampaigns/>}/> 
+        <Route exact path="/AdminHashtags" element={<AdminHashTags/>}/>
 
         <Route exact path="/NewPRPopup" element={<NewPRPopup/>}/>
         <Route exact path="/PRLogin" element={<PRLogin/>}/>
