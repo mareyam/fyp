@@ -113,6 +113,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'ezsocuvh',
+#         'USER': 'ezsocuvh',
+#         'PASSWORD': 's5Dx8gM57z3Iq4ULd9T2zVY_QGQz5ZXZ',
+#         'HOST': 'lallah.db.elephantsql.com',
+#         'PORT': '5432',
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

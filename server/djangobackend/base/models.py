@@ -2,21 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.utils import timezone
-
+from django.utils.timezone import now
 
 # Create your models here.
 
-class PRAgency(models.Model):
-    pragency_username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
-    pragency_email = models.EmailField(max_length=254, unique=True, default='')
-    image = models.ImageField(upload_to='images/',  default='')
-    updated = models.DateTimeField(auto_now = True)
-    created = models.DateTimeField(auto_now_add = True)
-    class Meta:
-        ordering = ['-updated', '-created']
-        
-    def __str__(self):
-        return self.pragency_username
 
 class BrandManager(models.Model):   
     host = models.OneToOneField(User, unique=False, on_delete=models.CASCADE, blank=False, null=False)
@@ -114,7 +103,6 @@ class NewInfluencer(models.Model):
     def __str__(self):
         return f"{self.username} {self.age}"
 
-
 class Influencer(models.Model):
     INFLUENCER_INTEREST_CHOICES = (
         ('Fashion', 'Fashion'),
@@ -207,20 +195,38 @@ class NewCampaign(models.Model):
    campaignType_choices = (
         ("Periodic", "Periodic"),
         ("Single", "Single"),
+        ("Both", "Both")
     ) 
    campaign_name =  models.CharField(max_length=50, blank=False, null=False, default='DEFAULT')
    influencers = models.ManyToManyField('Influencer', blank=True)
    budget = models.IntegerField(blank=False, null=False, default=0)
    campaign_type = models.CharField(max_length=20,choices=campaignType_choices, blank=False, null=False, default='DEFAULT')
    hashtag = models.CharField(max_length=50, blank=False, null=False, default='DEFAULT')
-#    updated = models.DateTimeField(default=datetime.now)
-#    created = models.DateTimeField(default=datetime.now)
-   
-#    class Meta:
-#         ordering = ['-updated', '-created']
+   updated = models.DateField(default=now, null=True, blank=True)
+   created = models.DateField(default=now, null=False, blank=False)
+   ended = models.DateField(default=now, null=True, blank=False)
+
+   class Meta:
+        ordering = ['-updated', '-created']
 
    def __str__(self):
-        return self.campaign_name 
+        return self.campaign_name
+    
+   def get_campaign_type_display(self):
+    return dict(self.campaignType_choices)[self.campaign_type]
+
+
+class PRAgency(models.Model):
+    username = models.CharField(max_length=20, unique=True, blank=False, null=False, default='')
+    email = models.EmailField(max_length=254, unique=True, default='')
+    image = models.ImageField(upload_to='images/',  default='')
+    updated = models.DateTimeField(auto_now = True)
+    created = models.DateTimeField(auto_now_add = True)
+    class Meta:
+        ordering = ['-updated', '-created']
+        
+    def __str__(self):
+        return self.username
 
 
 #campaigns
@@ -236,7 +242,6 @@ class CampaignDetailsWithInfluencer(models.Model):
     hashtag = models.OneToOneField(Hashtag, unique=False, blank=False, null=False ,  on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/',  default='')
     
-
 
 
 # class InfluencerCost(models.Model):

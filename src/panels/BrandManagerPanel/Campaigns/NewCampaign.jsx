@@ -1,6 +1,5 @@
 import axios from "axios"
 import {useEffect, useState} from 'react';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import RegisteredInfluencersList from '../Influencers/RegisteredInfluencersList';
@@ -8,10 +7,9 @@ import '../../../Style/BrandManagerPanel/NewCampaigns/newCampaigns.css';
 import { ArrowBack } from '@material-ui/icons';
 import { Card, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
+import moment from 'moment';
 
 const NewCampaign = () => {
-  const [startDate, setStartDate] = useState(new Date("2014/02/08"));
-  const [endDate, setEndDate] = useState(new Date("2014/02/10"));
   const [filteredResults, setFilteredResults] = useState(RegisteredInfluencersList);
   const [selected, setSelected] = useState('single');
   const [isChecked, setIsChecked] = useState(false);
@@ -25,6 +23,7 @@ const NewCampaign = () => {
   const [budget, setBudget] = useState(0);
   const [campaignType, setCampaignType] = useState('');
   const [created, setCreated] = useState('');
+  const [ended, setEnded] = useState('');
   const [hashtag, setHashtag] = useState('');
  
   
@@ -39,6 +38,11 @@ const NewCampaign = () => {
       });
   }, []);
 
+  const handleToggle = (type) => {
+    setCampaignType(type);
+  }
+
+
   const handleCampaignNameChange = (event) => {
     setCampaignName(event.target.value);
   }
@@ -50,6 +54,11 @@ const NewCampaign = () => {
 
   const handleCreated = (event) => {
     setCreated(event.target.value);
+  }
+
+  
+  const handleEnded = (event) => {
+    setEnded(event.target.value);
   }
 
   const handleCampaignType = (event) => {
@@ -71,12 +80,6 @@ const NewCampaign = () => {
       setSelectedInfluencers(selectedInfluencers.filter(selectedInfluencer => selectedInfluencer.id !== influencers.id));
    }
   }
-  
-
-
-  const handleToggle = (value) => {
-    setSelected(value);
-  };
 
   const buttonStyle = {
     backgroundColor: selected === "single" ? "purple" : "white",
@@ -142,7 +145,8 @@ const NewCampaign = () => {
       budget: budget,
       campaign_type: campaignType,
       hashtag: hashtag,
-      // created: created
+      created: moment(created).format('YYYY-MM-DD'),
+      ended: moment(ended).format('YYYY-MM-DD'),
     };
 
     console.log(data);
@@ -161,7 +165,7 @@ const NewCampaign = () => {
         <Col xs={12} sm={12} md={4} lg={4} style={{ height:'auto'}}>
               <div>
                   <label>Select start created</label>
-                  <input type="text" id="created" name="created" value={created} onChange={handleCreated} />
+                  <input type="date" id="created" name="created" value={created} onChange={handleCreated} />
                 </div>
                 <div>
                   <label>create hashtag</label><br/>
@@ -171,13 +175,7 @@ const NewCampaign = () => {
 
         <Col xs={12} sm={12} md={4} lg={4}>
            <div><label>Select end date</label>
-            {/* <DatePicker className='inputNC'
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-              selectsEnd
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}/> */}
+           <input type="date" name="created" value={ended} onChange={handleEnded} />   
               </div>
 
               <div className="" style={{display:"block"}}>
@@ -194,16 +192,50 @@ const NewCampaign = () => {
                 <input className='inputNC' type="text" placeholder="Enter brand"/>
               </div>
 
-        <label>Campaign type:</label>
-        <input type="text" id="campaignType" name="campaignType" value={campaignType} onChange={handleCampaignType} />
+        {/* <label>Campaign type:</label>
+        <input type="text" id="campaignType" name="campaignType" value={campaignType} onChange={handleCampaignType} /> */}
 
         <label htmlFor="campaignName">Campaign Name:</label>
         <input type="text" id="campaignName" name="campaignName" value={campaignName} onChange={handleCampaignNameChange} />
-
-        
-     
-
-                {/* <div className="">
+           {/* <div className="">
+                  <p style={{marginBottom:'0px'}}>Campaign Type</p>
+                    <button
+                      // onChange={handleCampaignType}
+                      value = {campaignType}
+                      onClick={() => handleToggle('single')}
+                      style={{
+                        backgroundColor: selected === 'single' ? '#452c63' : 'white',
+                        color: selected === 'single' ? 'white' : 'black',
+                        width: '110px',
+                        borderRadius:'16px'
+                      }}
+                    >
+                      Single
+                    </button>
+                    <button
+                      onClick={() => handleToggle('periodic')}
+                      style={{
+                        backgroundColor: selected === 'periodic' ? '#452c63' : 'white',
+                        color: selected === 'periodic' ? 'white' : 'black',
+                        width: '110px',
+                        borderRadius:'16px'
+                      }}
+                    >
+                      Periodic
+                    </button>
+                    <button
+                    onClick={() => handleToggle('both')}
+                    style={{
+                      backgroundColor: selected === 'both' ? '#452c63' : 'white',
+                      color: selected === 'both' ? 'white' : 'black',
+                      width: '110px',
+                      borderRadius:'16px'
+                    }}
+                  >
+                    Both
+                  </button>
+                  </div> */}
+                   <div className="">
                   <p style={{marginBottom:'0px'}}>Campaign Type</p>
                     <button
                       onClick={() => handleToggle('single')}
@@ -238,7 +270,8 @@ const NewCampaign = () => {
                   >
                     Both
                   </button>
-                  </div> */}
+                  </div>
+     
         </Col>  
       </Col>
       <div className="mt-3 mb-2 d-lg-flex d-sm-block" style={{justifyContent:'space-between'}}>
