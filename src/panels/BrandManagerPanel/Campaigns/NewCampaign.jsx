@@ -2,7 +2,6 @@ import axios from "axios"
 import {useEffect, useState} from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Container, Row, Col } from 'react-bootstrap';
-import RegisteredInfluencersList from '../Influencers/RegisteredInfluencersList';
 import '../../../Style/BrandManagerPanel/NewCampaigns/newCampaigns.css';
 import { ArrowBack } from '@material-ui/icons';
 import { Card, Button } from 'react-bootstrap';
@@ -10,7 +9,6 @@ import AddIcon from '@mui/icons-material/Add';
 import moment from 'moment';
 
 const NewCampaign = () => {
-  const [filteredResults, setFilteredResults] = useState(RegisteredInfluencersList);
   const [selected, setSelected] = useState('single');
   const [isChecked, setIsChecked] = useState(false);
   const [influencers, setInfluencers] = useState([]);
@@ -18,7 +16,6 @@ const NewCampaign = () => {
   const [storyCost, setStoryCost] = useState(0);
   const [postCost, setPostCost] = useState(0);
   const [campaignName, setCampaignName] = useState('');
-  // const [influencers, setInfluencers] = useState([]);
   const [selectedInfluencers, setSelectedInfluencers] = useState([]);
   const [budget, setBudget] = useState(0);
   const [campaignType, setCampaignType] = useState('');
@@ -82,8 +79,8 @@ const NewCampaign = () => {
   }
 
   const buttonStyle = {
-    backgroundColor: selected === "single" ? "purple" : "white",
-    color: selected === "single" ? "white" : "purple",
+    backgroundColor: selected === "Single" ? "purple" : "white",
+    color: selected === "Single" ? "white" : "purple",
     border: "none",
     padding: "10px 20px",
     borderRadius: "5px",
@@ -271,6 +268,8 @@ const NewCampaign = () => {
                     Both
                   </button>
                   </div>
+
+
      
         </Col>  
       </Col>
