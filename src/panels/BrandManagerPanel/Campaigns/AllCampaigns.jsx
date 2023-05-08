@@ -5,7 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import '../../../Style/BrandManagerPanel/AllCampaigns/AllCampaigns.css';
 import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';
 import { People } from '@mui/icons-material';
-import Navbarr from '../Navbar/Navbarr';
+import Navbarr from '../Navbar/Navbar';
 
 const Pagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];
@@ -81,7 +81,7 @@ const AllCampaigns = () => {
 
   return (
     <div>
-    <Navbarr/>
+    {/* <Navbarr/> */}
     <Container>
       <Row>
         <Col xs={8} sm={8} md={12} lg={12}>

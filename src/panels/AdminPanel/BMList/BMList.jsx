@@ -121,7 +121,7 @@ const BMList = () => {
 
 return (
   <div>
-    <Navbar/>
+    {/* <Navbar/> */}
   <Container className='mt-1'>
       <Row>
           <Col xs={12} sm={12} md={12} lg={12} className='d-flex'>

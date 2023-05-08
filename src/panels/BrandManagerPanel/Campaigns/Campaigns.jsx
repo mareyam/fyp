@@ -49,17 +49,21 @@ const Campaigns = () => {
 
               <Row className='mt-2'>
                   <Col xs={12} sm={12} md={6} lg={7}>
-                      <h3 className='nameC'>{item.name.slice(0, 10)}</h3>
+                      <h3 className='nameC'>{item.campaign_name}</h3>
+                      {/* <h3 className='nameC'>{item.name.slice(0, 10)}</h3> */}
                       <p className='influencersC'><People style={{height:"15px"}}/>{item.influencers.length}</p>                      
                   </Col>
                   <Col xs={12} sm={12} md={6} lg={5} key={item.id}>
-                      <p className="hashtagC">#{item.hashtag_campaign.hashtag}</p>
+                      <p className="hashtagC">#{item.hashtag}</p>
+                      {/* <p className="hashtagC">#{item.hashtag_campaign.hashtag}</p>
+                       */}
                       <p className='typeC' style={{ backgroundColor: item.campaign_type === "Single" ? "#B47EE5" : "green" }}>{item.campaign_type}</p>
 
                   </Col>
                 </Row>
-                <p className='dateC'>{item.start_date}</p>
-                <p className='dateC'>{new Date(item.start_date).toLocaleDateString()}</p>
+                <p className='dateC'>{item.created}</p>
+                
+                {/* <p className='dateC'>{new Date(item.start_date).toLocaleDateString()}</p> */}
                
             </div>
         )})}

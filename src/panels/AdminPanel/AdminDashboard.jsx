@@ -7,7 +7,7 @@ const AdminDashboard = () => {
   return (
     
     <div>
-      <Navbar/>
+      {/* <Navbar/> */}
       <Container className="mt-3">
         <h4 className='header4AD text-left text-sm-left'>Admin DashBoard</h4>
         <PRList/>

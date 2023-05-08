@@ -9,7 +9,7 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import 'react-input-range/lib/css/index.css';
 import InputRange from 'react-input-range';
 
-import Navbarr from '../Navbar/Navbarr';
+import Navbarr from '../Navbar/Navbar';
 
 
 const AllCampaigns = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
@@ -56,7 +56,7 @@ const Pagintation = () => {
 
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/newinfluencers/')
+    axios.get('http://127.0.0.1:8000/influencers/')
       .then(response => {
         setInfluencers(response.data);
         console.log(influencers);
@@ -177,7 +177,7 @@ console.log(currentData);
 
   return (
     <div>
-      <Navbarr/>
+      {/* <Navbarr/> */}
 
     <Container >
       <Row>

@@ -9,7 +9,7 @@ const RegisteredInfluencers = () => {
 
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/newinfluencers/')
+    axios.get('http://127.0.0.1:8000/influencers/')
       .then(response => {
         setInfluencers(response.data);
       })

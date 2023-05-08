@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Campaign , Brand , BrandManager , Influencer , SampleModel, PRAgency, Hashtag, Filter
+from .models import Brand , BrandManager, Hashtag, Influencer, Campaign
 
 
 class CampaignForm(forms.ModelForm):
@@ -9,11 +9,6 @@ class CampaignForm(forms.ModelForm):
         model = Campaign
         fields = '__all__'
 
-class SampleModelForm(ModelForm):
-    class Meta:
-        model = SampleModel
-        fields = '__all__'
-        
 class InfluencerForm(ModelForm):
     class Meta:
         model = Influencer
@@ -29,18 +24,7 @@ class BrandManagerForm(ModelForm):
         model = BrandManager
         fields = '__all__'
 
-class PRAgencyForm(ModelForm):
-    class Meta:
-        model = PRAgency
-        fields = '__all__'
-
 class HashtagForm(ModelForm):
     class Meta:
         model = Hashtag
         fields = '__all__'
-
-class FilterForm(ModelForm):
-    class Meta:
-        model = Filter
-        fields = '__all__'
-

@@ -62,7 +62,7 @@ const Hashtags = () => {
 
   return (
     <div>
-      <Navbar/>
+      {/* <Navbar/> */}
       <Container style={{border:'1px solid rgb(212, 211, 211)'}}>
           <Row>
           <Col xs={8} sm={8} md={12} lg={12}>

@@ -81,7 +81,7 @@ const AllCampaigns = () => {
 
   return (
     <div>
-    <Navbar/>
+    {/* <Navbar/> */}
     <Container>
       <Row>
         <Col xs={8} sm={8} md={12} lg={12}>

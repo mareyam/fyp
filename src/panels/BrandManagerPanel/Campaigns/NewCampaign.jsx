@@ -9,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import moment from 'moment';
 
 const NewCampaign = () => {
-  const [selected, setSelected] = useState('single');
+  const [selected, setSelected] = useState('Single');
   const [isChecked, setIsChecked] = useState(false);
   const [influencers, setInfluencers] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
@@ -22,6 +22,9 @@ const NewCampaign = () => {
   const [created, setCreated] = useState('');
   const [ended, setEnded] = useState('');
   const [hashtag, setHashtag] = useState('');
+  const [selectedButton, setSelectedButton] = useState('Single');
+  const [selectedFile, setSelectedFile] = useState(null);
+
  
   
   useEffect(() => {
@@ -35,10 +38,15 @@ const NewCampaign = () => {
       });
   }, []);
 
-  const handleToggle = (type) => {
-    setCampaignType(type);
-  }
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files);
+  };
+ 
 
+
+  const handleClick = (value) => {
+    setSelectedButton(value);
+  };
 
   const handleCampaignNameChange = (event) => {
     setCampaignName(event.target.value);
@@ -56,10 +64,6 @@ const NewCampaign = () => {
   
   const handleEnded = (event) => {
     setEnded(event.target.value);
-  }
-
-  const handleCampaignType = (event) => {
-    setCampaignType(event.target.value);
   }
 
   const handleHashtag = (event) => {
@@ -136,6 +140,8 @@ const NewCampaign = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const formData = new FormData();
+
     const data = {
       campaign_name: campaignName,
       influencers: selectedInfluencers.map(selectedInfluencer => selectedInfluencer.id),
@@ -144,10 +150,11 @@ const NewCampaign = () => {
       hashtag: hashtag,
       created: moment(created).format('YYYY-MM-DD'),
       ended: moment(ended).format('YYYY-MM-DD'),
+      image: formData.append('image', selectedFile)
     };
 
     console.log(data);
-    axios.post('http://127.0.0.1:8000/newactivecampaigns/', data)
+    axios.post('http://127.0.0.1:8000/activecampaigns/', data)
       .then(response => console.log(response))
       .catch(error => console.log(error));
   }
@@ -189,88 +196,36 @@ const NewCampaign = () => {
                 <input className='inputNC' type="text" placeholder="Enter brand"/>
               </div>
 
-        {/* <label>Campaign type:</label>
-        <input type="text" id="campaignType" name="campaignType" value={campaignType} onChange={handleCampaignType} /> */}
-
         <label htmlFor="campaignName">Campaign Name:</label>
         <input type="text" id="campaignName" name="campaignName" value={campaignName} onChange={handleCampaignNameChange} />
-           {/* <div className="">
-                  <p style={{marginBottom:'0px'}}>Campaign Type</p>
-                    <button
-                      // onChange={handleCampaignType}
-                      value = {campaignType}
-                      onClick={() => handleToggle('single')}
-                      style={{
-                        backgroundColor: selected === 'single' ? '#452c63' : 'white',
-                        color: selected === 'single' ? 'white' : 'black',
-                        width: '110px',
-                        borderRadius:'16px'
-                      }}
-                    >
-                      Single
-                    </button>
-                    <button
-                      onClick={() => handleToggle('periodic')}
-                      style={{
-                        backgroundColor: selected === 'periodic' ? '#452c63' : 'white',
-                        color: selected === 'periodic' ? 'white' : 'black',
-                        width: '110px',
-                        borderRadius:'16px'
-                      }}
-                    >
-                      Periodic
-                    </button>
-                    <button
-                    onClick={() => handleToggle('both')}
-                    style={{
-                      backgroundColor: selected === 'both' ? '#452c63' : 'white',
-                      color: selected === 'both' ? 'white' : 'black',
-                      width: '110px',
-                      borderRadius:'16px'
-                    }}
-                  >
-                    Both
-                  </button>
-                  </div> */}
-                   <div className="">
-                  <p style={{marginBottom:'0px'}}>Campaign Type</p>
-                    <button
-                      onClick={() => handleToggle('single')}
-                      style={{
-                        backgroundColor: selected === 'single' ? '#452c63' : 'white',
-                        color: selected === 'single' ? 'white' : 'black',
-                        width: '110px',
-                        borderRadius:'16px'
-                      }}
-                    >
-                      Single
-                    </button>
-                    <button
-                      onClick={() => handleToggle('periodic')}
-                      style={{
-                        backgroundColor: selected === 'periodic' ? '#452c63' : 'white',
-                        color: selected === 'periodic' ? 'white' : 'black',
-                        width: '110px',
-                        borderRadius:'16px'
-                      }}
-                    >
-                      Periodic
-                    </button>
-                    <button
-                    onClick={() => handleToggle('both')}
-                    style={{
-                      backgroundColor: selected === 'both' ? '#452c63' : 'white',
-                      color: selected === 'both' ? 'white' : 'black',
-                      width: '110px',
-                      borderRadius:'16px'
-                    }}
-                  >
-                    Both
-                  </button>
-                  </div>
-
-
-     
+        
+        <label htmlFor="campaignImage">Campaign image:</label>
+        <input type="file" className="custom-file-input" id="inputGroupFile02" onChange={handleFileChange}/>
+        
+        <div>
+          <button
+            style={{ 
+              backgroundColor: selectedButton === 'Single' ? '#452c63' : 'white',
+              color: selectedButton === 'Single' ? 'white' : 'black',
+              width: '110px',
+              borderRadius:'16px'
+            }}
+            onClick={() => handleClick('Single')}
+          >
+            Single
+          </button>
+          <button
+            style={{ 
+              backgroundColor: selectedButton === 'Periodic' ? '#452c63' : 'white',
+              color: selectedButton === 'Periodic' ? 'white' : 'black',
+              width: '110px',
+              borderRadius:'16px'
+           }}
+            onClick={() => handleClick('Periodic')}
+          >
+            Periodic
+          </button>
+        </div>                     
         </Col>  
       </Col>
       <div className="mt-3 mb-2 d-lg-flex d-sm-block" style={{justifyContent:'space-between'}}>
@@ -315,7 +270,7 @@ const NewCampaign = () => {
             {influencers.map(influencer => (
           <div key={influencer.id}>
             <input type="checkbox" id={influencer.id} name="influencers" value={influencer.id} onChange={(e) => handleCheckboxChange(e, influencer)} />
-            <label htmlFor={influencer.id}>{influencer.influencer_username}</label>
+            <label htmlFor={influencer.id}>{influencer.username}</label>
            
           </div>
         ))}
@@ -343,7 +298,6 @@ const NewCampaign = () => {
 }
 
 export default NewCampaign;
-
 
 
 

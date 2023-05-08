@@ -45,8 +45,8 @@ const HashtagsForDashboard = () => {
                         {campaigns.slice(0,5).map(item => {
                           return (
                               <tr>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="campaignNameHT">{item.name}</p></td>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="campaignNameHT">{item.hashtag_campaign}</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="campaignNameHT">{item.campaign_name}</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="campaignNameHT">{item.hashtag}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="startDateHT">{item.created}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}>
                                     <p className="">{item.usage_count}</p>

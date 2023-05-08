@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import '../../../Style/BrandManagerPanel/brandManagerDashboard/HashTag.css';
 import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';
 import AddIcon from '@mui/icons-material/Add';
-import Navbarr from '../Navbar/Navbarr';
+import Navbarr from '../Navbar/Navbar';
 
 const Pagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];
@@ -62,7 +62,7 @@ const Hashtags = () => {
 
   return (
     <div>
-      <Navbarr/>
+      {/* <Navbarr/> */}
       <Container style={{border:'1px solid rgb(212, 211, 211)'}}>
           <Row>
           <Col xs={8} sm={8} md={12} lg={12}>

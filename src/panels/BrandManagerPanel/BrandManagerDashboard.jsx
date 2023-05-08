@@ -3,13 +3,13 @@ import HashtagsForDashboard from '../BrandManagerPanel/Hashtags/HashTagsForDashb
 import RegisteredInfluencers from '../../panels/BrandManagerPanel/Influencers/RegisteredInfluencers';
 import { Container, Row, Col } from 'react-grid-system';
 import '../../Style/brandmanagerdashboard.css'
-import Navbarr from './Navbar/Navbarr';
+import Navbarr from './Navbar/Navbar';
 
 const App = () => {
   return (
     
     <div>
-      <Navbarr/>
+      {/* <Navbarr/> */}
       <Container className="mt-3">
         <h4 className='header4BMD text-center text-sm-start'>BrandManager DashBoard</h4>
         <Campaigns/>
