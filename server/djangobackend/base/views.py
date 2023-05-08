@@ -4,6 +4,69 @@ from .serializers import BrandManagerSerializer, CampaignSerializer, InfluencerS
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from django.contrib.auth.models import User
+from rest_framework.exceptions import AuthenticationFailed
+from django.shortcuts import render, redirect
+import jwt
+from datetime import datetime
+from rest_framework.views import APIView
+
+        
+
+        
+# class Register(APIView):
+#     def post(self, request):
+#         serializer=UserSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+
+# class Login(APIView):
+#     def post(self, request):
+#         email=request.data.get('email')
+#         password=request.data.get('password')
+
+#         user=User.objects.filter(email=email).first()
+
+#         if user is None:
+#             raise AuthenticationFailed("user does not exist")
+#         if not user.check_password(password):
+#             raise AuthenticationFailed("password is incorrect")
+#         payload={
+#            "id": user.id,
+#             "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+#             "iat": datetime.datetime.utcnow()
+#         }
+#         token = jwt.encode(payload,"secret", algorithm="HS256").decode("utf8")
+#         response=Response()
+#         response.set_cookie(key="jwt", value=token, httponly=True)
+#         return Response({
+#     'jwt': token,
+# })
+#     class User(APIView):
+#         def get(self, request):
+#             token = request.COOKIES.get('jwt')
+#             if not token:
+#                 raise AuthenticationFailed("Unauthenticated token")
+
+#             try:
+#                 payload = jwt.decode(token, "secret", algorithms=["HS256"])
+#             except jwt.ExpiredSignatureError:
+#                 raise AuthenticationFailed("Unauthorized token")
+
+#             user = User.objects.get(id=payload['id'])
+#             serializer = UserSerializer(user)
+#             return Response(serializer.data)
+
+# class Logout(APIView):
+#         def post(self,request):
+#             response=Response()
+#             response.delete_cookie("jwt")
+#             response.data={
+#                 "message": "success",
+#             }
+#             return response
+
 
 @api_view(['GET', 'POST'])
 def active_campaigns(request, format=None):

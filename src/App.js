@@ -76,9 +76,8 @@ const App = () => {
   const location = useLocation();
   return (
     <div> 
-<TestRoutes/>
-
-      {/* <Routes>
+      <Navbar/>
+      <Routes>
         <Route exact path="/" element={<Home/>}/>
         <Route exact path="/BMDashboard" element={<BrandManagerDashboard/>}/>
         <Route exact path="/BMHashtags" element={<HashTags/>}/>
@@ -145,7 +144,7 @@ const App = () => {
         
         <Route path="*" element={<Error404/>}/>
 
-      </Routes> */}
+      </Routes>
   </div>
   );
 }

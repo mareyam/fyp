@@ -10,6 +10,11 @@ urlpatterns = [
    
     path('activecampaigns/', views.active_campaigns),
     path('activecampaignlist/<str:id>/', views.activecampaign_detail),
+
+    # path('api/register/', views.Register),
+    # path('api/login/', views.Login),
+    # path('api/user/', views.User),
+    # path('api/logout/', views.Logout),
     
     path('inactivecampaigns/', views.inactivecampaigns),
     path('inactivecampaignlist/<str:id>/', views.inactivecampaign_detail),

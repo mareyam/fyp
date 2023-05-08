@@ -311,9 +311,9 @@ console.log(currentData);
                           </button></a>
                           <div className="data-item" key={item.name}>
                           <div>Name: {item.username}</div>  
-                          <div>Gender: {item.gender}</div>
+                          {/* <div>Gender: {item.gender}</div>
                           <div>Age: {item.age}</div>
-                          <div>IsParent: {item.isParent}</div>
+                          <div>IsParent: {item.isParent}</div> */}
                         
                           </div>
                         </Card.Text>

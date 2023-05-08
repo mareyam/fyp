@@ -236,14 +236,16 @@ const NewCampaign = () => {
                   Fetch Influencers
           </Button>
        </div>
-           {/* <div className="pickedInfluencers" style={{display: 'flex', flexWrap: "nowrap"}}> 
+           <div className="pickedInfluencers" style={{display: 'flex', flexWrap: "nowrap"}}> 
             {influencers.map((item,index) => {
               return (
                 <Col xs={8} sm={8} md={2} lg={2}>
                   <div className="subContainerNC" style={{overflow:'hidden'}}>
                     <img className='imageNC' src={`http://127.0.0.1:8000/${item.image}`}/>
-                    <p className='nameNC'>{item.influencer_full_name.slice(0, 15)}...</p>
-                    <p className='userNameNC'>@{item.influencer_username}</p>
+                    {/* <p className='nameNC'>{item.influencer_full_name.slice(0, 15)}...</p> */}
+                    <p className='nameNC'>{item.fullname}...</p>
+                    
+                    <p className='userNameNC'>@{item.username}</p>
                     <p className='EngagementRateNC'>Engagement Rate</p>
                    
                     <input
@@ -251,14 +253,14 @@ const NewCampaign = () => {
                       checked={item.story}
                       onChange={(e) => handleInfluencerChangeStory(index, e)}
                     />
-                    <label>Story {item.influencerStoryCost}</label>
+                    <label>Story {item.storycost}</label>
 
                     <input
                       type="checkbox"
                       checked={item.post}
                       onChange={(e) => handleInfluencerChangePost(index, e)}
                     />
-                    <label>Post {item.influencerInfluencerPostCost}</label>
+                    <label>Post {item.postcost}</label>
 
 
 
@@ -266,14 +268,14 @@ const NewCampaign = () => {
                   </div>
                 </Col>
               )})}
-           </div> */}
-            {influencers.map(influencer => (
+           </div>
+            {/* {influencers.map(influencer => (
           <div key={influencer.id}>
             <input type="checkbox" id={influencer.id} name="influencers" value={influencer.id} onChange={(e) => handleCheckboxChange(e, influencer)} />
             <label htmlFor={influencer.id}>{influencer.username}</label>
            
           </div>
-        ))}
+        ))} */}
 
 
            <div className="d-lg-flex justify-content-between align-items-end d-sm-block ">

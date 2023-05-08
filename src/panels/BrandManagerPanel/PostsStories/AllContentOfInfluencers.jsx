@@ -45,7 +45,7 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         };
 
         useEffect(() => {
-          axios.get('http://127.0.0.1:8000/campaigns/')
+          axios.get('http://127.0.0.1:8000/activecampaigns/')
             .then(response => {
               setCampaigns(response.data);
             })
@@ -167,13 +167,13 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
                                     <p style={{fontSize:"12px", marginTop:"-15px"}}>@{item.influencers}</p></div>
                                   </div>
                                   <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
-                                    <b><p style={{fontSize:"10px"}} className='costAS'>cost: Rs.{item.campaign_cost}</p></b>
+                                    <b><p style={{fontSize:"10px"}} className='costAS'>cost: Rs.{item.budget}</p></b>
                                     <a href="/BMCampaignDetails"><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateAS"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Post</p></a>
                                     <a href=""><p style={{fontSize:"10px", marginTop:"-10px"}} className="dateAS"><LaunchIcon style={{fontSize:"11px"}}/>Link to Instagram Profile</p></a>
                                   </div>
                                   <div style={{textAlign:"left", alignItems:"center", justifyContent:"left", width: "auto", marginTop:"30px" }} className="mx-4">
-                                    <b><p style={{fontSize:"10px", marginTop:"5px"}} className="dateAS">date: {item.start_date}</p></b>
-                                    <p style={{fontSize:"10px", marginTop:"-10px"}} className="hashtagAS">hashtag: {item.hashtag_campaign}</p>
+                                    <b><p style={{fontSize:"10px", marginTop:"5px"}} className="dateAS">date: {item.created}</p></b>
+                                    <p style={{fontSize:"10px", marginTop:"-10px"}} className="hashtagAS">hashtag: {item.hashtag}</p>
                                   </div>
                                 </div>
                             </div>

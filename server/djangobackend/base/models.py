@@ -3,9 +3,19 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.utils import timezone
 from django.utils.timezone import now
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
+# class User(AbstractUser):
+#     name=models.CharField(max_length=255)
+#     email=models.EmailField(max_length=255)
+#     password=models.CharField(max_length=255)
+
+#     USERNAME_FIELD=None
+#     REQUIRED_FIELDS=[
+        
+#     ]
 
 class BrandManager(models.Model):   
     host = models.OneToOneField(User, unique=False, on_delete=models.CASCADE, blank=False, null=False)
@@ -144,6 +154,7 @@ class Campaign(models.Model):
    updated = models.DateField(default=now, null=True, blank=True)
    created = models.DateField(default=now, null=False, blank=False)
    ended = models.DateField(default=now, null=True, blank=False)
+   content_type = models.CharField(max_length=20,choices=CONTENT_TYPE, blank=False, null=False, default='Post')
 
    class Meta:
         ordering = ['-updated', '-created']
