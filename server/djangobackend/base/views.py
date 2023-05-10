@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Campaign,  Brand, BrandManager, Hashtag, SubBrand, Influencer
-from .serializers import BrandManagerSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, SubBrandSerializer
+from .models import Campaign,  Brand, BrandManager, Hashtag, SubBrand, Influencer, Interest, ChildAge, ContentType
+from .serializers import ContentTypeSerializer, InterestSerializer, ChildAgeSerializer, BrandManagerSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, SubBrandSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,63 +10,61 @@ from django.shortcuts import render, redirect
 import jwt
 from datetime import datetime
 from rest_framework.views import APIView
+import praw
+from django.conf import settings
+# from rest_framework.decorators import api_view
+# from rest_framework.response import Response
+# from .views import get_reddit_client
 
-        
 
-        
-# class Register(APIView):
-#     def post(self, request):
-#         serializer=UserSerializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
+# def get_reddit_client():
+#     return praw.Reddit(
+#         REDDIT_CLIENT_ID='6wABWkSBiiHlVto8dtuIyw',
+#         REDDIT_CLIENT_SECRET='1_aSQgctipLRJxg1YAnnAvIDdzEbmw',
+#         REDDIT_USER_AGENT='python:Brandsense:v0.0.1 (by /u/General-Ad-2540)'
+#     )
+
+
+# @api_view(['GET', 'POST'])
+# def testapi(request, format=None):
+
+#     reddit = get_reddit_client()
+#     subreddit = reddit.subreddit("python")
+#     posts = subreddit.hot(limit=10)
+
+    
+#     if request.method == 'GET':
+#         posts = reddit.objects.all()
+#         serializer = RedditSerializer(posts, many=True)
 #         return Response(serializer.data)
+    
+#     if request.method == 'POST':
+#         serializer = RedditSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+# @api_view(['GET', 'POST'])
+# def testapi(request, format=None):
+#     # Retrieve the 10 hottest posts from the python subreddit using the PRAW Reddit object
+#     reddit = get_reddit_client()
+#     subreddit = reddit.subreddit("python")
+#     posts = subreddit.hot(limit=10)
 
-# class Login(APIView):
-#     def post(self, request):
-#         email=request.data.get('email')
-#         password=request.data.get('password')
+#     # Store each post in the database if it doesn't already exist
+#     for post in posts:
+#         if not reddit.objects.filter(id=post.id).exists():
+#             reddit.objects.create(
+#                 id=post.id,
+#                 title=post.title,
+#                 url=post.url,
+#                 subreddit=post.subreddit.display_name,
+#                 created_at=post.created_utc,
+#             )
 
-#         user=User.objects.filter(email=email).first()
-
-#         if user is None:
-#             raise AuthenticationFailed("user does not exist")
-#         if not user.check_password(password):
-#             raise AuthenticationFailed("password is incorrect")
-#         payload={
-#            "id": user.id,
-#             "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-#             "iat": datetime.datetime.utcnow()
-#         }
-#         token = jwt.encode(payload,"secret", algorithm="HS256").decode("utf8")
-#         response=Response()
-#         response.set_cookie(key="jwt", value=token, httponly=True)
-#         return Response({
-#     'jwt': token,
-# })
-#     class User(APIView):
-#         def get(self, request):
-#             token = request.COOKIES.get('jwt')
-#             if not token:
-#                 raise AuthenticationFailed("Unauthenticated token")
-
-#             try:
-#                 payload = jwt.decode(token, "secret", algorithms=["HS256"])
-#             except jwt.ExpiredSignatureError:
-#                 raise AuthenticationFailed("Unauthorized token")
-
-#             user = User.objects.get(id=payload['id'])
-#             serializer = UserSerializer(user)
-#             return Response(serializer.data)
-
-# class Logout(APIView):
-#         def post(self,request):
-#             response=Response()
-#             response.delete_cookie("jwt")
-#             response.data={
-#                 "message": "success",
-#             }
-#             return response
-
+#     # Retrieve all RedditPost objects from the database and pass them to the template for display
+#     posts = reddit.objects.all()
+#     return render(request, "index.html", {"posts": posts})
 
 @api_view(['GET', 'POST'])
 def active_campaigns(request, format=None):
@@ -217,6 +215,114 @@ def subbrand_detail(request, id, format=None):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET', 'POST'])
+def interests(request, format=None):
+    if request.method == 'GET':
+     interest = Interest.objects.all()
+     serializer = InterestSerializer(interest, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = InterestSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def interest_detail(request, id, format=None):
+
+    try:
+        interest = Interest.objects.get(pk=id)
+    except Interest.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = InterestSerializer(interest)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = InterestSerializer(interest, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        interest.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def childage(request, format=None):
+    if request.method == 'GET':
+     childage = ChildAge.objects.all()
+     serializer = ChildAgeSerializer(childage, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = ChildAgeSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def childage_detail(request, id, format=None):
+
+    try:
+        childage = ChildAge.objects.get(pk=id)
+    except childage.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ChildAgeSerializer(childage)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = ChildAgeSerializer(childage, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        childage.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def contenttypes(request, format=None):
+    if request.method == 'GET':
+     contentType = ContentType.objects.all()
+     serializer = ContentTypeSerializer(contentType, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = ContentTypeSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def contenttype_detail(request, id, format=None):
+
+    try:
+        contentType = ContentType.objects.get(pk=id)
+    except contentType.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ContentTypeSerializer(contentType)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = ContentTypeSerializer(contentType, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        contentType.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
 def influencers(request, format=None):
     if request.method == 'GET':
      influencer = Influencer.objects.all()
@@ -325,6 +431,62 @@ def hashtag_detail(request, id, format=None):
         hashtag.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+        
+
+        
+# class Register(APIView):
+#     def post(self, request):
+#         serializer=UserSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+
+# class Login(APIView):
+#     def post(self, request):
+#         email=request.data.get('email')
+#         password=request.data.get('password')
+
+#         user=User.objects.filter(email=email).first()
+
+#         if user is None:
+#             raise AuthenticationFailed("user does not exist")
+#         if not user.check_password(password):
+#             raise AuthenticationFailed("password is incorrect")
+#         payload={
+#            "id": user.id,
+#             "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+#             "iat": datetime.datetime.utcnow()
+#         }
+#         token = jwt.encode(payload,"secret", algorithm="HS256").decode("utf8")
+#         response=Response()
+#         response.set_cookie(key="jwt", value=token, httponly=True)
+#         return Response({
+#     'jwt': token,
+# })
+#     class User(APIView):
+#         def get(self, request):
+#             token = request.COOKIES.get('jwt')
+#             if not token:
+#                 raise AuthenticationFailed("Unauthenticated token")
+
+#             try:
+#                 payload = jwt.decode(token, "secret", algorithms=["HS256"])
+#             except jwt.ExpiredSignatureError:
+#                 raise AuthenticationFailed("Unauthorized token")
+
+#             user = User.objects.get(id=payload['id'])
+#             serializer = UserSerializer(user)
+#             return Response(serializer.data)
+
+# class Logout(APIView):
+#         def post(self,request):
+#             response=Response()
+#             response.delete_cookie("jwt")
+#             response.data={
+#                 "message": "success",
+#             }
+#             return response
 
 
 

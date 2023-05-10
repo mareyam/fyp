@@ -6,20 +6,9 @@ from django.utils.timezone import now
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-
-# class User(AbstractUser):
-#     name=models.CharField(max_length=255)
-#     email=models.EmailField(max_length=255)
-#     password=models.CharField(max_length=255)
-
-#     USERNAME_FIELD=None
-#     REQUIRED_FIELDS=[
-        
-#     ]
-
 class BrandManager(models.Model):   
-    host = models.OneToOneField(User, unique=False, on_delete=models.CASCADE, blank=False, null=False)
-    brandmanager_name = models.CharField(max_length=200)
+    # host = models.OneToOneField(User, unique=False, on_delete=models.CASCADE, blank=False, null=False)
+    brandmanager_name = models.CharField(max_length=200, unique=True, blank=False, null=False)
     brandmanager_username = models.CharField(max_length=20, unique=True, blank=False, null=False)
     brandmanager_email = models.EmailField(max_length=254, unique=True, default='')
     updated = models.DateField(default=now, null=False, blank=False)
@@ -32,7 +21,7 @@ class BrandManager(models.Model):
         return self.brandmanager_name
 
 class SubBrand(models.Model):
-    subbrand_name = models.CharField(max_length=20, unique=False, blank=False, null=False)
+    subbrand_name = models.CharField(max_length=20, unique=True, blank=False, null=False)
     updated = models.DateField(default=now, null=False, blank=False)
     created = models.DateField(default=now, null=False, blank=False)
     class Meta:
@@ -43,8 +32,8 @@ class SubBrand(models.Model):
 
 class Brand(models.Model):
     brandmanager_name = models.OneToOneField(BrandManager, on_delete=models.CASCADE, blank=False, null=False)
-    brand_name = models.CharField(max_length=20, unique=False, blank=False, null=False)
-    subbrand_name = models.ForeignKey(SubBrand, unique=True, blank=True, null=True, on_delete=models.CASCADE)
+    brand_name = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    subbrand_name = models.ForeignKey(SubBrand, unique=False, blank=True, null=True, on_delete=models.CASCADE)
     campaigns_count = models.IntegerField(blank=False, null=False)
     updated = models.DateField(default=now, null=False, blank=False)
     created = models.DateField(default=now, null=False, blank=False)
@@ -55,19 +44,40 @@ class Brand(models.Model):
     def __str__(self):
         return self.brand_name
 
-class Influencer(models.Model):
-    INFLUENCER_INTEREST_CHOICES = (
+class Interest(models.Model):
+    INTEREST_CHOICES = [
         ('Fashion', 'Fashion'),
         ('Music', 'Music'),
-         ('Food', 'Food'), 
-         ('Health', 'Health'),
+        ('Food', 'Food'), 
+        ('Health', 'Health'),
         ('Gaming', 'Gaming'),
         ('Dance', 'Dance'),
         ('Entertainment', 'Entertainment'),
         ('Family', 'Family'),
-         ('Kids', 'Kids'),
-    )
+        ('Kids', 'Kids'),
+        ('Other', 'Other')
+    ]
+    name = models.CharField(max_length=200, choices=INTEREST_CHOICES)
 
+    def __str__(self):
+        return self.name
+    
+class ChildAge(models.Model):
+    CHILD_AGE = [
+        ('toddler','toddler'),
+        ('preschooler','preschooler'),
+        ('elementary','elementary'),
+        ('teen','teen'),
+        ('adult','adult'),
+        ('None','None')
+    ]
+    name = models.CharField(max_length=200, choices=CHILD_AGE)
+
+    def __str__(self):
+        return self.name
+    
+
+class Influencer(models.Model):
     GENDER = (
         ('Male', 'Male'),
         ('Female', 'Female'),
@@ -79,27 +89,18 @@ class Influencer(models.Model):
         ("No","No"),
     )
 
-    
-    CHILD_AGE = (
-        ("toddler","toddler"),
-        ("preschooler","preschooler"),
-        ("elementary","elementary"),
-        ("teen","teen"),
-        ("adult","adult"),
-    )
-
     image = models.ImageField(upload_to='images/', default='')
-    username = models.CharField(max_length=20, unique=False)
-    fullname = models.CharField(max_length=200)
+    username = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    fullname = models.CharField(max_length=200, blank=False, null=False)
     gender = models.CharField(max_length=20,choices=GENDER, blank=False, null=False, default='')
-    age = models.IntegerField(blank=True, null=True)
-    followers = models.IntegerField(blank=True, null=True)
+    age = models.IntegerField(blank=False, null=False, default=0)
+    followers = models.IntegerField(blank=False, null=False, default=0)
     postcost = models.IntegerField(blank=False, null=False, default=0)
     storycost = models.IntegerField(blank=False, null=False , default=0)
     isparent = models.CharField(max_length=20,choices=ISPARENT, blank=False, null=False, default="No")
-    children_count = models.IntegerField(blank=True, null=True)
-    children_age = models.CharField(max_length=20,choices=CHILD_AGE, blank=True, null=True)
-    interests = models.CharField(max_length=20,choices=INFLUENCER_INTEREST_CHOICES, blank=False, null=False, default="")
+    children_count = models.IntegerField(blank=True, null=True, default=0)
+    children_age = models.ManyToManyField('ChildAge', blank=False, default='None')
+    interests = models.ManyToManyField('Interest', blank=False, default='Other')
     brandmanager = models.ForeignKey(BrandManager, on_delete=models.CASCADE, null=True, unique=False)
     created = models.DateField(default=now, null=False, blank=False)
     updated = models.DateField(default=now, null=False, blank=False)
@@ -125,37 +126,41 @@ class Hashtag(models.Model):
     def __str__(self):
         return self.hashtag
     
+class ContentType(models.Model):
+    CONTENT_TYPE = (
+            ("Post", "Post"),
+            ("Story", "Story"),
+            ("Both", "Both"),
+    )
+    
+    name = models.CharField(max_length=200, choices=CONTENT_TYPE)
+    def __str__(self):
+        return self.name
+    
+
 class Campaign(models.Model):   
    CAMPAIGN_TYPE = (
         ("Periodic", "Periodic"),
         ("Single", "Single"),
         ("Both", "Both")
     ) 
-
    CAMPAIGN_STATUS = (
         ("Active", "Active"),
         ("Inactive", "Inactive"),
         ("Completed", "Completed"),
     )
-
-   CONTENT_TYPE = (
-        ("Post", "Post"),
-        ("Story", "Story"),
-        ("Both", "Both"),
-   )
-
    image = models.ImageField(upload_to='images/', default='')
    brand_manager = models.ForeignKey(BrandManager, on_delete=models.CASCADE, null=True)
-   campaign_name =  models.CharField(max_length=50, blank=False, null=False, default='DEFAULT')
+   campaign_name =  models.CharField(max_length=50, blank=False, null=False, default='', unique=True)
    influencers = models.ManyToManyField('Influencer', blank=True)
    budget = models.IntegerField(blank=False, null=False, default=0)
-   campaign_type = models.CharField(max_length=20,choices=CAMPAIGN_TYPE, blank=False, null=False, default='DEFAULT')
-   hashtag = models.CharField(max_length=50, blank=False, null=False, default='DEFAULT')
+   campaign_type = models.CharField(max_length=20,choices=CAMPAIGN_TYPE, blank=False, null=False, default='Periodic')
+   hashtag = models.CharField(max_length=50, blank=False, null=False, default='')
    updated = models.DateField(default=now, null=True, blank=True)
+   content_type = models.ManyToManyField('ContentType', blank=False, null=False, default='Post')
    created = models.DateField(default=now, null=False, blank=False)
    ended = models.DateField(default=now, null=True, blank=False)
-   content_type = models.CharField(max_length=20,choices=CONTENT_TYPE, blank=False, null=False, default='Post')
-
+   
    class Meta:
         ordering = ['-updated', '-created']
 

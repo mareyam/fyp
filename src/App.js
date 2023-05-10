@@ -6,7 +6,7 @@ import AllCampaigns from './panels/BrandManagerPanel/Campaigns/AllCampaigns';
 import InactiveCampaigns from './panels/BrandManagerPanel/Campaigns/InactiveCampaigns';
 import Navbar from './panels/BrandManagerPanel/Navbar/Navbar';
 import AllRegisteredInfluencers from './panels/BrandManagerPanel/Influencers/AllRegisteredInfluencers';
-import {Route, Routes} from 'react-router-dom';
+import {Route, Routes, Router} from 'react-router-dom';
 import HashTags from './panels/BrandManagerPanel/Hashtags/HashTags';
 import AllContent from './panels/BrandManagerPanel/PostsStories/AllContentOfInfluencers';
 import CampaignDetails from './panels/BrandManagerPanel/Campaigns/CampaignDetails';
@@ -74,11 +74,13 @@ import Error404 from './panels/Error404';
 const App = () => {
   const location = useLocation();
   return (
-    <div> 
-      <BrandManagerRoutes/>
-      <PRAgencyRoutes/>
-      <InfluencerRoutes/>
-      <AdminRoutes/>
+    <div>   
+    
+        <BrandManagerRoutes/>
+        <PRAgencyRoutes/>
+        <InfluencerRoutes/>
+        <AdminRoutes/>
+      
       {/* <Navbar/>
       <Routes>
         <Route exact path="/" element={<Home/>}/>

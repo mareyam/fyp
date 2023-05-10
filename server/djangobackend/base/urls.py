@@ -16,11 +16,24 @@ urlpatterns = [
     # path('api/user/', views.User),
     # path('api/logout/', views.Logout),
     
+    
+    # path('testapi/', views.testapi),
+
     path('inactivecampaigns/', views.inactivecampaigns),
     path('inactivecampaignlist/<str:id>/', views.inactivecampaign_detail),
 
     path('brandmanagers/', views.brandmanagers),
     path('brandmanager/<str:id>/', views.brandmanager_detail),
+
+    path('interests/', views.interests),
+    path('interest/<str:id>/', views.interest_detail),
+
+    path('contenttypes/', views.contenttypes),
+    path('contenttype/<str:id>/', views.contenttype_detail),
+
+
+    path('childages/', views.childage),
+    path('childage/<str:id>/', views.childage_detail),
 
     path('influencers/', views.influencers),
     path('influencer/<str:id>/', views.influencer_detail),

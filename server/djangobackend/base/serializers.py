@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import BrandManager, Influencer, Brand, Hashtag,  User, SubBrand, Campaign
+from .models import BrandManager, Influencer, Brand, Hashtag, SubBrand, Campaign, Interest, ChildAge, ContentType
 
 
 # class UserSerializer(serializers.ModelSerializer):
@@ -30,7 +30,15 @@ class InfluencerSerializer(serializers.ModelSerializer):
         model = Influencer
         fields = "__all__"
 
- 
+class InterestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Interest
+        fields = "__all__"
+
+class ChildAgeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChildAge
+        fields = "__all__"
         
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
@@ -51,6 +59,12 @@ class HashtagSerializer(serializers.ModelSerializer):
     # brand = BrandNameSerializer()
     class Meta:
         model = Hashtag
+        fields = "__all__"
+    
+
+class ContentTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContentType
         fields = "__all__"
 
 # class UserSerializer(serializers.ModelSerializer):
