@@ -63,12 +63,11 @@ import InfluencerContent from './panels/InfluencerPanel/PostsStories/InfluencerC
 
 import PendingCampaigns from './panels/InfluencerPanel/Campaigns/PendingCampaigns';
 
-import Home from './Home';
-import Test from './Test';
-import Test2 from './Test2';
-import Test3 from './Test3';
 
-import TestRoutes from './Routes/TestRoutes';
+import BrandManagerRoutes from './Routes/BrandManagerRoutes';
+import AdminRoutes from './Routes/AdminRoutes';
+import InfluencerRoutes from './Routes/InfluencerRoutes';
+import PRAgencyRoutes from './Routes/PRAgencyRoutes';
 
 import Error404 from './panels/Error404';
 
@@ -76,7 +75,11 @@ const App = () => {
   const location = useLocation();
   return (
     <div> 
-      <Navbar/>
+      <BrandManagerRoutes/>
+      <PRAgencyRoutes/>
+      <InfluencerRoutes/>
+      <AdminRoutes/>
+      {/* <Navbar/>
       <Routes>
         <Route exact path="/" element={<Home/>}/>
         <Route exact path="/BMDashboard" element={<BrandManagerDashboard/>}/>
@@ -144,7 +147,7 @@ const App = () => {
         
         <Route path="*" element={<Error404/>}/>
 
-      </Routes>
+      </Routes> */}
   </div>
   );
 }
