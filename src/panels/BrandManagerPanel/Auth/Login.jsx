@@ -6,6 +6,9 @@ import authAbstract from '../../../images/authAbstract.png';
 
 
 function Login() {
+  const onClick = (path) => {
+    window.location.href = path;
+};
 return (
 
   <Container className='mt-5'>
@@ -45,7 +48,10 @@ return (
                    <label>by signing in you agree to our <b><span style={{color: 'purple'}}>terms and conditions</span></b></label>
                 </div>
               </Col>
-              <div className='justify-content-center align-items-center text-center'><a href='/Home'><button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'200px'}} type="submit">Login</button></a></div>
+              <div className='justify-content-center align-items-center text-center'>
+                <button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'200px'}} type="button" onClick={() => onClick("/BMDashboard")}>Submit form
+                </button>
+              </div>
           </form>
         </div>
           </Col>

@@ -2,13 +2,13 @@
 import { useLocation } from 'react-router-dom';
 import {Route, Routes} from 'react-router-dom';
 
+import Home from '../Home';
 
 import BrandManagerDashboard from '../panels/BrandManagerPanel/BrandManagerDashboard';
 import AllCampaigns from '../panels/BrandManagerPanel/Campaigns/AllCampaigns';
 import InactiveCampaigns from '../panels/BrandManagerPanel/Campaigns/InactiveCampaigns';
 import Navbar from '../panels/BrandManagerPanel/Navbar/Navbar';
 import AllRegisteredInfluencers from '../panels/BrandManagerPanel/Influencers/AllRegisteredInfluencers';
-
 import HashTags from '../panels/BrandManagerPanel/Hashtags/HashTags';
 import AllContent from '../panels/BrandManagerPanel/PostsStories/AllContentOfInfluencers';
 import CampaignDetails from '../panels/BrandManagerPanel/Campaigns/CampaignDetails';
@@ -27,6 +27,8 @@ import ResetPassword from '../panels/BrandManagerPanel/Auth/ResetPassword';
 import Resetted from '../panels/BrandManagerPanel/Auth/Resetted';
 
 import Error404 from '../panels/Error404';
+import Test from '../Test';
+
 
 const BrandManagerRoutes  = () => {
   const location = useLocation();
@@ -39,6 +41,8 @@ const BrandManagerRoutes  = () => {
         &&  location.pathname === '/BMInfluencerPDF' ? <Navbar/> : null}
 
        <Routes>
+        <Route exact path="/" element={<Home/>} />
+        <Route exact path="/Test" element={<Test/>} />
         <Route exact path="/BMDashboard" element={<BrandManagerDashboard/>}/>
         <Route exact path="/BMHashtags" element={<HashTags/>}/>
         <Route exact path="/BMAllContent" element={<AllContent/>}/>

@@ -12,63 +12,131 @@ import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutl
 
 
 function InfluencerRegDetails() {
-return (
-
-  <Container className="mt-5">
-      <Row className="d-lg-mt-5">
-        <div className='d-lg-flex d-sm-block' style={{justifyContent:'center', alignItems:"center"}}>
-          <Col xs={12} sm={12} md={12} lg={6}>
-            <img style={{width: '100%', objectFit:'cover'}}src={authAbstract} />
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={6}>
-          <div className='text-left justify-content-center align-center d-lg-mt-5'><h4 className='text-center'>Welcome to Brand Sense, Ali Zafar</h4>
-           <h6 className='text-center'>to get started, tell us about yourself.</h6>
-
-            <form className="needs-validation" noValidate>
-            <Col xs={12} sm={12} md={12} lg={6} className='mb-3'>
-              <b><label htmlFor="validationTooltip01" style={{textAlign:'left'}}>Full Name</label></b>
-                <input type="text" className="form-control" id="validationTooltip01" placeholder="Ali Zafar" name="text" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}></input>
-                <div className="valid-tooltip">
-                  Looks good!
+  const onClick = (path) => {
+    window.location.href = path;
+};
+  return (
+  
+    <Container className="mt-5">
+        <Row className="d-lg-mt-5">
+          <div className='d-lg-flex d-sm-block' style={{justifyContent:'', alignItems:""}}>
+            <Col xs={12} sm={12} md={12} lg={6}>
+              <img style={{width: '100%', objectFit:'cover'}}src={authAbstract} />
+            </Col>
+            <Col xs={12} sm={12} md={12} lg={6}>
+            <div className='text-left justify-content-center align-center d-lg-mt-5'><h4 className='text-center'> 1 Welcome to Brand Sense, Ali Zafar</h4>
+             <h6 className='text-center'>to get started, tell us about yourself.</h6>
+  
+             <form className="needs-validation" noValidate>
+             <Col xs={12} sm={12} md={12} lg={6} className=''>
+               <b><label htmlFor="validationTooltip01" style={{textAlign:'left'}}>Full Name</label></b>
+                 <input type="text" className="form-control" id="validationTooltip01" placeholder="Ali Zafar" name="text" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}></input>
+                 <div className="valid-tooltip">
+                   Looks good!
                 </div>
-              </Col>
-              <Col md="4" className="mb-3 ">
-                <b><label htmlFor="validationTooltip01" style={{textAlign:'left'}}>Username</label></b>
+               </Col>
+               <Col md="4" className="mb-3 ">
+                 <b><label htmlFor="validationTooltip01" style={{textAlign:'left'}}>Username</label></b>
                 {/* <input type="text" className="form-control" id="validationTooltip01" placeholder="Email" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}/> */}
-                <input type="text" className="form-control" id="validationTooltip01" placeholder="@alizafar" name="text" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}></input>
-                <div className="valid-tooltip">
-                  Looks good!
-                </div>
-              </Col>
+                 <input type="text" className="form-control" id="validationTooltip01" placeholder="@alizafar" name="text" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}></input>
+                 <div className="valid-tooltip">
+                   Looks good!
+                 </div>
+               </Col>
               
-              <Col md="4" className="mb-3">
-                <b><label htmlFor="validationTooltip01" style={{textAlign:'left'}}>About you</label></b>
-                {/* <input type="text" className="form-control" id="validationTooltip01" placeholder="Email" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}/> */}
-                <input type="text" className="form-control" id="validationTooltip01" placeholder="Signer, actor, songwriter, social worker" name="text" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}></input>
-                <div className="valid-tooltip">
-                  Looks good!
-                </div>
-              </Col>
+               <Col md="4" className="">
+                 <b><label htmlFor="validationTooltip01" style={{textAlign:'left'}}>About you</label></b>
+                 {/* <input type="text" className="form-control" id="validationTooltip01" placeholder="Email" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}/> */}
+                 <input type="text" className="form-control" id="validationTooltip01" placeholder="Signer, actor, songwriter, social worker" name="text" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}></input>
+                 <div className="valid-tooltip">
+                   Looks good!
+                 </div>
+               </Col>
 
-              <Col md="4" className="mb-3">
-                <b><label>Genre</label></b>
-                 <App/>
-              </Col>
+               <Col md="4" className="">
+                 <b><label>Genre</label></b>
+                  <App/>
+               </Col>
              
-            <div className='justify-content-center align-items-center text-center'>
-              <a href="/InfluencerRegDetails2" style={{textDecoration:"none"}}>
-              <button type="button" className="btn btn-primary" style={{backgroundColor:'#452c63', width:'200px'}}>Next</button></a></div>
-          </form>
-        </div>
-          </Col>
-        </div>
-      </Row>
-     
-  </Container>
-)
-}
+             <Col md='4'>
+               {/* <button type="button" className="btn btn-primary" style={{backgroundColor:'#452c63', width:'200px'}}>Next</button */}
+               <button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'250px'}} type="button" onClick={() => onClick('InfluencerRegDetails2')}>Next</button>
+              </Col>
+           </form>
 
-export default InfluencerRegDetails;
+          </div>
+            </Col>
+          </div>
+        </Row>
+       
+    </Container>
+    
+  
+  )
+  }
+  
+  export default InfluencerRegDetails;
+
+  
+
+// function InfluencerRegDetails() {
+// return (
+
+//   <Container className="mt-5">
+//       <Row className="d-lg-mt-5">
+//         <div className='d-lg-flex d-sm-block' style={{justifyContent:'center', alignItems:"center"}}>
+//           <Col xs={12} sm={12} md={12} lg={6}>
+//             <img style={{width: '100%', objectFit:'cover'}}src={authAbstract} />
+//           </Col>
+//           <Col xs={12} sm={12} md={12} lg={6}>
+//           <div className='text-left justify-content-center align-center d-lg-mt-5'><h4 className='text-center'>Welcome to Brand Sense, Ali Zafar</h4>
+//            <h6 className='text-center'>to get started, tell us about yourself.</h6>
+
+//             <form className="needs-validation" noValidate>
+//             <Col xs={12} sm={12} md={12} lg={6} className='mb-3'>
+//               <b><label htmlFor="validationTooltip01" style={{textAlign:'left'}}>Full Name</label></b>
+//                 <input type="text" className="form-control" id="validationTooltip01" placeholder="Ali Zafar" name="text" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}></input>
+//                 <div className="valid-tooltip">
+//                   Looks good!
+//                 </div>
+//               </Col>
+//               <Col md="4" className="mb-3 ">
+//                 <b><label htmlFor="validationTooltip01" style={{textAlign:'left'}}>Username</label></b>
+//                 {/* <input type="text" className="form-control" id="validationTooltip01" placeholder="Email" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}/> */}
+//                 <input type="text" className="form-control" id="validationTooltip01" placeholder="@alizafar" name="text" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}></input>
+//                 <div className="valid-tooltip">
+//                   Looks good!
+//                 </div>
+//               </Col>
+              
+//               <Col md="4" className="mb-3">
+//                 <b><label htmlFor="validationTooltip01" style={{textAlign:'left'}}>About you</label></b>
+//                 {/* <input type="text" className="form-control" id="validationTooltip01" placeholder="Email" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}/> */}
+//                 <input type="text" className="form-control" id="validationTooltip01" placeholder="Signer, actor, songwriter, social worker" name="text" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}></input>
+//                 <div className="valid-tooltip">
+//                   Looks good!
+//                 </div>
+//               </Col>
+
+//               <Col md="4" className="">
+//                 <b><label>Genre</label></b>
+//                  <App/>
+//               </Col>
+             
+//             <div className=''>
+//               <a href="/InfluencerRegDetails2" style={{textDecoration:"none"}}>
+//               <button type="button" className="btn btn-primary" style={{backgroundColor:'#452c63', width:'200px'}}>Next</button></a></div>
+//           </form>
+//         </div>
+//           </Col>
+//         </div>
+//       </Row>
+     
+//   </Container>
+// )
+// }
+
+// export default InfluencerRegDetails;
 
 
 

@@ -35,6 +35,7 @@ const Home = () => {
                 <Button label="Admin" type="button" onClick={() => onClick("/AdminLogin")}/>
                 <Button label="PR Agency" type="button" onClick={() => onClick("/PRSignup")}/>
                 <Button label="Brand Manager" type="button" onClick={() => onClick("/BMSignup")}/>
+                <Button className='mt-4' label="Influencer" type="button" onClick={() => onClick("/InfluencerSignup")}/>
             </Col>
         </Row>
     </Container>);

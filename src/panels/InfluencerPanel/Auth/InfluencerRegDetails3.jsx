@@ -6,6 +6,9 @@ import 'react-input-range/lib/css/index.css';
 import InputRange from 'react-input-range';
 
 function InfluencerRegDetails() {
+  const onClick = (path) => {
+    window.location.href = path;
+};
 return (
 
   <Container className="mt-5">
@@ -28,9 +31,9 @@ return (
               <button type="button" className="btn btn-primary" style={{backgroundColor:'#452c63', width:'200px'}}>Back</button></a></div>
 
               <div className='justify-content-center align-items-center text-center'>
-              <a href="/InfluencerDashboard" style={{textDecoration:"none"}}>
-              <button type="submit" className="btn btn-primary" style={{backgroundColor:'#452c63', width:'200px'}}>Submit</button></a></div>
-
+              {/* <a href="/InfluencerDashboard" style={{textDecoration:"none"}}>
+              <button type="" className="btn btn-primary" style={{backgroundColor:'#452c63', width:'200px'}}>Submit</button></a></div> */}
+              <button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'20px'}} type="button" onClick={() => onClick('InfluencerLogin')}>Submit</button></div>
           </form>
         </div>
           </Col>

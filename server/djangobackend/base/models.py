@@ -149,17 +149,17 @@ class Campaign(models.Model):
         ("Inactive", "Inactive"),
         ("Completed", "Completed"),
     )
-   image = models.ImageField(upload_to='images/', default='')
-   brand_manager = models.ForeignKey(BrandManager, on_delete=models.CASCADE, null=True)
+   image = models.ImageField(upload_to='images/', default='', blank=True, null=True)
+   brand_manager = models.ForeignKey(BrandManager, on_delete=models.CASCADE, null=True, blank=True, default='')
    campaign_name =  models.CharField(max_length=50, blank=False, null=False, default='', unique=True)
-   influencers = models.ManyToManyField('Influencer', blank=True)
+   influencers = models.ManyToManyField('Influencer', blank=True, null=True,  default='')
    budget = models.IntegerField(blank=False, null=False, default=0)
-   campaign_type = models.CharField(max_length=20,choices=CAMPAIGN_TYPE, blank=False, null=False, default='Periodic')
-   hashtag = models.CharField(max_length=50, blank=False, null=False, default='')
+   campaign_type = models.CharField(max_length=20,choices=CAMPAIGN_TYPE, blank=True, null=True, default='Periodic')
+   hashtag = models.CharField(max_length=50, blank=True, null=True, default='')
    updated = models.DateField(default=now, null=True, blank=True)
-   content_type = models.ManyToManyField('ContentType', blank=False, null=False, default='Post')
+   content_type = models.ManyToManyField('ContentType', blank=True, null=True, default='Post')
    created = models.DateField(default=now, null=False, blank=False)
-   ended = models.DateField(default=now, null=True, blank=False)
+   ended = models.DateField(default=now, null=False, blank=False)
    
    class Meta:
         ordering = ['-updated', '-created']
@@ -167,8 +167,8 @@ class Campaign(models.Model):
    def __str__(self):
         return self.campaign_name
     
-   def get_campaign_type_display(self):
-    return dict(self.campaignType_choices)[self.campaign_type]
+#    def get_campaign_type_display(self):
+#     return dict(self.campaignType_choices)[self.campaign_type]
 
 #campaigns
     

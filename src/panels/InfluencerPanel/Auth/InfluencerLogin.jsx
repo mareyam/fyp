@@ -7,6 +7,9 @@ import insta from '../../../images/insta.png';
 
 
 function InfluencerLogin() {
+  const onClick = (path) => {
+    window.location.href = path;
+};
 return (
 
   <Container className='mt-5'>
@@ -22,7 +25,8 @@ return (
               
               <Col md="4" className="mb-1">
               <div className='justify-content-center align-items-center text-center'>
-                  <button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'250px'}} type="submit">
+                  {/* <button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'250px'}} type="buton"> */}
+                  <button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'200px'}} type="button" onClick={() => onClick('InfluencerDashboard')}>
                       <img src={insta} width='20px' height='20px' style={{borderRadius: '35%'}} />Login using Instagram
                   </button>
                 </div>

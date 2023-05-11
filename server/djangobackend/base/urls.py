@@ -17,7 +17,7 @@ urlpatterns = [
     # path('api/logout/', views.Logout),
     
     
-    # path('testapi/', views.testapi),
+    path('testapi/', views.testapi),
 
     path('inactivecampaigns/', views.inactivecampaigns),
     path('inactivecampaignlist/<str:id>/', views.inactivecampaign_detail),

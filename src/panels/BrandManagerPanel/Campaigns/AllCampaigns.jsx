@@ -34,16 +34,47 @@ const AllCampaigns = () => {
   const [searchValue, setSearchValue] = useState('');
   const [campaigns, setCampaigns] = useState([]);
   
-  useEffect(() => {
-    axios
-      .get('http://127.0.0.1:8000/activecampaigns/')
-      .then((response) => {
-        setCampaigns(response.data);
-      })
-      .catch((error) => {
+  // useEffect(() => {
+  //   axios
+  //     .get('http://127.0.0.1:8000/activecampaigns/')
+  //     .then((response) => {
+  //       setCampaigns(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
+
+    useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'https://oauth.reddit.com/r/apple/new.json?limit=100&fields=title',
+          {
+            headers: {
+              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjgzODczNjkxLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLWVtd3pzUTF0bU8wNDB0eTNUdWNFVXp6aHlSOEd2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.w7nl8ztozL6pxxj-YJDN8eQbRmqkE5gxOJudvRkGcuPFGvQUJ9g4ZO2AI-XTyyNVvuhIlyzFqWIuuyKrfkMMxviG_7nhxwRNM531JB5wpCwmBQujK2Fuszo24m3lllMflBqZQJcuQh00YL0zKrjH9086mln0Njq0fYzl8cuInQOtgG4p7eebQ2pflk4b5M6OR5e0_PrZz0LI0d_YoDBzgjKMUO_y-UOguo1cH7pHcJ3-BJlFxFZq-wXd_kj7WPr8MiKYMDwIuu8721c2ePuFnoBt0Ve0rtQpxocMIo7kgmBttti5cTeU3u-TawmrW0Qdv25ltmSdybpP8l60A39srA',
+              'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
+            }
+          }
+        );
+      
+        const jsonData = response.data.data.children;
+        const postsArray = jsonData.map((post) => ({
+          title: post.data.title,
+          image: post.data.thumbnail,
+          likes: post.data.ups,
+          comments: post.data.num_comments
+        }));
+        setCampaigns(postsArray);
+
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+    fetchData();
   }, []);
+
+
 
   const handleSort = (order) => {
     const sorted = [...campaigns].sort((a, b) =>

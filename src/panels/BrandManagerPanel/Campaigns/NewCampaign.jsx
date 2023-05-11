@@ -140,17 +140,15 @@ const NewCampaign = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData();
-
-    const data = {
+      const data = {
       campaign_name: campaignName,
       influencers: selectedInfluencers.map(selectedInfluencer => selectedInfluencer.id),
       budget: budget,
       campaign_type: campaignType,
       hashtag: hashtag,
       created: moment(created).format('YYYY-MM-DD'),
-      ended: moment(ended).format('YYYY-MM-DD'),
-      image: formData.append('image', selectedFile)
+      ended: moment(ended).format('YYYY-MM-DD')
+      // image: formData.append('image', selectedFile)
     };
 
     console.log(data);
@@ -241,6 +239,7 @@ const NewCampaign = () => {
               return (
                 <Col xs={8} sm={8} md={2} lg={2}>
                   <div className="subContainerNC" style={{overflow:'hidden'}}>
+                    <input type="checkbox" id={item.id} name="influencers" value={item.id} onChange={(e) => handleCheckboxChange(e, item)} />
                     <img className='imageNC' src={`http://127.0.0.1:8000/${item.image}`}/>
                     {/* <p className='nameNC'>{item.influencer_full_name.slice(0, 15)}...</p> */}
                     <p className='nameNC'>{item.fullname}...</p>
@@ -261,10 +260,7 @@ const NewCampaign = () => {
                       onChange={(e) => handleInfluencerChangePost(index, e)}
                     />
                     <label>Post {item.postcost}</label>
-
-
-
-                    <button style={{backgroundColor:'red', borderRadius:'50%'}} onClick={() => removeInfluencer(index)}>-</button>
+                    <button style={{backgroundColor:'red', borderRadius:'50%', height:'25px'}} onClick={() => removeInfluencer(index)}>-</button>
                   </div>
                 </Col>
               )})}

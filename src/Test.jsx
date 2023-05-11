@@ -4,264 +4,348 @@ import "./Test.css";
 import 'react-input-range/lib/css/index.css';
 import InputRange from 'react-input-range';
 
-
 const Test = () => {
-  const FILTER_OPTIONS = ["Option 1", "Option 2", "Option 3"];
-  const GENDER_OPTIONS = ["Male", "Female"];
-  const isParent = ["Yes", "No"];
-  const childrenAgeRange = ["toddler", "preschooler", "elementary", "teen", "adult"]
-
-  const [showFilter, setShowFilter] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const [selectedGender, setSelectedGender] = useState("");
-  const [selectedIsParent, setSelectedIsParent] = useState("");
-  const [childrenCount, setChildrenCount] = useState({ min: 1, max: 10 });
-  const [followers, setFollowers] = useState({ min: 10, max: 100 });
-  const [childrenAge, setChildrenAge] = useState([]);
-  const [influencerAge, setInfluencerAge] = useState({ min: 10, max: 100 });
-  const [influencers, setInfluencers] = useState([]);
-  
+  const [posts, setPosts] = useState([]);
   
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/influencers/')
-      .then(response => {
-        setInfluencers(response.data);
-      })
-      .catch(error => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'https://oauth.reddit.com/r/apple/new.json?limit=100&fields=title',
+          {
+            headers: {
+              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjgzODczNjkxLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLWVtd3pzUTF0bU8wNDB0eTNUdWNFVXp6aHlSOEd2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.w7nl8ztozL6pxxj-YJDN8eQbRmqkE5gxOJudvRkGcuPFGvQUJ9g4ZO2AI-XTyyNVvuhIlyzFqWIuuyKrfkMMxviG_7nhxwRNM531JB5wpCwmBQujK2Fuszo24m3lllMflBqZQJcuQh00YL0zKrjH9086mln0Njq0fYzl8cuInQOtgG4p7eebQ2pflk4b5M6OR5e0_PrZz0LI0d_YoDBzgjKMUO_y-UOguo1cH7pHcJ3-BJlFxFZq-wXd_kj7WPr8MiKYMDwIuu8721c2ePuFnoBt0Ve0rtQpxocMIo7kgmBttti5cTeU3u-TawmrW0Qdv25ltmSdybpP8l60A39srA',
+              'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
+            }
+          }
+        );
+      
+        const jsonData = response.data.data.children;
+        const postsArray = jsonData.map((post) => ({
+          title: post.data.title,
+          image: post.data.thumbnail,
+          likes: post.data.ups,
+          comments: post.data.num_comments
+        }));
+        setPosts(postsArray);
+
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+    fetchData();
   }, []);
+
+  return (
+    <div>
+      <h2>Latest Apple Posts from Reddit</h2>
+      <ul>
+        {posts.map((post, index) => (
+          <li key={index}>
+            <img src={post.image} alt={post.title} />
+            <h3>{post.title}</h3>
+            <p>{post.likes} likes</p>
+            <p>{post.comments} comments</p>
+            {/* <p>Posted by {post.data.author}</p> */}
+          </li>
+        ))}
+      </ul>
+      <p>here</p>
+    </div>
+  );
+};
+
+export default Test;
+
+
+
+// const Test = () => {
+//   const [data, setData] = useState([]);
+  
+  
+//   useEffect(() => {
+//     axios.get('http://127.0.0.1:8000/testapi/')
+//       .then(response => {
+//         setData(response.data);
+//       })
+//       .catch(error => {
+//         console.error(error);
+//       });
+//   }, []);
+
+//   return (
+//     <div>
+//       <p>testttt</p>
+//       {data.map((item) => (
+//         <div>
+//           <li>{item.title}</li>
+//         </div>
+//       ))}
+//       <p>data above</p>
+//     </div>
+//   )
+// }
+// export default Test;
+
+// https://oauth.reddit.com/r/apple/new.json?limit=100
+
+// const Test = () => {
+//   const FILTER_OPTIONS = ["Option 1", "Option 2", "Option 3"];
+//   const GENDER_OPTIONS = ["Male", "Female"];
+//   const isParent = ["Yes", "No"];
+//   const childrenAgeRange = ["toddler", "preschooler", "elementary", "teen", "adult"]
+
+//   const [showFilter, setShowFilter] = useState(false);
+//   const [selectedOptions, setSelectedOptions] = useState([]);
+//   const [selectedGender, setSelectedGender] = useState("");
+//   const [selectedIsParent, setSelectedIsParent] = useState("");
+//   const [childrenCount, setChildrenCount] = useState({ min: 1, max: 10 });
+//   const [followers, setFollowers] = useState({ min: 10, max: 100 });
+//   const [childrenAge, setChildrenAge] = useState([]);
+//   const [influencerAge, setInfluencerAge] = useState({ min: 10, max: 100 });
+//   const [influencers, setInfluencers] = useState([]);
+  
+  
+//   useEffect(() => {
+//     axios.get('http://127.0.0.1:8000/influencers/')
+//       .then(response => {
+//         setInfluencers(response.data);
+//       })
+//       .catch(error => {
+//         console.error(error);
+//       });
+//   }, []);
 
     
 
 
-  const toggleFilter = () => {
-    setShowFilter(!showFilter);
-  };
+//   const toggleFilter = () => {
+//     setShowFilter(!showFilter);
+//   };
 
-  const handleGenderSelect = (gender) => {
-    setSelectedGender(gender);
-  };
+//   const handleGenderSelect = (gender) => {
+//     setSelectedGender(gender);
+//   };
 
-  const handleIsParentSelect = (isParent) => {
-    setSelectedIsParent(isParent);
-    if (isParent === "No") {
-      setChildrenCount("");
-      setChildrenAge("");
-    }
-  };
-
-  
-  const handleCloseFilter = () => {
-    setShowFilter(false);
-  };
-
-  const handleOptionClick = (option) => {
-    if (selectedOptions.includes(option)) {
-      setSelectedOptions(selectedOptions.filter((item) => item !== option));
-    } else {
-      setSelectedOptions([...selectedOptions, option]);
-    }
-  };
-
-  const handleChildAgeClick = (option) => {
-    if (childrenAge.includes(option)) {
-      setChildrenAge(childrenAge.filter((item) => item !== option));
-    } else {
-      setChildrenAge([...childrenAge, option]);
-    }
-  };
-
-
-  const handleFollowersCountChange = (followers) => {
-    setFollowers((prevState) => {
-      return {
-        ...prevState,
-        max: followers.max,
-        min: followers.min,
-      }
-    })
-  };
-
-  const handleChildrenCount = (childrenCount) => {
-    setChildrenCount((prevState) => {
-      return {
-        ...prevState,
-        max: childrenCount.max,
-        min: childrenCount.min,
-      }
-    })
-  };
-
-  const handleInfluencerAge = (influencerAge) => {
-    setInfluencerAge((prevState) => {
-      return {
-        ...prevState,
-        max: influencerAge.max,
-        min: influencerAge.min,
-      }
-    })
-  };
-
-  const filteredOptions = FILTER_OPTIONS.filter((option) =>
-    selectedOptions.includes(option)
-  );
-
-  const filteredChildrenAge = childrenAgeRange.filter((option) =>
-  childrenAge.includes(option)
-);
+//   const handleIsParentSelect = (isParent) => {
+//     setSelectedIsParent(isParent);
+//     if (isParent === "No") {
+//       setChildrenCount("");
+//       setChildrenAge("");
+//     }
+//   };
 
   
+//   const handleCloseFilter = () => {
+//     setShowFilter(false);
+//   };
 
-  const filteredData = influencers.filter((item) =>
-      (selectedGender === "" || item.gender === selectedGender) &&
-      (selectedIsParent === "" || item.isparent === selectedIsParent) &&
-      (item.followers >= followers.min && item.followers <= followers.max) &&
-      (filteredChildrenAge.length === 0 || filteredChildrenAge.some((option) => item.children_age.includes(option))) &&
-      // (item.children_count >= childrenCount.min && item.children_count <= childrenCount.max)
-      (item.age >= influencerAge.min && item.age <= influencerAge.max)  
-  );
-  console.log(filteredData);
+//   const handleOptionClick = (option) => {
+//     if (selectedOptions.includes(option)) {
+//       setSelectedOptions(selectedOptions.filter((item) => item !== option));
+//     } else {
+//       setSelectedOptions([...selectedOptions, option]);
+//     }
+//   };
 
-  return (
-    <div>
-     <div className="header">
-        <div>Header</div>
-        <div>
-          <button onClick={toggleFilter}>Filter</button>
-        </div>
-      </div>
-       <div className={`filter ${showFilter ? "show" : ""}`}>
-        <button className="close-btn" onClick={handleCloseFilter}>
-          X
-        </button>
-        <div>
-          <h3>Gender</h3>
-          {GENDER_OPTIONS.map((option) => (
-            <div
-              className={`option ${selectedGender === option ? "selected" : ""}`}
-              key={option}
-              onClick={() => handleGenderSelect(option)}
-            >
-              {option}
-            </div>
-          ))}
-        </div>
-        <div>
-          <h3>Filter Options</h3>
-          {FILTER_OPTIONS.map((option) => (
-            <div
-              className={`option ${
-                filteredOptions.includes(option) ? "selected" : ""
-              }`}
-              key={option}
-              onClick={() => handleOptionClick(option)}
-            >
-              {option}
-            </div>
-          ))}
-        </div>
+//   const handleChildAgeClick = (option) => {
+//     if (childrenAge.includes(option)) {
+//       setChildrenAge(childrenAge.filter((item) => item !== option));
+//     } else {
+//       setChildrenAge([...childrenAge, option]);
+//     }
+//   };
 
-        <div>
-          <h3>Influencer Age</h3>
-              <InputRange
-              minValue={10}
-              maxValue={100}
-              value={influencerAge}
-              onChange={handleInfluencerAge}
-              draggableTrack
-              allowSameValues
-              />
-        </div>
+
+//   const handleFollowersCountChange = (followers) => {
+//     setFollowers((prevState) => {
+//       return {
+//         ...prevState,
+//         max: followers.max,
+//         min: followers.min,
+//       }
+//     })
+//   };
+
+//   const handleChildrenCount = (childrenCount) => {
+//     setChildrenCount((prevState) => {
+//       return {
+//         ...prevState,
+//         max: childrenCount.max,
+//         min: childrenCount.min,
+//       }
+//     })
+//   };
+
+//   const handleInfluencerAge = (influencerAge) => {
+//     setInfluencerAge((prevState) => {
+//       return {
+//         ...prevState,
+//         max: influencerAge.max,
+//         min: influencerAge.min,
+//       }
+//     })
+//   };
+
+//   const filteredOptions = FILTER_OPTIONS.filter((option) =>
+//     selectedOptions.includes(option)
+//   );
+
+//   const filteredChildrenAge = childrenAgeRange.filter((option) =>
+//   childrenAge.includes(option)
+// );
+
+  
+
+//   const filteredData = influencers.filter((item) =>
+//       (selectedGender === "" || item.gender === selectedGender) &&
+//       (selectedIsParent === "" || item.isparent === selectedIsParent) &&
+//       (item.followers >= followers.min && item.followers <= followers.max) &&
+//       (filteredChildrenAge.length === 0 || filteredChildrenAge.some((option) => item.children_age.includes(option))) &&
+//       // (item.children_count >= childrenCount.min && item.children_count <= childrenCount.max)
+//       (item.age >= influencerAge.min && item.age <= influencerAge.max)  
+//   );
+//   console.log(filteredData);
+
+//   return (
+//     <div>
+//      <div className="header">
+//         <div>Header</div>
+//         <div>
+//           <button onClick={toggleFilter}>Filter</button>
+//         </div>
+//       </div>
+//        <div className={`filter ${showFilter ? "show" : ""}`}>
+//         <button className="close-btn" onClick={handleCloseFilter}>
+//           X
+//         </button>
+//         <div>
+//           <h3>Gender</h3>
+//           {GENDER_OPTIONS.map((option) => (
+//             <div
+//               className={`option ${selectedGender === option ? "selected" : ""}`}
+//               key={option}
+//               onClick={() => handleGenderSelect(option)}
+//             >
+//               {option}
+//             </div>
+//           ))}
+//         </div>
+//         <div>
+//           <h3>Filter Options</h3>
+//           {FILTER_OPTIONS.map((option) => (
+//             <div
+//               className={`option ${
+//                 filteredOptions.includes(option) ? "selected" : ""
+//               }`}
+//               key={option}
+//               onClick={() => handleOptionClick(option)}
+//             >
+//               {option}
+//             </div>
+//           ))}
+//         </div>
+
+//         <div>
+//           <h3>Influencer Age</h3>
+//               <InputRange
+//               minValue={10}
+//               maxValue={100}
+//               value={influencerAge}
+//               onChange={handleInfluencerAge}
+//               draggableTrack
+//               allowSameValues
+//               />
+//         </div>
            
 
-        <div>
-          Number of followers:<br/>
-          <InputRange
-          minValue={10}
-          maxValue={100}
-          value={followers}
-          onChange={handleFollowersCountChange}
-          draggableTrack
-          allowSameValues
-          />
-        </div>
+//         <div>
+//           Number of followers:<br/>
+//           <InputRange
+//           minValue={10}
+//           maxValue={100}
+//           value={followers}
+//           onChange={handleFollowersCountChange}
+//           draggableTrack
+//           allowSameValues
+//           />
+//         </div>
 
 
-        <div>
-        <h3>Are you a parent?</h3>
-        {isParent.map((option) => (
-            <div
-              className={`option ${selectedIsParent === option ? "selected" : ""}`}
-              key={option}
-              onClick={() => handleIsParentSelect(option)}
-            >{option}
-            </div>
-          ))}
-      </div>
+//         <div>
+//         <h3>Are you a parent?</h3>
+//         {isParent.map((option) => (
+//             <div
+//               className={`option ${selectedIsParent === option ? "selected" : ""}`}
+//               key={option}
+//               onClick={() => handleIsParentSelect(option)}
+//             >{option}
+//             </div>
+//           ))}
+//       </div>
 
      
 
-     {selectedIsParent === "Yes" && ( 
-      <div>
-        <div>
-          <h3>Children Count</h3>
-              <InputRange
-              minValue={1}
-              maxValue={10}
-              value={childrenCount}
-              onChange={handleChildrenCount}
-              draggableTrack
-              allowSameValues
-              />
-        </div>
-        <div>
-          Children age :<br/>
-          {childrenAgeRange.map((option) => (
-            <div
-              className={`option ${
-                filteredChildrenAge.includes(option) ? "selected" : ""
-              }`}
-              key={option}
-              onClick={() => handleChildAgeClick(option)}
-            >
-              {option}
-            </div>
-          ))}
-      </div>
-      </div> 
-           )} 
+//      {selectedIsParent === "Yes" && ( 
+//       <div>
+//         <div>
+//           <h3>Children Count</h3>
+//               <InputRange
+//               minValue={1}
+//               maxValue={10}
+//               value={childrenCount}
+//               onChange={handleChildrenCount}
+//               draggableTrack
+//               allowSameValues
+//               />
+//         </div>
+//         <div>
+//           Children age :<br/>
+//           {childrenAgeRange.map((option) => (
+//             <div
+//               className={`option ${
+//                 filteredChildrenAge.includes(option) ? "selected" : ""
+//               }`}
+//               key={option}
+//               onClick={() => handleChildAgeClick(option)}
+//             >
+//               {option}
+//             </div>
+//           ))}
+//       </div>
+//       </div> 
+//            )} 
         
-        </div>
-        <div className="content">
-        {filteredData.map((item) => (
-          <div className="data-item" key={item.fullname}>
-            <b><div>Name: {item.fullname}</div></b>
-            <div>Gender: {item.gender}</div>
-            <div>Options: {item.options}</div>
-            <div>IsParent: {item.isparent}</div>
-            <div>Children Count: {item.children_count}</div>
-            <div>Children Age: {item.children_age}</div>
-            <div>followersssssssss: {item.followers}</div>
-            <div>influencer age: {item.age}</div>
+//         </div>
+//         <div className="content">
+//         {filteredData.map((item) => (
+//           <div className="data-item" key={item.fullname}>
+//             <b><div>Name: {item.fullname}</div></b>
+//             <div>Gender: {item.gender}</div>
+//             <div>Options: {item.options}</div>
+//             <div>IsParent: {item.isparent}</div>
+//             <div>Children Count: {item.children_count}</div>
+//             <div>Children Age: {item.children_age}</div>
+//             <div>followersssssssss: {item.followers}</div>
+//             <div>influencer age: {item.age}</div>
             
             
-          </div>
-        ))}
-      </div>
-    </div>
-  );}
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );}
 
-  const testData = [
-    { fullname: "John", age: 24, gender: "Male", isparent: "Yes", children_count: 2, children_age: ['toddler', 'preschooler'], options: ["Option 1", "Option 2"], followers: 10 },
-    { fullname: "Jane", age: 44, gender: "Female", isparent: "Yes", children_count: 1, children_age: ['toddler'], options: ["Option 1", "Option 2"], followers: 20 },
-    { fullname: "Bob", age: 54, gender: "Male", isparent: "No", children_count: 0, children_age: [],options: ["Option 2"], followers: 30 },
-    { fullname: "Alice", age: 23, gender: "Female", isparent: "Yes", children_count: 3, children_age: ['infant', 'preschooler', 'elementary'],options: ["Option 3", "Option 2"], followers: 50 },
-    { fullname: "Tom", age: 24, gender: "Male", isparent: "Yes", children_count: 2, children_age: ['elementary', 'preteen'],options: ["Option 1", "Option 3"], followers: 60 },
-    { fullname: "Sara", age: 24, gender: "Female", isparent: "No", children_count: 0, children_age: [],options: ["Option 1", "Option 3"], followers: 100 }
-  ];
+//   const testData = [
+//     { fullname: "John", age: 24, gender: "Male", isparent: "Yes", children_count: 2, children_age: ['toddler', 'preschooler'], options: ["Option 1", "Option 2"], followers: 10 },
+//     { fullname: "Jane", age: 44, gender: "Female", isparent: "Yes", children_count: 1, children_age: ['toddler'], options: ["Option 1", "Option 2"], followers: 20 },
+//     { fullname: "Bob", age: 54, gender: "Male", isparent: "No", children_count: 0, children_age: [],options: ["Option 2"], followers: 30 },
+//     { fullname: "Alice", age: 23, gender: "Female", isparent: "Yes", children_count: 3, children_age: ['infant', 'preschooler', 'elementary'],options: ["Option 3", "Option 2"], followers: 50 },
+//     { fullname: "Tom", age: 24, gender: "Male", isparent: "Yes", children_count: 2, children_age: ['elementary', 'preteen'],options: ["Option 1", "Option 3"], followers: 60 },
+//     { fullname: "Sara", age: 24, gender: "Female", isparent: "No", children_count: 0, children_age: [],options: ["Option 1", "Option 3"], followers: 100 }
+//   ];
 
-export default Test;
+// export default Test;
 // import React, { useState } from "react";
 // import "./Test.css";
 // import 'react-input-range/lib/css/index.css';
