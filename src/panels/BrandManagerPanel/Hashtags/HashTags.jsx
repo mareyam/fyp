@@ -33,16 +33,51 @@ const Hashtags = () => {
   const [hashtags, setHashtags] = useState([]);
   
 
-  useEffect(() => {
-      axios.get('http://127.0.0.1:8000/hashtags/')
-        .then(response => {
-          setHashtags(response.data);
-        })
-        .catch(error => {
+  // useEffect(() => {
+  //     axios.get('http://127.0.0.1:8000/hashtags/')
+  //       .then(response => {
+  //         setHashtags(response.data);
+  //       })
+  //       .catch(error => {
+  //         console.error(error);
+  //       });
+  //   }, []);
+  
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            'https://oauth.reddit.com/r/apple/search.json?q=apple&restrict_sr=on&limit=100',
+            {
+              headers: {
+                Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjgzODczNjkxLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLWVtd3pzUTF0bU8wNDB0eTNUdWNFVXp6aHlSOEd2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.w7nl8ztozL6pxxj-YJDN8eQbRmqkE5gxOJudvRkGcuPFGvQUJ9g4ZO2AI-XTyyNVvuhIlyzFqWIuuyKrfkMMxviG_7nhxwRNM531JB5wpCwmBQujK2Fuszo24m3lllMflBqZQJcuQh00YL0zKrjH9086mln0Njq0fYzl8cuInQOtgG4p7eebQ2pflk4b5M6OR5e0_PrZz0LI0d_YoDBzgjKMUO_y-UOguo1cH7pHcJ3-BJlFxFZq-wXd_kj7WPr8MiKYMDwIuu8721c2ePuFnoBt0Ve0rtQpxocMIo7kgmBttti5cTeU3u-TawmrW0Qdv25ltmSdybpP8l60A39srA',
+                'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
+              }
+            }
+          );
+  
+          const jsonData = response.data.data.children;
+          const postsArray = jsonData.map((post) => ({
+            title: post.data.title,
+            hashtag: post.data.link_flair_text || '',
+            created: post.created_utc,
+            upvotes: post.data.ups,
+            comments: post.data.comments
+           
+          }));
+          setHashtags(postsArray);
+          console.log(postsArray);
+  
+        } catch (error) {
           console.error(error);
-        });
+        }
+      };
+      fetchData();
     }, []);
   
+
+    
 
     const handleSearch = (event) => {
     const searchText = event.target.value;
@@ -91,12 +126,18 @@ const Hashtags = () => {
               <thead className="thead-dark">
                 <tr>
                     <th className="">Campaign</th>
-                    <th className="" scope="col">Brands</th>
-                    <th className="" scope="col">Created</th>
-                    {/* <th className="" scope="col">End Date</th> */}
                     <th className="" scope="col">Hashtag</th>
+                    <th className="" scope="col">Created</th>
+                    <th className="" scope="col">Downvotes</th>
+                    <th className="" scope="col">Upvotes</th>
+                    
+
+
+                    {/* <th className="" scope="col">Brands</th> */}
+                    {/* <th className="" scope="col">End Date</th> */}
+                   
                     {/* <th className="" scope="col">Type</th> */}
-                    <th className="" scope="col">Total posts</th>
+                    
                     {/* <th className="" scope="col">Status</th> */}
                 </tr>
                </thead>
@@ -104,15 +145,14 @@ const Hashtags = () => {
                         {currentItems.map(item => {
                           return (
                               <tr>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="campaignNameHT">{item.campaign_hashtag}</p></td>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="brandLogoHT">{item.brandLogo}</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="campaignNameHT">{item.title.slice(0,15)}...</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="brandLogoHT">{item.hashtag}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="startDateHT">{item.created}</p></td>
-                                  {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="endDateHT">{item.endDate}</p></td> */}
-                                  
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="hashtagHT">{item.hashtag}</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="hashtagHT">{item.comments}</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="hashtagHT">{item.upvotes}</p></td>
                                   {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="typeHT">{item.type}</p></td> */}
                     
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="totalPostsHT">{item.total_posts}</p></td>
+                                  {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="totalPostsHT">{item.total_posts}</p></td> */}
                                   {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="statusHT">{item.status}</p></td> */}
                               </tr> )})}
                       <Pagintation

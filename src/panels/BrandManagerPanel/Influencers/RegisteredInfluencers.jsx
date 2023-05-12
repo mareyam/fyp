@@ -8,15 +8,61 @@ const RegisteredInfluencers = () => {
   const [influencers, setInfluencers] = useState([]);
 
 
+  // useEffect(() => {
+  //   axios.get('http://127.0.0.1:8000/influencers/')
+  //     .then(response => {
+  //       setInfluencers(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }, []);
+
+
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/influencers/')
-      .then(response => {
-        setInfluencers(response.data);
-      })
-      .catch(error => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'https://oauth.reddit.com/r/apple/search.json?q=apple&restrict_sr=on&limit=100',
+          {
+            headers: {
+              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjgzODczNjkxLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLWVtd3pzUTF0bU8wNDB0eTNUdWNFVXp6aHlSOEd2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.w7nl8ztozL6pxxj-YJDN8eQbRmqkE5gxOJudvRkGcuPFGvQUJ9g4ZO2AI-XTyyNVvuhIlyzFqWIuuyKrfkMMxviG_7nhxwRNM531JB5wpCwmBQujK2Fuszo24m3lllMflBqZQJcuQh00YL0zKrjH9086mln0Njq0fYzl8cuInQOtgG4p7eebQ2pflk4b5M6OR5e0_PrZz0LI0d_YoDBzgjKMUO_y-UOguo1cH7pHcJ3-BJlFxFZq-wXd_kj7WPr8MiKYMDwIuu8721c2ePuFnoBt0Ve0rtQpxocMIo7kgmBttti5cTeU3u-TawmrW0Qdv25ltmSdybpP8l60A39srA',
+              'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
+            }
+          }
+        );
+  
+        const jsonData = response.data.data.children;
+        const uniqueUsers = {};
+  
+        // Loop through the data and store unique users in an object
+        jsonData.forEach((post) => {
+          const author = post.data.author;
+          if (!uniqueUsers[author]) {
+            uniqueUsers[author] = {
+              fullname: post.data.author_fullname,
+              image: post.data.icon_img ? post.data.icon_img : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg'
+            };
+          }
+        });
+  
+        const influencersArray = Object.keys(uniqueUsers).map((key) => ({
+          username: key,
+          fullname: uniqueUsers[key].fullname,
+          image: uniqueUsers[key].image
+        }));
+  
+        setInfluencers(influencersArray);
+        // console.log(influencersArray);
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+  
+    fetchData();
   }, []);
+
+  
 
 
   return (
@@ -24,7 +70,7 @@ const RegisteredInfluencers = () => {
       <Row>
         <Col xs={12} sm={12} md={12} lg={12}>
           <div className='mainContainerHeadersRI'style={{display:"flex"}}>
-            <h5 className=''>Registered Influencers ({RegisteredInfluencersList.length})</h5>
+            <h5 className=''>Registered Influencers ({influencers.length})</h5>
             <a href="/BMCampaigns" className="mx-3 text-dark"><p><u style={{fontSize:'13px'}}>View all</u></p></a>
           </div>
         </Col>
@@ -34,12 +80,12 @@ const RegisteredInfluencers = () => {
     {influencers.map(item => (
       <Col xs={5} sm={5} md={4} lg={3} className="subContainerRI m-1">
         <Col xs={5} lg={3}>
-          <img className="imageRI" src={`http://127.0.0.1:8000/${item.image}`} />  
+          <img className="imageRI" src={item.image} />  
         </Col>
         <Col xs={12} lg={12}>
             <div className="ColDetailsRI" style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
-              <p className='nameRI'>{item.fullname.slice(0, 15)}</p>
-              <p className='usernameRI'>@{item.username.slice(0, 12)}</p>
+              <p className='nameRI'>{item.fullname}</p>
+              <p className='usernameRI'>@{item.username}</p>
             </div>
         </Col>
       </Col>
@@ -52,6 +98,57 @@ const RegisteredInfluencers = () => {
 }
 
 export default RegisteredInfluencers;
+
+
+
+
+// const RegisteredInfluencers = () => {
+//   const [influencers, setInfluencers] = useState([]);
+
+
+//   useEffect(() => {
+//     axios.get('http://127.0.0.1:8000/influencers/')
+//       .then(response => {
+//         setInfluencers(response.data);
+//       })
+//       .catch(error => {
+//         console.error(error);
+//       });
+//   }, []);
+
+//   return (
+//     <div className='mainContainerRI'>
+//       <Row>
+//         <Col xs={12} sm={12} md={12} lg={12}>
+//           <div className='mainContainerHeadersRI'style={{display:"flex"}}>
+//             <h5 className=''>Registered Influencers ({RegisteredInfluencersList.length})</h5>
+//             <a href="/BMCampaigns" className="mx-3 text-dark"><p><u style={{fontSize:'13px'}}>View all</u></p></a>
+//           </div>
+//         </Col>
+//       </Row>
+
+//   <Row className="mx-1" >
+//     {influencers.map(item => (
+//       <Col xs={5} sm={5} md={4} lg={3} className="subContainerRI m-1">
+//         <Col xs={5} lg={3}>
+//           <img className="imageRI" src={`http://127.0.0.1:8000/${item.image}`} />  
+//         </Col>
+//         <Col xs={12} lg={12}>
+//             <div className="ColDetailsRI" style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
+//               <p className='nameRI'>{item.fullname.slice(0, 15)}</p>
+//               <p className='usernameRI'>@{item.username.slice(0, 12)}</p>
+//             </div>
+//         </Col>
+//       </Col>
+
+//     ))}
+//   </Row>
+// </div>
+
+//     );
+// }
+
+// export default RegisteredInfluencers;
 
 
 

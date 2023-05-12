@@ -4,6 +4,7 @@ import "./Test.css";
 import 'react-input-range/lib/css/index.css';
 import InputRange from 'react-input-range';
 
+
 const Test = () => {
   const [posts, setPosts] = useState([]);
   
@@ -25,9 +26,17 @@ const Test = () => {
           title: post.data.title,
           image: post.data.thumbnail,
           likes: post.data.ups,
-          comments: post.data.num_comments
+          comments: post.data.num_comments,
+          author: post.author,
+          up: post.data.ups,
+          down: post.data.downs,
+          created: post.created_utc,
+          postType: post.data.post_hint,
+          subreddit: post.data.subreddit
+          
         }));
         setPosts(postsArray);
+        console.log(postsArray);
 
       } catch (error) {
         console.error(error);
@@ -43,11 +52,16 @@ const Test = () => {
         {posts.map((post, index) => (
           <li key={index}>
             <img src={post.image} alt={post.title} />
+            <h3>{post.subreddit}</h3>
             <h3>{post.title}</h3>
             <p>{post.likes} likes</p>
             <p>{post.comments} comments</p>
-            {/* <p>Posted by {post.data.author}</p> */}
-          </li>
+            <p>Posted by {post.author}</p>
+            <p>{post.ups} ups</p>
+            <p>{post.downs} downs</p>
+            <p>{post.created_utc} date</p>
+            <p>{post.postType} type</p>
+           </li>
         ))}
       </ul>
       <p>here</p>

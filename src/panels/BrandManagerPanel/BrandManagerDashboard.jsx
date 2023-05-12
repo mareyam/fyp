@@ -9,7 +9,6 @@ const App = () => {
   return (
     
     <div>
-      {/* <Navbarr/> */}
       <Container className="mt-3">
         <h4 className='header4BMD text-center text-sm-start'>BrandManager DashBoard</h4>
         <Campaigns/>
@@ -22,7 +21,7 @@ const App = () => {
               </Col>
           </Row>
         </Container>
-  </div>
+     </div>
   );
 }
 
