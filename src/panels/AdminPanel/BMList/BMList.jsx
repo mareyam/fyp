@@ -4,7 +4,6 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
 import BM from './BM';
 import NewBMPopup from './NewBMPopup';
-import Navbar from '../Navbar/AdminNavbar.jsx';
 
 const BMPagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
     const pageNumbers = [];
@@ -31,9 +30,10 @@ const BMList = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(7);
-  const [searchValue, setSearchValue] = useState('');
   const [BM, setBM] = useState([]);
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+  
 
     useEffect(() => {
       axios.get('http://127.0.0.1:8000/brandmanagers/')
@@ -45,15 +45,6 @@ const BMList = () => {
         });
     }, []);
 
-    const handleSearch = (event) => {
-    const searchText = event.target.value;
-    setSearchValue(searchText);
-    let results = BM;
-    if (searchText) {
-      results = BM.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
-    }
-    setBM(results);
-  }
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -75,17 +66,14 @@ const BMList = () => {
   };
   
   const ActionButton = ({ status }) => {
-    let bgColor;
+    let bgColor; 
     let text;
-    if (status === 'active') {
-      bgColor = 'red';
-      text = 'Deactivate';
-    } else if (status === 'suspended') {
+    if (status === 'suspended') {
       bgColor = 'green';
       text = 'Activate';
     } else {
-      bgColor = 'gray';
-      text = 'Activate';
+      bgColor = 'red';
+      text = 'Deactivate';
     }
     return <Button style={{ backgroundColor: bgColor, color: 'white' }}>{text}</Button>;
   };
@@ -105,8 +93,8 @@ const BMList = () => {
       bgColor = 'green';
       text = 'Activate';
     } else {
-      bgColor = 'gray';
-      text = 'Activate';
+      bgColor = 'red';
+      text = 'Deactivate';
     }
   };
 
@@ -120,8 +108,6 @@ const BMList = () => {
 
 
 return (
-  <div>
-    {/* <Navbar/> */}
   <Container className='mt-1'>
       <Row>
           <Col xs={12} sm={12} md={12} lg={12} className='d-flex'>
@@ -150,6 +136,7 @@ return (
                     </>
                   )}
             </div>
+            
           </Col>
           <Col>
           <div className="tablee">
@@ -159,6 +146,7 @@ return (
                     <th className="">Name</th>
                     <th className="" scope="col">Email</th>
                     <th className="" scope="col">Brand Name</th>
+                    <th className="" scope="col">Joined</th>
                     <th className="" scope="col">Status</th>
                     <th className="" scope="col">Action</th>
                 </tr>
@@ -168,12 +156,15 @@ return (
                           return (
                               <tr>
                                 
-                                <TableCell>{item.host}</TableCell>
+                                {/* <TableCell>{item.host}</TableCell> */}
                                  <TableCell>{item.brandmanager_name}</TableCell>
                                   <TableCell>{item.brandmanager_email}</TableCell>
-                                  <TableCell>{item.image}</TableCell>
-                                  <TableCell>{item.brandName}</TableCell>
-                                   <TableCell><Status status={item.status} /></TableCell>
+                                  {/* <TableCell>{item.brand}</TableCell> */}
+                                  <TableCell>{item.brand_name}</TableCell>
+                                  <TableCell>{item.created}</TableCell>
+                                  
+                                   <TableCell><Status status='active'/></TableCell>
+                                   {/* status={item.status} */}
                                   <TableCell><ActionButton status={item.status}   onClick={() => handleButtonState(item.status)}/></TableCell>                                  
 
                               </tr> )})}                                 
@@ -190,7 +181,7 @@ return (
           </Col>
       </Row>
   </Container>
-  </div>
+  
 
 )
 }
@@ -216,3 +207,15 @@ export default BMList;
                                           <Button style={{backgroundColor: 'gray', color: 'white'}}>Activate</Button>
                                       }
                                   </td> */}
+
+
+
+                                  // const handleSearch = (event) => {
+                                  //   const searchText = event.target.value;
+                                  //   setSearchValue(searchText);
+                                  //   let results = BM;
+                                  //   if (searchText) {
+                                  //     results = BM.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+                                  //   }
+                                  //   setBM(results);
+                                  // }

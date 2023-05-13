@@ -26,6 +26,10 @@ import EmailSent from '../panels/BrandManagerPanel/Auth/EmailSent';
 import ResetPassword from '../panels/BrandManagerPanel/Auth/ResetPassword';
 import Resetted from '../panels/BrandManagerPanel/Auth/Resetted';
 
+import AdminNavbar from '../panels/AdminPanel/Navbar/AdminNavbar';
+import InfluencerNavbar from '../panels/InfluencerPanel/Navbar/InfluencerNavbar';
+
+
 import Error404 from '../panels/Error404';
 import Test from '../Test';
 
@@ -38,8 +42,9 @@ const BrandManagerRoutes  = () => {
         &&  location.pathname === '/BMCampaigns' &&  location.pathname === '/BMInactiveCampaigns' &&  location.pathname === '/BMRegisteredInfluencers'
         &&  location.pathname === '/BMCampaignDetails' &&  location.pathname === '/BMCompare' &&  location.pathname === '/BMNewCampaign' 
         &&  location.pathname === '/BMPrivacy' &&  location.pathname === '/BMTerms'  &&  location.pathname === '/BMBrandPDF' 
-        &&  location.pathname === '/BMInfluencerPDF' ? <Navbar/> : null}
+        &&  location.pathname === '/BMInfluencerPDF' && <Navbar/> } 
 
+      
        <Routes>
         <Route exact path="/" element={<Home/>} />
         <Route exact path="/Test" element={<Test/>} />

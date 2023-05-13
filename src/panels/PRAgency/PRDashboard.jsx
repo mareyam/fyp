@@ -2,7 +2,7 @@ import { Container } from 'react-grid-system';
 import '../../Style/influencerdashboard.css'
 import BMList from './BrandManagerList/BMList';
 
-const InfluencerDashboard = () => {
+const PRDashboard = () => {
   return (
     
     <div>
@@ -14,7 +14,7 @@ const InfluencerDashboard = () => {
   );
 }
 
-export default InfluencerDashboard;
+export default PRDashboard;
 // import Campaigns from '../BrandManagerPanel/Campaigns/Campaigns';
 // import HashtagsForDashboard from '../BrandManagerPanel/Hashtags/HashTagsForDashboard';
 // import RegisteredInfluencers from '../BrandManagerPanel/Influencers/RegisteredInfluencers';

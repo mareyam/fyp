@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import brandsenselogo from '../../../images/brandsenselogo.png';
 
-const pages = ['Dashboard', 'Campaigns', 'Influencers', 'BrandManagers'];
+const pages = ['Dashboard', 'Influencers', 'BrandManagers'];
 const settings = ['Account', '', 'Logout'];
 
 function Navbar() {
@@ -113,14 +113,12 @@ function Navbar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMList" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>BM List</a></Button>
+                onClick={handleCloseNavMenu}><a href="/PRBMList" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>BM List</a></Button>
           <Button
-                onClick={handleCloseNavMenu}><a href="/BMCampaigns" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Campaigns</a></Button>
+                onClick={handleCloseNavMenu}><a href="/PRCampaigns" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Campaigns</a></Button>
            <Button
-                onClick={handleCloseNavMenu}><a href="/BMRegisteredInfluencers" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Influencers</a></Button>
-          <Button
-                onClick={handleCloseNavMenu}><a href="/BMHashtags" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Hashtags</a></Button>
-
+                onClick={handleCloseNavMenu}><a href="/PRRegisteredInfluencers" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Influencers</a></Button>
+        
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

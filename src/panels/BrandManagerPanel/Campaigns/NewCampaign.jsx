@@ -27,16 +27,58 @@ const NewCampaign = () => {
 
  
   
+  // useEffect(() => {
+  //   axios
+  //     .get('http://127.0.0.1:8000/influencers/')
+  //     .then((response) => {
+  //       setInfluencers(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
+
+
+
+
+
   useEffect(() => {
-    axios
-      .get('http://127.0.0.1:8000/influencers/')
-      .then((response) => {
-        setInfluencers(response.data);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'https://oauth.reddit.com/r/apple/new.json?limit=100',
+          {
+            headers: {
+              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MDM3MTEwLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLXpSRzN0NHlOYjRWcjdkVW1IY2Z0b3d4QVpqV3g2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.vCfKcgMg_ag2PZSGpKnY1Pu7hZJe409_Nxva-MKfnxESGXVfcQ3Koj7xt7FHt8pDFk6hKc9C0hTvUG0cltuRGwG9ryaFGaLfrovZS6a3SOo4PfX1Xk7nou-L-0Y_mAACz_iDjKJHDyfJLJcoRZ0QOrA-UWZS8HSSRTMxA4GD0xq6Yf0QsQNMjOZB2XchLdQmgqPyR7Ow0duV08bT_MEel3jaNyR77kNCojFWHzgbldPysepK_6y8_EIHpEKSEiVBGfVsbtUOb_FJzSZ8wx-FJYfu7oy-kfdjNU4Xy6tJdaQv2-DdzhPTy3tedBquJDSrMMLjet5JSFyBsX8nZ65d8A',
+              'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
+            }
+          }
+        );
+        
+        const users = new Set(); // Set to store unique usernames
+        
+        const influencerArray = response.data.data.children.map((post) => {
+          const username = post.data.author;
+          const fullname = post.data.name;
+          const image = post.data.icon_img ? post.data.icon_img : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg';
+          if (!users.has(username)) { 
+            users.add(username); 
+            return { username, fullname, image }; 
+          } else {
+            return null; 
+          }
+        }).filter((item) => item !== null); 
+        setInfluencers(influencerArray);
+        console.log(influencerArray);
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+    
+    fetchData();
   }, []);
+
+  
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files);
@@ -80,6 +122,7 @@ const NewCampaign = () => {
       // Remove user from selectedInfluencers list if checkbox is unchecked
       setSelectedInfluencers(selectedInfluencers.filter(selectedInfluencer => selectedInfluencer.id !== influencers.id));
    }
+   console.log(selectedInfluencers);
   }
 
   const buttonStyle = {
@@ -121,20 +164,22 @@ const NewCampaign = () => {
   };
 
 
-  const fetchInfluencers = () => {
-    axios
-      .get('http://127.0.0.1:8000/influencers/')
-      .then((response) => {
-        setInfluencers(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const fetchInfluencers = async () => {
+    const response = await axios.get(
+      'https://oauth.reddit.com/r/apple/new.json?limit=100&fields=title',
+      {
+        headers: {
+          Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MDM3MTEwLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLXpSRzN0NHlOYjRWcjdkVW1IY2Z0b3d4QVpqV3g2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.vCfKcgMg_ag2PZSGpKnY1Pu7hZJe409_Nxva-MKfnxESGXVfcQ3Koj7xt7FHt8pDFk6hKc9C0hTvUG0cltuRGwG9ryaFGaLfrovZS6a3SOo4PfX1Xk7nou-L-0Y_mAACz_iDjKJHDyfJLJcoRZ0QOrA-UWZS8HSSRTMxA4GD0xq6Yf0QsQNMjOZB2XchLdQmgqPyR7Ow0duV08bT_MEel3jaNyR77kNCojFWHzgbldPysepK_6y8_EIHpEKSEiVBGfVsbtUOb_FJzSZ8wx-FJYfu7oy-kfdjNU4Xy6tJdaQv2-DdzhPTy3tedBquJDSrMMLjet5JSFyBsX8nZ65d8A',
+          'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
+        }
+      }
+    );
+      setInfluencers(response.data);
+      console.log(response.data);
       setTotalCost(0);
   };
 
   useEffect(() => {
-    // Calculate the total cost based on the sum of storyCost and postCost
     setTotalCost(storyCost + postCost);
   }, [storyCost, postCost]);
 
@@ -240,24 +285,24 @@ const NewCampaign = () => {
                 <Col xs={8} sm={8} md={2} lg={2}>
                   <div className="subContainerNC" style={{overflow:'hidden'}}>
                     <input type="checkbox" id={item.id} name="influencers" value={item.id} onChange={(e) => handleCheckboxChange(e, item)} />
-                    <img className='imageNC' src={`http://127.0.0.1:8000/${item.image}`}/>
-                    {/* <p className='nameNC'>{item.influencer_full_name.slice(0, 15)}...</p> */}
-                    <p className='nameNC'>{item.fullname}...</p>
+                    <img className='imageNC' src={item.image}/>
+
+                    <p className='nameNC'>@{item.username.slice(0,8)}...</p>
                     
-                    <p className='userNameNC'>@{item.username}</p>
+                    <p className='userNameNC'>{item.fullname}</p>
                     <p className='EngagementRateNC'>Engagement Rate</p>
                    
                     <input
                       type="checkbox"
                       checked={item.story}
-                      onChange={(e) => handleInfluencerChangeStory(index, e)}
+                      // onChange={(e) => handleInfluencerChangeStory(index, e)}
                     />
                     <label>Story {item.storycost}</label>
 
                     <input
                       type="checkbox"
                       checked={item.post}
-                      onChange={(e) => handleInfluencerChangePost(index, e)}
+                      // onChange={(e) => handleInfluencerChangePost(index, e)}
                     />
                     <label>Post {item.postcost}</label>
                     <button style={{backgroundColor:'red', borderRadius:'50%', height:'25px'}} onClick={() => removeInfluencer(index)}>-</button>
@@ -278,8 +323,8 @@ const NewCampaign = () => {
               <div>
                   <input className='inputNC'
                     type="checkbox"
-                    checked={isChecked}
-                    onChange={handleCheckboxChange}/>
+                    checked={isChecked}/>
+                    // onChange={handleCheckboxChange}
                   <label>Make Campaign Live</label>
               </div>
               <div className="d-block">

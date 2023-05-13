@@ -22,7 +22,7 @@ const AdminRoutes = () => {
        {location.pathname === '/AdminDashboard'&& location.pathname === '/AdminBMList' && 
        location.pathname === '/AdminRegisteredInfluencers' && location.pathname === '/AdminHashtags' 
        && location.pathname === '/AdminCampaigns' && location.pathname === '/AdminPRList'   
-       ? <AdminNavbar/> : null}
+       && <AdminNavbar/>}
 
        <Routes>
             <Route exact path="/AdminLogin" element={<AdminLogin/>}/>

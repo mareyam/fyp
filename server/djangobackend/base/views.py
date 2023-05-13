@@ -38,66 +38,6 @@ def testapi(request, format=None):
         serialized_posts.append(serialized_post)
         print(post.title)
     return Response(serialized_posts)
-# def testapi(request):
-#     reddit = get_reddit_client()
-#     subreddit = reddit.subreddit('python')
-#     top_posts = subreddit.top(limit=10)
-
-#     # Convert the Reddit API objects to dictionaries
-#     serialized_posts = []
-#     for post in top_posts:
-#         serialized_post = {
-#             'title': post.title,
-#             'url': post.url,
-#             'score': post.score
-#             # Add any other attributes you need from the Reddit API object
-#         }
-#         serialized_posts.append(serialized_post)
-
-#     return render(request, 'my_template.html', {'top_posts': serialized_posts})
-
-# @api_view(['GET', 'POST'])
-# def testapi(request, format=None):
-#     # Retrieve the 10 hottest posts from the python subreddit using the PRAW Reddit object
-#     reddit = get_reddit_client()
-#     subreddit = reddit.subreddit("python")
-#     posts = subreddit.hot(limit=10)
-
-#     # Store each post in the database if it doesn't already exist
-#     for post in posts:
-#         if not reddit.objects.filter(id=post.id).exists():
-#             reddit.objects.create(
-#                 id=post.id,
-#                 title=post.title,
-#                 url=post.url,
-#                 subreddit=post.subreddit.display_name,
-#                 created_at=post.created_utc,
-#             )
-
-#     # Retrieve all RedditPost objects from the database and pass them to the template for display
-#     posts = reddit.objects.all()
-#     return render(request, "index.html", {"posts": posts})
-
-
-# @api_view(['GET', 'POST'])
-# def testapi(request, format=None):
-
-#     reddit = get_reddit_client()
-#     subreddit = reddit.subreddit("python")
-#     posts = subreddit.hot(limit=10)
-
-    
-#     if request.method == 'GET':
-#         posts = reddit.objects.all()
-#         serializer = RedditSerializer(posts, many=True)
-#         return Response(serializer.data)
-    
-#     if request.method == 'POST':
-#         serializer = RedditSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
 
 @api_view(['GET', 'POST'])
 def active_campaigns(request, format=None):
@@ -464,6 +404,66 @@ def hashtag_detail(request, id, format=None):
         hashtag.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+# def testapi(request):
+#     reddit = get_reddit_client()
+#     subreddit = reddit.subreddit('python')
+#     top_posts = subreddit.top(limit=10)
+
+#     # Convert the Reddit API objects to dictionaries
+#     serialized_posts = []
+#     for post in top_posts:
+#         serialized_post = {
+#             'title': post.title,
+#             'url': post.url,
+#             'score': post.score
+#             # Add any other attributes you need from the Reddit API object
+#         }
+#         serialized_posts.append(serialized_post)
+
+#     return render(request, 'my_template.html', {'top_posts': serialized_posts})
+
+# @api_view(['GET', 'POST'])
+# def testapi(request, format=None):
+#     # Retrieve the 10 hottest posts from the python subreddit using the PRAW Reddit object
+#     reddit = get_reddit_client()
+#     subreddit = reddit.subreddit("python")
+#     posts = subreddit.hot(limit=10)
+
+#     # Store each post in the database if it doesn't already exist
+#     for post in posts:
+#         if not reddit.objects.filter(id=post.id).exists():
+#             reddit.objects.create(
+#                 id=post.id,
+#                 title=post.title,
+#                 url=post.url,
+#                 subreddit=post.subreddit.display_name,
+#                 created_at=post.created_utc,
+#             )
+
+#     # Retrieve all RedditPost objects from the database and pass them to the template for display
+#     posts = reddit.objects.all()
+#     return render(request, "index.html", {"posts": posts})
+
+
+# @api_view(['GET', 'POST'])
+# def testapi(request, format=None):
+
+#     reddit = get_reddit_client()
+#     subreddit = reddit.subreddit("python")
+#     posts = subreddit.hot(limit=10)
+
+    
+#     if request.method == 'GET':
+#         posts = reddit.objects.all()
+#         serializer = RedditSerializer(posts, many=True)
+#         return Response(serializer.data)
+    
+#     if request.method == 'POST':
+#         serializer = RedditSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
 
         
 

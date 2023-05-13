@@ -11,6 +11,7 @@ class BrandManager(models.Model):
     brandmanager_name = models.CharField(max_length=200, unique=True, blank=False, null=False)
     brandmanager_username = models.CharField(max_length=20, unique=True, blank=False, null=False)
     brandmanager_email = models.EmailField(max_length=254, unique=True, default='')
+    brand_name = models.CharField(max_length=20, unique=True, blank=False, null=False, default='missing')
     updated = models.DateField(default=now, null=False, blank=False)
     created = models.DateField(default=now, null=False, blank=False)
     
