@@ -113,7 +113,7 @@ function Navbar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           <Button
-                onClick={handleCloseNavMenu}><a href="/PRList" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>PR List</a></Button>
+                onClick={handleCloseNavMenu}><a href="/AdminDashboard" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>PR List</a></Button>
           <Button
                 onClick={handleCloseNavMenu}><a href="/AdminBMList" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>BM List</a></Button>
           <Button

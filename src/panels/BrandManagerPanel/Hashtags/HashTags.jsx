@@ -51,7 +51,7 @@ const Hashtags = () => {
             'https://oauth.reddit.com/r/apple/search.json?q=apple&restrict_sr=on&limit=100',
             {
               headers: {
-                Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjgzODczNjkxLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLWVtd3pzUTF0bU8wNDB0eTNUdWNFVXp6aHlSOEd2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.w7nl8ztozL6pxxj-YJDN8eQbRmqkE5gxOJudvRkGcuPFGvQUJ9g4ZO2AI-XTyyNVvuhIlyzFqWIuuyKrfkMMxviG_7nhxwRNM531JB5wpCwmBQujK2Fuszo24m3lllMflBqZQJcuQh00YL0zKrjH9086mln0Njq0fYzl8cuInQOtgG4p7eebQ2pflk4b5M6OR5e0_PrZz0LI0d_YoDBzgjKMUO_y-UOguo1cH7pHcJ3-BJlFxFZq-wXd_kj7WPr8MiKYMDwIuu8721c2ePuFnoBt0Ve0rtQpxocMIo7kgmBttti5cTeU3u-TawmrW0Qdv25ltmSdybpP8l60A39srA',
+                Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MDM3MTEwLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLXpSRzN0NHlOYjRWcjdkVW1IY2Z0b3d4QVpqV3g2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.vCfKcgMg_ag2PZSGpKnY1Pu7hZJe409_Nxva-MKfnxESGXVfcQ3Koj7xt7FHt8pDFk6hKc9C0hTvUG0cltuRGwG9ryaFGaLfrovZS6a3SOo4PfX1Xk7nou-L-0Y_mAACz_iDjKJHDyfJLJcoRZ0QOrA-UWZS8HSSRTMxA4GD0xq6Yf0QsQNMjOZB2XchLdQmgqPyR7Ow0duV08bT_MEel3jaNyR77kNCojFWHzgbldPysepK_6y8_EIHpEKSEiVBGfVsbtUOb_FJzSZ8wx-FJYfu7oy-kfdjNU4Xy6tJdaQv2-DdzhPTy3tedBquJDSrMMLjet5JSFyBsX8nZ65d8A',
                 'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
               }
             }
@@ -61,10 +61,10 @@ const Hashtags = () => {
           const postsArray = jsonData.map((post) => ({
             title: post.data.title,
             hashtag: post.data.link_flair_text || '',
-            created: post.created_utc,
-            upvotes: post.data.ups,
-            comments: post.data.comments
-           
+            created: new Date(post.data.created_utc * 1000).toLocaleString(),
+            likes: post.data.ups,
+            comments: post.data.num_comments,
+            followers: post.data.subreddit_subscribers           
           }));
           setHashtags(postsArray);
           console.log(postsArray);
@@ -128,17 +128,9 @@ const Hashtags = () => {
                     <th className="">Campaign</th>
                     <th className="" scope="col">Hashtag</th>
                     <th className="" scope="col">Created</th>
-                    <th className="" scope="col">Downvotes</th>
-                    <th className="" scope="col">Upvotes</th>
-                    
-
-
-                    {/* <th className="" scope="col">Brands</th> */}
-                    {/* <th className="" scope="col">End Date</th> */}
-                   
-                    {/* <th className="" scope="col">Type</th> */}
-                    
-                    {/* <th className="" scope="col">Status</th> */}
+                    <th className="" scope="col">Comments</th>
+                    <th className="" scope="col">Likes</th>
+                    <th className="" scope="col">Follower</th>
                 </tr>
                </thead>
               <tbody style={{border:'1px solid rgb(212, 211, 211)'}} className="">
@@ -149,11 +141,8 @@ const Hashtags = () => {
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="brandLogoHT">{item.hashtag}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="startDateHT">{item.created}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="hashtagHT">{item.comments}</p></td>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="hashtagHT">{item.upvotes}</p></td>
-                                  {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="typeHT">{item.type}</p></td> */}
-                    
-                                  {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="totalPostsHT">{item.total_posts}</p></td> */}
-                                  {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="statusHT">{item.status}</p></td> */}
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="hashtagHT">{item.likes}</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="hashtagHT">{item.followers}</p></td>
                               </tr> )})}
                       <Pagintation
                           itemsPerPage={itemsPerPage}

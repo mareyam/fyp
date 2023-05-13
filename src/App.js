@@ -32,9 +32,9 @@ import AdminEmailSent from './panels/AdminPanel/Auth/EmailSent';
 import AdminResetPassword from './panels/AdminPanel/Auth/ResetPassword';
 import AdminResetted from './panels/AdminPanel/Auth/Resetted';
 import AdminBMList from './panels/AdminPanel/BMList/BMList';
-import AdminRegisteredInfluencers from './panels/AdminPanel/Influencers/RegisteredInfluencers';
+import AdminRegisteredInfluencers from './panels/AdminPanel/Influencers/AllRegisteredInfluencers';
 import AdminHashTags from './panels/AdminPanel/Hashtags/HashTags';
-import AdminCampaigns from './panels/AdminPanel/Campaigns/Campaigns';
+import AdminCampaigns from './panels/AdminPanel/Campaigns/AllCampaigns';
 import AdminPRList from './panels/AdminPanel/PRList/PR';
 import NewPRPopup from './panels/AdminPanel/PRList/NewPRPopup';
 

@@ -7,65 +7,6 @@ import AddIcon from '@mui/icons-material/Add';
 
 const HashtagsForDashboard = () => {
   const [campaigns, setCampaigns] = useState([]);
-  
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         'https://oauth.reddit.com/r/apple/search.json?q=apple&restrict_sr=on&limit=100',
-  //         {
-  //           headers: {
-  //             Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjgzODczNjkxLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLWVtd3pzUTF0bU8wNDB0eTNUdWNFVXp6aHlSOEd2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.w7nl8ztozL6pxxj-YJDN8eQbRmqkE5gxOJudvRkGcuPFGvQUJ9g4ZO2AI-XTyyNVvuhIlyzFqWIuuyKrfkMMxviG_7nhxwRNM531JB5wpCwmBQujK2Fuszo24m3lllMflBqZQJcuQh00YL0zKrjH9086mln0Njq0fYzl8cuInQOtgG4p7eebQ2pflk4b5M6OR5e0_PrZz0LI0d_YoDBzgjKMUO_y-UOguo1cH7pHcJ3-BJlFxFZq-wXd_kj7WPr8MiKYMDwIuu8721c2ePuFnoBt0Ve0rtQpxocMIo7kgmBttti5cTeU3u-TawmrW0Qdv25ltmSdybpP8l60A39srA',
-  //             'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
-  //           }
-  //         }
-  //       );
-  
-  //       const jsonData = response.data.data.children;
-  //       const subreddits = {};
-
-  //       // Loop through the data and store unique subreddits in an object
-  //       jsonData.forEach((post) => {
-  //         const subreddit = post.data.subreddit;
-  //         const upvotes = post.data.ups;
-  //         const title = post.data.title;
-  //         const createdDate = post.data.created_utc;
-  //         if (!subreddits[subreddit]) {
-  //           subreddits[subreddit] = {
-  //             count: 1,
-  //             upvotes: upvotes,
-  //             titles: [title],
-  //             created: [createdDate]
-  //           };
-  //         } else {
-  //           subreddits[subreddit].count++;
-  //           subreddits[subreddit].upvotes += upvotes;
-  //           subreddits[subreddit].titles.push(title);
-  //           subreddits[subreddit].created.push(createdDate);
-  //         }
-  //       });
-        
-  //       // Convert the object to an array of objects
-  //       const subredditsArray = Object.keys(subreddits).map((key) => ({
-  //         subreddit: key,
-  //         count: subreddits[key].count,
-  //         upvotes: subreddits[key].upvotes,
-  //         titles: subreddits[key].titles
-  //         // created: subreddits[key].created
-  //       }));
-
-  //       setCampaigns(subredditsArray);
-  //       console.log(subredditsArray);        
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  
-  //   fetchData();
-  // }, []);
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -73,7 +14,7 @@ const HashtagsForDashboard = () => {
           'https://oauth.reddit.com/r/apple/search.json?q=apple&restrict_sr=on&limit=100',
           {
             headers: {
-              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjgzODczNjkxLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLWVtd3pzUTF0bU8wNDB0eTNUdWNFVXp6aHlSOEd2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.w7nl8ztozL6pxxj-YJDN8eQbRmqkE5gxOJudvRkGcuPFGvQUJ9g4ZO2AI-XTyyNVvuhIlyzFqWIuuyKrfkMMxviG_7nhxwRNM531JB5wpCwmBQujK2Fuszo24m3lllMflBqZQJcuQh00YL0zKrjH9086mln0Njq0fYzl8cuInQOtgG4p7eebQ2pflk4b5M6OR5e0_PrZz0LI0d_YoDBzgjKMUO_y-UOguo1cH7pHcJ3-BJlFxFZq-wXd_kj7WPr8MiKYMDwIuu8721c2ePuFnoBt0Ve0rtQpxocMIo7kgmBttti5cTeU3u-TawmrW0Qdv25ltmSdybpP8l60A39srA',
+              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MDM3MTEwLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLXpSRzN0NHlOYjRWcjdkVW1IY2Z0b3d4QVpqV3g2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.vCfKcgMg_ag2PZSGpKnY1Pu7hZJe409_Nxva-MKfnxESGXVfcQ3Koj7xt7FHt8pDFk6hKc9C0hTvUG0cltuRGwG9ryaFGaLfrovZS6a3SOo4PfX1Xk7nou-L-0Y_mAACz_iDjKJHDyfJLJcoRZ0QOrA-UWZS8HSSRTMxA4GD0xq6Yf0QsQNMjOZB2XchLdQmgqPyR7Ow0duV08bT_MEel3jaNyR77kNCojFWHzgbldPysepK_6y8_EIHpEKSEiVBGfVsbtUOb_FJzSZ8wx-FJYfu7oy-kfdjNU4Xy6tJdaQv2-DdzhPTy3tedBquJDSrMMLjet5JSFyBsX8nZ65d8A',
               'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
             }
           }
@@ -82,9 +23,9 @@ const HashtagsForDashboard = () => {
         const jsonData = response.data.data.children;
         const postsArray = jsonData.map((post) => ({
           title: post.data.title,
-          created: post.created_utc,
+          created: new Date(post.data.created_utc * 1000).toLocaleString(),
           upvotes: post.data.ups,
-          hashtag: post.data.link_flair_text || ''
+          hashtag: post.data.subreddit
         }));
         setCampaigns(postsArray);
         console.log(postsArray);

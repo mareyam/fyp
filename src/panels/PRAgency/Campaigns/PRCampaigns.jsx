@@ -60,7 +60,7 @@ const AllCampaigns = () => {
         const jsonData = response.data.data.children;
         const postsArray = jsonData.map((post) => ({
           title: post.data.title,
-          image: post.data.thumbnail,
+          image: post.data.thumbnail ? post.data.thumbnail : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg',
           likes: post.data.ups,
           comments: post.data.num_comments,
           author: post.author,
@@ -143,7 +143,7 @@ const AllCampaigns = () => {
             <Col xs={8} sm={8} md={2} lg={2} className="subContainerAC mx-1">
          <div>
          <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-           <img className="imageAC" src={item.image}/>
+         <img className="imageAC" src={item.image ? item.image : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg'} />
          </div>
          <div style={{display: 'flex',justifyContent:'space-between'}}>
 
@@ -154,7 +154,7 @@ const AllCampaigns = () => {
      
          <p className="hashtagAC">#{item.subreddit}</p>
         </div>
-         <h3 className='nameAC'>{item.title}</h3>
+         <h3 className='nameAC'>{item.title.slice(0,30)}...</h3>
          <p className='influencersAC'><People style={{height:"15px"}}/>{item.up}</p>  
          <p className='dateC'>{item.date}</p>
          </div>

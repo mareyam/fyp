@@ -9,9 +9,6 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import 'react-input-range/lib/css/index.css';
 import InputRange from 'react-input-range';
 
-import Navbar from './Navbar/Navbar';
-
-
 const AllCampaigns = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
@@ -41,7 +38,7 @@ const Pagintation = () => {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(8);
+  const [itemsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
   const [influencers, setInfluencers] = useState([]);
 
@@ -55,30 +52,76 @@ const Pagintation = () => {
   
 
 
+  // useEffect(() => {
+  //   axios.get('http://127.0.0.1:8000/influencers/')
+  //     .then(response => {
+  //       setInfluencers(response.data);
+  //       console.log(influencers);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/influencers/')
-      .then(response => {
-        setInfluencers(response.data);
-        console.log(influencers);
-      })
-      .catch(error => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'https://oauth.reddit.com/r/apple/search.json?q=apple&restrict_sr=on&limit=100',
+          {
+            headers: {
+              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MDM3MTEwLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLXpSRzN0NHlOYjRWcjdkVW1IY2Z0b3d4QVpqV3g2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.vCfKcgMg_ag2PZSGpKnY1Pu7hZJe409_Nxva-MKfnxESGXVfcQ3Koj7xt7FHt8pDFk6hKc9C0hTvUG0cltuRGwG9ryaFGaLfrovZS6a3SOo4PfX1Xk7nou-L-0Y_mAACz_iDjKJHDyfJLJcoRZ0QOrA-UWZS8HSSRTMxA4GD0xq6Yf0QsQNMjOZB2XchLdQmgqPyR7Ow0duV08bT_MEel3jaNyR77kNCojFWHzgbldPysepK_6y8_EIHpEKSEiVBGfVsbtUOb_FJzSZ8wx-FJYfu7oy-kfdjNU4Xy6tJdaQv2-DdzhPTy3tedBquJDSrMMLjet5JSFyBsX8nZ65d8A',
+              'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
+            }
+          }
+        );
+  
+        const jsonData = response.data.data.children;
+        const uniqueUsers = {};
+        jsonData.forEach((post) => {
+          const username = post.data.author;
+          if (!uniqueUsers[username]) {
+              uniqueUsers[username] = {
+              fullname: post.data.author_fullname,
+              image: post.data.icon_img ? post.data.icon_img : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg',
+              followers: post.data.ups
+            };
+          }
+        });
+  
+        const influencersArray = Object.keys(uniqueUsers).map((key) => ({
+          username: key,
+          fullname: uniqueUsers[key].fullname,
+          image: uniqueUsers[key].image,
+          followers: uniqueUsers[key].followers
+        }));
+  
+        setInfluencers(influencersArray);
+        console.log(influencersArray);
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+  
+    fetchData();
   }, []);
 
+  
 
 
-    
-    const handleSearch = (event) => {
-      const searchText = event.target.value;
-      setSearchValue(searchText);
-      let results = influencers;
-      if (searchText) {
-        results = influencers.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
-      }
-      setInfluencers(results);
+  const handleSearch = (event) => {
+    const searchText = event.target.value;
+    setSearchValue(searchText);
+    let results = influencers;
+    if (searchText !== '') { // Check if search text is not empty
+      results = influencers.filter((influencer) => {
+        const name = influencer.fullname || ''; // default to empty string if name is undefined
+        return name.toLowerCase().includes(searchText.toLowerCase());
+      });
     }
-    const toggleFilter = () => {
+    setInfluencers(results);
+  };
+      const toggleFilter = () => {
       setShowFilter(!showFilter);
     };
   
@@ -293,29 +336,23 @@ console.log(currentData);
               </div>
                   {currentData.map(item => {
                   return (
-                    <Col xs={8} sm={8} md={2} lg={2} className="subContainerARI mx-3 my-3">
-                    <Card style={{ height: "100%", width:"200px"}}>
-                      <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={`http://127.0.0.1:8000/${item.image}`} />
+                    <Col xs={10} sm={10} md={2} lg={2} className="subContainerARI mx-3 my-3">
+                    <Card sx={{ width: 300, height: 300 }}>
+                      {/* s */}
+                      <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={item.image} />
                       
                       <Card.Body className="d-flex flex-column">
-                        <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
+                        <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1">
                         
-                          <h6 style={{ fontWeight: "bolder", fontSize: "16px", height: '40px', width:'80%', overflow:'hidden' }}>{item.username}</h6>
-                          <p style={{fontSize: '13px'}}>@{item.age}</p>
-                          <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followersCount}K</p>
+                          <h6 style={{ fontWeight: "bolder", fontSize: "16px", height: '40px', width:'80%', overflow:'hidden' }}>{item.fullname.slice(0,8)}</h6>
+                          <p style={{fontSize: '13px'}}>@{item.username.slice(0,8)}..</p>
+                          <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followers}</p>
                           
                           <a href={`instagram.com/${item.username}`}>
                           <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
-                            <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
+                            <p style={{ fontSize: '12px', margin: '0px' }}>Instagram </p>
                             <LaunchIcon style={{ fontSize: "12px", height: "25px" }} />
                           </button></a>
-                          <div className="data-item" key={item.name}>
-                          <div>Name: {item.username}</div>  
-                          <div>Gender: {item.gender}</div>
-                          <div>Age: {item.age}</div>
-                          <div>IsParent: {item.isParent}</div>
-                        
-                          </div>
                         </Card.Text>
                       </Card.Body>
                     </Card>

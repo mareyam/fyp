@@ -109,10 +109,11 @@ const BMList = () => {
 
 return (
   <Container className='mt-1'>
+     <h4 className='header4AD text-left text-sm-left'>Admin DashBoard</h4>
       <Row>
           <Col xs={12} sm={12} md={12} lg={12} className='d-flex'>
             <h5>Brand Managers</h5>
-            <div className='addNewPR'>
+            {/* <div className='addNewPR'>
                   <Button style={{ backgroundColor:'#452c63', height:'30px', marginLeft:'5px' }} onClick={handleOpenPopUp}>
                     <div style={{ marginTop:"-6px" }}>
                       Add<AddIcon style={{ fontSize:"12px", height:"25px" }}/>
@@ -135,7 +136,7 @@ return (
                       <NewBMPopup onClose={handleClosePopUp} />
                     </>
                   )}
-            </div>
+            </div> */}
             
           </Col>
           <Col>
