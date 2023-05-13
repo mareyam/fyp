@@ -153,7 +153,6 @@ const App = () => {
         <Route exact path="/InfluencerRegDetails" element={<InfluencerRegDetails/>}/>
         <Route exact path="/InfluencerRegDetails2" element={<InfluencerRegDetails2/>}/>
         <Route exact path="/InfluencerRegDetails3" element={<InfluencerRegDetails3/>}/>
-        <Route exact path="/InfluencerPosts" element={<InfluencerPosts/>}/>
         <Route exact path="/InfluencerPendingCampaigns" element={<PendingCampaigns/>}/>
 
         <Route exact path="/Test" element={<Test/>}/>

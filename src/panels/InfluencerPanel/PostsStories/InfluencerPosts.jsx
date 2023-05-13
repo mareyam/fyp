@@ -29,6 +29,7 @@ const InfluencerPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) =>
         const [itemsPerPage] = useState(3);
         const [searchValue, setSearchValue] = useState('');
         const [posts, setPosts] = useState([]);
+        const [influencer, setInfluencers] = ([]);
             
         const handleSearch = (event) => {
             const searchText = event.target.value;
@@ -41,15 +42,48 @@ const InfluencerPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) =>
         }
 
         useEffect(() => {
-          axios.get('http://127.0.0.1:8000/campaigns/')
-            .then(response => {
-              setPosts(response.data);
-            })
-            .catch(error => {
+          const fetchData = async () => {
+            try {
+              const response = await axios.get(
+                'https://oauth.reddit.com/user/y/submitted?sort=new',
+                {
+                  headers: {
+                    Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MDM3MTEwLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLXpSRzN0NHlOYjRWcjdkVW1IY2Z0b3d4QVpqV3g2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.vCfKcgMg_ag2PZSGpKnY1Pu7hZJe409_Nxva-MKfnxESGXVfcQ3Koj7xt7FHt8pDFk6hKc9C0hTvUG0cltuRGwG9ryaFGaLfrovZS6a3SOo4PfX1Xk7nou-L-0Y_mAACz_iDjKJHDyfJLJcoRZ0QOrA-UWZS8HSSRTMxA4GD0xq6Yf0QsQNMjOZB2XchLdQmgqPyR7Ow0duV08bT_MEel3jaNyR77kNCojFWHzgbldPysepK_6y8_EIHpEKSEiVBGfVsbtUOb_FJzSZ8wx-FJYfu7oy-kfdjNU4Xy6tJdaQv2-DdzhPTy3tedBquJDSrMMLjet5JSFyBsX8nZ65d8A',
+                    'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
+                  }
+                }
+              );
+        
+              const jsonData = response.data.data.children;
+              const uniqueUsers = {};
+              jsonData.forEach((post) => {
+                const username = post.data.author;
+                if (!uniqueUsers[username]) {
+                    uniqueUsers[username] = {
+                    fullname: post.data.author_fullname,
+                    image: post.data.icon_img ? post.data.icon_img : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg',
+                    followers: post.data.ups
+                  };
+                }
+              });
+        
+              const influencersArray = Object.keys(uniqueUsers).map((key) => ({
+                username: key,
+                fullname: uniqueUsers[key].fullname,
+                image: uniqueUsers[key].image,
+                followers: uniqueUsers[key].followers
+              }));
+        
+              setInfluencers(influencersArray);
+              console.log(influencersArray);
+            } catch (error) {
               console.error(error);
-            });
+            }
+          };
+        
+          fetchData();
         }, []);
-
+      
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
         const currentItems = posts.slice(indexOfFirstItem, indexOfLastItem);

@@ -55,60 +55,61 @@ const Pagintation = () => {
   
 
 
-  useEffect(() => {
-    axios.get('http://127.0.0.1:8000/influencers/')
-      .then(response => {
-        setInfluencers(response.data);
-        console.log(influencers);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
-
-
   // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         'https://oauth.reddit.com/r/apple/search.json?q=apple&restrict_sr=on&limit=100',
-  //         {
-  //           headers: {
-  //             Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjgzODczNjkxLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLWVtd3pzUTF0bU8wNDB0eTNUdWNFVXp6aHlSOEd2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.w7nl8ztozL6pxxj-YJDN8eQbRmqkE5gxOJudvRkGcuPFGvQUJ9g4ZO2AI-XTyyNVvuhIlyzFqWIuuyKrfkMMxviG_7nhxwRNM531JB5wpCwmBQujK2Fuszo24m3lllMflBqZQJcuQh00YL0zKrjH9086mln0Njq0fYzl8cuInQOtgG4p7eebQ2pflk4b5M6OR5e0_PrZz0LI0d_YoDBzgjKMUO_y-UOguo1cH7pHcJ3-BJlFxFZq-wXd_kj7WPr8MiKYMDwIuu8721c2ePuFnoBt0Ve0rtQpxocMIo7kgmBttti5cTeU3u-TawmrW0Qdv25ltmSdybpP8l60A39srA',
-  //             'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
-  //           }
-  //         }
-  //       );
-  
-  //       const jsonData = response.data.data.children;
-  //       const uniqueUsers = {};
-  
-  //       // Loop through the data and store unique users in an object
-  //       jsonData.forEach((post) => {
-  //         const author = post.data.author;
-  //         if (!uniqueUsers[author]) {
-  //           uniqueUsers[author] = {
-  //             fullname: post.data.author_fullname,
-  //             image: post.data.icon_img ? post.data.icon_img : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg'
-  //           };
-  //         }
-  //       });
-  
-  //       const influencersArray = Object.keys(uniqueUsers).map((key) => ({
-  //         username: key,
-  //         fullname: uniqueUsers[key].fullname,
-  //         image: uniqueUsers[key].image
-  //       }));
-  
-  //       setInfluencers(influencersArray);
-  //       // console.log(influencersArray);
-  //     } catch (error) {
+  //   axios.get('http://127.0.0.1:8000/influencers/')
+  //     .then(response => {
+  //       setInfluencers(response.data);
+  //       console.log(influencers);
+  //     })
+  //     .catch(error => {
   //       console.error(error);
-  //     }
-  //   };
-  
-  //   fetchData();
+  //     });
   // }, []);
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'https://oauth.reddit.com/r/apple/search.json?q=apple&restrict_sr=on&limit=100',
+          {
+            headers: {
+              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MDM3MTEwLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLXpSRzN0NHlOYjRWcjdkVW1IY2Z0b3d4QVpqV3g2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.vCfKcgMg_ag2PZSGpKnY1Pu7hZJe409_Nxva-MKfnxESGXVfcQ3Koj7xt7FHt8pDFk6hKc9C0hTvUG0cltuRGwG9ryaFGaLfrovZS6a3SOo4PfX1Xk7nou-L-0Y_mAACz_iDjKJHDyfJLJcoRZ0QOrA-UWZS8HSSRTMxA4GD0xq6Yf0QsQNMjOZB2XchLdQmgqPyR7Ow0duV08bT_MEel3jaNyR77kNCojFWHzgbldPysepK_6y8_EIHpEKSEiVBGfVsbtUOb_FJzSZ8wx-FJYfu7oy-kfdjNU4Xy6tJdaQv2-DdzhPTy3tedBquJDSrMMLjet5JSFyBsX8nZ65d8A',
+              'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
+            }
+          }
+        );
+  
+        const jsonData = response.data.data.children;
+        const uniqueUsers = {};
+        jsonData.forEach((post) => {
+          const username = post.data.author;
+          if (!uniqueUsers[username]) {
+              uniqueUsers[username] = {
+              fullname: post.data.author_fullname,
+              image: post.data.icon_img ? post.data.icon_img : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg',
+              followers: post.data.ups
+            };
+          }
+        });
+  
+        const influencersArray = Object.keys(uniqueUsers).map((key) => ({
+          username: key,
+          fullname: uniqueUsers[key].fullname,
+          image: uniqueUsers[key].image,
+          followers: uniqueUsers[key].followers
+        }));
+  
+        setInfluencers(influencersArray);
+        console.log(influencersArray);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchData();
+  }, []);
 
   
 
@@ -335,31 +336,25 @@ console.log(currentData);
        
         </div>
               </div>
-                  {currentData.map(item => {
+              {currentData.map(item => {
                   return (
-                    <Col xs={8} sm={8} md={2} lg={2} className="subContainerARI mx-3 my-3">
-                    <Card style={{ height: "100%", width:"200px"}}>
-                      <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={`http://127.0.0.1:8000/${item.image}`} />
+                    <Col xs={10} sm={10} md={2} lg={2} className="subContainerARI mx-3 my-3">
+                    <Card sx={{ width: 300, height: 300 }}>
+                      {/* s */}
+                      <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={item.image} />
                       
                       <Card.Body className="d-flex flex-column">
-                        <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
+                        <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1">
                         
-                          <h6 style={{ fontWeight: "bolder", fontSize: "16px", height: '40px', width:'80%', overflow:'hidden' }}>{item.username}</h6>
-                          <p style={{fontSize: '13px'}}>@{item.age}</p>
-                          <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followersCount}K</p>
+                          <h6 style={{ fontWeight: "bolder", fontSize: "16px", height: '40px', width:'80%', overflow:'hidden' }}>{item.fullname.slice(0,8)}</h6>
+                          <p style={{fontSize: '13px'}}>@{item.username.slice(0,8)}..</p>
+                          <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followers}</p>
                           
                           <a href={`instagram.com/${item.username}`}>
                           <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
-                            <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
+                            <p style={{ fontSize: '12px', margin: '0px' }}>Instagram </p>
                             <LaunchIcon style={{ fontSize: "12px", height: "25px" }} />
                           </button></a>
-                          <div className="data-item" key={item.name}>
-                          <div>Name: {item.username}</div>  
-                          {/* <div>Gender: {item.gender}</div>
-                          <div>Age: {item.age}</div>
-                          <div>IsParent: {item.isParent}</div> */}
-                        
-                          </div>
                         </Card.Text>
                       </Card.Body>
                     </Card>

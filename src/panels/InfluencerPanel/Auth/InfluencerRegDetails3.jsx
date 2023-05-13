@@ -33,7 +33,7 @@ return (
               <div className='justify-content-center align-items-center text-center'>
               {/* <a href="/InfluencerDashboard" style={{textDecoration:"none"}}>
               <button type="" className="btn btn-primary" style={{backgroundColor:'#452c63', width:'200px'}}>Submit</button></a></div> */}
-              <button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'20px'}} type="button" onClick={() => onClick('InfluencerLogin')}>Submit</button></div>
+              <button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'200px'}} type="button" onClick={() => onClick('InfluencerLogin')}>Submit</button></div>
           </form>
         </div>
           </Col>

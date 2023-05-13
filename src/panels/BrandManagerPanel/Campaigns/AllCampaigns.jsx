@@ -52,7 +52,7 @@ const AllCampaigns = () => {
           'https://oauth.reddit.com/r/apple/new.json?limit=100&fields=title',
           {
             headers: {
-              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjgzODczNjkxLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLWVtd3pzUTF0bU8wNDB0eTNUdWNFVXp6aHlSOEd2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.w7nl8ztozL6pxxj-YJDN8eQbRmqkE5gxOJudvRkGcuPFGvQUJ9g4ZO2AI-XTyyNVvuhIlyzFqWIuuyKrfkMMxviG_7nhxwRNM531JB5wpCwmBQujK2Fuszo24m3lllMflBqZQJcuQh00YL0zKrjH9086mln0Njq0fYzl8cuInQOtgG4p7eebQ2pflk4b5M6OR5e0_PrZz0LI0d_YoDBzgjKMUO_y-UOguo1cH7pHcJ3-BJlFxFZq-wXd_kj7WPr8MiKYMDwIuu8721c2ePuFnoBt0Ve0rtQpxocMIo7kgmBttti5cTeU3u-TawmrW0Qdv25ltmSdybpP8l60A39srA',
+              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MDM3MTEwLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLXpSRzN0NHlOYjRWcjdkVW1IY2Z0b3d4QVpqV3g2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.vCfKcgMg_ag2PZSGpKnY1Pu7hZJe409_Nxva-MKfnxESGXVfcQ3Koj7xt7FHt8pDFk6hKc9C0hTvUG0cltuRGwG9ryaFGaLfrovZS6a3SOo4PfX1Xk7nou-L-0Y_mAACz_iDjKJHDyfJLJcoRZ0QOrA-UWZS8HSSRTMxA4GD0xq6Yf0QsQNMjOZB2XchLdQmgqPyR7Ow0duV08bT_MEel3jaNyR77kNCojFWHzgbldPysepK_6y8_EIHpEKSEiVBGfVsbtUOb_FJzSZ8wx-FJYfu7oy-kfdjNU4Xy6tJdaQv2-DdzhPTy3tedBquJDSrMMLjet5JSFyBsX8nZ65d8A',
               'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
             }
           }
@@ -127,7 +127,7 @@ const AllCampaigns = () => {
           <h5 className='campaignHeaderAC' >Campaigns</h5></div>
 
                 <div className="ms-4 d-lg-flex d-xs-block">
-                <div className="align-item-center"><h6>All Campaigns({15})</h6></div>
+                <div className="align-item-center"><h6>All Campaigns({campaigns.length})</h6></div>
                   {/* <div className="align-item-center"><h6>All Campaigns({campaigns.length})</h6></div> */}
                   <div className="d-flex">
                       {/* <input  style={{height:"25px"}} placeholder="Search by name &#x1F50D;"/> */}
@@ -170,18 +170,14 @@ const AllCampaigns = () => {
            <img className="imageAC" src={item.image}/>
          </div>
          <div style={{display: 'flex',justifyContent:'space-between'}}>
-         <p className='typeAC' style={{ backgroundColor: item.postType === "Single" ? "#B47EE5" : "green" }}>{item.postType}</p>
-
+         <div> <p className='typAC' style={{backgroundColor: item.postType === 'link' ? '#B47EE5' : 'green', }}>
+                        {item.postType ? item.postType : 'others'}</p>
+                      </div>
          <p className="hashtagAC">#{item.subreddit}</p>
         </div>
-         <h3 className='nameAC'>{item.title}</h3>
-         {/* <p className='influencersAC'>{item.influencers}</p> */}
-         {/* <p className='influencersAC'><People style={{height:"15px"}}/>{item.influencers.length}</p>    */}
+         <h3 className='nameAC'>{item.title.slice(0,30)}...</h3>
          <p className='influencersAC'><People style={{height:"15px"}}/>{item.up}</p>  
-         {/* <p className='dateAC'>{item.start_date}</p> */}
          <p className='dateC'>{item.date}</p>
-         {/* <p className='dateC'>{new Date(item.created).toLocaleDateString()}</p>
-          */}
          </div>
        </Col>
           );
