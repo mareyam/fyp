@@ -32,6 +32,11 @@ const AllCampaigns = () => {
   const [itemsPerPage] = useState(10);
   const [searchValue, setSearchValue] = useState('');
   const [campaigns, setCampaigns] = useState([]);
+  const [fullname, setFullname] = useState([]);
+  const [username, setUsername] = useState([]);
+  const [profileURL, setProfileURL] = useState('');
+  
+  
   
     useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +45,7 @@ const AllCampaigns = () => {
           'https://oauth.reddit.com/user/saadghauri/',
           {
             headers: {
-              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MDM3MTEwLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLXpSRzN0NHlOYjRWcjdkVW1IY2Z0b3d4QVpqV3g2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.vCfKcgMg_ag2PZSGpKnY1Pu7hZJe409_Nxva-MKfnxESGXVfcQ3Koj7xt7FHt8pDFk6hKc9C0hTvUG0cltuRGwG9ryaFGaLfrovZS6a3SOo4PfX1Xk7nou-L-0Y_mAACz_iDjKJHDyfJLJcoRZ0QOrA-UWZS8HSSRTMxA4GD0xq6Yf0QsQNMjOZB2XchLdQmgqPyR7Ow0duV08bT_MEel3jaNyR77kNCojFWHzgbldPysepK_6y8_EIHpEKSEiVBGfVsbtUOb_FJzSZ8wx-FJYfu7oy-kfdjNU4Xy6tJdaQv2-DdzhPTy3tedBquJDSrMMLjet5JSFyBsX8nZ65d8A',
+              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MTI3NDA5LCJqdGkiOiIyNDQ5NTMxNzM4MjUzLU45U25PMTRHaTYyTzFoUmFtUmhIWld3cm1qWWRNUSIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.hal1L4-snSsj-yfWhWi-HxRd8n1lTXJQu5U7sOJNxCuV-BHaTmHHlCja4-pRP9zbpaUx0gpVtTrsbJCF3K9kwaK7TmhXWiQfyp4nHOSdoJaVcnsK78vGy0mVF8DWpD0K2JOfgYCiLc3U4DXDCnbAS9W_vv566fgdkS3tYLM3gIdEOrRMH7dRiUKKc4Y9zVRw6Bo1Bl-keUZBQDQECybhNic_xahykNs6uM-KsGc1DGLdKHqrX6j1XvNRV5-NgqwDkbiIUGQHDaSUFagBfQT-WybEJbKm2NJd_aR2dYQgzlIioQKzsxE1jTuxlTaab4VAU8AwXkFiWns-P1CBEO67nQ',
               'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
             }
           }
@@ -48,22 +53,28 @@ const AllCampaigns = () => {
       
         const jsonData = response.data.data.children;
         const postsArray = jsonData.map((post) => ({
-          title: post.data.title,
-          image: post.data.thumbnail,
-          likes: post.data.ups,
+          title: post.data.link_title,
+          fullname: post.data.author_fullname,
+          username: post.data.author,
           comments: post.data.num_comments,
-          author: post.author,
-          up: post.data.ups,
-          down: post.data.downs,
+          
+          permalink: post.data.link_permalink,
+          subreddit_name_prefixed: post.data.subreddit_name_prefixed,
+          image: post.data.thumbnail ? post.data.thumbnail : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg',
+          likes: post.data.ups,
+        
           created: new Date(post.data.created_utc * 1000).toLocaleString(),
-          postType: post.data.post_hint,
+         
           subreddit: post.data.subreddit,
-          name: post.name,
-          subreddits: post.data.subreddit,
+         
           score: post.total_karma,
-          url: `https://www.reddit.com/user/${post.name}`
+         
         }));
         setCampaigns(postsArray);
+        setUsername(postsArray[0].username);
+        setFullname(postsArray[0].fullname);
+        setProfileURL(`https://reddit.com/user/${username}/`);
+
         console.log(postsArray);
 
       } catch (error) {
@@ -72,8 +83,6 @@ const AllCampaigns = () => {
     };
     fetchData();
   }, []);
-
-
 
   const handleSort = (order) => {
     const sorted = [...campaigns].sort((a, b) =>
@@ -105,19 +114,33 @@ const AllCampaigns = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = campaigns.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = campaigns;
+
+
+  // campaigns.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
     <div>
-    <Container>
+    <Container className='mt-3'>
       <Row>
-        <Col xs={8} sm={8} md={12} lg={12}>
-          <div style={{display:"flex"}}><ArrowBack/>
-          <h5 className='campaignHeaderAC' >Influencer Content</h5></div>
+        <Col xs={12} sm={12} md={12} lg={2}>
+          <div className='d-lg-block d-xs-flex'>
+             <img className="influencerImage"src='https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg'></img>
+               <div style={{textAlign:"center"}}>
+                 <h6>{username}</h6>
+                 <p>{fullname}</p>
+                 <a href={profileURL}>Profile URL</a>
+               </div>
+           </div>
+         </Col>
+
+        <Col xs={8} sm={8} md={12} lg={10}>
+        
+          <h5 className='campaignHeaderAC' >Author name</h5>
                 <div className="ms-4 d-lg-flex d-xs-block">
-                <div className="align-item-center"><h6>All Content of {campaigns.author} ({campaigns.length})</h6></div>
+                   <h6>All Content({campaigns.length})</h6>
                   <div className="d-flex">
                        <input style={{height:"25px"}}  type="text" placeholder="search for name &#x1F50D;" value={searchValue} onChange={handleSearch} />                        
                   </div>
@@ -125,10 +148,7 @@ const AllCampaigns = () => {
                       <SortButton handleSort={handleSort} handleDateSort={handleDateSort}/>  
                     </div>
                 </div>
-        </Col> 
-      </Row>
-
-      <Row className="mainContainerAC mt-2">
+                <Row className="mainContainerAC mt-2">
         {currentItems.map((item) => {
           return (
             <Col xs={8} sm={8} md={2} lg={2} className="subContainerAC mx-1">
@@ -143,19 +163,26 @@ const AllCampaigns = () => {
          <p className="hashtagAC">#{item.subreddit}</p>
         </div>
          <h3 className='nameAC'>{item.title.slice(0,30)}...</h3>
-         <p className='influencersAC'><People style={{height:"15px"}}/>{item.up}</p>  
+         
+         <p className='influencersAC'><People style={{height:"15px"}}/>{item.comments}</p>  
          <p className='dateC'>{item.created}</p>
+         <a className='dateC' href={item.permalink}>Reddit Link</a>
+        
          </div>
-       </Col>
+            </Col>
           );
         })}
         <Pagintation
         itemsPerPage={itemsPerPage}
         totalItems={campaigns.length}
-        // totalItems={campaigns.length}
         paginate={paginate}
       />
       </Row>
+        </Col> 
+       
+      </Row>
+
+      
     </Container>
     </div>
   );
@@ -233,7 +260,7 @@ export default AllCampaigns;
 //           'https://oauth.reddit.com/user/Atiflash/submitted?sort=new',
 //           {
 //             headers: {
-//               Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MDM3MTEwLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLXpSRzN0NHlOYjRWcjdkVW1IY2Z0b3d4QVpqV3g2ZyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.vCfKcgMg_ag2PZSGpKnY1Pu7hZJe409_Nxva-MKfnxESGXVfcQ3Koj7xt7FHt8pDFk6hKc9C0hTvUG0cltuRGwG9ryaFGaLfrovZS6a3SOo4PfX1Xk7nou-L-0Y_mAACz_iDjKJHDyfJLJcoRZ0QOrA-UWZS8HSSRTMxA4GD0xq6Yf0QsQNMjOZB2XchLdQmgqPyR7Ow0duV08bT_MEel3jaNyR77kNCojFWHzgbldPysepK_6y8_EIHpEKSEiVBGfVsbtUOb_FJzSZ8wx-FJYfu7oy-kfdjNU4Xy6tJdaQv2-DdzhPTy3tedBquJDSrMMLjet5JSFyBsX8nZ65d8A',
+//               Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MTI3NDA5LCJqdGkiOiIyNDQ5NTMxNzM4MjUzLU45U25PMTRHaTYyTzFoUmFtUmhIWld3cm1qWWRNUSIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.hal1L4-snSsj-yfWhWi-HxRd8n1lTXJQu5U7sOJNxCuV-BHaTmHHlCja4-pRP9zbpaUx0gpVtTrsbJCF3K9kwaK7TmhXWiQfyp4nHOSdoJaVcnsK78vGy0mVF8DWpD0K2JOfgYCiLc3U4DXDCnbAS9W_vv566fgdkS3tYLM3gIdEOrRMH7dRiUKKc4Y9zVRw6Bo1Bl-keUZBQDQECybhNic_xahykNs6uM-KsGc1DGLdKHqrX6j1XvNRV5-NgqwDkbiIUGQHDaSUFagBfQT-WybEJbKm2NJd_aR2dYQgzlIioQKzsxE1jTuxlTaab4VAU8AwXkFiWns-P1CBEO67nQ',
 //               'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
 //             }
 //           }
