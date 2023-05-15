@@ -75,7 +75,7 @@ const Pagintation = () => {
           'https://oauth.reddit.com/r/apple/search.json?q=apple&restrict_sr=on&limit=100',
           {
             headers: {
-              Authorization: 'Bearer eeyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MjEzNDUyLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLTZXR2xSOG1fcnRvUURGcjdRWThuQURtOHZyVjNtdyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.ax4qqUajbzGdFohTweUNn-lwRRVshXDe7vNnZWLbi8aToBmPXGt4DKV5qFIclUIQsD3qr5bNl3yx74IUKszPtRO9vMNsQZmIEeKLd4xH4i_GcFqPgHEtpqjoe-fgyxDdBgTENZDPUqfeiTC-tUva7ecV2qxooKTb8t9lsHTUYbQiXz5oFL3G9oLxiBzaj9_vUsOA9tNvzJEaRuoRX9w1v7pn7K989TLOehDA0azmNsWhlmpeKornkwItY3LloIdNZEWGJ15aSUa_lZ9mXmvVrWtJrupjXgI70KD4dVW0LKt7M7-zqSaXnSBeuyxd4NOAJMRV0pD6E-irYZDHPncVVw',
+              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MjM3NzEzLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLTJRTFd6QmVralkydHNIV1hoTThhbER5SXFXWjk0dyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.tLADQVGPFlCCCWyNfBVvNmo2M88xDXhVYPjoywqOGLiLFEq593X5iEycqVoa9-mxeKXdSNcugxIlvNBR7nz1sMEoifxIGAnX9X8wNykYHKTEbDXHpWoRMq41fLsDa3L2COBeg81F30dmxbSf1KNyG6ck2og4gs3HDvyuX80At47SOnelDr9BIk4WIFp3PuqtcEKazFFar1hCVrQrER-ylII0W6OsScZRXQueixytsSBi_OrGZv57M6qDNvgUTL9Dq_zHHs8ut3uKRGaJQXk4W4AmKc4cV1zrBKUEGAOat61A5EZCJdnw_RMalC-WY10Vp8Jxtk43bAk36oYIkpuYqw',
               'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
             }
           }
@@ -348,7 +348,7 @@ console.log(currentData);
                         
                           <h6 style={{ fontWeight: "bolder", fontSize: "16px", height: '40px', width:'80%', overflow:'hidden' }}>{item.fullname.slice(0,8)}</h6>
                           <p style={{fontSize: '13px'}}>@{item.username.slice(0,8)}..</p>
-                          <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followers}</p>
+                          <p style={{ fontSize: "15px", marginTop:"-10px" }}>Followers: {item.followers}</p>
                           
                           <a href={`instagram.com/${item.username}`}>
                           <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>

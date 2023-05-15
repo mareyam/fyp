@@ -175,7 +175,7 @@ const NewCampaign = () => {
       }
     );
       setInfluencers(response.data);
-      console.log(response.data);
+      //null;
       setTotalCost(0);
   };
 

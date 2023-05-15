@@ -66,7 +66,7 @@ const Hashtags = () => {
             followers: post.data.subreddit_subscribers           
           }));
           setHashtags(postsArray);
-          console.log(postsArray);
+          //null;
   
         } catch (error) {
           console.error(error);

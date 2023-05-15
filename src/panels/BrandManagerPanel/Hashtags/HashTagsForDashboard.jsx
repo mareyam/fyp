@@ -28,7 +28,7 @@ const HashtagsForDashboard = () => {
           hashtag: post.data.subreddit
         }));
         setCampaigns(postsArray);
-        console.log(postsArray);
+
 
       } catch (error) {
         console.error(error);

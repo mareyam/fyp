@@ -36,7 +36,7 @@ const Test = () => {
           
         }));
         setPosts(postsArray);
-        console.log(postsArray);
+        //null;
 
       } catch (error) {
         console.error(error);
@@ -1368,7 +1368,7 @@ export default Test;
 // const handleCreateCampaign = async (campaignData) => {
 //     try {
 //       const response = await axios.post('http://127.0.0.1:8000/activecampaigns/', campaignData);
-//       console.log(response.data);
+//       //null;
 //       // Do something with the response, such as show a success message
 //     } catch (error) {
 //       console.error(error);
