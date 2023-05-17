@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PRLogin, AdminLogin, BMLogin, BrandManager, Influencer, Brand, Hashtag, SubBrand, Campaign, Interest, ChildAge, ContentType
+from .models import PRLogin, PRList, PRRegistration, AdminLogin, BMLogin, BrandManager, Influencer, Brand, Hashtag, SubBrand, Campaign, Interest, ChildAge, ContentType
 
 class AdminLoginSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,6 +10,16 @@ class AdminLoginSerializer(serializers.ModelSerializer):
 class PRLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = PRLogin
+        fields = "__all__"
+
+class PRListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PRList
+        fields = "__all__"
+
+class PRRegistrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PRRegistration
         fields = "__all__"
 
 

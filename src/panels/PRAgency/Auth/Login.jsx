@@ -8,19 +8,26 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
       const response = await axios.get('http://127.0.0.1:8000/prlogin/');
       const users = response.data;
-
-      const matchedUser = users.find((user) => user.email === email && user.password === password);
-
+  
+      const matchedUser = users.find((user) => user.email === email);
+  
       if (matchedUser) {
-        setLoginError('');
-        // Redirect to AdminDashboard
-        window.location.href = '/PRDashboard';
+        if (matchedUser.password === null) {
+          setLoginError('Password is not set. Please register to the account.');
+        } else if (matchedUser.password === password) {
+          setLoginError('');
+          // Redirect to AdminDashboard
+          window.location.href = '/PRDashboard';
+        } else {
+          setLoginError('Invalid email or password');
+        }
       } else {
         setLoginError('Invalid email or password');
       }
@@ -29,6 +36,8 @@ const Login = () => {
       setLoginError('An error occurred during login');
     }
   };
+
+  
 
   return (
     <Container className='mt-5'>
@@ -112,6 +121,34 @@ const Login = () => {
   );
 };
 export default Login;
+
+
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   try {
+  //     const response = await axios.get('http://127.0.0.1:8000/prlogin/');
+  //     const users = response.data;
+
+  //     const matchedUser = users.find((user) => user.email === email && user.password === password);
+      
+
+  //     if (matchedUser) {
+  //       setLoginError('');
+  //       // Redirect to AdminDashboard
+  //       window.location.href = '/PRDashboard';
+  //     } else {
+  //       setLoginError('Invalid email or password');
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     setLoginError('An error occurred during login');
+  //   }
+  // };
+
+
+
 
 // import { Checkbox } from '@material-ui/core';
 // import React from 'react';

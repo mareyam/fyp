@@ -7,6 +7,49 @@ import datetime
 
 # Create your models here.
 
+class PRList(models.Model):
+    name = models.CharField(max_length=128, blank=True, null=True, default='user') 
+    email = models.EmailField(max_length=254, unique=True, default='user')
+    password = models.CharField(max_length=128, blank=True, null=True) 
+    updated = models.DateField(default=datetime.date.today, null=True, blank=True)
+    created = models.DateField(default=datetime.date.today, null=True, blank=True)
+
+    class Meta:
+        ordering = ['-updated', '-created']
+
+    def __str__(self):
+        return self.email, self.name, self.password
+
+class PRRegistration(models.Model):
+    name = models.CharField(max_length=128, blank=True, null=True, default='user') 
+    email = models.EmailField(max_length=254, unique=True, default='user')
+    password = models.CharField(max_length=128, blank=True, null=True) 
+    confirm_password = models.CharField(max_length=128, blank=True, null=True) 
+    updated = models.DateField(default=datetime.date.today, null=True, blank=True)
+    created = models.DateField(default=datetime.date.today, null=True, blank=True)
+
+    class Meta:
+        ordering = ['-updated', '-created']
+
+    def __str__(self):
+        return f"{self.email} - {self.name} - {self.password}"
+
+class PRLogin(models.Model):
+    name = models.CharField(max_length=128, blank=True, null=True, default='user') 
+    email = models.EmailField(max_length=254, unique=True, default='user')
+    password = models.CharField(max_length=128, blank=True, null=True, default='null') 
+    confirm_password = models.CharField(max_length=128, blank=True, null=True)   
+    updated = models.DateField(default=datetime.date.today, null=True, blank=True)
+    created = models.DateField(default=datetime.date.today, null=True, blank=True)
+
+    class Meta:
+        ordering = ['-updated', '-created']
+
+    def __str__(self):
+        return f"{self.email} - {self.name} - {self.password}"
+
+
+
 class AdminLogin(models.Model):
     name = models.CharField(max_length=128, blank=True, null=True, default='user') 
     email = models.EmailField(max_length=254, unique=True, default='user')
@@ -17,18 +60,6 @@ class AdminLogin(models.Model):
         return self.email
 
 
-class PRLogin(models.Model):
-    name = models.CharField(max_length=128, blank=True, null=True, default='user') 
-    email = models.EmailField(max_length=254, unique=True, default='user')
-    password = models.CharField(max_length=128, blank=True, null=True, default='pr3') 
-    updated = models.DateField(default=datetime.date.today, null=True, blank=True)
-    created = models.DateField(default=datetime.date.today, null=True, blank=True)
-
-    class Meta:
-        ordering = ['-updated', '-created']
-
-    def __str__(self):
-        return self.email
 
 
 class BMLogin(models.Model):

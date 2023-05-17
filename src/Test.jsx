@@ -2,59 +2,137 @@ import axios from "axios";
 import React, {useState, useEffect} from 'react';
 import "./Test.css";
 
-function LoginForm() {
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-    const data = {
-    email : email,
-    password : password 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/prlogin/');
+      const users = response.data;
+
+      const matchedUser = users.find((user) => user.email === email);
+
+      if (matchedUser) {
+        if (matchedUser.password === null) {
+          if (password === confirmPassword) {
+            // Update the password in the database
+            await axios.post('http://127.0.0.1:8000/prregistration/', {
+              email: email,
+              password: password,
+              confirm_password: confirmPassword
+            });
+            setLoginError('Password updated successfully');
+          } else {
+            setLoginError('Password and confirm password do not match');
+          }
+        } else if (matchedUser.password !== password) {
+          setLoginError('Incorrect password');
+        } else {
+          setLoginError('Password match');
+          window.location.href = '/PRDashboard';
+        }
+      } else {
+        setLoginError('User not found');
+      }
+    } catch (error) {
+      console.error(error);
+      setLoginError('An error occurred during login');
+    }
   };
 
-  console.log(data);
-  axios.post('http://127.0.0.1:8000/bmlogin/', data)
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
 
-    console.log('Email:', email);
-    console.log('Password:', password);
-
-    // Reset the input fields
-    setEmail('');
-    setPassword('');
-}   
-  
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </div>
-
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </div>
-
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email:</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        </div>
+        
+          <div>
+            <label>Confirm Password:</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+        
+        <button type="submit">Submit</button>
+      </form>
+      {loginError && <p>{loginError}</p>}
+    </div>
   );
 }
-export default LoginForm;
+
+export default Login;
+
+
+
+// function LoginForm() {
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+
+// const handleSubmit = (event) => {
+//   event.preventDefault();
+//     const data = {
+//     email : email,
+//     password : password 
+//   };
+
+//   console.log(data);
+//   axios.post('http://127.0.0.1:8000/bmlogin/', data)
+//     .then(response => console.log(response))
+//     .catch(error => console.log(error));
+
+//     console.log('Email:', email);
+//     console.log('Password:', password);
+
+//     // Reset the input fields
+//     setEmail('');
+//     setPassword('');
+// }   
+  
+//   return (
+//     <form onSubmit={handleSubmit}>
+//       <div>
+//         <label htmlFor="email">Email:</label>
+//         <input
+//           type="email"
+//           id="email"
+//           value={email}
+//           onChange={(e) => setEmail(e.target.value)}
+//           required
+//         />
+//       </div>
+
+//       <div>
+//         <label htmlFor="password">Password:</label>
+//         <input
+//           type="password"
+//           id="password"
+//           value={password}
+//           onChange={(e) => setPassword(e.target.value)}
+//           required
+//         />
+//       </div>
+
+//       <button type="submit">Submit</button>
+//     </form>
+//   );
+// }
+// export default LoginForm;
 
 
 // function LoginForm() {

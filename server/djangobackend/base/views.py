@@ -1,17 +1,9 @@
-from django.shortcuts import render, redirect
-from .models import PRLogin, AdminLogin, BMLogin, Campaign,  Brand, BrandManager, Hashtag, SubBrand, Influencer, Interest, ChildAge, ContentType
-from .serializers import  PRLoginSerializer, AdminLoginSerializer ,BMLoginSerializer,  ContentTypeSerializer, InterestSerializer, ChildAgeSerializer, BrandManagerSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, SubBrandSerializer
+from .models import PRRegistration, PRList, PRLogin, AdminLogin, BMLogin, Campaign,  Brand, BrandManager, Hashtag, SubBrand, Influencer, Interest, ChildAge, ContentType
+from .serializers import  PRRegistrationSerializer, PRListSerializer, PRLoginSerializer, AdminLoginSerializer ,BMLoginSerializer,  ContentTypeSerializer, InterestSerializer, ChildAgeSerializer, BrandManagerSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, SubBrandSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth.models import User
-from rest_framework.exceptions import AuthenticationFailed
-from django.shortcuts import render, redirect
-import jwt
-from datetime import datetime
-from rest_framework.views import APIView
 import praw
-from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -40,7 +32,7 @@ def testapi(request, format=None):
     return Response(serialized_posts)
 
 @api_view(['GET', 'POST'])
-def PR(request, format=None):
+def PR_login(request, format=None):
     if request.method == 'GET':
      brandmanager = PRLogin.objects.all()
      serializer = PRLoginSerializer(brandmanager, many=True)
@@ -53,7 +45,7 @@ def PR(request, format=None):
          return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def PR_detail(request, id, format=None):
+def PR_login_detail(request, id, format=None):
 
     try:
         brandmanager = PRLogin.objects.get(pk=id)
@@ -74,6 +66,80 @@ def PR_detail(request, id, format=None):
     elif request.method == 'DELETE':
         brandmanager.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def PR_list(request, format=None):
+    if request.method == 'GET':
+     brandmanager = PRList.objects.all()
+     serializer = PRListSerializer(brandmanager, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = PRListSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def PR_list_detail(request, id, format=None):
+
+    try:
+        brandmanager = PRList.objects.get(pk=id)
+    except brandmanager.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = PRListSerializer(brandmanager)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = PRListSerializer(brandmanager, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        brandmanager.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def PRregistration(request, format=None):
+    if request.method == 'GET':
+     brandmanager = PRRegistration.objects.all()
+     serializer = PRRegistrationSerializer(brandmanager, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = PRRegistrationSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def PR_registration_detail(request, id, format=None):
+
+    try:
+        brandmanager = PRRegistration.objects.get(pk=id)
+    except brandmanager.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = PRRegistrationSerializer(brandmanager)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = PRRegistrationSerializer(brandmanager, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        brandmanager.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 
 
 @api_view(['GET', 'POST'])
