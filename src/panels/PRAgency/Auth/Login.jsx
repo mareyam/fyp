@@ -12,7 +12,7 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.get('http://127.0.0.1:8000/bmlogin/');
+      const response = await axios.get('http://127.0.0.1:8000/prlogin/');
       const users = response.data;
 
       const matchedUser = users.find((user) => user.email === email && user.password === password);

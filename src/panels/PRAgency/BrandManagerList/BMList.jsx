@@ -2,7 +2,6 @@ import axios from "axios";
 import React, {useState, useEffect} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
-import BM from './BM';
 import NewBMPopup from './NewBMPopup';
 
 const BMPagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
@@ -29,14 +28,14 @@ const BMPagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
 const BMList = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(7);
+  const [itemsPerPage] = useState(5);
   const [BM, setBM] = useState([]);
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
   
 
     useEffect(() => {
-      axios.get('http://127.0.0.1:8000/brandmanagers/')
+      axios.get('http://127.0.0.1:8000/bmlogin/')
         .then(response => {
           setBM(response.data);
         })
@@ -156,13 +155,10 @@ return (
                           return (
                               <tr>
                                 
-                                {/* <TableCell>{item.host}</TableCell> */}
-                                 <TableCell>{item.brandmanager_name}</TableCell>
-                                  <TableCell>{item.brandmanager_email}</TableCell>
-                                  {/* <TableCell>{item.brand}</TableCell> */}
-                                  <TableCell>{item.brand_name}</TableCell>
+                                 <TableCell>{item.name}</TableCell>
+                                  <TableCell>{item.email}</TableCell>
+                                  <TableCell>{item.brandName}</TableCell>
                                   <TableCell>{item.created}</TableCell>
-                                  
                                    <TableCell><Status status='active'/></TableCell>
                                    {/* status={item.status} */}
                                   <TableCell><ActionButton status={item.status}   onClick={() => handleButtonState(item.status)}/></TableCell>                                  

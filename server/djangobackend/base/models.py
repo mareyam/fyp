@@ -1,9 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
 from datetime import datetime
-from django.utils import timezone
 from django.utils.timezone import now
-from django.contrib.auth.models import AbstractUser
+import datetime
+
+
 
 # Create your models here.
 
@@ -20,8 +20,12 @@ class AdminLogin(models.Model):
 class PRLogin(models.Model):
     name = models.CharField(max_length=128, blank=True, null=True, default='user') 
     email = models.EmailField(max_length=254, unique=True, default='user')
-    password = models.CharField(max_length=128, blank=True, null=True) 
+    password = models.CharField(max_length=128, blank=True, null=True, default='pr3') 
+    updated = models.DateField(default=datetime.date.today, null=True, blank=True)
+    created = models.DateField(default=datetime.date.today, null=True, blank=True)
 
+    class Meta:
+        ordering = ['-updated', '-created']
 
     def __str__(self):
         return self.email
@@ -31,8 +35,9 @@ class BMLogin(models.Model):
     name = models.CharField(max_length=128, blank=True, null=True, default='user') 
     email = models.EmailField(max_length=254, unique=True, default='user')
     password = models.CharField(max_length=128, blank=True, null=True) 
-
-
+    brandName = models.CharField(max_length=128, blank=True, null=True, default='') 
+    created = models.DateField(default=datetime.date.today, null=True, blank=True)
+    
     def __str__(self):
         return self.email
     

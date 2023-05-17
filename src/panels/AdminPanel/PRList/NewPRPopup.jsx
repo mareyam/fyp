@@ -20,7 +20,7 @@ function NewPRPopup() {
     };
 
    console.log("data is "+data);
-   axios.post('http://127.0.0.1:8000/bmlogin/', data)
+   axios.post('http://127.0.0.1:8000/prlogin/', data)
     .then(response => console.log("got it"+response))
     .catch(error => console.log("error"));
 

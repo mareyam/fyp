@@ -2,8 +2,6 @@ import axios from "axios";
 import React, {useState, useEffect} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
-import BM from './BM';
-import NewBMPopup from './NewBMPopup';
 
 const BMPagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
     const pageNumbers = [];
@@ -29,14 +27,13 @@ const BMPagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
 const BMList = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(7);
+  const [itemsPerPage] = useState(5);
   const [BM, setBM] = useState([]);
-  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
   
 
     useEffect(() => {
-      axios.get('http://127.0.0.1:8000/brandmanagers/')
+      axios.get('http://127.0.0.1:8000/bmlogin/')
         .then(response => {
           setBM(response.data);
         })
@@ -98,46 +95,13 @@ const BMList = () => {
     }
   };
 
-  const handleOpenPopUp = () => {
-    setIsPopUpOpen(true);
-  };
-
-  const handleClosePopUp = () => {
-    setIsPopUpOpen(false);
-  };
-
 
 return (
   <Container className='mt-1'>
      <h4 className='header4AD text-left text-sm-left'>Admin DashBoard</h4>
       <Row>
           <Col xs={12} sm={12} md={12} lg={12} className='d-flex'>
-            <h5>Brand Managers</h5>
-            {/* <div className='addNewPR'>
-                  <Button style={{ backgroundColor:'#452c63', height:'30px', marginLeft:'5px' }} onClick={handleOpenPopUp}>
-                    <div style={{ marginTop:"-6px" }}>
-                      Add<AddIcon style={{ fontSize:"12px", height:"25px" }}/>
-                    </div>
-                  </Button>
-                  {isPopUpOpen && (
-                    <>
-                      <div
-                        style={{
-                          position: 'fixed',
-                          top: 0,
-                          left: 0,
-                          width: '100%',
-                          height: '100%',
-                          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                          zIndex: 1,
-                        }}
-                        onClick={handleClosePopUp}
-                      />
-                      <NewBMPopup onClose={handleClosePopUp} />
-                    </>
-                  )}
-            </div> */}
-            
+            <h5>Brand Managers</h5>     
           </Col>
           <Col>
           <div className="tablee">
@@ -157,13 +121,10 @@ return (
                           return (
                               <tr>
                                 
-                                {/* <TableCell>{item.host}</TableCell> */}
-                                 <TableCell>{item.brandmanager_name}</TableCell>
-                                  <TableCell>{item.brandmanager_email}</TableCell>
-                                  {/* <TableCell>{item.brand}</TableCell> */}
-                                  <TableCell>{item.brand_name}</TableCell>
+                                <TableCell>{item.name}</TableCell>
+                                  <TableCell>{item.email}</TableCell>
+                                  <TableCell>{item.brandName}</TableCell>
                                   <TableCell>{item.created}</TableCell>
-                                  
                                    <TableCell><Status status='active'/></TableCell>
                                    {/* status={item.status} */}
                                   <TableCell><ActionButton status={item.status}   onClick={() => handleButtonState(item.status)}/></TableCell>                                  

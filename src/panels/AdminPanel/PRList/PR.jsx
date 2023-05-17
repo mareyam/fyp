@@ -28,7 +28,7 @@ const Pagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
 const PR = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(7);
+  const [itemsPerPage] = useState(5);
   const [searchValue, setSearchValue] = useState('');
   const [PR, setPR] = useState([]);
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
@@ -36,7 +36,7 @@ const PR = () => {
   
   useEffect(() => {
     axios
-      .get('http://127.0.0.1:8000/bmlogin/')
+      .get('http://127.0.0.1:8000/prlogin/')
       .then((response) => {
         setPR(response.data);
       })
@@ -157,6 +157,7 @@ return (
                 <tr>
                     <th className="">Name</th>
                     <th className="" scope="col">Email</th>
+                    <th className="" scope="col">Created</th>
                     <th className="" scope="col">Status</th>
                     <th className="" scope="col">Action</th>
                 </tr>
@@ -166,7 +167,8 @@ return (
                           return (
                               <tr>
                                  <TableCell>{item.name}</TableCell>
-                                  <TableCell>{item.email}</TableCell>                 
+                                  <TableCell>{item.email}</TableCell> 
+                                  <TableCell>{item.created}</TableCell> 
                                    <TableCell><Status status="active" /></TableCell>
                                    {/* <TableCell><Status status={item.status} /></TableCell>
                                     */}
