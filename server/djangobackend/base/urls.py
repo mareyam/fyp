@@ -11,6 +11,14 @@ urlpatterns = [
     path('activecampaigns/', views.active_campaigns),
     path('activecampaignlist/<str:id>/', views.activecampaign_detail),
 
+    path('bmlogin/', views.BM),
+    path('bmloginlist/<str:id>/', views.BM_detail),
+
+    path('prlogin/', views.PR),
+    path('prloginlist/<str:id>/', views.PR_detail),
+
+    path('adminlogin/', views.admin),
+    path('adminloginlist/<str:id>/', views.admin_detail),
     # path('api/register/', views.Register),
     # path('api/login/', views.Login),
     # path('api/user/', views.User),

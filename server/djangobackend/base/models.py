@@ -6,14 +6,45 @@ from django.utils.timezone import now
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
+class AdminLogin(models.Model):
+    name = models.CharField(max_length=128, blank=True, null=True, default='user') 
+    email = models.EmailField(max_length=254, unique=True, default='user')
+    password = models.CharField(max_length=128, blank=True, null=True) 
+
+
+    def __str__(self):
+        return self.email
+
+
+class PRLogin(models.Model):
+    name = models.CharField(max_length=128, blank=True, null=True, default='user') 
+    email = models.EmailField(max_length=254, unique=True, default='user')
+    password = models.CharField(max_length=128, blank=True, null=True) 
+
+
+    def __str__(self):
+        return self.email
+
+
+class BMLogin(models.Model):
+    name = models.CharField(max_length=128, blank=True, null=True, default='user') 
+    email = models.EmailField(max_length=254, unique=True, default='user')
+    password = models.CharField(max_length=128, blank=True, null=True) 
+
+
+    def __str__(self):
+        return self.email
+    
 class BrandManager(models.Model):   
     # host = models.OneToOneField(User, unique=False, on_delete=models.CASCADE, blank=False, null=False)
-    brandmanager_name = models.CharField(max_length=200, unique=True, blank=False, null=False)
-    brandmanager_username = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    brandmanager_name = models.CharField(max_length=200, unique=True, blank=True, null=True)
+    brandmanager_username = models.CharField(max_length=20, unique=True, blank=True, null=True)
     brandmanager_email = models.EmailField(max_length=254, unique=True, default='')
-    brand_name = models.CharField(max_length=20, unique=True, blank=False, null=False, default='missing')
-    updated = models.DateField(default=now, null=False, blank=False)
-    created = models.DateField(default=now, null=False, blank=False)
+    brand_name = models.CharField(max_length=20, unique=True, blank=True, null=True, default='missing')
+    password = models.CharField(max_length=128, blank=True, null=True)
+    updated = models.DateField(default=now, null=True, blank=True)
+    created = models.DateField(default=now, null=True, blank=True)
     
     class Meta:
         ordering = ['-updated', '-created']

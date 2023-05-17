@@ -1,19 +1,22 @@
 from rest_framework import serializers
-from .models import BrandManager, Influencer, Brand, Hashtag, SubBrand, Campaign, Interest, ChildAge, ContentType
+from .models import PRLogin, AdminLogin, BMLogin, BrandManager, Influencer, Brand, Hashtag, SubBrand, Campaign, Interest, ChildAge, ContentType
+
+class AdminLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdminLogin
+        fields = "__all__"
 
 
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model=User
-#         fields=['id', 'name', 'email', 'password']
-#         extra_kwargs={"write_only": True}
-#     def create(self, validated_data):
-#         password= validated_data.get('password',None)
-#         instance=self.Meta.model(**validated_data)
-#         if password is not None:
-#             instance.set_password(password)
-#         instance.save()
-#         return instance
+class PRLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PRLogin
+        fields = "__all__"
+
+
+class BMLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BMLogin
+        fields = "__all__"
 
 class BrandManagerSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,167 +1,219 @@
-import axios from "axios";
-import React, {useState, useEffect} from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import "./Style/BrandManagerPanel/AllRegisteredInfluencers/AllRegisteredInfluencers.css"
-import { FilterList } from '@material-ui/icons';
-import Card from 'react-bootstrap/Card';
-import LaunchIcon from '@mui/icons-material/Launch';
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import 'react-input-range/lib/css/index.css';
-import InputRange from 'react-input-range';
-
-const Pagintation = () => {
-  
-  const GENDER_OPTIONS = ["Male", "Female", "Other"];
-  const ISPARENT = ["Yes", "No"];
-
-  const [influencers, setInfluencers] = useState([]);
-  const [showFilter, setShowFilter] = useState(false);
-  const [selectedGender, setSelectedGender] = useState("");
-  const [selectedIsParent, setSelectedIsParent] = useState("");
+function LoginForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/newinfluencers/')
-      .then(response => {
-        setInfluencers(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
+    const fetchData = async () => {
+   
+        const response = await axios.get('http://127.0.0.1:8000/bmlogin/');
+        const userData = response.data;
 
-    const toggleFilter = () => {
-      setShowFilter(!showFilter);
-    }; 
-    
-    const handleCloseFilter = () => {
-      setShowFilter(false);
+        // Check if email and password match the response
+        const matchingUser = userData.find(user => user.email === email && user.password === password);
+
+        if (matchingUser) {
+          console.log("ssuccess");
+        } else 
+        console.error("error");  
     };
+
+    if (email && password) {
+      fetchData();
+    }
+  }, [email, password]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+export default LoginForm;
+
+
+// const Pagintation = () => {
+  
+//   const GENDER_OPTIONS = ["Male", "Female", "Other"];
+//   const ISPARENT = ["Yes", "No"];
+
+//   const [influencers, setInfluencers] = useState([]);
+//   const [showFilter, setShowFilter] = useState(false);
+//   const [selectedGender, setSelectedGender] = useState("");
+//   const [selectedIsParent, setSelectedIsParent] = useState("");
+
+//   useEffect(() => {
+//     axios.get('http://127.0.0.1:8000/newinfluencers/')
+//       .then(response => {
+//         setInfluencers(response.data);
+//       })
+//       .catch(error => {
+//         console.error(error);
+//       });
+//   }, []);
+
+//     const toggleFilter = () => {
+//       setShowFilter(!showFilter);
+//     }; 
+    
+//     const handleCloseFilter = () => {
+//       setShowFilter(false);
+//     };
   
     
-    const handleGenderSelect = (gender) => {
-      setSelectedGender(gender);
-    };
+//     const handleGenderSelect = (gender) => {
+//       setSelectedGender(gender);
+//     };
 
-    const handleIsParentSelect = (isparent) => {
-      setSelectedIsParent(isparent);
-    };
+//     const handleIsParentSelect = (isparent) => {
+//       setSelectedIsParent(isparent);
+//     };
 
 
-    const currentData = influencers.filter((item) =>
-    (selectedGender === "" || item.gender === selectedGender) &&
-    (selectedIsParent === "" || item.isparent  === selectedIsParent) 
-);
-console.log(currentData);
-  return (
-    <Container >
-      <Row>
-          <Col xs={8} sm={8} md={12} lg={10}>
-             <Row className="mainContainerARI ms-4">
-                <div style={{display:"flex"}}>
-                <h3 className='campaignHeaderARI' >Registered Influencers ({influencers.length}) </h3></div>
-                <div className="ms-4 d-lg-flex d-xs-block" >
+//     const currentData = influencers.filter((item) =>
+//     (selectedGender === "" || item.gender === selectedGender) &&
+//     (selectedIsParent === "" || item.isparent  === selectedIsParent) 
+// );
+// console.log(currentData);
+//   return (
+//     <Container >
+//       <Row>
+//           <Col xs={8} sm={8} md={12} lg={10}>
+//              <Row className="mainContainerARI ms-4">
+//                 <div style={{display:"flex"}}>
+//                 <h3 className='campaignHeaderARI' >Registered Influencers ({influencers.length}) </h3></div>
+//                 <div className="ms-4 d-lg-flex d-xs-block" >
                   
-                  <div className="d-flex">
-                      <input  style={{height:"25px"}} placeholder="Search by name &#x1F50D;"/>
-                      <Button style={{backgroundColor:'#452c63',fontSize:"12px",height:"25px", marginLeft:'5px'}}>
-                        <div style={{marginTop:"-6px"}}>
-                          <a href="/BMCompare" className="mx-3" style={{display: 'block', textDecoration:'none'}}>
-                            <p>Compare<CompareArrowsIcon style={{fontSize:"15px",height:"25px"}}/></p>
-                          </a>
-                        </div>
-                      </Button>
-                    </div>
-                    <div className="d-flex d-xs-justify-center d-xs-align-center">
-                      <button onClick={toggleFilter} type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}>
-                        <FilterList style={{fontSize:"12px",height:"25px"}} />Filter</button>
-                    </div>
-                    <div className={`filter ${showFilter ? "show" : ""}`}>
-                      <button className="close-btn" onClick={handleCloseFilter}>
-                        X
-                      </button>
-                      <div>
-                        <h3>Gender</h3>
-                        {GENDER_OPTIONS.map((option) => (
-                          <div
-                            className={`option ${selectedGender === option ? "selected" : ""}`}
-                            key={option}
-                            onClick={() => handleGenderSelect(option)}
-                          >
-                            {option}
-                          </div>
-                        ))}
-                      </div>
-                        <div>
-                        <h3>Are you a parent?</h3>
-                        {ISPARENT.map((option) => (
-                            <div
-                              className={`option ${selectedIsParent === option ? "selected" : ""}`}
-                              key={option}
-                              onClick={() => handleIsParentSelect(option)}
-                            >{option}
-                            </div>
-                          ))}
-                      </div>    
-                    </div>
+//                   <div className="d-flex">
+//                       <input  style={{height:"25px"}} placeholder="Search by name &#x1F50D;"/>
+//                       <Button style={{backgroundColor:'#452c63',fontSize:"12px",height:"25px", marginLeft:'5px'}}>
+//                         <div style={{marginTop:"-6px"}}>
+//                           <a href="/BMCompare" className="mx-3" style={{display: 'block', textDecoration:'none'}}>
+//                             <p>Compare<CompareArrowsIcon style={{fontSize:"15px",height:"25px"}}/></p>
+//                           </a>
+//                         </div>
+//                       </Button>
+//                     </div>
+//                     <div className="d-flex d-xs-justify-center d-xs-align-center">
+//                       <button onClick={toggleFilter} type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}>
+//                         <FilterList style={{fontSize:"12px",height:"25px"}} />Filter</button>
+//                     </div>
+//                     <div className={`filter ${showFilter ? "show" : ""}`}>
+//                       <button className="close-btn" onClick={handleCloseFilter}>
+//                         X
+//                       </button>
+//                       <div>
+//                         <h3>Gender</h3>
+//                         {GENDER_OPTIONS.map((option) => (
+//                           <div
+//                             className={`option ${selectedGender === option ? "selected" : ""}`}
+//                             key={option}
+//                             onClick={() => handleGenderSelect(option)}
+//                           >
+//                             {option}
+//                           </div>
+//                         ))}
+//                       </div>
+//                         <div>
+//                         <h3>Are you a parent?</h3>
+//                         {ISPARENT.map((option) => (
+//                             <div
+//                               className={`option ${selectedIsParent === option ? "selected" : ""}`}
+//                               key={option}
+//                               onClick={() => handleIsParentSelect(option)}
+//                             >{option}
+//                             </div>
+//                           ))}
+//                       </div>    
+//                     </div>
 
          
-                </div>
-                  {currentData.map(item => {
-                  return (
-                    <div>
-                    <p>name  {item.fullname}</p>
-                    <p>gender  {item.gender}</p>
-                    <p>parent  {item.isparent}</p>
-                    </div>
-                  //   <Col xs={8} sm={8} md={2} lg={2} className="subContainerARI mx-3 my-3">
-                  //   <Card style={{ height: "100%", width:"200px"}}>
-                  //     <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={`http://127.0.0.1:8000/${item.influencerImage}`} />
+//                 </div>
+//                   {currentData.map(item => {
+//                   return (
+//                     <div>
+//                     <p>name  {item.fullname}</p>
+//                     <p>gender  {item.gender}</p>
+//                     <p>parent  {item.isparent}</p>
+//                     </div>
+//                   //   <Col xs={8} sm={8} md={2} lg={2} className="subContainerARI mx-3 my-3">
+//                   //   <Card style={{ height: "100%", width:"200px"}}>
+//                   //     <Card.Img style={{height:"150px", width:"100%", objectFit:"cover"}} className="CardImg" src={`http://127.0.0.1:8000/${item.influencerImage}`} />
                       
-                  //     <Card.Body className="d-flex flex-column">
-                  //       <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
+//                   //     <Card.Body className="d-flex flex-column">
+//                   //       <Card.Text className="d-flex flex-column align-items-center justify-content-center text-center flex-grow-1" style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
                         
-                  //         <h6 style={{ fontWeight: "bolder", fontSize: "16px", height: '40px', width:'80%', overflow:'hidden' }}>{item.influencer_username}</h6>
-                  //         <p style={{fontSize: '13px'}}>@{item.age}</p>
-                  //         <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followersCount}K</p>
+//                   //         <h6 style={{ fontWeight: "bolder", fontSize: "16px", height: '40px', width:'80%', overflow:'hidden' }}>{item.influencer_username}</h6>
+//                   //         <p style={{fontSize: '13px'}}>@{item.age}</p>
+//                   //         <p style={{ fontSize: "15px", marginTop:"-10px" }}>{item.followersCount}K</p>
                           
-                  //         <a href={`instagram.com/${item.influencer_username}`}>
-                  //         <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
-                  //           <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
-                  //           <LaunchIcon style={{ fontSize: "12px", height: "25px" }} />
-                  //         </button></a>
-                  //         <div className="data-item" key={item.name}>
-                  //         <div>Name: {item.influencer_username}</div>
-                  //         <div>Name: {item.influencer_full_name}</div>
+//                   //         <a href={`instagram.com/${item.influencer_username}`}>
+//                   //         <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
+//                   //           <p style={{ fontSize: '12px', margin: '0px' }}>Instagram Link</p>
+//                   //           <LaunchIcon style={{ fontSize: "12px", height: "25px" }} />
+//                   //         </button></a>
+//                   //         <div className="data-item" key={item.name}>
+//                   //         <div>Name: {item.influencer_username}</div>
+//                   //         <div>Name: {item.influencer_full_name}</div>
                           
-                  //         <div>Gender: {item.influencerGender}</div>
-                  //         <div>Age: {item.influencerAge}</div>
+//                   //         <div>Gender: {item.influencerGender}</div>
+//                   //         <div>Age: {item.influencerAge}</div>
 
-                  //         <div>post: {item.influencerStoryCost}</div>
-                  //         <div>story: {item.influencerInfluencerPostCost}</div>
+//                   //         <div>post: {item.influencerStoryCost}</div>
+//                   //         <div>story: {item.influencerInfluencerPostCost}</div>
                           
-                  //         {/* <div>Options: {item.options.join(", ")}</div> */}
-                  //         <div>IsParent: {item.isParent}</div>
-                  //         <div>Children Count: {item.influencerChildrenCount}</div>
-                  //         {/* <div>Children Age: {item.kidsAge.join(", ")}</div> */}
-                  //         <div>followersssssssss: {item.followersCount}</div>
-                  //         <div>influencer age: {item.influencerAge}</div>
-                  //         </div>
-                  //       </Card.Text>
-                  //     </Card.Body>
-                  //   </Card>
-                  // </Col>
-                  )})}
+//                   //         {/* <div>Options: {item.options.join(", ")}</div> */}
+//                   //         <div>IsParent: {item.isParent}</div>
+//                   //         <div>Children Count: {item.influencerChildrenCount}</div>
+//                   //         {/* <div>Children Age: {item.kidsAge.join(", ")}</div> */}
+//                   //         <div>followersssssssss: {item.followersCount}</div>
+//                   //         <div>influencer age: {item.influencerAge}</div>
+//                   //         </div>
+//                   //       </Card.Text>
+//                   //     </Card.Body>
+//                   //   </Card>
+//                   // </Col>
+//                   )})}
                   
              
-           </Row>
-         </Col> 
-      </Row>
-  </Container>     
-  );
-};
+//            </Row>
+//          </Col> 
+//       </Row>
+//   </Container>     
+//   );
+// };
 
-export default Pagintation;
+// export default Pagintation;
 // import React, { useState } from "react";
 // import "./Test.css";
 

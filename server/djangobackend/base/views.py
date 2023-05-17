@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Campaign,  Brand, BrandManager, Hashtag, SubBrand, Influencer, Interest, ChildAge, ContentType
-from .serializers import ContentTypeSerializer, InterestSerializer, ChildAgeSerializer, BrandManagerSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, SubBrandSerializer
+from .models import PRLogin, AdminLogin, BMLogin, Campaign,  Brand, BrandManager, Hashtag, SubBrand, Influencer, Interest, ChildAge, ContentType
+from .serializers import  PRLoginSerializer, AdminLoginSerializer ,BMLoginSerializer,  ContentTypeSerializer, InterestSerializer, ChildAgeSerializer, BrandManagerSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, SubBrandSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -38,6 +38,124 @@ def testapi(request, format=None):
         serialized_posts.append(serialized_post)
         print(post.title)
     return Response(serialized_posts)
+
+@api_view(['GET', 'POST'])
+def PR(request, format=None):
+    if request.method == 'GET':
+     brandmanager = PRLogin.objects.all()
+     serializer = PRLoginSerializer(brandmanager, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = PRLoginSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def PR_detail(request, id, format=None):
+
+    try:
+        brandmanager = PRLogin.objects.get(pk=id)
+    except brandmanager.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = PRLoginSerializer(brandmanager)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = PRLoginSerializer(brandmanager, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        brandmanager.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'POST'])
+def admin(request, format=None):
+    if request.method == 'GET':
+     brandmanager = AdminLogin.objects.all()
+     serializer = AdminLoginSerializer(brandmanager, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = AdminLoginSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def admin_detail(request, id, format=None):
+
+    try:
+        brandmanager = AdminLogin.objects.get(pk=id)
+    except brandmanager.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = AdminLoginSerializer(brandmanager)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = AdminLoginSerializer(brandmanager, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        brandmanager.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+
+@api_view(['GET', 'POST'])
+def BM(request, format=None):
+    if request.method == 'GET':
+     brandmanager = BMLogin.objects.all()
+     serializer = BMLoginSerializer(brandmanager, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = BMLoginSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def BM_detail(request, id, format=None):
+
+    try:
+        brandmanager = BMLogin.objects.get(pk=id)
+    except brandmanager.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = BMLoginSerializer(brandmanager)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = BMLoginSerializer(brandmanager, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        brandmanager.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+
 
 @api_view(['GET', 'POST'])
 def active_campaigns(request, format=None):
@@ -112,6 +230,7 @@ def inactivecampaign_detail(request, id, format=None):
     elif request.method == 'DELETE':
         campaign.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 @api_view(['GET', 'POST'])

@@ -1,75 +1,189 @@
 import axios from "axios";
 import React, {useState, useEffect} from 'react';
 import "./Test.css";
-import 'react-input-range/lib/css/index.css';
-import InputRange from 'react-input-range';
 
+function LoginForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-const Test = () => {
-  const [posts, setPosts] = useState([]);
+const handleSubmit = (event) => {
+  event.preventDefault();
+    const data = {
+    email : email,
+    password : password 
+  };
+
+  console.log(data);
+  axios.post('http://127.0.0.1:8000/bmlogin/', data)
+    .then(response => console.log(response))
+    .catch(error => console.log(error));
+
+    console.log('Email:', email);
+    console.log('Password:', password);
+
+    // Reset the input fields
+    setEmail('');
+    setPassword('');
+}   
   
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          'https://oauth.reddit.com/r/apple/new.json?limit=100&fields=title',
-          {
-            headers: {
-              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MjEzNDUyLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLTZXR2xSOG1fcnRvUURGcjdRWThuQURtOHZyVjNtdyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.ax4qqUajbzGdFohTweUNn-lwRRVshXDe7vNnZWLbi8aToBmPXGt4DKV5qFIclUIQsD3qr5bNl3yx74IUKszPtRO9vMNsQZmIEeKLd4xH4i_GcFqPgHEtpqjoe-fgyxDdBgTENZDPUqfeiTC-tUva7ecV2qxooKTb8t9lsHTUYbQiXz5oFL3G9oLxiBzaj9_vUsOA9tNvzJEaRuoRX9w1v7pn7K989TLOehDA0azmNsWhlmpeKornkwItY3LloIdNZEWGJ15aSUa_lZ9mXmvVrWtJrupjXgI70KD4dVW0LKt7M7-zqSaXnSBeuyxd4NOAJMRV0pD6E-irYZDHPncVVw',
-              'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
-            }
-          }
-        );
-      
-        const jsonData = response.data.data.children;
-        const postsArray = jsonData.map((post) => ({
-          title: post.data.title,
-          image: post.data.thumbnail,
-          likes: post.data.ups,
-          comments: post.data.num_comments,
-          author: post.author,
-          up: post.data.ups,
-          down: post.data.downs,
-          created: post.created_utc,
-          postType: post.data.post_hint,
-          subreddit: post.data.subreddit
-          
-        }));
-        setPosts(postsArray);
-        //null;
-
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, []);
-
   return (
-    <div>
-      <h2>Latest Apple Posts from Reddit</h2>
-      <ul>
-        {posts.map((post, index) => (
-          <li key={index}>
-            <img src={post.image} alt={post.title} />
-            <h3>{post.subreddit}</h3>
-            <h3>{post.title}</h3>
-            <p>{post.likes} likes</p>
-            <p>{post.comments} comments</p>
-            <p>Posted by {post.author}</p>
-            <p>{post.ups} ups</p>
-            <p>{post.downs} downs</p>
-            <p>{post.created_utc} date</p>
-            <p>{post.postType} type</p>
-           </li>
-        ))}
-      </ul>
-      <p>here</p>
-    </div>
-  );
-};
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </div>
 
-export default Test;
+      <div>
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+export default LoginForm;
+
+
+// function LoginForm() {
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [loginError, setLoginError] = useState('');
+
+//   const handleSubmit = async (event) => {
+//     event.preventDefault();
+
+//     try {
+//       const response = await axios.get('http://127.0.0.1:8000/bmlogin/');
+//       const users = response.data;
+
+//       const matchedUser = users.find((user) => user.email === email && user.password === password);
+
+//       if (matchedUser) {
+//         setLoginError('');
+//         // Redirect to AdminDashboard
+//         window.location.href = '/AdminDashboard';
+//       } else {
+//         setLoginError('Invalid email or password');
+//       }
+//     } catch (error) {
+//       console.error(error);
+//       setLoginError('An error occurred during login');
+//     }
+//   };
+//   return (
+//     <div>
+//       <h2>Login Form</h2>
+//       <form onSubmit={handleSubmit}>
+//         <div>
+//           <label htmlFor="email">Email</label>
+//           <input
+//             type="email"
+//             id="email"
+//             value={email}
+//             onChange={(e) => setEmail(e.target.value)}
+//             required
+//           />
+//         </div>
+//         <div>
+//           <label htmlFor="password">Password</label>
+//           <input
+//             type="password"
+//             id="password"
+//             value={password}
+//             onChange={(e) => setPassword(e.target.value)}
+//             required
+//           />
+//         </div>
+//         <div>
+//           <button type="submit">Submit</button>
+//         </div>
+//       </form>
+//       {loginError && <p>{loginError}</p>}
+//     </div>
+//   );
+// }
+
+// export default LoginForm;
+
+
+// const Test = () => {
+//   const [posts, setPosts] = useState([]);
+  
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await axios.get(
+//           'https://oauth.reddit.com/r/apple/new.json?limit=100&fields=title',
+//           {
+//             headers: {
+//               Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MjEzNDUyLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLTZXR2xSOG1fcnRvUURGcjdRWThuQURtOHZyVjNtdyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.ax4qqUajbzGdFohTweUNn-lwRRVshXDe7vNnZWLbi8aToBmPXGt4DKV5qFIclUIQsD3qr5bNl3yx74IUKszPtRO9vMNsQZmIEeKLd4xH4i_GcFqPgHEtpqjoe-fgyxDdBgTENZDPUqfeiTC-tUva7ecV2qxooKTb8t9lsHTUYbQiXz5oFL3G9oLxiBzaj9_vUsOA9tNvzJEaRuoRX9w1v7pn7K989TLOehDA0azmNsWhlmpeKornkwItY3LloIdNZEWGJ15aSUa_lZ9mXmvVrWtJrupjXgI70KD4dVW0LKt7M7-zqSaXnSBeuyxd4NOAJMRV0pD6E-irYZDHPncVVw',
+//               'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
+//             }
+//           }
+//         );
+      
+//         const jsonData = response.data.data.children;
+//         const postsArray = jsonData.map((post) => ({
+//           title: post.data.title,
+//           image: post.data.thumbnail,
+//           likes: post.data.ups,
+//           comments: post.data.num_comments,
+//           author: post.author,
+//           up: post.data.ups,
+//           down: post.data.downs,
+//           created: post.created_utc,
+//           postType: post.data.post_hint,
+//           subreddit: post.data.subreddit
+          
+//         }));
+//         setPosts(postsArray);
+//         //null;
+
+//       } catch (error) {
+//         console.error(error);
+//       }
+//     };
+//     fetchData();
+//   }, []);
+
+//   return (
+//     <div>
+//       <h2>Latest Apple Posts from Reddit</h2>
+//       <ul>
+//         {posts.map((post, index) => (
+//           <li key={index}>
+//             <img src={post.image} alt={post.title} />
+//             <h3>{post.subreddit}</h3>
+//             <h3>{post.title}</h3>
+//             <p>{post.likes} likes</p>
+//             <p>{post.comments} comments</p>
+//             <p>Posted by {post.author}</p>
+//             <p>{post.ups} ups</p>
+//             <p>{post.downs} downs</p>
+//             <p>{post.created_utc} date</p>
+//             <p>{post.postType} type</p>
+//            </li>
+//         ))}
+//       </ul>
+//       <p>here</p>
+//     </div>
+//   );
+// };
+
+// export default Test;
 
 
 
