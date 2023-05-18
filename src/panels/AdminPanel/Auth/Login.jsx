@@ -3,11 +3,14 @@ import axios from 'axios';
 import { Checkbox } from '@material-ui/core'
 import { Container, Row, Col } from 'react-grid-system';
 import authAbstract from '../../../images/authAbstract.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const notify = () => toast("Wow so easy!");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,13 +24,16 @@ function LoginForm() {
       if (matchedUser) {
         setLoginError('');
         // Redirect to AdminDashboard
+        toast.success('Login success');
         window.location.href = '/AdminDashboard';
       } else {
         setLoginError('Invalid email or password');
+        toast.failed('invalid email or password!');
       }
     } catch (error) {
       console.error(error);
       setLoginError('An error occurred during login');
+      toast.error('Login failed');
     }
   };
 
@@ -93,6 +99,7 @@ function LoginForm() {
           </button>
         </div>
       </form>
+      <ToastContainer/>
       {loginError && <p>{loginError}</p>}
       </div>
       </Col>

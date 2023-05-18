@@ -2,6 +2,9 @@ import axios from 'axios';
 import { useState, useEffect} from 'react';
 import { Container, Row, Col } from 'react-grid-system';
 import authAbstract from '../../../images/authAbstract.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,19 +24,24 @@ const Login = () => {
       if (matchedUser) {
         if (matchedUser.password === null) {
           setLoginError('Password is not set. Please register to the account.');
+          toast.error('Password is not set. Please register to the account');
         } else if (matchedUser.password === password) {
           setLoginError('');
           // Redirect to AdminDashboard
+          toast.success('Login success');
           window.location.href = '/PRDashboard';
         } else {
           setLoginError('Invalid email or password');
+          toast.error('Login success');
         }
       } else {
         setLoginError('Invalid email or password');
+        toast.error('Login success');
       }
     } catch (error) {
       console.error(error);
       setLoginError('An error occurred during login');
+      toast.error('Login success');
     }
   };
 
@@ -113,6 +121,7 @@ const Login = () => {
                 </div>
               </form>
               {loginError && <p>{loginError}</p>}
+              <ToastContainer/>
             </div>
           </Col>
         </div>
