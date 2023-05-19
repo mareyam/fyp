@@ -27,12 +27,12 @@ const Login = () => {
         toast.success('Password is not set. Please register to the account');
       } else {
         setLoginError('Invalid email or password');
-        toast.error('Password is not set. Please register to the account');
+        toast.error('Invalid email or password');
       }
     } catch (error) {
       console.error(error);
       setLoginError('An error occurred during login');
-      toast.error('Password is not set. Please register to the account');
+      toast.error('An error occurred during login');
     }
   };
 

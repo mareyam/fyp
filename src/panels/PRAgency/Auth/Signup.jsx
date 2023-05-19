@@ -20,7 +20,7 @@ function Login() {
       const matchedUser = users.find((user) => user.email === email);
 
       if (matchedUser) {
-        if (matchedUser.password === null) {
+        if (matchedUser.password === "null") {
           if (password === confirmPassword) {
             // Update the password in the database
             await axios.post('http://127.0.0.1:8000/prregistration/', {

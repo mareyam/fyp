@@ -22,7 +22,7 @@ const Login = () => {
       const matchedUser = users.find((user) => user.email === email);
   
       if (matchedUser) {
-        if (matchedUser.password === null) {
+        if (matchedUser.password === 'null') {
           setLoginError('Password is not set. Please register to the account.');
           toast.error('Password is not set. Please register to the account');
         } else if (matchedUser.password === password) {
@@ -32,16 +32,16 @@ const Login = () => {
           window.location.href = '/PRDashboard';
         } else {
           setLoginError('Invalid email or password');
-          toast.error('Login success');
+          toast.error('Invalid email or password');
         }
       } else {
         setLoginError('Invalid email or password');
-        toast.error('Login success');
+        toast.error('Invalid email or password');
       }
     } catch (error) {
       console.error(error);
       setLoginError('An error occurred during login');
-      toast.error('Login success');
+      toast.error('An error occurred during login');
     }
   };
 
@@ -59,7 +59,7 @@ const Login = () => {
               <h4 className='text-center'>PR Agency's Login</h4>
               <div style={{ fontSize: '12px' }} className='text-center'>
                 <label>
-                  <a href="/BMSignup" style={{ textDecoration: 'none', color: 'black' }}>
+                  <a href="/prSignup" style={{ textDecoration: 'none', color: 'black' }}>
                     Don't have an account? <span style={{ color: 'purple', textDecoration: 'underline' }}><b>Register now</b></span>
                   </a>
                 </label>
@@ -103,7 +103,7 @@ const Login = () => {
                   <div style={{ fontSize: '10px', textAlign: 'end', justifyContent: 'right', alignItems: 'right' }}>
                     <label>
                       <b>
-                        <a href="/BMForgot">
+                        <a href="/prForgot">
                           <span style={{ color: 'purple', textDecoration: 'underline' }}>Forgot Password?</span>
                         </a>
                       </b>

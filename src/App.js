@@ -50,6 +50,7 @@ import NewBMPopup from './panels/PRAgency/BrandManagerList/NewBMPopup';
 import PRDashboard from './panels/PRAgency/PRDashboard.jsx';
 import PRRegisteredInfluencers from './panels/PRAgency/Influencers/AllRegisteredInfluencers';
 import PRCampaigns from './panels/PRAgency/Campaigns/PRCampaigns';
+import PRContent from './panels/PRAgency/Content/PRContent';
 
 
 import InfluencerNavbar from './panels/InfluencerPanel/Navbar/InfluencerNavbar';
@@ -89,8 +90,9 @@ const App = () => {
        || location.pathname === '/AdminCampaigns' || location.pathname === '/AdminPRList' || location.pathname === '/NewPRPopup') && <AdminNavbar/> }
 
        {(location.pathname === '/PRDashboard'|| location.pathname === '/PRBMList' 
-       || location.pathname === '/PRRegisteredInfluencers' || location.pathname === '/NewBMPopup' || location.pathname === '/PRCampaigns') 
-        && <PRNavbar/> }
+       || location.pathname === '/PRRegisteredInfluencers' || location.pathname === '/NewBMPopup' || location.pathname === '/PRCampaigns'
+      || location.pathname === '/PRContent'
+       )         && <PRNavbar/> }
 
        {(location.pathname === '/InfluencerContent'|| location.pathname === '/InfluencerPosts' 
        || location.pathname === '/InfluencerPendingCampaigns') && <InfluencerNavbar/> }
@@ -146,6 +148,8 @@ const App = () => {
         <Route exact path="/PRDashboard" element={<PRDashboard/>}/>
         <Route exact path="/PRRegisteredInfluencers" element={<PRRegisteredInfluencers/>}/>
         <Route exact path="/PRCampaigns" element={<PRCampaigns/>}/>
+        <Route exact path="/PRContent" element={<PRContent/>}/>
+        
         
         <Route exact path="/InfluencerContent" element={<InfluencerContent/>}/>
         <Route exact path="/InfluencerLogin" element={<InfluencerLogin/>}/>

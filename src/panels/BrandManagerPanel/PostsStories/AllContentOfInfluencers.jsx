@@ -50,7 +50,7 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
                 'https://oauth.reddit.com/r/apple/new.json?limit=50&fields=title',
                 {
                   headers: {
-                    Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MjEzNDUyLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLTZXR2xSOG1fcnRvUURGcjdRWThuQURtOHZyVjNtdyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.ax4qqUajbzGdFohTweUNn-lwRRVshXDe7vNnZWLbi8aToBmPXGt4DKV5qFIclUIQsD3qr5bNl3yx74IUKszPtRO9vMNsQZmIEeKLd4xH4i_GcFqPgHEtpqjoe-fgyxDdBgTENZDPUqfeiTC-tUva7ecV2qxooKTb8t9lsHTUYbQiXz5oFL3G9oLxiBzaj9_vUsOA9tNvzJEaRuoRX9w1v7pn7K989TLOehDA0azmNsWhlmpeKornkwItY3LloIdNZEWGJ15aSUa_lZ9mXmvVrWtJrupjXgI70KD4dVW0LKt7M7-zqSaXnSBeuyxd4NOAJMRV0pD6E-irYZDHPncVVw',
+                    Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0NDk4NDE1LCJpYXQiOjE2ODQ0MTIwMTUsImp0aSI6IjI0NDk1MzE3MzgyNTMtNlF5RTZLcVFfRnJhQ0w5RGk2aXVWeG5nQ1VzUkV3IiwiY2lkIjoiNzU4WVRPTU5nRThTMDgxbmNIQmY1QSIsImxpZCI6InQyX3Y5YXJ5OW90IiwiYWlkIjoidDJfdjlhcnk5b3QiLCJsY2EiOjE2NzIyMjM4MzkwMDAsInNjcCI6ImVKeUtWdEpTaWdVRUFBRF9fd056QVNjIiwiZmxvIjo5fQ.31-Qve-EMr261HJ4LMJilIFnkowoQyOxpS2BZklK2ofWX5qwqZJKTq5j61SSfseuQPG5U2eWKJjHh2lW8bQE3sdwNOG2991vCoQuwWHVf-GKbrqcM9lxE0q_5KmCkJcaPTo5ezkYQfcl10cSusUp_weuyKbEPBzOf3fWQJle7as5zhNaA0UUDDMoNcMwbhNpOx2qnzdDamzXVkEhYykieOy2Ad4NK7mCzjiDeLFWT0q91DVi_SlXwUd00MfE8gJGB4yBxwwrElyEo8GaBK0MeKHzUeqGCocEjB54TCmTVBAYfP_u1G1skilnyMh_dlLmteoFqcuHyojv7Q0bJDQHcA',
                     'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
                   }
                 }
@@ -63,7 +63,7 @@ const AllPosts = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
                 profilepic: post.data.icon_img ? post.data.icon_img : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg',
                 likes: post.data.ups,
                 comments: post.data.num_comments,
-                author: post.author.fullname,
+                author: post.author,
                 up: post.data.ups,
                 down: post.data.downs,
                 created: new Date(post.data.created_utc * 1000).toLocaleString(),

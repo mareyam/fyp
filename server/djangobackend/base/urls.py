@@ -14,8 +14,8 @@ urlpatterns = [
     path('bmlogin/', views.BM),
     path('bmloginlist/<str:id>/', views.BM_detail),
 
-    path('admin/', views.admin),
-    path('adminlist/<str:id>/', views.admin_detail),
+    path('adminlogin/', views.admin),
+    path('adminloginlist/<str:id>/', views.admin_detail),
 
     path('prlogin/', views.PR_login),
     path('prloginlist/<str:id>/', views.PR_login_detail),

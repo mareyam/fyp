@@ -50,7 +50,7 @@ const Hashtags = () => {
             'https://oauth.reddit.com/r/apple/search.json?q=apple&restrict_sr=on&limit=100',
             {
               headers: {
-                Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MjEzNDUyLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLTZXR2xSOG1fcnRvUURGcjdRWThuQURtOHZyVjNtdyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.ax4qqUajbzGdFohTweUNn-lwRRVshXDe7vNnZWLbi8aToBmPXGt4DKV5qFIclUIQsD3qr5bNl3yx74IUKszPtRO9vMNsQZmIEeKLd4xH4i_GcFqPgHEtpqjoe-fgyxDdBgTENZDPUqfeiTC-tUva7ecV2qxooKTb8t9lsHTUYbQiXz5oFL3G9oLxiBzaj9_vUsOA9tNvzJEaRuoRX9w1v7pn7K989TLOehDA0azmNsWhlmpeKornkwItY3LloIdNZEWGJ15aSUa_lZ9mXmvVrWtJrupjXgI70KD4dVW0LKt7M7-zqSaXnSBeuyxd4NOAJMRV0pD6E-irYZDHPncVVw',
+                Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0NDk4NDE1LCJpYXQiOjE2ODQ0MTIwMTUsImp0aSI6IjI0NDk1MzE3MzgyNTMtNlF5RTZLcVFfRnJhQ0w5RGk2aXVWeG5nQ1VzUkV3IiwiY2lkIjoiNzU4WVRPTU5nRThTMDgxbmNIQmY1QSIsImxpZCI6InQyX3Y5YXJ5OW90IiwiYWlkIjoidDJfdjlhcnk5b3QiLCJsY2EiOjE2NzIyMjM4MzkwMDAsInNjcCI6ImVKeUtWdEpTaWdVRUFBRF9fd056QVNjIiwiZmxvIjo5fQ.31-Qve-EMr261HJ4LMJilIFnkowoQyOxpS2BZklK2ofWX5qwqZJKTq5j61SSfseuQPG5U2eWKJjHh2lW8bQE3sdwNOG2991vCoQuwWHVf-GKbrqcM9lxE0q_5KmCkJcaPTo5ezkYQfcl10cSusUp_weuyKbEPBzOf3fWQJle7as5zhNaA0UUDDMoNcMwbhNpOx2qnzdDamzXVkEhYykieOy2Ad4NK7mCzjiDeLFWT0q91DVi_SlXwUd00MfE8gJGB4yBxwwrElyEo8GaBK0MeKHzUeqGCocEjB54TCmTVBAYfP_u1G1skilnyMh_dlLmteoFqcuHyojv7Q0bJDQHcA',
                 'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
               }
             }
@@ -96,25 +96,21 @@ const Hashtags = () => {
 
   return (
     <div>
-      <Container style={{border:'1px solid rgb(212, 211, 211)'}}>
+      <Container style={{border:'1px solid rgb(212, 211, 211)'}} className='mt-3'>
           <Row>
           <Col xs={8} sm={8} md={12} lg={12}>
-          <div style={{display:"flex"}}><ArrowBack/>
-          <h5 className='campaignHeaderAC' >Hashtags</h5></div>
+          {/* <div style={{display:"flex"}}>
+          <h5 className='campaignHeaderAC' >Hashtags</h5></div> */}
                 <div className="ms-4 d-lg-flex d-xs-block">
                   <div className="align-item-center"><h6>All HashTags ({hashtags.length})</h6></div>
                   <div className="d-flex">
                       <input  style={{height:"25px"}} placeholder="Search by name &#x1F50D;"/>
-                      <button 
-                        type="button" 
-                        className="btn btn-outline-dark d-flex align-items-center" 
-                        data-mdb-ripple-color="dark" 
-                        style={{fontSize:"12px",height:"25px"}}><AddIcon style={{fontSize:"12px",height:"25px"}}/>Create</button>
+
                     </div>
                     <div className="d-flex d-xs-justify-center d-xs-align-center">
-                      <button type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}><FilterList style={{fontSize:"12px",height:"25px"}} />Filter</button>
+                      {/* <button type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}><FilterList style={{fontSize:"12px",height:"25px"}} />Filter</button>
                       <button type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}><ArrowDropDown style={{fontSize:"12px",height:"25px"}} />To</button>
-                      <button type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}><ArrowDropDown style={{fontSize:"12px",height:"25px"}} />From</button>
+                      <button type="button" className="btn btn-outline-dark d-flex align-items-center" data-mdb-ripple-color="dark" style={{fontSize:"12px",height:"25px"}}><ArrowDropDown style={{fontSize:"12px",height:"25px"}} />From</button> */}
                     </div>
                 </div>
           </Col> 
@@ -123,24 +119,24 @@ const Hashtags = () => {
             <table className="table">
               <thead className="thead-dark">
                 <tr>
-                    <th className="">Campaign</th>
+                    <th className="" scope="col">Title</th>
                     <th className="" scope="col">Hashtag</th>
                     <th className="" scope="col">Created</th>
                     <th className="" scope="col">Comments</th>
                     <th className="" scope="col">Likes</th>
-                    <th className="" scope="col">Follower</th>
+                    {/* <th className="" scope="col">Follower</th> */}
                 </tr>
                </thead>
               <tbody style={{border:'1px solid rgb(212, 211, 211)'}} className="">
                         {currentItems.map(item => {
                           return (
                               <tr>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="campaignNameHT">{item.title.slice(0,15)}...</p></td>
+                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="campaignNameHT">{item.title.slice(0,70)}...</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="brandLogoHT">{item.hashtag}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="startDateHT">{item.created}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="hashtagHT">{item.comments}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="hashtagHT">{item.likes}</p></td>
-                                  <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="hashtagHT">{item.followers}</p></td>
+                                  {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)'}}><p className="hashtagHT">{item.followers}</p></td> */}
                               </tr> )})}
                       <Pagintation
                           itemsPerPage={itemsPerPage}

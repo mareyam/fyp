@@ -7,6 +7,9 @@ import { ArrowBack } from '@material-ui/icons';
 import { Card, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
 import moment from 'moment';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const NewCampaign = () => {
   const [selected, setSelected] = useState('Single');
@@ -27,58 +30,18 @@ const NewCampaign = () => {
 
  
   
-  // useEffect(() => {
-  //   axios
-  //     .get('http://127.0.0.1:8000/influencers/')
-  //     .then((response) => {
-  //       setInfluencers(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, []);
-
-
-
-
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          'https://oauth.reddit.com/r/apple/new.json?limit=100',
-          {
-            headers: {
-              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MjEzNDUyLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLTZXR2xSOG1fcnRvUURGcjdRWThuQURtOHZyVjNtdyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.ax4qqUajbzGdFohTweUNn-lwRRVshXDe7vNnZWLbi8aToBmPXGt4DKV5qFIclUIQsD3qr5bNl3yx74IUKszPtRO9vMNsQZmIEeKLd4xH4i_GcFqPgHEtpqjoe-fgyxDdBgTENZDPUqfeiTC-tUva7ecV2qxooKTb8t9lsHTUYbQiXz5oFL3G9oLxiBzaj9_vUsOA9tNvzJEaRuoRX9w1v7pn7K989TLOehDA0azmNsWhlmpeKornkwItY3LloIdNZEWGJ15aSUa_lZ9mXmvVrWtJrupjXgI70KD4dVW0LKt7M7-zqSaXnSBeuyxd4NOAJMRV0pD6E-irYZDHPncVVw',
-              'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
-            }
-          }
-        );
-        
-        const users = new Set(); // Set to store unique usernames
-        
-        const influencerArray = response.data.data.children.map((post) => {
-          const username = post.data.author;
-          const fullname = post.data.name;
-          const image = post.data.icon_img ? post.data.icon_img : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg';
-          if (!users.has(username)) { 
-            users.add(username); 
-            return { username, fullname, image }; 
-          } else {
-            return null; 
-          }
-        }).filter((item) => item !== null); 
-        setInfluencers(influencerArray);
-        console.log(influencerArray);
-      } catch (error) {
+    axios
+      .get('http://127.0.0.1:8000/influencers/')
+      .then((response) => {
+        setInfluencers(response.data);
+      })
+      .catch((error) => {
         console.error(error);
-      }
-    };
-    
-    fetchData();
+      });
   }, []);
 
-  
+
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files);
@@ -134,23 +97,7 @@ const NewCampaign = () => {
     cursor: "pointer"
   };
 
-  const handleInfluencerChangeStory = (index, e) => {
-    const updatedInfluencers = [...influencers];
-    updatedInfluencers[index].story = e.target.checked;
-    setInfluencers(updatedInfluencers);
 
-    const cost = e.target.checked ? influencers[index].influencerStoryCost : -influencers[index].influencerStoryCost;
-    setStoryCost(storyCost + cost);
-  };
-
-  const handleInfluencerChangePost = (index, e) => {
-    const updatedInfluencers = [...influencers];
-    updatedInfluencers[index].post = e.target.checked;
-    setInfluencers(updatedInfluencers);
-
-    const cost = e.target.checked ? influencers[index].influencerInfluencerPostCost : -influencers[index].influencerInfluencerPostCost;
-    setPostCost(postCost + cost);
-  };
 
   const removeInfluencer = (indexToRemove) => {
     const removedInfluencer = influencers[indexToRemove];
@@ -163,21 +110,18 @@ const NewCampaign = () => {
     setPostCost(postCost => postCost + postCostChange);
   };
 
-
-  const fetchInfluencers = async () => {
-    const response = await axios.get(
-      'https://oauth.reddit.com/r/apple/new.json?limit=100&fields=title',
-      {
-        headers: {
-          Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MjEzNDUyLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLTZXR2xSOG1fcnRvUURGcjdRWThuQURtOHZyVjNtdyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.ax4qqUajbzGdFohTweUNn-lwRRVshXDe7vNnZWLbi8aToBmPXGt4DKV5qFIclUIQsD3qr5bNl3yx74IUKszPtRO9vMNsQZmIEeKLd4xH4i_GcFqPgHEtpqjoe-fgyxDdBgTENZDPUqfeiTC-tUva7ecV2qxooKTb8t9lsHTUYbQiXz5oFL3G9oLxiBzaj9_vUsOA9tNvzJEaRuoRX9w1v7pn7K989TLOehDA0azmNsWhlmpeKornkwItY3LloIdNZEWGJ15aSUa_lZ9mXmvVrWtJrupjXgI70KD4dVW0LKt7M7-zqSaXnSBeuyxd4NOAJMRV0pD6E-irYZDHPncVVw',
-          'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
-        }
-      }
-    );
-      setInfluencers(response.data);
-      //null;
+  const fetchInfluencers = () => {
+    axios
+      .get('http://127.0.0.1:8000/influencers/')
+      .then((response) => {
+        setInfluencers(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
       setTotalCost(0);
   };
+
 
   useEffect(() => {
     setTotalCost(storyCost + postCost);
@@ -197,10 +141,15 @@ const NewCampaign = () => {
     };
 
     console.log(data);
+
     axios.post('http://127.0.0.1:8000/activecampaigns/', data)
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
-  }
+    .then((response) => {
+      console.log(response);
+      toast.success('success');
+      window.location.href = '/BMDashboard';
+    })
+    .catch((error) => console.log(error));
+};
 
 
   return (
@@ -285,10 +234,10 @@ const NewCampaign = () => {
                 <Col xs={8} sm={8} md={2} lg={2}>
                   <div className="subContainerNC" style={{overflow:'hidden'}}>
                     <input type="checkbox" id={item.id} name="influencers" value={item.id} onChange={(e) => handleCheckboxChange(e, item)} />
-                    <img className='imageNC' src={item.image}/>
+                   
+                        <img className="imageNC" src="https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg" />
 
                     <p className='nameNC'>@{item.username.slice(0,8)}...</p>
-                    
                     <p className='userNameNC'>{item.fullname}</p>
                     <p className='EngagementRateNC'>Engagement Rate</p>
                    
@@ -320,13 +269,13 @@ const NewCampaign = () => {
 
 
            <div className="d-lg-flex justify-content-between align-items-end d-sm-block ">
-              <div>
+              {/* <div>
                   <input className='inputNC'
                     type="checkbox"
                     checked={isChecked}/>
-                    // onChange={handleCheckboxChange}
+                    
                   <label>Make Campaign Live</label>
-              </div>
+              </div> */}
               <div className="d-block">
                 <p>Total Cost: Rs. {totalCost}</p>
                 <Button type="submit" style={{backgroundColor: '#452c63'}}>
@@ -341,6 +290,71 @@ const NewCampaign = () => {
 }
 
 export default NewCampaign;
+
+
+  
+
+
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         'https://oauth.reddit.com/r/apple/new.json?limit=100',
+  //         {
+  //           headers: {
+  //             Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0NDk4NDE1LCJpYXQiOjE2ODQ0MTIwMTUsImp0aSI6IjI0NDk1MzE3MzgyNTMtNlF5RTZLcVFfRnJhQ0w5RGk2aXVWeG5nQ1VzUkV3IiwiY2lkIjoiNzU4WVRPTU5nRThTMDgxbmNIQmY1QSIsImxpZCI6InQyX3Y5YXJ5OW90IiwiYWlkIjoidDJfdjlhcnk5b3QiLCJsY2EiOjE2NzIyMjM4MzkwMDAsInNjcCI6ImVKeUtWdEpTaWdVRUFBRF9fd056QVNjIiwiZmxvIjo5fQ.31-Qve-EMr261HJ4LMJilIFnkowoQyOxpS2BZklK2ofWX5qwqZJKTq5j61SSfseuQPG5U2eWKJjHh2lW8bQE3sdwNOG2991vCoQuwWHVf-GKbrqcM9lxE0q_5KmCkJcaPTo5ezkYQfcl10cSusUp_weuyKbEPBzOf3fWQJle7as5zhNaA0UUDDMoNcMwbhNpOx2qnzdDamzXVkEhYykieOy2Ad4NK7mCzjiDeLFWT0q91DVi_SlXwUd00MfE8gJGB4yBxwwrElyEo8GaBK0MeKHzUeqGCocEjB54TCmTVBAYfP_u1G1skilnyMh_dlLmteoFqcuHyojv7Q0bJDQHcA',
+  //             'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
+  //           }
+  //         }
+  //       );
+        
+  //       const users = new Set(); // Set to store unique usernames
+        
+  //       const influencerArray = response.data.data.children.map((post) => {
+  //         const username = post.data.author;
+  //         const fullname = post.data.name;
+  //         const image = post.data.icon_img ? post.data.icon_img : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg';
+  //         if (!users.has(username)) { 
+  //           users.add(username); 
+  //           return { username, fullname, image }; 
+  //         } else {
+  //           return null; 
+  //         }
+  //       }).filter((item) => item !== null); 
+  //       setInfluencers(influencerArray);
+  //       console.log(influencerArray);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+    
+  //   fetchData();
+  // }, []);
+
+  
+  
+///////////////////////////////////////////////////////////////////////////////////////
+// const handleInfluencerChangeStory = (index, e) => {
+//   const updatedInfluencers = [...influencers];
+//   updatedInfluencers[index].story = e.target.checked;
+//   setInfluencers(updatedInfluencers);
+
+//   const cost = e.target.checked ? influencers[index].influencerStoryCost : -influencers[index].influencerStoryCost;
+//   setStoryCost(storyCost + cost);
+// };
+
+// const handleInfluencerChangePost = (index, e) => {
+//   const updatedInfluencers = [...influencers];
+//   updatedInfluencers[index].post = e.target.checked;
+//   setInfluencers(updatedInfluencers);
+
+//   const cost = e.target.checked ? influencers[index].influencerInfluencerPostCost : -influencers[index].influencerInfluencerPostCost;
+//   setPostCost(postCost + cost);
+// };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 

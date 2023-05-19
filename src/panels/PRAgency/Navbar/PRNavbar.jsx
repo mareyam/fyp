@@ -119,6 +119,9 @@ function Navbar() {
            <Button
                 onClick={handleCloseNavMenu}><a href="/PRRegisteredInfluencers" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Influencers</a></Button>
         
+         <Button
+                onClick={handleCloseNavMenu}><a href="/PRContent" style={{ my: 2, color: 'black', display: 'block', textTransform:"capitalize" }}>Content</a></Button>
+        
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

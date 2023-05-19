@@ -2,6 +2,8 @@ import { Checkbox } from '@material-ui/core';
 import React from 'react';
 import { Container, Row, Col } from 'react-grid-system';
 import authAbstract from '../../../images/authAbstract.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Signup() {
