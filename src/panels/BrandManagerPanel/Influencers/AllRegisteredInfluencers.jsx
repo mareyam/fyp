@@ -75,7 +75,7 @@ const Pagintation = () => {
           'https://oauth.reddit.com/r/apple/search.json?q=apple&restrict_sr=on&limit=100',
           {
             headers: {
-              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0MjM3NzEzLCJqdGkiOiIyNDQ5NTMxNzM4MjUzLTJRTFd6QmVralkydHNIV1hoTThhbER5SXFXWjk0dyIsImNpZCI6Ijc1OFlUT01OZ0U4UzA4MW5jSEJmNUEiLCJsaWQiOiJ0Ml92OWFyeTlvdCIsImFpZCI6InQyX3Y5YXJ5OW90IiwibGNhIjoxNjcyMjIzODM5MDAwLCJzY3AiOiJlSnlLVnRKU2lnVUVBQURfX3dOekFTYyJ9.tLADQVGPFlCCCWyNfBVvNmo2M88xDXhVYPjoywqOGLiLFEq593X5iEycqVoa9-mxeKXdSNcugxIlvNBR7nz1sMEoifxIGAnX9X8wNykYHKTEbDXHpWoRMq41fLsDa3L2COBeg81F30dmxbSf1KNyG6ck2og4gs3HDvyuX80At47SOnelDr9BIk4WIFp3PuqtcEKazFFar1hCVrQrER-ylII0W6OsScZRXQueixytsSBi_OrGZv57M6qDNvgUTL9Dq_zHHs8ut3uKRGaJQXk4W4AmKc4cV1zrBKUEGAOat61A5EZCJdnw_RMalC-WY10Vp8Jxtk43bAk36oYIkpuYqw',
+              Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0NTU3MTA5LjMzNzExMCwiaWF0IjoxNjg0NDcwNzA5LjMzNzEwOSwianRpIjoiMjQ0OTUzMTczODI1My1VVjJLS18zbG9NOWNwcE9rYWtmMXRXcHZrSEI1VmciLCJjaWQiOiI3NThZVE9NTmdFOFMwODFuY0hCZjVBIiwibGlkIjoidDJfdjlhcnk5b3QiLCJhaWQiOiJ0Ml92OWFyeTlvdCIsImxjYSI6MTY3MjIyMzgzOTAwMCwic2NwIjoiZUp5S1Z0SlNpZ1VFQUFEX193TnpBU2MiLCJmbG8iOjl9.IaXaQgjGzVhq9sFgD39Zj9M8EavnwTablc5IrjvlQYWHDs9CzfxO9LPm7diFo9N4cWBOPWJlyv2mEv-ngZXQRQ1uENSpBhbps3GNt-z6g9dO5vlcm7ngKbOUyzw8Cl3QnAz4GUpsOfjReEHjK8RdreOCFydRGXZYSGkOI49x7TZdoJTUSF34sbMF8OID33R_QOX_joMHyABuViARuXvz0AglWlnXLwWoJNug3JQqTiDRvAVuAiWIw0vJoMd6afzs4VZGaJigjz9sZfmTo6HHNurG5GqUGttJFRTHUYkEIHJRFOeFrhuMH48liZ9aquCUdjL7J57Yy_F59eWBcisF2g',
               'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
             }
           }
@@ -350,11 +350,11 @@ console.log(currentData);
                           <p style={{fontSize: '13px'}}>@{item.username.slice(0,8)}..</p>
                           <p style={{ fontSize: "15px", marginTop:"-10px" }}>Followers: {item.followers}</p>
                           
-                          <a href={`instagram.com/${item.username}`}>
-                          <button type="button" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
-                            <p style={{ fontSize: '12px', margin: '0px' }}>Instagram </p>
+                          <a href={`https://www.reddit.com/u/${item.username}`} target="_blank" className="btn btn-dark d-flex align-items-center justify-content-center" data-mdb-ripple-color="dark" style={{ marginTop:"-10px", fontSize: "12px", height: "35px", width: '100%' }}>
+                        
+                            <p style={{ fontSize: '12px', margin: '0px' }}>Reddit </p>
                             <LaunchIcon style={{ fontSize: "12px", height: "25px" }} />
-                          </button></a>
+                          </a>
                         </Card.Text>
                       </Card.Body>
                     </Card>

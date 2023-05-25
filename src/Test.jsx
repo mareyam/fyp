@@ -1,82 +1,146 @@
 import axios from "axios";
 import React, {useState, useEffect} from 'react';
 import "./Test.css";
+import { Container, Row, Col } from 'react-grid-system';
 
-function Login() {
+
+function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [loginError, setLoginError] = useState('');
-
-  const handleSubmit = async (event) => {
+  const [name, setName] = useState('');
+  const [username, setUserName] = useState('');
+  const [role, setRole] = useState('Admin');
+  
+  const handleSubmit = (event) => {
     event.preventDefault();
+      const data = {
+      name:name,
+      username, username, 
+      email: email,
+      password:password,
+      role: role
+    };
 
-    try {
-      const response = await axios.get('http://127.0.0.1:8000/prlogin/');
-      const users = response.data;
+    console.log("data is"+ data);
 
-      const matchedUser = users.find((user) => user.email === email);
+    axios.post('http://127.0.0.1:8000/api/register/', data)
+    .then((response) => {
+      console.log("response is" + response);
+      window.location.href = '/BMDashboard';
+    })
+    .catch((error) => console.log("error"));
+};
+return (
 
-      if (matchedUser) {
-        if (matchedUser.password === null) {
-          if (password === confirmPassword) {
-            // Update the password in the database
-            await axios.post('http://127.0.0.1:8000/prregistration/', {
-              email: email,
-              password: password,
-              confirm_password: confirmPassword
-            });
-            setLoginError('Password updated successfully');
-          } else {
-            setLoginError('Password and confirm password do not match');
-          }
-        } else if (matchedUser.password !== password) {
-          setLoginError('Incorrect password');
-        } else {
-          setLoginError('Password match');
-          window.location.href = '/PRDashboard';
-        }
-      } else {
-        setLoginError('User not found');
-      }
-    } catch (error) {
-      console.error(error);
-      setLoginError('An error occurred during login');
-    }
-  };
+  <Container fluid className="h-100">
+  <Row className="h-100"> 
+    <Col xs={12} sm={12} md={12} lg={6}>
+            <form className="needs-validation" noValidate onSubmit={handleSubmit}>
+              
+                <label>name</label>
+                <input value={name} onChange={e => setName(e.target.value)} type="name"/>
 
+                <label>username</label>
+                <input value={username} onChange={e => setUserName(e.target.value)} type="username"/>
 
-  return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </div>
-        
-          <div>
-            <label>Confirm Password:</label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
-        
-        <button type="submit">Submit</button>
-      </form>
-      {loginError && <p>{loginError}</p>}
-    </div>
-  );
+  
+                <label>email</label>
+                <input value={email} onChange={e => setEmail(e.target.value)} type="email"/>
+
+                <label>password</label>
+                <input value={password} onChange={e => setPassword(e.target.value)} type="password"/>
+           
+                <div className='justify-content-center align-items-center text-center'><button className="btn btn-primary " type="submit" style={{backgroundColor:'#452c63', width:'200px'}}>Submit form</button></div>
+              
+          </form>
+      
+          </Col>
+      </Row>
+     
+  </Container>
+  
+
+)
 }
 
-export default Login;
+export default Signup;
+
+
+// function Login() {
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [confirmPassword, setConfirmPassword] = useState('');
+//   const [loginError, setLoginError] = useState('');
+
+//   const handleSubmit = async (event) => {
+//     event.preventDefault();
+
+//     try {
+//       const response = await axios.get('http://127.0.0.1:8000/prlogin/');
+//       const users = response.data;
+
+//       const matchedUser = users.find((user) => user.email === email);
+
+//       if (matchedUser) {
+//         if (matchedUser.password === null) {
+//           if (password === confirmPassword) {
+//             // Update the password in the database
+//             await axios.post('http://127.0.0.1:8000/prregistration/', {
+//               email: email,
+//               password: password,
+//               confirm_password: confirmPassword
+//             });
+//             setLoginError('Password updated successfully');
+//           } else {
+//             setLoginError('Password and confirm password do not match');
+//           }
+//         } else if (matchedUser.password !== password) {
+//           setLoginError('Incorrect password');
+//         } else {
+//           setLoginError('Password match');
+//           window.location.href = '/PRDashboard';
+//         }
+//       } else {
+//         setLoginError('User not found');
+//       }
+//     } catch (error) {
+//       console.error(error);
+//       setLoginError('An error occurred during login');
+//     }
+//   };
+
+
+//   return (
+//     <div>
+//       <h2>Login</h2>
+//       <form onSubmit={handleSubmit}>
+//         <div>
+//           <label>Email:</label>
+//           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+//         </div>
+//         <div>
+//           <label>Password:</label>
+//           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+//         </div>
+        
+//           <div>
+//             <label>Confirm Password:</label>
+//             <input
+//               type="password"
+//               value={confirmPassword}
+//               onChange={(e) => setConfirmPassword(e.target.value)}
+//               required
+//             />
+//           </div>
+        
+//         <button type="submit">Submit</button>
+//       </form>
+//       {loginError && <p>{loginError}</p>}
+//     </div>
+//   );
+// }
+
+// export default Login;
 
 
 
@@ -207,7 +271,7 @@ export default Login;
 //           'https://oauth.reddit.com/r/apple/new.json?limit=100&fields=title',
 //           {
 //             headers: {
-//               Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0NDk4NDE1LCJpYXQiOjE2ODQ0MTIwMTUsImp0aSI6IjI0NDk1MzE3MzgyNTMtNlF5RTZLcVFfRnJhQ0w5RGk2aXVWeG5nQ1VzUkV3IiwiY2lkIjoiNzU4WVRPTU5nRThTMDgxbmNIQmY1QSIsImxpZCI6InQyX3Y5YXJ5OW90IiwiYWlkIjoidDJfdjlhcnk5b3QiLCJsY2EiOjE2NzIyMjM4MzkwMDAsInNjcCI6ImVKeUtWdEpTaWdVRUFBRF9fd056QVNjIiwiZmxvIjo5fQ.31-Qve-EMr261HJ4LMJilIFnkowoQyOxpS2BZklK2ofWX5qwqZJKTq5j61SSfseuQPG5U2eWKJjHh2lW8bQE3sdwNOG2991vCoQuwWHVf-GKbrqcM9lxE0q_5KmCkJcaPTo5ezkYQfcl10cSusUp_weuyKbEPBzOf3fWQJle7as5zhNaA0UUDDMoNcMwbhNpOx2qnzdDamzXVkEhYykieOy2Ad4NK7mCzjiDeLFWT0q91DVi_SlXwUd00MfE8gJGB4yBxwwrElyEo8GaBK0MeKHzUeqGCocEjB54TCmTVBAYfP_u1G1skilnyMh_dlLmteoFqcuHyojv7Q0bJDQHcA',
+//               Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0NTU3MTA5LjMzNzExMCwiaWF0IjoxNjg0NDcwNzA5LjMzNzEwOSwianRpIjoiMjQ0OTUzMTczODI1My1VVjJLS18zbG9NOWNwcE9rYWtmMXRXcHZrSEI1VmciLCJjaWQiOiI3NThZVE9NTmdFOFMwODFuY0hCZjVBIiwibGlkIjoidDJfdjlhcnk5b3QiLCJhaWQiOiJ0Ml92OWFyeTlvdCIsImxjYSI6MTY3MjIyMzgzOTAwMCwic2NwIjoiZUp5S1Z0SlNpZ1VFQUFEX193TnpBU2MiLCJmbG8iOjl9.IaXaQgjGzVhq9sFgD39Zj9M8EavnwTablc5IrjvlQYWHDs9CzfxO9LPm7diFo9N4cWBOPWJlyv2mEv-ngZXQRQ1uENSpBhbps3GNt-z6g9dO5vlcm7ngKbOUyzw8Cl3QnAz4GUpsOfjReEHjK8RdreOCFydRGXZYSGkOI49x7TZdoJTUSF34sbMF8OID33R_QOX_joMHyABuViARuXvz0AglWlnXLwWoJNug3JQqTiDRvAVuAiWIw0vJoMd6afzs4VZGaJigjz9sZfmTo6HHNurG5GqUGttJFRTHUYkEIHJRFOeFrhuMH48liZ9aquCUdjL7J57Yy_F59eWBcisF2g',
 //               'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
 //             }
 //           }

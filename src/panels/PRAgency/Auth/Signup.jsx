@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-grid-system';
 import authAbstract from '../../../images/authAbstract.png';
 
 
-function Login() {
+function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -50,14 +50,19 @@ function Login() {
   
 return (
 
-  <Container className="mt-5">
-      <Row className="d-lg-mt-5">
-        <div className='d-lg-flex d-sm-block' style={{justifyContent:'center', alignItems:"center"}}>
+  <Container fluid className="h-100">
+  <Row className="h-100"> 
+  <Col
+              xs={12}
+              sm={12}
+              md={6}
+              lg={6}
+              className="d-flex align-items-center justify-content-center p-0 vh-100"
+          >
+          <img style={{width: '100%',height:'100%', objectFit:'cover'}}src={authAbstract}/>
+        </Col>
           <Col xs={12} sm={12} md={12} lg={6}>
-            <img style={{width: '100%', objectFit:'cover'}}src={authAbstract} />
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={6}>
-          <div className='text-left justify-content-center align-center d-lg-mt-5'><h4 className='text-center'>PR Agency's Signup</h4>
+          <div className='mt-5 text-left justify-content-center align-center d-lg-mt-5'><h4 className='text-center'>PR Agency's Signup</h4>
             <form className="needs-validation" noValidate onSubmit={handleSubmit}>
               <Col md="4" className="mb-3">
                 <label htmlFor="validationTooltip01" style={{textAlign:'left'}}>Email</label>
@@ -100,7 +105,6 @@ return (
           {loginError && <p>{loginError}</p>}
         </div>
           </Col>
-        </div>
       </Row>
      
   </Container>
@@ -109,7 +113,7 @@ return (
 )
 }
 
-export default Login;
+export default Signup;
 // const [email, setEmail] = useState('');
 // const [password, setPassword] = useState('');
 // const [confirmpassword, setConfirmPassword] = useState('');

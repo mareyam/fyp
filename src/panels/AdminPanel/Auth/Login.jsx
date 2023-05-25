@@ -16,13 +16,13 @@ function LoginForm() {
     event.preventDefault();
 
     try {
-      const response = await axios.get('http://127.0.0.1:8000/adminlogin/');
+      const response = await axios.get('http://127.0.0.1:8000/api/login/');
       const users = response.data;
 
       const matchedUser = users.find((user) => user.email === email && user.password === password);
       
 
-      if (matchedUser || (email === 'admin@gmail.com' && password === 'admin')) {
+      if (matchedUser) {
         setLoginError('');
         // Redirect to AdminDashboard
         toast.success('Login success');
@@ -40,14 +40,20 @@ function LoginForm() {
   };
 
   return (
-      <Container className='mt-5'>
-      <Row>
-        <div className='d-lg-flex d-sm-block d-lg-mt-5' style={{justifyContent:'center', alignItems:"center"}}>
-          <Col xs={12} sm={12} md={12} lg={6}>
-            <img style={{width: '100%', objectFit:'cover'}}src={authAbstract}/>
+      
+    <Container fluid className="h-100">
+    <Row className="h-100"> 
+    <Col
+                xs={12}
+                sm={12}
+                md={6}
+                lg={6}
+                className="d-flex align-items-center justify-content-center p-0 vh-100"
+            >
+            <img style={{width: '100%',height:'100%', objectFit:'cover'}}src={authAbstract}/>
           </Col>
-          <Col xs={12} sm={12} md={12} lg={6}>
-          <div className='text-left justify-content-center align-center'><h4 className='text-center'>Admin's Loginnn</h4>
+          <Col xs={12} sm={12} md={12} lg={6} className='mt-5'>
+          <div className='mt-5 text-left justify-content-center align-center'><h4 className='text-center'>Admin's Login</h4>
           <form className="needs-validation" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="validationTooltip01" style={{ textAlign: 'left' }}>
@@ -104,12 +110,10 @@ function LoginForm() {
       <ToastContainer/>
       {loginError && <p>{loginError}</p>}
       </div>
-      </Col>
-     </div>
+          </Col>
+     
     </Row>
-   
-   </Container>
-
+    </Container>
   );
 }
 

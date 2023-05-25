@@ -12,14 +12,19 @@ function InfluencerLogin() {
 };
 return (
 
-  <Container className='mt-5'>
-      <Row>
-        <div className='d-lg-flex d-sm-block d-lg-mt-5' style={{justifyContent:'center', alignItems:"center"}}>
-          <Col xs={12} sm={12} md={12} lg={6}>
-            <img style={{width: '100%', objectFit:'cover'}}src={authAbstract}/>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={6}>
-          <div className='text-left justify-content-center align-center'><h4 className='text-center'>Sign in to BrandSense using</h4><h4 className='text-center'> Influencer Login</h4>
+  <Container fluid className="h-100">
+  <Row className="h-100"> 
+  <Col
+              xs={12}
+              sm={12}
+              md={6}
+              lg={6}
+              className="d-flex align-items-center justify-content-center p-0 vh-100"
+          >
+      <img style={{width: '100%',height:'100%', objectFit:'cover'}}src={authAbstract}/>
+    </Col>
+          <Col xs={12} sm={12} md={12} lg={6} className="d-flex justify-content-center align-items-center">
+          <div className='mt-5 text-left'><h4 className='text-center'>Sign in to BrandSense using</h4><h4 className='text-center'> Influencer Login</h4>
             <form className="needs-validation" noValidate>
              
               
@@ -39,7 +44,7 @@ return (
           </form>
         </div>
           </Col>
-        </div>
+       
       </Row>
      
   </Container>

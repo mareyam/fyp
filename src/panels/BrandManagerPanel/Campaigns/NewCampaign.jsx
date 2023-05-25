@@ -27,7 +27,6 @@ const NewCampaign = () => {
   const [hashtag, setHashtag] = useState('');
   const [selectedButton, setSelectedButton] = useState('Single');
   const [selectedFile, setSelectedFile] = useState(null);
-
  
   
   useEffect(() => {
@@ -110,6 +109,7 @@ const NewCampaign = () => {
     setPostCost(postCost => postCost + postCostChange);
   };
 
+
   const fetchInfluencers = () => {
     axios
       .get('http://127.0.0.1:8000/influencers/')
@@ -145,6 +145,7 @@ const NewCampaign = () => {
     axios.post('http://127.0.0.1:8000/activecampaigns/', data)
     .then((response) => {
       console.log(response);
+
       toast.success('success');
       window.location.href = '/BMDashboard';
     })
@@ -244,14 +245,23 @@ const NewCampaign = () => {
                     <input
                       type="checkbox"
                       checked={item.story}
-                      // onChange={(e) => handleInfluencerChangeStory(index, e)}
+                      onChange={(e) =>{
+                        setTotalCost(prev=>{
+                          return item.story? prev+item.storyCost: prev-item.storyCost;
+                        })
+                      }}
                     />
                     <label>Story {item.storycost}</label>
 
                     <input
                       type="checkbox"
                       checked={item.post}
-                      // onChange={(e) => handleInfluencerChangePost(index, e)}
+                      onChange={(e) =>{
+                      
+                        setTotalCost(prev=>{
+                          return item.post? prev+item.postCost: prev-item.postCost;
+                        })
+                      }}
                     />
                     <label>Post {item.postcost}</label>
                     <button style={{backgroundColor:'red', borderRadius:'50%', height:'25px'}} onClick={() => removeInfluencer(index)}>-</button>
@@ -303,7 +313,7 @@ export default NewCampaign;
   //         'https://oauth.reddit.com/r/apple/new.json?limit=100',
   //         {
   //           headers: {
-  //             Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0NDk4NDE1LCJpYXQiOjE2ODQ0MTIwMTUsImp0aSI6IjI0NDk1MzE3MzgyNTMtNlF5RTZLcVFfRnJhQ0w5RGk2aXVWeG5nQ1VzUkV3IiwiY2lkIjoiNzU4WVRPTU5nRThTMDgxbmNIQmY1QSIsImxpZCI6InQyX3Y5YXJ5OW90IiwiYWlkIjoidDJfdjlhcnk5b3QiLCJsY2EiOjE2NzIyMjM4MzkwMDAsInNjcCI6ImVKeUtWdEpTaWdVRUFBRF9fd056QVNjIiwiZmxvIjo5fQ.31-Qve-EMr261HJ4LMJilIFnkowoQyOxpS2BZklK2ofWX5qwqZJKTq5j61SSfseuQPG5U2eWKJjHh2lW8bQE3sdwNOG2991vCoQuwWHVf-GKbrqcM9lxE0q_5KmCkJcaPTo5ezkYQfcl10cSusUp_weuyKbEPBzOf3fWQJle7as5zhNaA0UUDDMoNcMwbhNpOx2qnzdDamzXVkEhYykieOy2Ad4NK7mCzjiDeLFWT0q91DVi_SlXwUd00MfE8gJGB4yBxwwrElyEo8GaBK0MeKHzUeqGCocEjB54TCmTVBAYfP_u1G1skilnyMh_dlLmteoFqcuHyojv7Q0bJDQHcA',
+  //             Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjphVXJUQUUrdnZWVTl4K0VMWFNGWEcrNk5WS1FlbEdtSjlWMkQxcWlCZ3VnIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg0NTU3MTA5LjMzNzExMCwiaWF0IjoxNjg0NDcwNzA5LjMzNzEwOSwianRpIjoiMjQ0OTUzMTczODI1My1VVjJLS18zbG9NOWNwcE9rYWtmMXRXcHZrSEI1VmciLCJjaWQiOiI3NThZVE9NTmdFOFMwODFuY0hCZjVBIiwibGlkIjoidDJfdjlhcnk5b3QiLCJhaWQiOiJ0Ml92OWFyeTlvdCIsImxjYSI6MTY3MjIyMzgzOTAwMCwic2NwIjoiZUp5S1Z0SlNpZ1VFQUFEX193TnpBU2MiLCJmbG8iOjl9.IaXaQgjGzVhq9sFgD39Zj9M8EavnwTablc5IrjvlQYWHDs9CzfxO9LPm7diFo9N4cWBOPWJlyv2mEv-ngZXQRQ1uENSpBhbps3GNt-z6g9dO5vlcm7ngKbOUyzw8Cl3QnAz4GUpsOfjReEHjK8RdreOCFydRGXZYSGkOI49x7TZdoJTUSF34sbMF8OID33R_QOX_joMHyABuViARuXvz0AglWlnXLwWoJNug3JQqTiDRvAVuAiWIw0vJoMd6afzs4VZGaJigjz9sZfmTo6HHNurG5GqUGttJFRTHUYkEIHJRFOeFrhuMH48liZ9aquCUdjL7J57Yy_F59eWBcisF2g',
   //             'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
   //           }
   //         }

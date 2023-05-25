@@ -10,14 +10,19 @@ import emailSent from '../../../images/emailSent.png';
 function EmailSent() {
 return (
 
-  <Container className='mt-2'>
-      <Row>
-        <div className='d-lg-flex d-sm-block d-lg-mt-5' style={{justifyContent:'center', alignItems:"center"}}>
-          <Col xs={12} sm={12} md={12} lg={6}>
-            <img style={{width: '100%', objectFit:'cover'}}src={authAbstract}/>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={6}>
-          <div className='text-left justify-content-center align-center'>
+      <Container fluid className="h-100">
+      <Row className="h-100"> 
+      <Col
+                  xs={12}
+                  sm={12}
+                  md={6}
+                  lg={6}
+                  className="d-flex align-items-center justify-content-center p-0 vh-100"
+              >
+          <img style={{width: '100%',height:'100%', objectFit:'cover'}}src={authAbstract}/>
+        </Col>
+          <Col xs={12} sm={12} md={12} lg={6} className='mt-5'>
+          <div className=' mt-5 text-left justify-content-center align-center'>
               <div className="d-flex justify-content-center align-items-center">
                 <img className="mx-auto" style={{height: '120px', width:'120px', objectFit:'cover'}} src={emailSent} alt="Email Sent"/>
               </div>
@@ -31,7 +36,7 @@ return (
           </div>
 
           </Col>
-        </div>
+
       </Row>
      
   </Container>
