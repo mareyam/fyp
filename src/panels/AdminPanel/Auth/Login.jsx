@@ -14,19 +14,26 @@ function LoginForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const loginData ={
+      email: email,
+      password: password
 
+    }
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/login/');
+      const response = await axios.post('http://127.0.0.1:8000/api/login/',loginData);
       const users = response.data;
-
-      const matchedUser = users.find((user) => user.email === email && user.password === password);
-      
-
-      if (matchedUser) {
-        setLoginError('');
-        // Redirect to AdminDashboard
+      console.log(users.role)  
+      if (users.role == 'BrandManager') {
+        toast.success('Login success');
+        window.location.href = '/BMDashboard';
+      } 
+      else  if (users.role == 'Admin' || users.roles == 1) {
         toast.success('Login success');
         window.location.href = '/AdminDashboard';
+      } 
+      if (users.role == 'PRAgency') {
+        toast.success('Login success');
+        window.location.href = '/PRDashboard';
       } 
       else {
         setLoginError('Invalid email or password');

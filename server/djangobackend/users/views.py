@@ -56,20 +56,45 @@ class AuthUserLoginView(APIView):
     permission_classes = (AllowAny, )
 
     def post(self, request):
-        serializer = self.serializer_class(data=request.data)
+        email = request.data.get('email')
+        password = request.data.get('password')
+        print(email,password)
+        serializer = self.serializer_class(data={'email': email, 'password': password})
         valid = serializer.is_valid(raise_exception=True)
+
+        # Perform your login logic with email and password
 
         if valid:
             status_code = status.HTTP_200_OK
+        response = {
+            'success': True,
+            'statusCode': status_code,
+            'message': 'User logged in successfully',
+            'email': email,
+            'role': serializer.data['role']
+        }
+        return Response(response, status=status_code)
 
-            response = {
-                'success': True,
-                'statusCode': status_code,
-                'message': 'User logged in successfully',
-                'email': serializer.data['email'],
-                'role': serializer.data['role']
-              }
-            return Response(response, status=status_code)
+# class AuthUserLoginView(APIView):
+#     serializer_class = UserLoginSerializer
+#     permission_classes = (AllowAny, )
+
+#     def post(self, request):
+#         print(request.data)
+#         serializer = self.serializer_class(data=request.data)
+#         valid = serializer.is_valid(raise_exception=True)
+
+#         if valid:
+#             status_code = status.HTTP_200_OK
+
+#             response = {
+#                 'success': True,
+#                 'statusCode': status_code,
+#                 'message': 'User logged in successfully',
+#                 'email': serializer.data['email'],
+#                 'role': serializer.data['role']
+#               }
+#             return Response(response, status=status_code)
         
 
 # class RegisterView(APIView):
