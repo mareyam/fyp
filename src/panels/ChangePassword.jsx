@@ -1,11 +1,11 @@
 import { Checkbox } from '@material-ui/core';
 import React from 'react';
 import { Container, Row, Col } from 'react-grid-system';
-import authAbstract from '../../../images/authAbstract.png';
+import authAbstract from '../images/authAbstract.png';
 
 
 
-function ResetPassword() {
+function ChangePassword() {
 return (
 
   <Container fluid className="h-100">
@@ -40,4 +40,4 @@ return (
 )
 }
 
-export default ResetPassword;
+export default ChangePassword;

@@ -9,7 +9,7 @@ import uuid
 
 # Create your models here.
  
-class User(AbstractBaseUser, PermissionsMixin):
+class UserAccount(AbstractBaseUser, PermissionsMixin):
     # Admin = 1
     # PRAgency = 2
     # BrandManager = 3
@@ -46,6 +46,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def _str_(self):
             return self.username
+
+
+
+
+
+
+
+
+
 
 # class User(AbstractBaseUser, PermissionsMixin):
 #     class Meta:

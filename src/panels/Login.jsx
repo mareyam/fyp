@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Checkbox } from '@material-ui/core'
 import { Container, Row, Col } from 'react-grid-system';
-import authAbstract from '../../../images/authAbstract.png';
+import authAbstract from '../images/authAbstract.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -17,7 +17,6 @@ function LoginForm() {
     const loginData ={
       email: email,
       password: password
-
     }
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/login/',loginData);
@@ -60,7 +59,7 @@ function LoginForm() {
             <img style={{width: '100%',height:'100%', objectFit:'cover'}}src={authAbstract}/>
           </Col>
           <Col xs={12} sm={12} md={12} lg={6} className='mt-5'>
-          <div className='mt-5 text-left justify-content-center align-center'><h4 className='text-center'>Admin's Login</h4>
+          <div className='mt-5 text-left justify-content-center align-center'><h4 className='text-center'>Login</h4>
           <form className="needs-validation" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="validationTooltip01" style={{ textAlign: 'left' }}>

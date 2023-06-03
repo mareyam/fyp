@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import UserAccount
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
@@ -12,13 +12,14 @@ from django.contrib.auth import authenticate
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = UserAccount
         fields = ['email','name', 'username', 'password', 'role']
     def create(self, validated_data):
-        user = User(
+        user = UserAccount(
             email = validated_data['email'],
             username = validated_data['username'],
-            role = validated_data['role']
+            role = validated_data['role'],
+            name = validated_data['name']
         )
         user.set_password(validated_data['password'])
         user.save()
@@ -45,7 +46,7 @@ class UserLoginSerializer(serializers.Serializer):
             }
 
             return validation
-        except User.DoesNotExist:
+        except UserAccount.DoesNotExist:
             raise serializers.ValidationError("Invalid login credentials 2")
         
 

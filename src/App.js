@@ -6,7 +6,7 @@ import AllCampaigns from './panels/BrandManagerPanel/Campaigns/AllCampaigns';
 import InactiveCampaigns from './panels/BrandManagerPanel/Campaigns/InactiveCampaigns';
 import Navbar from './panels/BrandManagerPanel/Navbar/Navbar';
 import AllRegisteredInfluencers from './panels/BrandManagerPanel/Influencers/AllRegisteredInfluencers';
-import {Route, Routes, Router} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import HashTags from './panels/BrandManagerPanel/Hashtags/HashTags';
 import AllContent from './panels/BrandManagerPanel/PostsStories/AllContentOfInfluencers';
 import CampaignDetails from './panels/BrandManagerPanel/Campaigns/CampaignDetails';
@@ -16,21 +16,9 @@ import Privacy from './panels/BrandManagerPanel/Others/Privacy';
 import Terms from './panels/BrandManagerPanel/Others/Terms';
 import BrandPDF from './panels/BrandManagerPanel/Reports/BrandPDF';
 import InfluencerPDF from './panels/BrandManagerPanel/Reports/InfluencerPDF';
-import Login from './panels/BrandManagerPanel/Auth/Login';
-import Signup from './panels/BrandManagerPanel/Auth/Signup';
-import InfluencerPage from './panels/BrandManagerPanel/Influencers/InfluencerPage';
-import ForgotPassword from './panels/BrandManagerPanel/Auth/ForgotPassword';
-import EmailSent from './panels/BrandManagerPanel/Auth/EmailSent';
-import ResetPassword from './panels/BrandManagerPanel/Auth/ResetPassword';
-import Resetted from './panels/BrandManagerPanel/Auth/Resetted';
 
 import AdminNavbar from './panels/AdminPanel/Navbar/AdminNavbar';
 import AdminDashboard from './panels/AdminPanel/AdminDashboard';
-import AdminLogin from './panels/AdminPanel/Auth/Login';
-import AdminForgotPassword from './panels/AdminPanel/Auth/ForgotPassword';
-import AdminEmailSent from './panels/AdminPanel/Auth/EmailSent';
-import AdminResetPassword from './panels/AdminPanel/Auth/ResetPassword';
-import AdminResetted from './panels/AdminPanel/Auth/Resetted';
 import AdminBMList from './panels/AdminPanel/BMList/BMList';
 import AdminRegisteredInfluencers from './panels/AdminPanel/Influencers/AllRegisteredInfluencers';
 import AdminHashTags from './panels/AdminPanel/Hashtags/HashTags';
@@ -39,12 +27,6 @@ import AdminPRList from './panels/AdminPanel/PRList/PR';
 import NewPRPopup from './panels/AdminPanel/PRList/NewPRPopup';
 
 import PRNavbar from './panels/PRAgency/Navbar/PRNavbar';
-import PRLogin from './panels/PRAgency/Auth/Login';
-import PRSignup from './panels/PRAgency/Auth/Signup';
-import PRForgotPassword from './panels/PRAgency/Auth/ForgotPassword';
-import PREmailSent from './panels/PRAgency/Auth/EmailSent';
-import PRResetPassword from './panels/PRAgency/Auth/ResetPassword';
-import PRResetted from './panels/PRAgency/Auth/Resetted';
 import PRBMList from './panels/PRAgency/BrandManagerList/BMList';
 import NewBMPopup from './panels/PRAgency/BrandManagerList/NewBMPopup';
 import PRDashboard from './panels/PRAgency/PRDashboard.jsx';
@@ -59,7 +41,6 @@ import InfluencerSignup from './panels/InfluencerPanel/Auth/InfluencerSignup';
 import InfluencerRegDetails from './panels/InfluencerPanel/Auth/InfluencerRegDetails';
 import InfluencerRegDetails2 from './panels/InfluencerPanel/Auth/InfluencerRegDetails2';
 import InfluencerRegDetails3 from './panels/InfluencerPanel/Auth/InfluencerRegDetails3';
-import InfluencerPosts from './panels/InfluencerPanel/PostsStories/InfluencerPosts';
 import InfluencerContent from './panels/InfluencerPanel/PostsStories/InfluencerContent';
 
 import PendingCampaigns from './panels/InfluencerPanel/Campaigns/PendingCampaigns';
@@ -69,7 +50,10 @@ import Home from './Home';
 import Test from './Test';
 import Test2 from './Test2';
 import Test3 from './Test3';
-
+import Login from './panels/Login';
+import ForgotPassword from './panels/ForgotPassword'
+import EmailSent from './panels/EmailSent'
+import ChangePassword from './panels/ChangePassword';
 
 const App = () => {
   const location = useLocation();
@@ -101,6 +85,12 @@ const App = () => {
       
       <Routes>
         <Route exact path="/" element={<Home/>}/>
+        <Route exact path="/login" element={<Login/>}/> 
+        <Route exact path="/forgetpassword" element={<ForgotPassword/>}/> 
+        <Route exact path="/emailsent" element={<EmailSent/>}/> 
+        <Route exact path="/changepassword/<token>" element={<ChangePassword/>}/> 
+        
+
         <Route exact path="/BMDashboard" element={<BrandManagerDashboard/>}/>
         <Route exact path="/BMHashtags" element={<HashTags/>}/>
         <Route exact path="/BMAllContent" element={<AllContent/>}/>
@@ -114,22 +104,9 @@ const App = () => {
         <Route exact path="/BMTerms" element={<Terms/>}/>
         <Route exact path="/BMBrandPDF" element={<BrandPDF/>}/> 
         <Route exact path="/BMInfluencerPDF" element={<InfluencerPDF/>}/>
-        <Route exact path="/BMLogin" element={<Login/>}/>
-        <Route exact path="/BMSignup" element={<Signup/>}/>
-        <Route exact path="/BMInfluencerPage" element={<InfluencerPage/>}/>
-        <Route exact path="/BMForgot" element={<ForgotPassword/>}/>
-        <Route exact path="/BMEmailSent" element={<EmailSent/>}/>  
-        <Route exact path="/BMResetPassword" element={<ResetPassword/>}/>  
-        <Route exact path="/BMResetted" element={<Resetted/>}/>
-
+      
         
-
-        <Route exact path="/AdminLogin" element={<AdminLogin/>}/>
-        <Route exact path="/AdminForgot" element={<AdminForgotPassword/>}/>
-        <Route exact path="/AdminReset" element={<AdminResetPassword/>}/>
-        <Route exact path="/AdminResetted" element={<AdminResetted/>}/>
-        <Route exact path="/AdminEmailSent" element={<AdminEmailSent/>}/>      
-        <Route exact path="/AdminDashboard" element={<AdminDashboard/>}/>  
+       <Route exact path="/AdminDashboard" element={<AdminDashboard/>}/>  
         <Route exact path="/AdminBMList" element={<AdminBMList/>}/>
         <Route exact path="/AdminPRList" element={<AdminPRList/>}/>
         <Route exact path="/AdminRegisteredInfluencers" element={<AdminRegisteredInfluencers/>}/>
@@ -137,12 +114,6 @@ const App = () => {
         <Route exact path="/AdminHashtags" element={<AdminHashTags/>}/>
         <Route exact path="/NewPRPopup" element={<NewPRPopup/>}/>
         
-        <Route exact path="/PRLogin" element={<PRLogin/>}/>
-        <Route exact path="/PRSignup" element={<PRSignup/>}/>
-        <Route exact path="/PRForgot" element={<PRForgotPassword/>}/>
-        <Route exact path="/PREmailSent" element={<PREmailSent/>}/>  
-        <Route exact path="/PRResetPassword" element={<PRResetPassword/>}/>  
-        <Route exact path="/PRResetted" element={<PRResetted/>}/>  
         <Route exact path="/PRBMList" element={<PRBMList/>}/>
         <Route exact path="/NewBMPopup" element={<NewBMPopup/>}/>
         <Route exact path="/PRDashboard" element={<PRDashboard/>}/>

@@ -49,8 +49,6 @@ class PRLogin(models.Model):
     def __str__(self):
         return self.name
 
-
-
 class AdminLogin(models.Model):
     name = models.CharField(max_length=128, blank=True, null=True, default='user') 
     email = models.EmailField(max_length=254, unique=False, default='user')
@@ -58,7 +56,6 @@ class AdminLogin(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class BMLogin(models.Model):
     name = models.CharField(max_length=128, blank=True, null=True, default='user') 
