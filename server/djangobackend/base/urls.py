@@ -7,59 +7,19 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = [
-
-   
     path('activecampaigns/', views.active_campaigns),
     path('activecampaignlist/<str:id>/', views.activecampaign_detail),
-
-    path('bmlogin/', views.BM),
-    path('bmloginlist/<str:id>/', views.BM_detail),
-
-    path('adminlogin/', views.admin),
-    path('adminloginlist/<str:id>/', views.admin_detail),
-
-    path('prlogin/', views.PR_login),
-    path('prloginlist/<str:id>/', views.PR_login_detail),
-
-    path('prlist/', views.PR_list),
-    path('prlist/<str:id>/', views.PR_list_detail),
-
-    path('prregistration/', views.PRregistration),
-    path('prregistrationlist/<str:id>/', views.PR_registration_detail),
-
-    # path('api/register/', views.Register),
-    # path('api/login/', views.Login),
-    # path('api/user/', views.User),
-    # path('api/logout/', views.Logout),
-    
-    
-    path('testapi/', views.testapi),
-
-    path('inactivecampaigns/', views.inactivecampaigns),
-    path('inactivecampaignlist/<str:id>/', views.inactivecampaign_detail),
-
+    path('testapi/', views.testapi),   
     path('brandmanagers/', views.brandmanagers),
     path('brandmanager/<str:id>/', views.brandmanager_detail),
-
     path('interests/', views.interests),
-    path('interest/<str:id>/', views.interest_detail),
-
-    path('contenttypes/', views.contenttypes),
-    path('contenttype/<str:id>/', views.contenttype_detail),
-
-
     path('childages/', views.childage),
-    path('childage/<str:id>/', views.childage_detail),
-
     path('influencers/', views.influencers),
     path('influencer/<str:id>/', views.influencer_detail),
-
     path('hashtags/', views.hashtags),
     path('hashtag/<str:id>/', views.hashtag_detail),
-
     path('brands/', views.brands),
     path('brand/<str:id>/', views.brand_detail),
-
     path('subbrands/', views.subbrands),
     path('subbrand/<str:id>/', views.subbrand_detail),
 ]

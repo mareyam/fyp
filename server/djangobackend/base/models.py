@@ -8,65 +8,6 @@ import datetime
 # Create your models here.
     
 
-class PRList(models.Model):
-    name = models.CharField(max_length=128, blank=True, null=True, default='user') 
-    email = models.EmailField(max_length=254, unique=False, default='user')
-    password = models.CharField(max_length=128, blank=True, null=True) 
-    updated = models.DateField(default=datetime.date.today, null=True, blank=True)
-    created = models.DateField(default=datetime.date.today, null=True, blank=True)
-
-    class Meta:
-        ordering = ['-updated', '-created']
-
-    def __str__(self):
-        return self.email
-
-class PRRegistration(models.Model):
-    name = models.CharField(max_length=128, blank=True, null=True, default='user') 
-    email = models.EmailField(max_length=254, unique=False, default='user')
-    password = models.CharField(max_length=128, blank=True, null=True) 
-    confirm_password = models.CharField(max_length=128, blank=True, null=True) 
-    updated = models.DateField(default=datetime.date.today, null=True, blank=True)
-    created = models.DateField(default=datetime.date.today, null=True, blank=True)
-
-    class Meta:
-        ordering = ['-updated', '-created']
-
-    def __str__(self):
-        return self.name
-
-class PRLogin(models.Model):
-    name = models.CharField(max_length=128, blank=True, null=True, default='user') 
-    email = models.EmailField(max_length=254, unique=False, default='user')
-    password = models.CharField(max_length=128, blank=True, null=True, default='null') 
-    confirm_password = models.CharField(max_length=128, blank=True, null=True)   
-    updated = models.DateField(default=datetime.date.today, null=True, blank=True)
-    created = models.DateField(default=datetime.date.today, null=True, blank=True)
-
-    class Meta:
-        ordering = ['-updated', '-created']
-
-    def __str__(self):
-        return self.name
-
-class AdminLogin(models.Model):
-    name = models.CharField(max_length=128, blank=True, null=True, default='user') 
-    email = models.EmailField(max_length=254, unique=False, default='user')
-    password = models.CharField(max_length=128, blank=True, null=True) 
-
-    def __str__(self):
-        return self.name
-
-class BMLogin(models.Model):
-    name = models.CharField(max_length=128, blank=True, null=True, default='user') 
-    email = models.EmailField(max_length=254, unique=False, default='user')
-    password = models.CharField(max_length=128, blank=True, null=True) 
-    brandName = models.CharField(max_length=128, blank=True, null=True, default='') 
-    created = models.DateField(default=datetime.date.today, null=True, blank=True)
-    
-    def __str__(self):
-        return str(self.name)
-    
 class BrandManager(models.Model):   
     # host = models.OneToOneField(User, unique=False, on_delete=models.CASCADE, blank=False, null=False)
     brandmanager_name = models.CharField(max_length=200, unique=False, blank=True, null=True, default='bm')
@@ -97,7 +38,7 @@ class Brand(models.Model):
     brandmanager_name = models.OneToOneField(BrandManager, on_delete=models.CASCADE, blank=False, null=False)
     brand_name = models.CharField(max_length=20, unique=False, blank=False, null=False)
     subbrand_name = models.ForeignKey(SubBrand, unique=False, blank=True, null=True, on_delete=models.CASCADE)
-    campaigns_count = models.IntegerField(blank=False, null=False)
+    campaigns_count = models.IntegerField(blank=True, null=True)
     updated = models.DateField(default=now, null=False, blank=False)
     created = models.DateField(default=now, null=False, blank=False)
 
@@ -105,7 +46,7 @@ class Brand(models.Model):
         ordering = ['-updated', '-created']
         
     def __str__(self):
-        return self.brandmanager_name
+        return self.brand_name
 
 class Interest(models.Model):
     INTEREST_CHOICES = [
@@ -190,16 +131,16 @@ class Hashtag(models.Model):
     def __str__(self):
         return self.hashtag
     
-class ContentType(models.Model):
-    CONTENT_TYPE = (
-            ("Post", "Post"),
-            ("Story", "Story"),
-            ("Both", "Both"),
-    )
+# class ContentType(models.Model):
+#     CONTENT_TYPE = (
+#             ("Post", "Post"),
+#             ("Story", "Story"),
+#             ("Both", "Both"),
+#     )
     
-    name = models.CharField(max_length=200, choices=CONTENT_TYPE, null=True, blank=True, default='')
-    def __str__(self):
-        return self.name
+#     name = models.CharField(max_length=200, choices=CONTENT_TYPE, null=True, blank=True, default='')
+#     def __str__(self):
+#         return self.name
     
 
 class Campaign(models.Model):   
@@ -221,7 +162,6 @@ class Campaign(models.Model):
    campaign_type = models.CharField(max_length=20,choices=CAMPAIGN_TYPE, blank=True, null=True, default='Periodic')
    hashtag = models.CharField(max_length=50, blank=True, null=True, default='')
    updated = models.DateField(default=now, null=True, blank=True)
-   content_type = models.ManyToManyField('ContentType', blank=True, null=True, default='Post')
    created = models.DateField(default=now, null=False, blank=False)
    ended = models.DateField(default=now, null=False, blank=False)
    
