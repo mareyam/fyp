@@ -9,6 +9,26 @@ import uuid
 
 # Create your models here.
  
+
+class InvitedUsers(models.Model):
+    ROLE_CHOICES = (
+        ('Admin', 'Admin'),
+        ('PRAgency', 'PRAgency'),
+        ('BrandManager', 'BrandManager')
+    )
+     
+    email = models.EmailField(max_length=254, unique=False, default='', null=False, blank=False)
+    name = models.CharField(max_length=20, unique=False, blank=False, null=False, default='bm')
+    role = models.CharField(choices=ROLE_CHOICES, max_length=30, blank=True, null=True)
+    updated = models.DateField(default=now, null=True, blank=True)
+    created = models.DateField(default=now, null=True, blank=True)
+
+    class Meta:
+        ordering = ['-updated', '-created']
+        
+    def __str__(self):
+        return self.email
+    
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     # Admin = 1
     # PRAgency = 2
@@ -45,9 +65,12 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def _str_(self):
-            return self.username
+            return self.email
 
-
+class TempTokken(models.Model):
+    user = models.OneToOneField(UserAccount, related_name="login_user", on_delete=models.CASCADE)
+    token = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 

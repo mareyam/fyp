@@ -22,10 +22,11 @@ function LoginForm() {
       name: name,
       email: email,
       username: username, 
-      password: password
+      password: password,
+      
     }
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/login/',registrationData);
+      const response = await axios.post('http://127.0.0.1:8000/api/registration/',registrationData);
       const users = response.data;
       console.log(users.role)  
       if (users.role == 'BrandManager') {

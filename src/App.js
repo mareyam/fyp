@@ -54,6 +54,7 @@ import Login from './panels/Login';
 import ForgotPassword from './panels/ForgotPassword'
 import EmailSent from './panels/EmailSent'
 import ChangePassword from './panels/ChangePassword';
+import UserRegistration from './panels/Registration';
 
 const App = () => {
   const location = useLocation();
@@ -88,7 +89,8 @@ const App = () => {
         <Route exact path="/login" element={<Login/>}/> 
         <Route exact path="/forgetpassword" element={<ForgotPassword/>}/> 
         <Route exact path="/emailsent" element={<EmailSent/>}/> 
-        <Route exact path="/changepassword/<token>" element={<ChangePassword/>}/> 
+        <Route exact path="/changepassword/:token" element={<ChangePassword/>}/> 
+        <Route exact path="/registration/<token>" element={<UserRegistration/>}/> 
         
 
         <Route exact path="/BMDashboard" element={<BrandManagerDashboard/>}/>

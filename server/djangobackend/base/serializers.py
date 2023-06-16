@@ -47,3 +47,4 @@ class HashtagSerializer(serializers.ModelSerializer):
         model = Hashtag
         fields = "__all__"
     
+

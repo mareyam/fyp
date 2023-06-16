@@ -7,7 +7,10 @@ function NewPRPopup() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-
+  const [role, setRole] = useState('PRAgency');
+  const [username, setUsername] = useState('dummy');
+  const [password, setPassword] = useState('dummy');
+  
   const handleClosePopUp = () => {
     setIsVisible(false);
   };
@@ -16,20 +19,20 @@ function NewPRPopup() {
    event.preventDefault();
     const data = {
       name : name,
-      email : email
+      email : email,
+      role: role,
     };
 
    console.log("data is "+data);
-   axios.post('http://127.0.0.1:8000/api/register/', data)
-    .then(response => console.log("got it"+response))
-    .catch(error => console.log("error"));
+   axios.post('http://127.0.0.1:8000/api/invitedusers/', data)
+    .then(response => console.log("got it"+response.data))
+    .catch(error => console.log(error));
 
     console.log('name:', name);
-    console.log('email:', email);
-
+    console.log('email:', email);    
+    console.log('role:', role);    
+    
     // Reset the input fields
-    setName('');
-    setEmail('');
 }   
   useEffect(() => {
     if (isVisible) {

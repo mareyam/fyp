@@ -26,7 +26,7 @@ function LoginForm() {
         toast.success('Login success');
         window.location.href = '/BMDashboard';
       } 
-      else  if (users.role == 'Admin' || users.roles == 1) {
+      else  if (users.role == 'Admin' || users.role == 1 ) {
         toast.success('Login success');
         window.location.href = '/AdminDashboard';
       } 

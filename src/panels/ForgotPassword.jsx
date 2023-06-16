@@ -12,6 +12,10 @@ function ForgotPassword() {
   const [loginError, setLoginError] = useState('');
   const notify = () => toast("Wow so easy!");
 
+  const handleEmail = (event) => {
+    setEmail(event.target.value);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const forgetPasswordData ={
@@ -20,8 +24,12 @@ function ForgotPassword() {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/forget-password/',forgetPasswordData);
       const users = response.data;
+      console.log("response is u"+users);
+      console.log("response is ue"+users.email);
+      console.log("response is e"+email);
+      
       toast.success('success');
-      window.location.href = '/EmailSent';
+      // window.location.href = '/EmailSent';
 
     } catch (error) {
       console.error(error);
@@ -51,7 +59,7 @@ return (
               <Col md="4" className="mb-3">
                 
                 {/* <input type="text" className="form-control" id="validationTooltip01" placeholder="Email" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}/> */}
-                <input type="email" className="form-control" id="validationTooltip01" placeholder="Email" name="email" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}></input>
+                <input onChange={handleEmail} type="email" className="form-control" id="validationTooltip01" placeholder="Email" name="email" required style={{  borderRadius:'0', borderBottom: '1px solid black',  borderLeft: 'none', borderTop: 'none', borderRight: 'none'}}></input>
                 
               </Col>
              

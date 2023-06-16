@@ -6,8 +6,6 @@ import datetime
 
 
 # Create your models here.
-    
-
 class BrandManager(models.Model):   
     # host = models.OneToOneField(User, unique=False, on_delete=models.CASCADE, blank=False, null=False)
     brandmanager_name = models.CharField(max_length=200, unique=False, blank=True, null=True, default='bm')

@@ -3,27 +3,30 @@ from .models import UserAccount
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from .models import InvitedUsers
 
-# class RoleSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Role
-#         fields = "__all__"
-
+class InvitedUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InvitedUsers
+        fields = "__all__"
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount
-        fields = ['email','name', 'username', 'password', 'role']
+        fields = ['email', 'name', 'username', 'password', 'role']
+    
     def create(self, validated_data):
+      
         user = UserAccount(
-            email = validated_data['email'],
+            email=validated_data['email'],
             username = validated_data['username'],
-            role = validated_data['role'],
-            name = validated_data['name']
+            role=validated_data['role'],
+            name=validated_data['name']
         )
         user.set_password(validated_data['password'])
         user.save()
         return user
+    
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(max_length=128, write_only=True)
