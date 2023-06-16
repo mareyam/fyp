@@ -109,7 +109,7 @@ WSGI_APPLICATION = 'djangobackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
+        'NAME': 'Brandsense',
         'USER': 'postgres',
         'PASSWORD': 'brandsense',
         'HOST': 'localhost',
