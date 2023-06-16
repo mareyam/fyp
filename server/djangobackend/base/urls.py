@@ -10,18 +10,14 @@ urlpatterns = [
     path('activecampaigns/', views.active_campaigns),
     path('activecampaignlist/<str:id>/', views.activecampaign_detail),
     path('testapi/', views.testapi),   
-    path('brandmanagers/', views.brandmanagers),
-    path('brandmanager/<str:id>/', views.brandmanager_detail),
     path('interests/', views.interests),
     path('childages/', views.childage),
     path('influencers/', views.influencers),
     path('influencer/<str:id>/', views.influencer_detail),
-    path('hashtags/', views.hashtags),
-    path('hashtag/<str:id>/', views.hashtag_detail),
+    path('keywords/', views.keywords),
+    path('keyword/<str:id>/', views.keyword_detail),
     path('brands/', views.brands),
-    path('brand/<str:id>/', views.brand_detail),
-    path('subbrands/', views.subbrands),
-    path('subbrand/<str:id>/', views.subbrand_detail),
+    path('brand/<str:id>/', views.brand_detail)
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

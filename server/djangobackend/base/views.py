@@ -1,5 +1,5 @@
-from .models import Campaign,  Brand, BrandManager, Hashtag, SubBrand, Influencer, Interest, ChildAge
-from .serializers import InterestSerializer, ChildAgeSerializer, BrandManagerSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, HashtagSerializer, SubBrandSerializer
+from .models import Campaign,  Brand, Keyword, Influencer, Interest, ChildAge
+from .serializers import KeywordSerializer, InterestSerializer, ChildAgeSerializer, CampaignSerializer, InfluencerSerializer, BrandSerializer, Keyword
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -67,79 +67,6 @@ def activecampaign_detail(request, id, format=None):
 
     elif request.method == 'DELETE':
         campaign.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-@api_view(['GET', 'POST'])
-def brandmanagers(request, format=None):
-    if request.method == 'GET':
-     brandmanager = BrandManager.objects.all()
-     serializer = BrandManagerSerializer(brandmanager, many=True)
-     return Response(serializer.data)
-    
-    if request.method == 'POST':
-     serializer = BrandManagerSerializer(data=request.data)
-     if serializer.is_valid():
-         serializer.save()
-         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-@api_view(['GET', 'PUT', 'DELETE'])
-def brandmanager_detail(request, id, format=None):
-
-    try:
-        brandmanager = BrandManager.objects.get(pk=id)
-    except brandmanager.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = BrandManagerSerializer(brandmanager)
-        return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = BrandManagerSerializer(brandmanager, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        brandmanager.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-@api_view(['GET', 'POST'])
-def subbrands(request, format=None):
-    if request.method == 'GET':
-     subbrand = SubBrand.objects.all()
-     serializer = SubBrandSerializer(subbrand, many=True)
-     return Response(serializer.data)
-    
-    if request.method == 'POST':
-     serializer = SubBrandSerializer(data=request.data)
-     if serializer.is_valid():
-         serializer.save()
-         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-@api_view(['GET', 'PUT', 'DELETE'])
-def subbrand_detail(request, id, format=None):
-
-    try:
-        subbrand = SubBrand.objects.get(pk=id)
-    except subbrand.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = SubBrandSerializer(subbrand)
-        return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = SubBrandSerializer(subbrand, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        subbrand.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET', 'POST'])
@@ -241,39 +168,39 @@ def brand_detail(request, id, format=None):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET', 'POST'])
-def hashtags(request, format=None):
+def keywords(request, format=None):
     if request.method == 'GET':
-     hashtag = Hashtag.objects.all()
-     serializer = HashtagSerializer(hashtag, many=True)
+     keyword = Keyword.objects.all()
+     serializer = KeywordSerializer(keyword, many=True)
      return Response(serializer.data)
     
     if request.method == 'POST':
-     serializer = HashtagSerializer(data=request.data)
+     serializer = KeywordSerializer(data=request.data)
      if serializer.is_valid():
          serializer.save()
          return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def hashtag_detail(request, id, format=None):
+def keyword_detail(request, id, format=None):
 
     try:
-        hashtag = Hashtag.objects.get(pk=id)
-    except hashtag.DoesNotExist:
+        keyword = Keyword.objects.get(pk=id)
+    except keyword.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = HashtagSerializer(hashtag)
+        serializer = KeywordSerializer(keyword)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = HashtagSerializer(hashtag, data=request.data)
+        serializer = KeywordSerializer(keyword, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        hashtag.delete()
+        keyword.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # def testapi(request):
