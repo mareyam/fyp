@@ -8,7 +8,7 @@ import datetime
 # Create your models here.
    
 class Brand(models.Model):
-    brand_name = models.CharField(max_length=20, unique=False, blank=False, null=False)
+    brand_name = models.CharField(max_length=20, unique=True, blank=False, null=False)
     campaigns_count = models.IntegerField(blank=True, null=True)
     updated = models.DateField(default=now, null=False, blank=False)
     created = models.DateField(default=now, null=False, blank=False)
@@ -72,7 +72,6 @@ class Influencer(models.Model):
     age = models.IntegerField(blank=True, null=True, default=0)
     followers = models.IntegerField(blank=True, null=True, default=0)
     postcost = models.IntegerField(blank=True, null=True, default=0)
-    storycost = models.IntegerField(blank=True, null=True , default=0)
     isparent = models.CharField(max_length=20,choices=ISPARENT, blank=True, null=True, default="No")
     children_count = models.IntegerField(blank=True, null=True, default=0)
     children_age = models.ManyToManyField('ChildAge', blank=True, default='None')
@@ -103,6 +102,7 @@ class Campaign(models.Model):
    influencers = models.ManyToManyField('Influencer', blank=True, null=True,  default='')
    budget = models.IntegerField(blank=False, null=False, default=0)
    campaign_type = models.CharField(max_length=20,choices=CAMPAIGN_TYPE, blank=True, null=True, default='Periodic')
+   campaign_status = models.CharField(max_length=20,choices=CAMPAIGN_TYPE, blank=True, null=True, default='Active')
    keyword = models.CharField(max_length=50, blank=True, null=True, default='')
    updated = models.DateField(default=now, null=True, blank=True)
    created = models.DateField(default=now, null=False, blank=False)
@@ -115,7 +115,7 @@ class Campaign(models.Model):
         return self.campaign_name
   
 class Keyword(models.Model):    
-    keyword = models.CharField(max_length=20, unique=False, blank=False, null=False)
+    keyword = models.CharField(max_length=20, unique=True, blank=False, null=False)
     updated = models.DateField(default=now)
     created = models.DateField(default=now)
     total_posts = models.IntegerField(default=0)

@@ -107,7 +107,6 @@ class ChangePasswordView(APIView):
 class ForgetPasswordView(View):
     def post(self, request):
         try:
-            # username = request.data.get('username')
             data = json.loads(request.body)
             email = data.get('email')
             if not UserAccount.objects.filter(email=email).exists():
@@ -132,21 +131,29 @@ class ForgetPasswordView(View):
 
         return JsonResponse({'message': 'Something went wrong.'})
 
-
 @method_decorator(csrf_exempt, name='dispatch')
 class InviteUserEmailSent(View):
     def post(self, request):
         try:
             data = json.loads(request.body)
             email = data.get('email')
-            print(email)
-            if not UserAccount.objects.filter(email=email).exists():
-                return JsonResponse({'message': 'No user found with this email.'})
-            user_obj = UserAccount.objects.get(email=email)
+            name = data.get('name')
+            role = data.get('role')
+
+            # if not UserAccount.objects.filter(email=email).exists():
+            #     return JsonResponse({'message': 'No user found with this email.'})
+
+            user_obj = UserAccount.objects.create(email=email, name=name, role=role)
             token = str(uuid.uuid4())
-            user_obj.forget_password_token = token
-            user_obj.save()
-            send_forget_password_mail(user_obj.email, token)
+            try:
+                temp_obj = TempTokken.objects.get(user= user_obj)
+                temp_obj.token = token
+                print(temp_obj.token)
+                temp_obj.save()
+            except Exception:
+                TempTokken.objects.create(user=user_obj, token=token)
+            
+            send_registration_mail(user_obj.email, token)
             return JsonResponse({'message': 'An email has been sent.'})
 
         except Exception as e:
@@ -156,292 +163,22 @@ class InviteUserEmailSent(View):
         return JsonResponse({'message': 'Something went wrong.'})
 
 class InviteUserCreateAccountView(APIView):
-    def get(self, request, token):
+    def post(self, request, **kwargs):
         context = {}
         try:
-            profile_obj = InvitedUsers.objects.filter(
-                forget_password_token=token).first()
-            if profile_obj:
-                context['user_id'] = profile_obj.id
-            else:
-                return JsonResponse({'message': 'Invalid token invite.'})
-        except Exception as e:
-            print(e)
-            return JsonResponse({'message': 'An error occurred invite.'})
+            token_obj = TempTokken.objects.get(token= kwargs.get('token'))
+            user_obj = token_obj.user
 
-        return JsonResponse(context)
-
-    def post(self, request, **kwargs):
-        try:
+            print(user_obj)
             new_password = request.data.get('new_password')
             confirm_password = request.data.get('reconfirm_password')
-            user_id = request.data.get('user_id')
-            print(new_password)
-
-            if user_id is None:
-                return JsonResponse({'message': 'No user id found invite.'})
-
             if new_password != confirm_password:
-                return JsonResponse({'message': 'Both passwords should be equal invite.'})
+                return JsonResponse({'message': 'Both passwords should be equal.'})
 
-            user_obj = UserAccount.objects.get(id=user_id)
             user_obj.set_password(new_password)
             user_obj.save()
-            return JsonResponse({'message': 'Password changed successfully invite.'})
-
+            token_obj.delete()
+            return JsonResponse({'message': 'Password changed successfully.'})
         except Exception as e:
             print(e)
-            return JsonResponse({'message': 'An error occurred invite.'})
-
-# neededddddddddddddddddddddddddddd 2
-# class ChangePasswordView(APIView):
-#     def get(self, request, token, email):
-#         context = {}
-#         try:
-#             profile_obj = UserAccount.objects.filter(
-#                 forget_password_token=token, email=email ).first()
-#             if profile_obj:
-#                 context['email'] = profile_obj.email
-#             else:
-#                 return JsonResponse({'message': 'Invalid token.'})
-#         except Exception as e:
-#             print(e)
-#             return JsonResponse({'message': 'An error occurred.'})
-
-#         return JsonResponse(context)
-
-#     def post(self, request, **kwargs):
-#         context = {}
-#         try:
-#             profile_obj = UserAccount.objects.filter(email=profile_obj.email).first()
-#             if profile_obj:
-#                 context['email'] = profile_obj.email
-
-#             new_password = request.data.get('new_password')
-#             confirm_password = request.data.get('reconfirm_password')
-            
-#             print(new_password)
-
-#             if profile_obj.email is None:
-#                 print(f'profile obj email is : {profile_obj.email}')
-#                 return JsonResponse({'message': 'No user email found.'})
-
-#             if new_password != confirm_password:
-#                 return JsonResponse({'message': 'Both passwords should be equal.'})
-
-#             user_obj = UserAccount.objects.get(email=profile_obj.email)
-#             user_obj.set_password(new_password)
-#             user_obj.save()
-#             return JsonResponse({'message': 'Password changed successfully.'})
-
-#         except Exception as e:
-#             print(e)
-#             return JsonResponse({'message': 'An error occurred.'})
-
-# @method_decorator(csrf_exempt, name='dispatch')
-# class ForgetPasswordView(View):
-#     def post(self, request):
-#         try:
-#             # username = request.data.get('username')
-#             data = json.loads(request.body)
-#             print(f'data: {data}')
-#             email = data.get('email')
-#             print(f'email: {email}')
-#             if not UserAccount.objects.filter(email=email).exists():
-#                 return JsonResponse({'message': 'No user found with this email.'})
-
-#             user_obj = UserAccount.objects.get(email=email)
-#             print(f'user obj: {user_obj}')
-#             token = str(uuid.uuid4())
-#             user_obj.forget_password_token = token
-#             print(f'token: {token}')
-#             user_obj.save()
-#             send_forget_password_mail(user_obj.email, token)
-#             print('sent')     
-#             return JsonResponse({'message': 'An email has been sent.'})
-
-#         except Exception as e:
-#             print(e)
-#             return JsonResponse({'message': 'An error occurred.'})
-
-#         return JsonResponse({'message': 'Something went wrong.'})
-
-# neeeeeeeeeeeeeeeeed 2222
-
-
-# neededdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-# class ChangePasswordView(APIView):
-#     def get(self, request, token):
-#         context = {}
-#         try:
-#             profile_obj = UserAccount.objects.filter(
-#                 forget_password_token=token).first()
-#             if profile_obj:
-#                 context['email'] = profile_obj.email
-#             else:
-#                 return JsonResponse({'message': 'Invalid token.'})
-#         except Exception as e:
-#             print(e)
-#             return JsonResponse({'message': 'An error occurred.'})
-
-#         return JsonResponse(context)
-
-#     def post(self, request, **kwargs):
-#         try:
-#             new_password = request.data.get('new_password')
-#             confirm_password = request.data.get('reconfirm_password')
-            
-#             email = request.data.get('email')
-#             print(new_password)
-
-#             if email is None:
-#                 return JsonResponse({'message': 'No user email found.'})
-
-#             if new_password != confirm_password:
-#                 return JsonResponse({'message': 'Both passwords should be equal.'})
-
-#             user_obj = UserAccount.objects.get(email=email)
-#             user_obj.set_password(new_password)
-#             user_obj.save()
-#             return JsonResponse({'message': 'Password changed successfully.'})
-
-#         except Exception as e:
-#             print(e)
-#             return JsonResponse({'message': 'An error occurred.'})
-
-# @method_decorator(csrf_exempt, name='dispatch')
-# class ForgetPasswordView(View):
-#     def post(self, request):
-#         try:
-#             # username = request.data.get('username')
-#             data = json.loads(request.body)
-#             print('req data')
-#             email = data.get('email')
-#             print("emailll")
-#             if not UserAccount.objects.filter(email=email).exists():
-#                 return JsonResponse({'message': 'No user found with this email.'})
-
-#             user_obj = UserAccount.objects.get(email=email)
-#             print('obj')
-#             token = str(uuid.uuid4())
-#             user_obj.forget_password_token = token
-#             print('token')
-#             user_obj.save()
-#             send_forget_password_mail(user_obj.email, token)
-#             print('sent')
-#             return JsonResponse({'message': 'An email has been sent.'})
-
-#         except Exception as e:
-#             print(e)
-#             return JsonResponse({'message': 'An error occurred.'})
-
-#         return JsonResponse({'message': 'Something went wrong.'})
-
-# neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed^^^^^^^^^^^^^^^^^^^^^
-
-# class ForgetPasswordView(View):
-#     def post(self, request):
-#         try:
-#             username = request.POST.get('username')
-
-#             if not UserAccount.objects.filter(username=username).exists():
-#                 return JsonResponse({'message': 'No user found with this username.'})
-
-#             user_obj = UserAccount.objects.get(username=username)
-#             token = str(uuid.uuid4())
-#             user_obj.forget_password_token = token
-#             user_obj.save()
-#             send_forget_password_mail(user_obj.email, token)
-#             return JsonResponse({'message': 'An email has been sent.'})
-
-#         except Exception as e:
-#             print(e)
-#             return JsonResponse({'message': 'An error occurred.'})
-
-#         return JsonResponse({'message': 'Something went wrong.'})
-
-# class AuthUserLoginView(APIView):
-#     serializer_class = UserLoginSerializer
-#     permission_classes = (AllowAny, )
-
-#     def post(self, request):
-#         print(request.data)
-#         serializer = self.serializer_class(data=request.data)
-#         valid = serializer.is_valid(raise_exception=True)
-
-#         if valid:
-#             status_code = status.HTTP_200_OK
-
-#             response = {
-#                 'success': True,
-#                 'statusCode': status_code,
-#                 'message': 'User logged in successfully',
-#                 'email': serializer.data['email'],
-#                 'role': serializer.data['role']
-#               }
-#             return Response(response, status=status_code)
-
-
-# class RegisterView(APIView):
-#     def post(self, request):
-#         serializer = UserSerializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
-#         return Response(serializer.data)
-
-# class LoginView(APIView):
-#     def post(self, request):
-#         email = request.data['email']
-#         password = request.data['password']
-
-#         user = User.objects.filter(email=email).first()
-
-#         if user is None:
-#             raise AuthenticationFailed('User not found!')
-
-#         if not user.check_password(password):
-#             raise AuthenticationFailed('Incorrect password!')
-
-#         payload = {
-#             'id': user.id,
-#             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-#             'iat': datetime.datetime.utcnow()
-#         }
-
-#         # token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
-#         token = jwt.encode(payload, 'secret', algorithm='HS256')
-
-#         response = Response()
-
-#         response.set_cookie(key='jwt', value=token, httponly=True)
-#         response.data = {
-#             'jwt': token
-#         }
-#         return response
-
-# class UserView(APIView):
-
-#     def get(self, request):
-#         token = request.COOKIES.get('jwt')
-
-#         if not token:
-#             raise AuthenticationFailed("unauthenticated")
-
-#         try:
-#             payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-
-#         except jwt.ExpiredSignatureError:
-#             raise AuthenticationFailed('Unauthenticated!')
-
-#         user = User.objects.filter(id=payload['id']).first()
-#         serializer = UserSerializer(user)
-#         return Response(serializer.data)
-
-# class LogoutView(APIView):
-#     def post(self, request):
-#         response = Response()
-#         response.delete_cookie('jwt')
-#         response.data = {
-#             'message': 'success logout'
-#         }
-#         return response
+            return JsonResponse({'message': 'An error occurred.'})

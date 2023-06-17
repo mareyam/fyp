@@ -17,11 +17,11 @@ class InvitedUsers(models.Model):
         ('BrandManager', 'BrandManager')
     )
      
-    email = models.EmailField(max_length=254, unique=False, default='', null=False, blank=False)
+    email = models.EmailField(max_length=254, unique=True, default='', null=False, blank=False)
     name = models.CharField(max_length=20, unique=False, blank=False, null=False, default='bm')
     role = models.CharField(choices=ROLE_CHOICES, max_length=30, blank=True, null=True)
-    updated = models.DateField(default=now, null=True, blank=True)
-    created = models.DateField(default=now, null=True, blank=True)
+    updated = models.DateField(default=now, null=False, blank=False)
+    created = models.DateField(default=now, null=False, blank=False)
 
     class Meta:
         ordering = ['-updated', '-created']

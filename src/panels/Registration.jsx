@@ -6,44 +6,33 @@ import authAbstract from '../images/authAbstract.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
-function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+function Registration() {
+  const [new_password, setNewPpassword] = useState('');
+  const [reconfirm_password, setReconfirmPpassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const notify = () => toast("Wow so easy!");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const registrationData ={
-      name: name,
-      email: email,
-      username: username, 
-      password: password,
-      
+      new_password: new_password,
+      reconfirm_password: reconfirm_password,      
     }
+
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/registration/',registrationData);
+      const response = await axios.post('http://127.0.0.1:8000/api/registration/<token>/',registrationData);
       const users = response.data;
-      console.log(users.role)  
-      if (users.role == 'BrandManager') {
+      console.log(users.role+users.name+users.email)
+      
+      if(new_password == reconfirm_password)
+      {
         toast.success('Login success');
         window.location.href = '/BMDashboard';
       } 
-      else  if (users.role == 'Admin' || users.roles == 1) {
-        toast.success('Login success');
-        window.location.href = '/AdminDashboard';
-      } 
-      if (users.role == 'PRAgency') {
-        toast.success('Login success');
-        window.location.href = '/PRDashboard';
-      } 
+       
       else {
-        setLoginError('Invalid email or password');
-        toast.failed('invalid email or password!');
+        setLoginError('Invalid');
+        toast.failed('invalid!');
       }
     } catch (error) {
       console.error(error);
@@ -130,7 +119,7 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default Registration;
 
 // function AdminLogin() {
 //  const [email, setEmail] = useState('');

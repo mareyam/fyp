@@ -13,7 +13,7 @@ def send_forget_password_mail(email , token ):
 
 def send_registration_mail(email , token ):
     subject = 'Your registration link'
-    message = f'Hi , click on the link to register your account http://127.0.0.1:8000/api/change-password/{token}/'
+    message = f'Hi , click on the link to register your account http://localhost:3000/registration/{token}/'
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)
