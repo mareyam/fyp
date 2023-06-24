@@ -8,8 +8,7 @@ function NewPRPopup() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [role, setRole] = useState('PRAgency');
-  const [username, setUsername] = useState('dummy');
-  const [password, setPassword] = useState('dummy');
+
   
   const handleClosePopUp = () => {
     setIsVisible(false);

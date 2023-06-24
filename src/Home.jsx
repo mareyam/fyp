@@ -32,10 +32,11 @@ const Home = () => {
             >
                 <h1 className="fs-3">Welcome to BrandSense</h1>
                 <h2 className="fs-4">Continue as:</h2>
-                <Button label="Admin" type="button" onClick={() => onClick("/AdminLogin")}/>
-                <Button label="PR Agency" type="button" onClick={() => onClick("/PRSignup")}/>
-                <Button label="Brand Manager" type="button" onClick={() => onClick("/BMSignup")}/>
-                <Button className='mt-4' label="Influencer" type="button" onClick={() => onClick("/InfluencerSignup")}/>
+                <Button label="Login" type="button" onClick={() => onClick("/Login")}/>
+                <div>
+                <span style={{ fontSize: 'small' }}>if you're an influencer, please click 
+                <a href="/InfluencerSignup"> here</a></span>
+                </div>
             </Col>
         </Row>
     </Container>);

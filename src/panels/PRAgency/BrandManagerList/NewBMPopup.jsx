@@ -8,8 +8,6 @@ function NewBMPopup() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [brandName, setBrandName] = useState('');
-  
-
 
   const handleClosePopUp = () => {
     setIsVisible(false);

@@ -28,13 +28,15 @@ return (
             <form className="needs-validation" noValidate>
              
               
-              <Col md="4" className="mb-1">
+            <Col md="4" className="mb-1 d-flex justify-content-center align-items-center flex-column">
               <div className='justify-content-center align-items-center text-center'>
-                  <button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'250px'}} type="button" onClick={() => onClick('InfluencerRegDetails')}>
+                  <button className="btn btn-primary " style={{backgroundColor:'#452c63', width:'250px'}} type="button"><a href="/InfluencerRegDetails"></a>
                       <img src={insta} width='20px' height='20px' style={{borderRadius: '35%'}} />Register using Instagram
                   </button>
                 </div>
-               
+                <div style={{fontSize:'10px', textAlign:'center', justifyContent:'center', alignItems:'center'}}>
+                   <label>Already have an account?  <a href="/InfluencerLogin"> click here</a></label>
+                </div>
                 <div style={{fontSize:'10px', textAlign:'center', justifyContent:'center', alignItems:'center'}}>
                    <label>by signing up you agree to our <b><span style={{color: 'purple'}}>terms and conditions</span></b></label>
                 </div>

@@ -5,12 +5,15 @@ import { Container, Row, Col } from 'react-grid-system';
 import authAbstract from '../images/authAbstract.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useParams } from 'react-router-dom';
 
 function ChangePassword() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
- 
   const [loginError, setLoginError] = useState('');
+  const { token } = useParams();
+
+
   const notify = () => toast("Wow so easy!");
 
   const handleNewPassword = (event) => {

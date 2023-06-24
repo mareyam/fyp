@@ -3,41 +3,55 @@ import axios from 'axios';
 import { Checkbox } from '@material-ui/core'
 import { Container, Row, Col } from 'react-grid-system';
 import authAbstract from '../images/authAbstract.png'
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useParams } from 'react-router-dom';
 
 function Registration() {
-  const [new_password, setNewPpassword] = useState('');
-  const [reconfirm_password, setReconfirmPpassword] = useState('');
+  const [new_password, setNewPassword] = useState('');
+  const [reconfirm_password, setReconfirmPassword] = useState('');
+  const [username, setUsername] = useState('');
   const [loginError, setLoginError] = useState('');
-  const notify = () => toast("Wow so easy!");
+  const { token } = useParams();
+
+
 
   const handleSubmit = async (event) => {
+    console.log("here 1")
     event.preventDefault();
     const registrationData ={
+      username: username,
       new_password: new_password,
-      reconfirm_password: reconfirm_password,      
+      reconfirm_password: reconfirm_password,   
     }
 
+    console.log("here 2")
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/registration/<token>/',registrationData);
+      console.log("here 3")
+      const response = await axios.post(`http://127.0.0.1:8000/api/registration/${token}/`,registrationData);
       const users = response.data;
-      console.log(users.role+users.name+users.email)
+      console.log("token is "+token)
+      console.log("details of user are:"+users.role+users.name+users.email+users.password)
+      console.log("pass and confirm pass and username"+response.new_password+""+response.reconfirm_password+response.username)
+      console.log("stored pass is"+response.password)
+      console.log("here 4")
       
-      if(new_password == reconfirm_password)
+      if(users.password)
       {
-        toast.success('Login success');
-        window.location.href = '/BMDashboard';
+        console.log("here 5")
+        window.location.href = '/login';
       } 
        
       else {
         setLoginError('Invalid');
-        toast.failed('invalid!');
+        console.log("here 5")
+        // toast.failed('invalid!');
       }
     } catch (error) {
       console.error(error);
       setLoginError('An error occurred during login');
-      toast.error('Login failed');
+      console.log("here 6")
+      // toast.error('Login failed');
     }
   };
 
@@ -50,25 +64,46 @@ function Registration() {
                 sm={12}
                 md={6}
                 lg={6}
-                className="d-flex align-items-center justify-content-center p-0 vh-100"
-            >
+                className="d-flex align-items-center justify-content-center p-0 vh-100">
             <img style={{width: '100%',height:'100%', objectFit:'cover'}}src={authAbstract}/>
-          </Col>
+    </Col>
           <Col xs={12} sm={12} md={12} lg={6} className='mt-5'>
           <div className='mt-5 text-left justify-content-center align-center'><h4 className='text-center'>Login</h4>
           <form className="needs-validation" onSubmit={handleSubmit}>
+          <div className="mb-3">
+          <label htmlFor="validationTooltip01" style={{ textAlign: 'left' }}>
+            Username
+          </label>
+            <input
+              type="username"
+              className="form-control"
+              id="validationTooltip01"
+              placeholder="username"
+              name="username"
+              required
+              onChange={(e) => setUsername(e.target.value)}
+              style={{
+                borderRadius: '0',
+                borderBottom: '1px solid black',
+                borderLeft: 'none',
+                borderTop: 'none',
+                borderRight: 'none',
+              }}
+            />
+          <div className="valid-tooltip">Looks good!</div>
+         </div>
         <div className="mb-3">
           <label htmlFor="validationTooltip01" style={{ textAlign: 'left' }}>
-            Email
+            New Password
           </label>
           <input
-            type="email"
+            type="password"
             className="form-control"
             id="validationTooltip01"
-            placeholder="Email"
-            name="email"
+            placeholder="new passwword"
+            name="new password"
             required
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setNewPassword(e.target.value)}
             style={{
               borderRadius: '0',
               borderBottom: '1px solid black',
@@ -80,20 +115,21 @@ function Registration() {
           <div className="valid-tooltip">Looks good!</div>
         </div>
         <div className="mb-1">
-          <label htmlFor="inputPassword5">Password</label>
+          <label htmlFor="inputPassword5">Confirm Password</label>
           <input
             type="password"
             id="inputPassword5"
             className="form-control"
+            placeholder="confirm password"
             aria-describedby="passwordHelpBlock"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setReconfirmPassword(e.target.value)}
           />
         </div>
         <div className="mb-1" style={{ fontSize: '10px', textAlign: 'end', justifyContent: 'right', alignItems: 'right' }}>
           <label>
             <b>
               <a href="/AdminForgot" style={{ color: 'purple', textDecoration: 'underline' }}>
-                Forgot Password?
+                already registered?
               </a>
             </b>
           </label>
@@ -109,8 +145,8 @@ function Registration() {
           </button>
         </div>
       </form>
-      <ToastContainer/>
-      {loginError && <p>{loginError}</p>}
+      {/* <ToastContainer/>
+      {loginError && <p>{loginError}</p>} */}
       </div>
           </Col>
      

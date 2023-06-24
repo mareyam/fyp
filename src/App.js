@@ -21,8 +21,6 @@ import AdminNavbar from './panels/AdminPanel/Navbar/AdminNavbar';
 import AdminDashboard from './panels/AdminPanel/AdminDashboard';
 import AdminBMList from './panels/AdminPanel/BMList/BMList';
 import AdminRegisteredInfluencers from './panels/AdminPanel/Influencers/AllRegisteredInfluencers';
-import AdminHashTags from './panels/AdminPanel/Hashtags/HashTags';
-import AdminCampaigns from './panels/AdminPanel/Campaigns/AllCampaigns';
 import AdminPRList from './panels/AdminPanel/PRList/PR';
 import NewPRPopup from './panels/AdminPanel/PRList/NewPRPopup';
 
@@ -71,8 +69,7 @@ const App = () => {
         ||  location.pathname === '/BMInfluencerPDF' ||  location.pathname === '/BMInfluencerPage') && <Navbar/> } 
   
        {(location.pathname === '/AdminDashboard'|| location.pathname === '/AdminBMList' 
-       || location.pathname === '/AdminRegisteredInfluencers' || location.pathname === '/AdminHashtags' 
-       || location.pathname === '/AdminCampaigns' || location.pathname === '/AdminPRList' || location.pathname === '/NewPRPopup') && <AdminNavbar/> }
+       || location.pathname === '/AdminRegisteredInfluencers' || location.pathname === '/AdminPRList' || location.pathname === '/NewPRPopup') && <AdminNavbar/> }
 
        {(location.pathname === '/PRDashboard'|| location.pathname === '/PRBMList' 
        || location.pathname === '/PRRegisteredInfluencers' || location.pathname === '/NewBMPopup' || location.pathname === '/PRCampaigns'
@@ -90,7 +87,7 @@ const App = () => {
         <Route exact path="/forgetpassword" element={<ForgotPassword/>}/> 
         <Route exact path="/emailsent" element={<EmailSent/>}/> 
         <Route exact path="/changepassword/:token" element={<ChangePassword/>}/> 
-        <Route exact path="/registration/<token>" element={<Registration/>}/> 
+        <Route exact path="/registration/:token" element={<Registration/>}/> 
         
 
         <Route exact path="/BMDashboard" element={<BrandManagerDashboard/>}/>
@@ -112,8 +109,6 @@ const App = () => {
         <Route exact path="/AdminBMList" element={<AdminBMList/>}/>
         <Route exact path="/AdminPRList" element={<AdminPRList/>}/>
         <Route exact path="/AdminRegisteredInfluencers" element={<AdminRegisteredInfluencers/>}/>
-        <Route exact path="/AdminCampaigns" element={<AdminCampaigns/>}/> 
-        <Route exact path="/AdminHashtags" element={<AdminHashTags/>}/>
         <Route exact path="/NewPRPopup" element={<NewPRPopup/>}/>
         
         <Route exact path="/PRBMList" element={<PRBMList/>}/>

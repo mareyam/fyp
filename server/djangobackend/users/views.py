@@ -172,13 +172,18 @@ class InviteUserCreateAccountView(APIView):
             print(user_obj)
             new_password = request.data.get('new_password')
             confirm_password = request.data.get('reconfirm_password')
-            if new_password != confirm_password:
-                return JsonResponse({'message': 'Both passwords should be equal.'})
+            username = request.data.get('username')
+
+            print("user details are"+new_password+confirm_password+username)
+
+            if new_password != confirm_password or not username:
+                return JsonResponse({'message': 'Both passwords should match or username is null.'})
 
             user_obj.set_password(new_password)
+            user_obj.username = username
             user_obj.save()
             token_obj.delete()
-            return JsonResponse({'message': 'Password changed successfully.'})
+            return JsonResponse({'message': 'Account created successfully.'})
         except Exception as e:
             print(e)
             return JsonResponse({'message': 'An error occurred.'})
