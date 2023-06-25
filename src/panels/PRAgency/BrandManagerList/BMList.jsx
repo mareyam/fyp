@@ -34,15 +34,17 @@ const BMList = () => {
 
   
 
-    useEffect(() => {
-      axios.get('http://127.0.0.1:8000/bmlogin/')
-        .then(response => {
-          setBM(response.data);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }, []);
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/api/register/')
+      .then(response => {
+        const brandManagers = response.data.filter(user => user.role === 'BrandManager');
+        setBM(brandManagers);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+  
 
 
   const indexOfLastItem = currentPage * itemsPerPage;

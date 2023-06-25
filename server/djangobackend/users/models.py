@@ -16,7 +16,6 @@ class InvitedUsers(models.Model):
         ('PRAgency', 'PRAgency'),
         ('BrandManager', 'BrandManager')
     )
-     
     email = models.EmailField(max_length=254, unique=True, default='', null=False, blank=False)
     name = models.CharField(max_length=20, unique=False, blank=False, null=False, default='bm')
     role = models.CharField(choices=ROLE_CHOICES, max_length=30, blank=True, null=True)
@@ -30,10 +29,6 @@ class InvitedUsers(models.Model):
         return self.email
     
 class UserAccount(AbstractBaseUser, PermissionsMixin):
-    # Admin = 1
-    # PRAgency = 2
-    # BrandManager = 3
-
     ROLE_CHOICES = (
         ('Admin', 'Admin'),
         ('PRAgency', 'PRAgency'),
@@ -67,18 +62,20 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     def _str_(self):
             return self.email
 
+class PRInvites(models.Model):
+   pr_agency = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='brand_manager')
+   brand_manager = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='pr_agency')
+   created_at = models.DateTimeField(auto_now_add=True)
+
+
 class TempTokken(models.Model):
     user = models.OneToOneField(UserAccount, related_name="login_user", on_delete=models.CASCADE)
     token = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    
 
 
 
-
-
-
-
-
+    
 # class User(AbstractBaseUser, PermissionsMixin):
 #     class Meta:
 #         verbose_name = 'user'

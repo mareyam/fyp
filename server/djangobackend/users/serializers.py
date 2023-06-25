@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UserAccount
+from .models import UserAccount, PRInvites
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
@@ -13,11 +13,11 @@ class InvitedUserSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount
-        fields = ['email', 'name', 'username', 'password', 'role']
+        fields = ['id', 'email', 'name', 'username', 'password', 'role']
     
     def create(self, validated_data):
-      
         user = UserAccount(
+            id=validated_data['id'],
             email=validated_data['email'],
             username = validated_data['username'],
             role=validated_data['role'],
@@ -51,7 +51,14 @@ class UserLoginSerializer(serializers.Serializer):
             return validation
         except UserAccount.DoesNotExist:
             raise serializers.ValidationError("Invalid login credentials 2")
-        
+
+class PRInvitesSerializer(serializers.ModelSerializer):
+    brand_manager = UserSerializer(read_only=True)
+
+    class Meta:
+        model = PRInvites
+        fields = ("brand_manager")
+
 
           #     extra_kwargs = {
     #         'password': {'write_only': True}

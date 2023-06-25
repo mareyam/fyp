@@ -9,15 +9,14 @@ from django.urls import path,include
 from .views import *
 
 urlpatterns = [
-    path('register/', UserList.as_view(), name="register"),
+    path('userlist/', UserList.as_view(), name="register"),
     path('login/', AuthUserLoginView.as_view(), name="login"),
     path('forget-password/' , ForgetPasswordView.as_view() , name="forget_password"),
     path('change-password/<token>/' , ChangePasswordView.as_view() , name="change_password"),
     
     path('registration/<token>/' , InviteUserCreateAccountView.as_view() , name="create_account_view"),
     path('inviteuseremailsent/' , InviteUserEmailSent.as_view() , name="email_sent"),
-    path('invitedusers/' , views.invitedusers , name="invitedusers"),
-    path('inviteduser/<str:id>/' , views.inviteduser_detail , name="inviteuser_detail"),    
+    path('user/<str:id>/' , views.registered_users_details , name="registered_users_details"),    
 ]
 
  # path('token/', TokenObtainPairView.as_view(), name="token_obtain_pair"),

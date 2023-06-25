@@ -1,4 +1,4 @@
-from .serializers import UserSerializer, UserLoginSerializer
+from .serializers import UserSerializer, UserLoginSerializer, PRInvitesSerializer
 from rest_framework import generics, status
 from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.decorators import api_view
@@ -15,43 +15,10 @@ from users.models import UserAccount
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import json
-from .models import InvitedUsers, TempTokken
-from .serializers import InvitedUserSerializer
+from .models import  TempTokken, PRInvites
+
 
 # Create your views here.
-@api_view(['GET', 'POST'])
-def invitedusers(request, format=None):
-    if request.method == 'GET':
-        inviteduser = InvitedUsers.objects.all()
-        serializer = InvitedUserSerializer(inviteduser, many=True)
-        return Response(serializer.data)
-    if request.method == 'POST':
-        serializer = InvitedUserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-@api_view(['GET', 'PUT', 'DELETE'])
-def inviteduser_detail(request, id, format=None):
-    try:
-        inviteduser = InvitedUsers.objects.get(pk=id)
-    except inviteduser.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = InvitedUserSerializer(inviteduser)
-        return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = InvitedUserSerializer(inviteduser, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        inviteduser.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class UserList(generics.ListCreateAPIView):
     queryset = UserAccount.objects.all()
@@ -136,6 +103,7 @@ class InviteUserEmailSent(View):
     def post(self, request):
         try:
             data = json.loads(request.body)
+            pr_agency = data.get('pr_agency')
             email = data.get('email')
             name = data.get('name')
             role = data.get('role')
@@ -143,7 +111,7 @@ class InviteUserEmailSent(View):
             # if not UserAccount.objects.filter(email=email).exists():
             #     return JsonResponse({'message': 'No user found with this email.'})
 
-            user_obj = UserAccount.objects.create(email=email, name=name, role=role)
+            user_obj = UserAccount.objects.create(email=email, name=name, role=role, pr_agency=pr_agency)
             token = str(uuid.uuid4())
             try:
                 temp_obj = TempTokken.objects.get(user= user_obj)
@@ -168,6 +136,8 @@ class InviteUserCreateAccountView(APIView):
         try:
             token_obj = TempTokken.objects.get(token= kwargs.get('token'))
             user_obj = token_obj.user
+            pr_agency = user_obj.pr_agency  # Retrieve the pr agency ID associated with the user
+            # pr_agency = request.get('pr_agency')
 
             print(user_obj)
             new_password = request.data.get('new_password')
@@ -187,3 +157,14 @@ class InviteUserCreateAccountView(APIView):
         except Exception as e:
             print(e)
             return JsonResponse({'message': 'An error occurred.'})
+
+@api_view(['GET'])
+def registered_users_details(request, id, format=None):
+        pr_invites = PRInvites.objects.filter(pr_agency_id=id)
+        if pr_invites.exists():
+            if request.method == 'GET':
+                serializer = PRInvitesSerializer(pr_invites, many=True)
+                return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+

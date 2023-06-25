@@ -3,6 +3,9 @@ import React, {useState, useEffect} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import AddIcon from '@mui/icons-material/Add';
 import NewPRPopup from './NewPRPopup';
+import PRAgencyDetails from "./PRDetails";
+import { useNavigate } from 'react-router-dom';
+
 
 const Pagintation = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
     const pageNumbers = [];
@@ -31,29 +34,28 @@ const PR = () => {
   const [itemsPerPage] = useState(5);
   const [searchValue, setSearchValue] = useState('');
   const [PR, setPR] = useState([]);
-  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+  const [selectedPRAgencyId, setSelectedPRAgencyId] = useState(null);
+  const navigate = useNavigate();
 
-  
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+ 
   useEffect(() => {
-    axios
-      .get('http://127.0.0.1:8000/prlogin/')
-      .then((response) => {
-        setPR(response.data);
+    axios.get('http://127.0.0.1:8000/api/userlist/')
+      .then(response => {
+        const PRAgency = response.data.filter(user => user.role === 'PRAgency');
+        setPR(PRAgency);
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
       });
   }, []);
+  
+  const handlePRAgencyClick = (PRAgencyId) => {
+    setSelectedPRAgencyId(PRAgencyId);
+    navigate(`/PRAgency/${PRAgencyId}`);
+  };
 
-  const handleSearch = (event) => {
-    const searchText = event.target.value;
-    setSearchValue(searchText);
-    let results = PR;
-    if (searchText) {
-      results = PR.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
-    }
-    setPR(results);
-  }
+  
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -62,54 +64,7 @@ const PR = () => {
   const paginate = pageNumber => setCurrentPage(pageNumber);
   
 
-  const Status = ({ status }) => {
-    let color;
-    if (status === 'active') {
-      color = 'green';
-    } else if (status === 'suspended') {
-      color = 'red';
-    } else {
-      color = 'gray';
-    }
-    return <p style={{ color }}>{status}</p>;
-  };
-  
-  const ActionButton = ({ status }) => {
-    let bgColor;
-    let text;
-    if (status === 'active') {
-      bgColor = 'red';
-      text = 'Deactivate';
-    } else if (status === 'suspended') {
-      bgColor = 'green';
-      text = 'Activate';
-    } else {
-      bgColor = 'gray';
-      text = 'Activate';
-    }
-    return <Button style={{ backgroundColor: bgColor, color: 'white' }}>{text}</Button>;
-  };
-  
-  const TableCell = ({ children }) => {
-    return <td style={{ border: '1px solid rgb(212, 211, 211)', fontSize: '15px' }}>{children}</td>;
-  };
-  
-  const handleButtonState = ({status}) => {
-    let bgColor;
-    let text;
-    if(status === 'active') {
-      bgColor = 'red';
-      text = 'Deactivate';
-    }
-    else if (status === 'suspended') {
-      bgColor = 'green';
-      text = 'Activate';
-    } else {
-      bgColor = 'gray';
-      text = 'Activate';
-    }
-  };
-
+ 
   const handleOpenPopUp = () => {
     setIsPopUpOpen(true);
   };
@@ -165,17 +120,14 @@ return (
               <tbody style={{border:'1px solid rgb(212, 211, 211)'}} className="">
                         {currentItems.map(item => {
                           return (
-                              <tr>
-                                 <TableCell>{item.name}</TableCell>
-                                  <TableCell>{item.email}</TableCell> 
-                                  <TableCell>{item.created}</TableCell> 
-                                   <TableCell><Status status="active" /></TableCell>
-                                   {/* <TableCell><Status status={item.status} /></TableCell>
-                                    */}
-                                  <TableCell><ActionButton status={item.status}   onClick={() => handleButtonState(item.status)}/></TableCell>                                  
-
-                              </tr> )})}                                 
-                                 
+                            <dir>
+                              <tr key={item.id}>
+                                  <td><p onClick={() => handlePRAgencyClick(item.id)}>{item.name}</p></td>
+                                  <td><p>{item.email}</p></td> 
+                                  <td><p>{item.created}</p></td> 
+                              </tr>
+                              </dir>
+                              )})}                                 
                       <Pagintation
                           itemsPerPage={itemsPerPage}
                           totalItems={PR.length}
@@ -183,9 +135,7 @@ return (
                 </tbody>      
           </table>
           </div>
-          
-          
-          </Col>
+        </Col>
       </Row>
   </Container>
   
@@ -197,7 +147,9 @@ export default PR;
 
 
 
-
+   {/* {selectedPRAgencyId && (
+                                <PRAgencyDetails PRAgency={PRAgency.find(pr => pr.id === selectedPRAgencyId)} />
+                              )} */}
 
  {/* <td className='' style={{border:'1px solid rgb(212, 211, 211)', fontSize:'15px'}}><p className="">{item.name}</p></td>
                                   <td className='' style={{border:'1px solid rgb(212, 211, 211)', fontSize:'15px'}}><p className="">{item.email}</p></td>
@@ -214,3 +166,62 @@ export default PR;
                                           <Button style={{backgroundColor: 'gray', color: 'white'}}>Activate</Button>
                                       }
                                   </td> */}
+
+                                  // const handleSearch = (event) => {
+                                  //   const searchText = event.target.value;
+                                  //   setSearchValue(searchText);
+                                  //   let results = PR;
+                                  //   if (searchText) {
+                                  //     results = PR.filter((campaign) => campaign.name.toLowerCase().includes(searchText.toLowerCase()));
+                                  //   }
+                                  //   setPR(results);
+                                  // }
+
+                                  // const Status = ({ status }) => {
+                                  //   let color;
+                                  //   if (status === 'active') {
+                                  //     color = 'green';
+                                  //   } else if (status === 'suspended') {
+                                  //     color = 'red';
+                                  //   } else {
+                                  //     color = 'gray';
+                                  //   }
+                                  //   return <p style={{ color }}>{status}</p>;
+                                  // };
+                                  
+                                  // const ActionButton = ({ status }) => {
+                                  //   let bgColor;
+                                  //   let text;
+                                  //   if (status === 'active') {
+                                  //     bgColor = 'red';
+                                  //     text = 'Deactivate';
+                                  //   } else if (status === 'suspended') {
+                                  //     bgColor = 'green';
+                                  //     text = 'Activate';
+                                  //   } else {
+                                  //     bgColor = 'gray';
+                                  //     text = 'Activate';
+                                  //   }
+                                  //   return <Button style={{ backgroundColor: bgColor, color: 'white' }}>{text}</Button>;
+                                  // };
+                                  
+                                  // const TableCell = ({ children }) => {
+                                  //   return <td style={{ border: '1px solid rgb(212, 211, 211)', fontSize: '15px' }}>{children}</td>;
+                                  // };
+                                  
+                                  // const handleButtonState = ({status}) => {
+                                  //   let bgColor;
+                                  //   let text;
+                                  //   if(status === 'active') {
+                                  //     bgColor = 'red';
+                                  //     text = 'Deactivate';
+                                  //   }
+                                  //   else if (status === 'suspended') {
+                                  //     bgColor = 'green';
+                                  //     text = 'Activate';
+                                  //   } else {
+                                  //     bgColor = 'gray';
+                                  //     text = 'Activate';
+                                  //   }
+                                  // };
+                                

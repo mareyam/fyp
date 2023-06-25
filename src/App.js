@@ -31,7 +31,7 @@ import PRDashboard from './panels/PRAgency/PRDashboard.jsx';
 import PRRegisteredInfluencers from './panels/PRAgency/Influencers/AllRegisteredInfluencers';
 import PRCampaigns from './panels/PRAgency/Campaigns/PRCampaigns';
 import PRContent from './panels/PRAgency/Content/PRContent';
-
+import PRDetails from './panels/AdminPanel/PRList/PRDetails';
 
 import InfluencerNavbar from './panels/InfluencerPanel/Navbar/InfluencerNavbar';
 import InfluencerLogin from './panels/InfluencerPanel/Auth/InfluencerLogin';
@@ -117,6 +117,8 @@ const App = () => {
         <Route exact path="/PRRegisteredInfluencers" element={<PRRegisteredInfluencers/>}/>
         <Route exact path="/PRCampaigns" element={<PRCampaigns/>}/>
         <Route exact path="/PRContent" element={<PRContent/>}/>
+        <Route exact path="/PRAgency/:id" element={<PRDetails/>}/>
+        
         
         
         <Route exact path="/InfluencerContent" element={<InfluencerContent/>}/>
