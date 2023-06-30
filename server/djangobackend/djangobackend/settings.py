@@ -63,9 +63,8 @@ INSTALLED_APPS = [
     'corsheaders',    
     'rest_framework',
     'users',
-    
+    'social_django',    
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,6 +76,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "social_django.middleware.SocialAuthExceptionMiddleware",
 
 ]
 
@@ -95,12 +95,27 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',  
+                'social_django.context_processors.login_redirect', 
             ],
         },
     },
 ]
 
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.reddit.RedditOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.github.GithubOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
 WSGI_APPLICATION = 'djangobackend.wsgi.application'
+
 
 
 # Database
@@ -109,20 +124,13 @@ WSGI_APPLICATION = 'djangobackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ucezupix',
-        'USER': 'ucezupix',
-        'PASSWORD': 'tRobI9DODoXGbRZJDAebfW-CkrDsGKe4',
+        'NAME': 'iasiiuda',
+        'USER': 'iasiiuda',
+        'PASSWORD': '6_7L-CW2qmvj4gMXQLjRkta5XKzf0VpO',
         'HOST': 'lucky.db.elephantsql.com',
         'PORT': '5432',
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 
 # DATABASES = {
@@ -186,3 +194,12 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'maryaam2209@gmail.com'
 EMAIL_HOST_PASSWORD = 'tacefplbdqgtzccc'
+
+LOGIN_URL = 'influencerLogin'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'influencerSignup'
+
+
+REDDIT_CLIENT_ID = '758YTOMNgE8S081ncHBf5A'
+REDDIT_CLIENT_SECRET = 'kD5ana0dgha94b_XpjU5XDP3aKOxFw'
+REDDIT_REDIRECT_URI = 'http://localhost:3000/InfluencerSignup'

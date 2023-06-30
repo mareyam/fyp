@@ -3,12 +3,7 @@ from .models import UserAccount, PRInvites
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
-from .models import InvitedUsers
 
-class InvitedUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = InvitedUsers
-        fields = "__all__"
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -57,7 +52,7 @@ class PRInvitesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PRInvites
-        fields = ("brand_manager")
+        fields = ["brand_manager"]
 
 
           #     extra_kwargs = {

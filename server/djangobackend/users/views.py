@@ -1,13 +1,10 @@
 from .serializers import UserSerializer, UserLoginSerializer, PRInvitesSerializer
 from rest_framework import generics, status
-from rest_framework.permissions import IsAdminUser, AllowAny
+from rest_framework.permissions import  AllowAny
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.shortcuts import render
-from django.contrib import messages
 from django.views import View
-from django.contrib.auth.models import User
 import uuid
 from django.http import JsonResponse
 from .helpers import send_forget_password_mail, send_registration_mail
@@ -16,7 +13,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import json
 from .models import  TempTokken, PRInvites
-
+from django.shortcuts import redirect
+from django.conf import settings
+import praw
+from django import forms
+from django.views.generic import FormView
 
 # Create your views here.
 
@@ -111,7 +112,8 @@ class InviteUserEmailSent(View):
             # if not UserAccount.objects.filter(email=email).exists():
             #     return JsonResponse({'message': 'No user found with this email.'})
 
-            user_obj = UserAccount.objects.create(email=email, name=name, role=role, pr_agency=pr_agency)
+            user_obj = UserAccount.objects.create(email=email, name=name, role=role)
+            PRInvites.objects.create(pr_agency_id = pr_agency, brand_manager_id = user_obj.id)
             token = str(uuid.uuid4())
             try:
                 temp_obj = TempTokken.objects.get(user= user_obj)
@@ -159,7 +161,7 @@ class InviteUserCreateAccountView(APIView):
             return JsonResponse({'message': 'An error occurred.'})
 
 @api_view(['GET'])
-def registered_users_details(request, id, format=None):
+def pr_invited_brandmanager_id(request, id, format=None):
         pr_invites = PRInvites.objects.filter(pr_agency_id=id)
         if pr_invites.exists():
             if request.method == 'GET':
@@ -168,3 +170,94 @@ def registered_users_details(request, id, format=None):
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+@api_view(['GET'])
+def all_pr_invited_brandmanagers(request, id, format=None):
+        pr_invites = PRInvites.objects.all()
+        if pr_invites.exists():
+            if request.method == 'GET':
+                serializer = PRInvitesSerializer(pr_invites, many=True)
+                return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+# ////////////////registration
+class RedditSignup(View):
+    def get(self, request):
+        reddit = praw.Reddit(client_id=settings.REDDIT_CLIENT_ID,
+                             client_secret=settings.REDDIT_CLIENT_SECRET,
+                             redirect_uri=settings.REDDIT_REDIRECT_URI,
+                             user_agent='MyApp/0.1')
+
+        # Generate the Reddit OAuth2 URL
+        auth_url = reddit.auth.url(['identity', 'submit'], 'unique_state', 'permanent')
+
+        # Return the authorization URL in the response
+        response_data = {
+            'auth_url': auth_url,
+            'message': 'Successfully generated Reddit signup URL.'
+        }
+        return JsonResponse(response_data)
+
+class RedditCallbackView(View):
+    def get(self, request):
+        reddit = praw.Reddit(client_id=settings.REDDIT_CLIENT_ID,
+                             client_secret=settings.REDDIT_CLIENT_SECRET,
+                             redirect_uri=settings.REDDIT_REDIRECT_URI,
+                             user_agent='MyApp/0.1')
+
+        # Retrieve the access token using the authorization code
+        state = request.GET.get('state', '')
+        code = request.GET.get('code', '')
+        reddit.auth.authorize(code)
+
+        # Get user details using the access token
+        user = reddit.user.me()
+
+        # Perform necessary actions with the user details
+        # (e.g., create a user account, log in the user, etc.)
+
+        # Return user details in the response
+        response_data = {
+            'username': user.name,
+            'email': user.email,
+            'message': 'Successfully retrieved user details from Reddit.'
+        }
+        return JsonResponse(response_data)
+
+
+# ////////////////Login
+class RedditLoginForm(forms.Form):
+    state = forms.CharField(widget=forms.HiddenInput())
+    code = forms.CharField(widget=forms.HiddenInput())
+
+class RedditSignin(View):
+    def get(self, request):
+        form = RedditLoginForm(request.GET)
+        if form.is_valid():
+            state = form.cleaned_data['state']
+            code = form.cleaned_data['code']
+
+            reddit = praw.Reddit(client_id=settings.REDDIT_CLIENT_ID,
+                                 client_secret=settings.REDDIT_CLIENT_SECRET,
+                                 redirect_uri=settings.REDDIT_REDIRECT_URI,
+                                 user_agent='MyApp/0.1')
+
+            reddit.auth.authorize(code)
+
+            user = reddit.user.me()
+
+            # Perform necessary actions with the user details
+            # (e.g., create a user account, log in the user, etc.)
+
+            return redirect('success-page')
+        else:
+            return redirect('login-page')
+
+class RedditSignInView(FormView):
+    template_name = 'reddit_login.html'
+    form_class = RedditLoginForm
+    success_url = '/auth/complete/reddit/'
+
+    def get_initial(self):
+        return {'state': self.request.GET.get('state', ''), 'code': self.request.GET.get('code', '')}
