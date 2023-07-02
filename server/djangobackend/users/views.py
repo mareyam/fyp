@@ -13,11 +13,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import json
 from .models import  TempTokken, PRInvites, Influencer
-from rest_framework.permissions import IsAuthenticated
-
+from django.contrib.auth import logout
+# from rest_framework.permissions import IsAuthenticated
+# from .permissions import IsAdminOrPRUser
+# @permission_classes([IsAuthenticated, IsAdminOrPRUser])
 # Create your views here.
 
-@permission_classes((IsAuthenticated,))
+
 class UserList(generics.ListCreateAPIView):
     queryset = UserAccount.objects.all()
     serializer_class = UserSerializer
@@ -47,6 +49,11 @@ class AuthUserLoginView(APIView):
         }
         return Response(response, status=status_code)
 
+def logout(request):
+    if request.method == 'POST':
+        logout(request)
+        return JsonResponse({'message': 'Password changed successfully.'})   
+     
 class ChangePasswordView(APIView):
      def post(self, request, **kwargs):
         context = {}
@@ -171,7 +178,6 @@ def pr_invited_brandmanager_id(request, id, format=None):
 
 @api_view(['GET'])
 def all_pr_invited_brandmanagers(request,format=None):
-        permission_classes = [IsAdminUser] # only for admin users
         pr_invites = PRInvites.objects.all()
         if pr_invites.exists():
             if request.method == 'GET':

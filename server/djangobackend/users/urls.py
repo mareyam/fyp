@@ -11,6 +11,7 @@ from .views import *
 urlpatterns = [
     path('userlist/', UserList.as_view(), name="register"),
     path('login/', AuthUserLoginView.as_view(), name="login"),
+    path('logout/', views.logout, name='logout'),
     path('forget-password/' , ForgetPasswordView.as_view() , name="forget_password"),
     path('change-password/<token>/' , ChangePasswordView.as_view() , name="change_password"),
     
@@ -21,7 +22,6 @@ urlpatterns = [
    
     path('influencers/' , views.influencers , name="influencers"),
    
-    path('oauth/', include('social_django.urls', namespace='social')),
     
 ]
 
