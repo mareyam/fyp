@@ -16,13 +16,13 @@ urlpatterns = [
     
     path('registration/<token>/' , InviteUserCreateAccountView.as_view() , name="create_account_view"),
     path('inviteuseremailsent/' , InviteUserEmailSent.as_view() , name="email_sent"),
-    path('user/<str:id>/' , views.pr_invited_brandmanager_id , name="registered_users_details"),
+    path('user/<uuid:id>/' , views.pr_invited_brandmanager_id , name="registered_users_details"),
     path('users/' , views.all_pr_invited_brandmanagers , name="registered_users_details"),
-    path('reddit/signup/', RedditSignup, name='reddit-signup'),
-    path('reddit/signin/', RedditSignin, name='reddit-signin'),
-
+   
+    path('influencers/' , views.influencers , name="influencers"),
+   
     path('oauth/', include('social_django.urls', namespace='social')),
-
+    
 ]
 
  # path('token/', TokenObtainPairView.as_view(), name="token_obtain_pair"),

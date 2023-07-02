@@ -99,7 +99,7 @@ class Campaign(models.Model):
     )
    image = models.ImageField(upload_to='images/', default='', blank=True, null=True)
    campaign_name =  models.CharField(max_length=50, blank=False, null=False, default='', unique=False)
-   influencers = models.ManyToManyField('Influencer', blank=True, null=True,  default='')
+   influencers = models.ManyToManyField('Influencer', blank=True, default='')
    budget = models.IntegerField(blank=False, null=False, default=0)
    campaign_type = models.CharField(max_length=20,choices=CAMPAIGN_TYPE, blank=True, null=True, default='Periodic')
    campaign_status = models.CharField(max_length=20,choices=CAMPAIGN_TYPE, blank=True, null=True, default='Active')

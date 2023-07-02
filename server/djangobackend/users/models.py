@@ -28,20 +28,24 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 
 
   # Roles created here
-    uid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4, verbose_name='Public Identifier')
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4, verbose_name='Public Identifier')
     username = models.CharField(max_length=30, blank=True, null=True)
     email = models.EmailField(unique=True)
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     name = models.CharField(max_length=30, blank=True, null=True)
     role = models.CharField(choices=ROLE_CHOICES, max_length=30, blank=True, null=True)
+    is_staff = models.BooleanField(
+        default=False,
+    )
+    is_active = models.BooleanField(
+        default=True,
+    )
     status = models.CharField(choices=STATUS, max_length=30, default='active')
     date_joined = models.DateField(default=now, blank=True, null=True)
-    is_active = models.BooleanField(default=True, blank=True, null=True)
-    is_staff = models.BooleanField(default=True, blank=True, null=True)
-    is_superuser = models.BooleanField(default=True, blank=True, null=True)
     is_deleted = models.BooleanField(default=False, blank=True, null=True)
     created_date = models.DateField(default=now, blank=True, null=True)
     modified_date = models.DateField(default=now, blank=True, null=True)
+    brands_managing = models.CharField(max_length=30, blank=True, null=True, default='')
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -82,10 +86,9 @@ class Interest(models.Model):
     
 class ChildAge(models.Model):
     CHILD_AGE = [
-        ('toddler','toddler'),
-        ('preschooler','preschooler'),
-        ('elementary','elementary'),
-        ('teen','teen'),
+        ('under 5','under 5'),
+        ('6-12','6-12'),
+        ('13-18','13-18'),
         ('adult','adult'),
         ('None','None')
     ]
@@ -107,24 +110,19 @@ class Influencer(models.Model):
         ("Yes","Yes"),
         ("No","No"),
     )
-    uid = models.OneToOneField(UserAccount, on_delete=models.CASCADE)
+    user = models.OneToOneField(UserAccount,related_name= 'Influencer', on_delete=models.CASCADE)
     gender = models.CharField(max_length=20,choices=GENDER, blank=True, null=True, default='')
     age = models.IntegerField(blank=True, null=True, default=0)
     followers = models.IntegerField(blank=True, null=True, default=0)
-    postcost = models.IntegerField(blank=True, null=True, default=0)
+    post_cost = models.IntegerField(blank=True, null=True, default=0)
+    engagement_rate = models.IntegerField(blank=True, null=True, default=0)
     isparent = models.CharField(max_length=20,choices=ISPARENT, blank=True, null=True, default="No")
     children_count = models.IntegerField(blank=True, null=True, default=0)
     children_age = models.ManyToManyField('ChildAge', blank=True, default='None')
     interests = models.ManyToManyField('Interest', blank=True, default='Other')
-    created = models.DateField(default=now, null=True, blank=True)
-    updated = models.DateField(default=now, null=True, blank=True)
-    engagement_rate = models.IntegerField(blank=True, null=True, default=0)
-
-    class Meta:
-        ordering = ['-updated', '-created']
 
     def __str__(self):
-        return self.uid
+        return self.user
 
 
 

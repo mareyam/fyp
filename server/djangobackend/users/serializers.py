@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UserAccount, PRInvites
+from .models import UserAccount, PRInvites, Influencer
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
@@ -54,8 +54,13 @@ class PRInvitesSerializer(serializers.ModelSerializer):
         model = PRInvites
         fields = ["brand_manager"]
 
+class InfluencerSerializer(serializers.ModelSerializer):
+    class Meta:
+            model = Influencer
+            fields = "__all__"
 
-          #     extra_kwargs = {
+
+#     extra_kwargs = {
     #         'password': {'write_only': True}
     #     }
 

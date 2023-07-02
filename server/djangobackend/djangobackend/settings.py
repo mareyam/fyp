@@ -37,20 +37,6 @@ AUTHENTICATION_BACKENDS = (
     ('django.contrib.auth.backends.ModelBackend'),
 )
 
-# INSTALLED_APPS = [
-#     'djangobackend',
-#     'django.contrib.admin',
-#     'django.contrib.auth',
-#     'django.contrib.contenttypes',
-#     'django.contrib.sessions',
-#     'django.contrib.messages',
-#     'django.contrib.staticfiles',
-#     'base.apps.BaseConfig',
-#     'campaigns.apps.CampaignsConfig,'
-#     # 'corsheaders',
-#     'rest_framework',
-# ]
-
 INSTALLED_APPS = [    
     'djangobackend',   
     'django.contrib.admin',    
@@ -80,6 +66,15 @@ MIDDLEWARE = [
 
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
 ROOT_URLCONF = 'djangobackend.urls'
 
 TEMPLATES = [
@@ -107,8 +102,7 @@ TEMPLATES = [
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.reddit.RedditOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -124,10 +118,10 @@ WSGI_APPLICATION = 'djangobackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'iasiiuda',
-        'USER': 'iasiiuda',
-        'PASSWORD': '6_7L-CW2qmvj4gMXQLjRkta5XKzf0VpO',
-        'HOST': 'lucky.db.elephantsql.com',
+        'NAME': 'owqwhlaz',
+        'USER': 'owqwhlaz',
+        'PASSWORD': 'CZIqKeeKnh7gr257K5omenTQauheSkvE',
+        'HOST': 'tyke.db.elephantsql.com',
         'PORT': '5432',
     }
 }
@@ -200,6 +194,8 @@ LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'influencerSignup'
 
 
-REDDIT_CLIENT_ID = '758YTOMNgE8S081ncHBf5A'
-REDDIT_CLIENT_SECRET = 'kD5ana0dgha94b_XpjU5XDP3aKOxFw'
-REDDIT_REDIRECT_URI = 'http://localhost:3000/InfluencerSignup'
+SOCIAL_AUTH_INSTAGRAM_KEY = '1323271384927891',
+SOCIAL_AUTH_INSTAGRAM_SECRET = '081ce0e14c2bc3e144eecba328883779'
+# REDDIT_CLIENT_ID = '758YTOMNgE8S081ncHBf5A'
+# REDDIT_CLIENT_SECRET = 'kD5ana0dgha94b_XpjU5XDP3aKOxFw'
+# REDDIT_REDIRECT_URI = 'http://localhost:3000/InfluencerSignup'
