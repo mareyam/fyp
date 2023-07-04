@@ -110,7 +110,9 @@ class Influencer(models.Model):
         ("Yes","Yes"),
         ("No","No"),
     )
-    user = models.OneToOneField(UserAccount,related_name= 'Influencer', on_delete=models.CASCADE)
+    username = models.CharField(max_length=20, blank=False, null=False, default='')
+    name = models.CharField(max_length=20, blank=True, null=True, default='')
+    email = models.EmailField(max_length=20, blank=True, null=True, default='')
     gender = models.CharField(max_length=20,choices=GENDER, blank=True, null=True, default='')
     age = models.IntegerField(blank=True, null=True, default=0)
     followers = models.IntegerField(blank=True, null=True, default=0)
@@ -122,7 +124,7 @@ class Influencer(models.Model):
     interests = models.ManyToManyField('Interest', blank=True, default='Other')
 
     def __str__(self):
-        return self.user
+        return self.username
 
 
 

@@ -109,13 +109,23 @@ WSGI_APPLICATION = 'djangobackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'owqwhlaz',
-        'USER': 'owqwhlaz',
-        'PASSWORD': 'CZIqKeeKnh7gr257K5omenTQauheSkvE',
+        'NAME': 'njrbfuyg',
+        'USER': 'njrbfuyg',
+        'PASSWORD': 'hmTbIf_MhPE67whjJGnFMOTD-Rxnd6zx',
         'HOST': 'tyke.db.elephantsql.com',
         'PORT': '5432',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'owqwhlaz',
+#         'USER': 'owqwhlaz',
+#         'PASSWORD': 'CZIqKeeKnh7gr257K5omenTQauheSkvE',
+#         'HOST': 'tyke.db.elephantsql.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # DATABASES = {

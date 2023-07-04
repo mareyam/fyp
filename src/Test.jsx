@@ -1,83 +1,140 @@
-import axios from "axios"
-import React,{useEffect, useState} from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import AddIcon from '@mui/icons-material/Add';
-import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';
-import { People } from '@mui/icons-material';
+import React, { useEffect, useState } from 'react';
+import { LoginSocialFacebook } from 'reactjs-social-login';
+import { FacebookLoginButton } from 'react-social-login-buttons';
+import axios from 'axios';
 
-const AllCampaigns = () => {
-const [posts, setPosts] = useState([]);
-const [likes, setLikes] = useState([]);
-const [campaigns, setCampaigns] = useState([]);
+const YourComponent = () => {
+  const [profile, setProfile] = useState(null);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  
 
+  useEffect(() => {
+    if (profile && profile.name) {
+      console.log("name is", profile.name);
+      axios.post('http://127.0.0.1:8000/api/userlist', {
+        email: profile.email,
+        name: profile.name,
+        username:profile.id
+      })
+      .then((response) => {
+        console.log('Data successfully posted:', response.data);
+      })
+      .catch((error) => {
+        console.error('Error posting data:', error);
+      });
+    }
+  }, [profile]);
 
-// useEffect(()=>{
-// if(campaigns.length > 0 && likes.length > 0){
-//   console.log("We are here")
-//     // Map campaigns against likes where campaign name matches subreddit name
-//     const campaignLikes = campaigns.map(campaign => ({
-//       image: 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg',
-//       // image: campaign.image ? campaign.image : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg',
-//       // \
-//       created: campaign.created, 
-//       campaign_name : campaign.campaign_name,
-//       hashtag: campaign.hashtag,
-//       likes: likes.filter(post => post.subreddit === campaign.hashtag)
-//                       .reduce((acc, post) => acc + post.likes, 0)
-//     }));
-//     setPosts(campaignLikes);
-// }
-// },[campaigns, likes])
-
-useEffect(() => {
- const fetchData = async () => {
-   try {
-     const response = await axios.get(
-       'https://oauth.reddit.com/r/apple/new.json?limit=100&fields=title',
-       {
-         headers: {
-           Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjpzS3dsMnlsV0VtMjVmcXhwTU40cWY4MXE2OWFFdWFyMnpLMUdhVGxjdWNZIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg3NDkxOTk4LjY1MTk5OCwiaWF0IjoxNjg3NDA1NTk4LjY1MTk5NywianRpIjoiWGZRZmV3Nkl4VVp3emV3a3pORE14WWlPLXVXQ2lnIiwiY2lkIjoiNzU4WVRPTU5nRThTMDgxbmNIQmY1QSIsImxpZCI6InQyX3Y5YXJ5OW90IiwiYWlkIjoidDJfdjlhcnk5b3QiLCJsY2EiOjE2NzIyMjM4MzkwMDAsInNjcCI6ImVKeUtWdEpTaWdVRUFBRF9fd056QVNjIiwiZmxvIjo5fQ.Cr7aw_uf7hSIyjY40F57K5WBugxLhxyBzf5Z4j46yuG_p_zGrQPS8EauFtWX7aHB_cl073nbvRWBb4f7AMjSAYDuUaQCNmfwA0c9VQqsKuzF2uEHx96fBfg5CVdHII1vzUVipKaRlBvtyDZqz_0Vmxops8ZSs6oiObpOWAASVu_yHxXQ8Z7mI7YwuiUMggFZNvFA20GdXjIQRpoyHBGj5-A8e3zZw2e4Gfa7Q7No-YguUpM9YJqccnvC2HsolRC5qbx8RNuvtbAfDWvSHLI42YrMUbwSoxXGZTtWKJJ-6bvsLja7rt8lyB7wLGM0iTtXhBgiUhbopasmTxPufupQIQ',
-           'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
-         }
-       }
-     );
-     const jsonData = response.data.data.children;
-     const postsArray = jsonData.map((post) => ({
-       likes: post.data.ups,
-       subreddit: post.data.subreddit,
-       title: post.data.title,
-       upvote_ratio: post.data.upvote_ratio,
-
-     }));
-     setCampaigns(postsArray);
-   } catch (error) {
-     console.error("error is"+ error);
-   }
- };
- fetchData();
-}, []);
+  const handleFacebookLogin = (response) => {
+    console.log(response);
+    setProfile(response.data);
+    setName(response.data.name);
+    setEmail(response.data.email);
+    setUsername(response.data.id);
+  };
 
   return (
     <div>
-    <h1>api results are</h1>
-        {campaigns.map((item) => {
-          return (
-         <div>
-          <p className="">#{item.likes}</p>
-          <h6 className=''>{item.subreddit}</h6>
-          <h6 className=''>{item.title}</h6>
-          <h6 className=''>{item.upvote_ratio}</h6>         
-          {/* <p className='influencersAC'><People style={{height:"15px"}}/>{item.likes}</p>  
-          <p className='dateC'>{item.created}</p> */}
-         </div>
-          );
-        })}
-      </div>
+    <LoginSocialFacebook
+      appId="659011799420597"
+      onResolve={handleFacebookLogin}
+      onReject={(error) => {
+        console.log(error);
+      }}
+    >
+      <FacebookLoginButton />
+    </LoginSocialFacebook>
+    <h1>name is {name}</h1>
+    <h1>name is {email}</h1>
+    <h1>name is {username}</h1>
+    </div>
   );
 };
 
+export default YourComponent;
 
-export default AllCampaigns;
+// import axios from "axios"
+// import React,{useEffect, useState} from 'react';
+// import { Container, Row, Col, Button } from 'react-bootstrap';
+// import AddIcon from '@mui/icons-material/Add';
+// import { ArrowBack, Search, FilterList, ArrowDropDown } from '@material-ui/icons';
+// import { People } from '@mui/icons-material';
+
+// const AllCampaigns = () => {
+// const [posts, setPosts] = useState([]);
+// const [likes, setLikes] = useState([]);
+// const [campaigns, setCampaigns] = useState([]);
+
+
+// // useEffect(()=>{
+// // if(campaigns.length > 0 && likes.length > 0){
+// //   console.log("We are here")
+// //     // Map campaigns against likes where campaign name matches subreddit name
+// //     const campaignLikes = campaigns.map(campaign => ({
+// //       image: 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg',
+// //       // image: campaign.image ? campaign.image : 'https://i.pinimg.com/736x/10/a9/1b/10a91b37c6e5efb1cb18cebb1b4077ac.jpg',
+// //       // \
+// //       created: campaign.created, 
+// //       campaign_name : campaign.campaign_name,
+// //       hashtag: campaign.hashtag,
+// //       likes: likes.filter(post => post.subreddit === campaign.hashtag)
+// //                       .reduce((acc, post) => acc + post.likes, 0)
+// //     }));
+// //     setPosts(campaignLikes);
+// // }
+// // },[campaigns, likes])
+
+// useEffect(() => {
+//  const fetchData = async () => {
+//    try {
+//      const response = await axios.get(
+//        'https://oauth.reddit.com/r/apple/new.json?limit=100&fields=title',
+//        {
+//          headers: {
+//            Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjpzS3dsMnlsV0VtMjVmcXhwTU40cWY4MXE2OWFFdWFyMnpLMUdhVGxjdWNZIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjg3NDkxOTk4LjY1MTk5OCwiaWF0IjoxNjg3NDA1NTk4LjY1MTk5NywianRpIjoiWGZRZmV3Nkl4VVp3emV3a3pORE14WWlPLXVXQ2lnIiwiY2lkIjoiNzU4WVRPTU5nRThTMDgxbmNIQmY1QSIsImxpZCI6InQyX3Y5YXJ5OW90IiwiYWlkIjoidDJfdjlhcnk5b3QiLCJsY2EiOjE2NzIyMjM4MzkwMDAsInNjcCI6ImVKeUtWdEpTaWdVRUFBRF9fd056QVNjIiwiZmxvIjo5fQ.Cr7aw_uf7hSIyjY40F57K5WBugxLhxyBzf5Z4j46yuG_p_zGrQPS8EauFtWX7aHB_cl073nbvRWBb4f7AMjSAYDuUaQCNmfwA0c9VQqsKuzF2uEHx96fBfg5CVdHII1vzUVipKaRlBvtyDZqz_0Vmxops8ZSs6oiObpOWAASVu_yHxXQ8Z7mI7YwuiUMggFZNvFA20GdXjIQRpoyHBGj5-A8e3zZw2e4Gfa7Q7No-YguUpM9YJqccnvC2HsolRC5qbx8RNuvtbAfDWvSHLI42YrMUbwSoxXGZTtWKJJ-6bvsLja7rt8lyB7wLGM0iTtXhBgiUhbopasmTxPufupQIQ',
+//            'User-Agent': 'ChangeMeClient/0.1 by YourUsername'
+//          }
+//        }
+//      );
+//      const jsonData = response.data.data.children;
+//      const postsArray = jsonData.map((post) => ({
+//        likes: post.data.ups,
+//        subreddit: post.data.subreddit,
+//        title: post.data.title,
+//        upvote_ratio: post.data.upvote_ratio,
+
+//      }));
+//      setCampaigns(postsArray);
+//    } catch (error) {
+//      console.error("error is"+ error);
+//    }
+//  };
+//  fetchData();
+// }, []);
+
+//   return (
+//     <div>
+//     <h1>api results are</h1>
+//         {campaigns.map((item) => {
+//           return (
+//          <div>
+//           <p className="">#{item.likes}</p>
+//           <h6 className=''>{item.subreddit}</h6>
+//           <h6 className=''>{item.title}</h6>
+//           <h6 className=''>{item.upvote_ratio}</h6>         
+//           {/* <p className='influencersAC'><People style={{height:"15px"}}/>{item.likes}</p>  
+//           <p className='dateC'>{item.created}</p> */}
+//          </div>
+//           );
+//         })}
+//       </div>
+//   );
+// };
+
+
+// export default AllCampaigns;
 
 
 // import axios from "axios";

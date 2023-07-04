@@ -193,7 +193,7 @@ class instagram_signup(View):
             #from instagram
             username = data.get('username')
             name = data.get('name')
-            followers = data.get('followers')
+            # followers = data.get('followers')
             
             #entered by influencer
             gender = data.get('gender')
@@ -215,7 +215,7 @@ class instagram_signup(View):
         return JsonResponse({'message': 'Something went wrong.'})
 
 @api_view(['GET'])
-def influencers(request, id, format=None):
+def influencers(request,  format=None):
         influencers = Influencer.objects.all()
         if influencers.exists():
             if request.method == 'GET':
