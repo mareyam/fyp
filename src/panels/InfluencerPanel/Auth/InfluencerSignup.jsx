@@ -6,7 +6,8 @@ import insta from '../../../images/insta.png';
 import InstagramLogin from "react-instagram-oauth";
 import {LoginSocialFacebook} from 'reactjs-social-login';
 import {FacebookLoginButton}  from 'react-social-login-buttons';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 // https://api.instagram.com/oauth/authorize?client_id=1323271384927891&redirect_uri=http://localhost:3000/InfluencerLogin&scope=user_profile,user_media&&response_type=code
 
@@ -17,14 +18,19 @@ function InfluencerSignup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
+  const [gender, setGender] = useState('');
+  const [postcost, setPostCost] = useState();
+  const [isParent, setIsParent] = useState('');
+  const [childrenCount, setChildrenCount] = useState();
+  const [childrenAge, setChildrenAge] = useState([]);
+  const [interests, setInterests] = useState([]);
+  
   
   useEffect(() => {
     if (profile && profile.name) {
       console.log("name is", profile.name);
       axios.post('http://127.0.0.1:8000/api/userlist', {
-        email: profile.email,
-        name: profile.name,
-        username:profile.id
+        email, name, username
       })
       .then((response) => {
         console.log('Data successfully posted:', response.data);
@@ -80,10 +86,10 @@ return (
                     <FacebookLoginButton />
                   </LoginSocialFacebook>
 
-                  <h1>name is {name}</h1>
-                  <h1>name is {email}</h1>
-                  <h1>name is {username}</h1>
-                                
+                  <p>{name}</p>
+                  <p>{username}</p>
+                  <p>{email}</p>
+
                 </div>
                 <div style={{fontSize:'10px', textAlign:'center', justifyContent:'center', alignItems:'center'}}>
                    <label>Already have an account?  <a href="/InfluencerLogin"> click here</a></label>

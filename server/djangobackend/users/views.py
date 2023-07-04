@@ -1,4 +1,4 @@
-from .serializers import UserSerializer, UserLoginSerializer, PRInvitesSerializer, InfluencerSerializer
+from .serializers import UserSerializer, UserLoginSerializer, PRInvitesSerializer, InfluencerSerializer, InterestSerializer, ChildAgeSerializer
 from rest_framework import generics, status
 from rest_framework.permissions import  AllowAny
 from rest_framework.decorators import api_view, permission_classes
@@ -12,7 +12,7 @@ from users.models import UserAccount, Influencer
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import json
-from .models import  TempTokken, PRInvites, Influencer
+from .models import  TempTokken, PRInvites, Influencer, Interest, ChildAge
 from django.contrib.auth import logout
 # from rest_framework.permissions import IsAuthenticated
 # from .permissions import IsAdminOrPRUser
@@ -186,6 +186,7 @@ def all_pr_invited_brandmanagers(request,format=None):
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+# not implemented
 class instagram_signup(View):
     def post(self, request):
         try:
@@ -204,7 +205,7 @@ class instagram_signup(View):
             interests = data.get('interests')
 
             influencer = Influencer.objects.create(username=username, name=name,
-                                                  followers=followers, gender=gender, age=age,
+                                                  gender=gender, age=age,
                                                   post_cost=post_cost, children_age=children_age, children_count=children_count,
                                                   interests=interests)
             influencer.save()
@@ -214,7 +215,7 @@ class instagram_signup(View):
 
         return JsonResponse({'message': 'Something went wrong.'})
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def influencers(request,  format=None):
         influencers = Influencer.objects.all()
         if influencers.exists():
@@ -223,7 +224,39 @@ def influencers(request,  format=None):
                 return Response(serializer.data)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+        
+        if request.method == 'POST':
+         serializer = InfluencerSerializer(data=request.data)
+         if serializer.is_valid():
+          serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
+@api_view(['GET', 'POST'])
+def interests(request, format=None):
+    if request.method == 'GET':
+     interest = Interest.objects.all()
+     serializer = InterestSerializer(interest, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = InterestSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'POST'])
+def childage(request, format=None):
+    if request.method == 'GET':
+     childage = ChildAge.objects.all()
+     serializer = ChildAgeSerializer(childage, many=True)
+     return Response(serializer.data)
+    
+    if request.method == 'POST':
+     serializer = ChildAgeSerializer(data=request.data)
+     if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 

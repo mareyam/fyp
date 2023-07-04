@@ -21,6 +21,8 @@ urlpatterns = [
     path('users/' , views.all_pr_invited_brandmanagers , name="registered_users_details"),
    
     path('influencers/' , views.influencers , name="influencers"),
+    path('interests/', views.interests),
+    path('childages/', views.childage),
    
     
 ]
